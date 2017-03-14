@@ -44,7 +44,7 @@ ContadorVisitas($ipvisitante,'principal');
 									if ($value['tipo_resultado']=='tiempo') 
 									{
 										?>
-										<tr style="cursor : all-scroll;" onclick="location.href='web/Calendario/calendario-especial.php?id=<?php echo $valores['partido']; ?>'">
+										<tr class="cursor-type" onclick="location.href='web/Calendario/calendario-especial.php?id=<?php echo $valores['partido']; ?>'">
 											<td>
 												<?php
 												echo $datospartido['nombre_partido'];	
@@ -52,7 +52,7 @@ ContadorVisitas($ipvisitante,'principal');
 											else
 											{
 												?>
-												<tr style="cursor : all-scroll;" onclick="location.href='web/Calendario/calendario.php?id=<?php echo $valores['partido']; ?>'">
+												<tr class="cursor-type" onclick="location.href='web/Calendario/calendario.php?id=<?php echo $valores['partido']; ?>'">
 													<td>
 														<?php
 														$datosequipos = Get_Equipos_Partido_Clasico($valores['partido']);
@@ -116,7 +116,7 @@ ContadorVisitas($ipvisitante,'principal');
 											if ($value['tipo_resultado']=='tiempo') 
 											{
 												?>
-												<tr style="cursor : all-scroll;" onclick="location.href='web/Resultados/resultado-especiales.php?id=<?php echo $valores['partido']; ?>'">
+												<tr class="cursor-type" onclick="location.href='web/Resultados/resultado-especiales.php?id=<?php echo $valores['partido']; ?>'">
 
 													<td colspan="2"><?php echo $datospartido['nombre_partido'] ?></td>
 
@@ -129,7 +129,7 @@ ContadorVisitas($ipvisitante,'principal');
 											{
 												$datosequipos = Get_Equipos_Partido_Clasico($valores['partido']);
 												?>
-												<tr style="cursor : all-scroll;" onclick="location.href='web/Resultados/resultados.php?id=<?php echo $valores['partido']; ?>'">
+												<tr class="cursor-type" onclick="location.href='web/Resultados/resultados.php?id=<?php echo $valores['partido']; ?>'">
 
 													<td><?php echo NombreEquipo($datosequipos['equipo1']) ?></td>
 													<td><?php echo  $datosequipos['resultado1'].'-'.$datosequipos['resultado2']; ?></td>
@@ -152,6 +152,7 @@ ContadorVisitas($ipvisitante,'principal');
 					</div>
 					<div class="col-md-4 welcome-pic">
 						<h3>Medallero</h3>
+						<div style="max-height: 400px; overflow-y:scroll; ">
 						<table style="width:100% " class="table table-condensed">
 							<thead>
 								<tr class="background">
@@ -172,7 +173,7 @@ ContadorVisitas($ipvisitante,'principal');
 								foreach ($vector as  $value)
 								{     
 									?>
-									<tr style="cursor : all-scroll;" onclick="location.href='web/Equipos/principal.php?id=<?php echo $value['id_colegio']; ?>'">
+									<tr class="cursor-type" onclick="location.href='web/Equipos/principal.php?id=<?php echo $value['id_colegio']; ?>'">
 										<td><?php echo $contador; ?> </td>
 										<td><?php echo $value['nombre']; ?></td>
 										<td><?php echo $value['oro']; ?> </td>
@@ -185,8 +186,8 @@ ContadorVisitas($ipvisitante,'principal');
 								}
 								?>
 							</tbody>
-						</table>
-						<a class="linkeados" href="web/estadisticas.php#goleadores">Ver más..</a>	  
+						</table>	
+						</div>  
 					</div>
 
 					<div class="clearfix"></div>

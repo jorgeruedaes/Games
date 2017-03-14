@@ -265,11 +265,11 @@ function ObtenerGoleadoresEquipo($equipo)
 }
 // Recibe un limite para la consulta.
 // Retorna : Tabla de posiciones en  un array
-function ObtenerTablaPosiciones($limite,$torneo)
+function ObtenerTablaPosiciones($limite,$grupo,$torneo)
 {
     global $conexion;
     Generar_Tabla_De_Posiciones($torneo);
-    $valor = mysqli_query($conexion, "SELECT * FROM te_posiciones order by  puntos desc, pg desc,dg desc,gf desc limit $limite");
+    $valor = mysqli_query($conexion, "SELECT * FROM te_posiciones WHERE grupo='$grupo' order by  puntos desc, pg desc,dg desc,gf desc limit $limite");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $equipo = $informacion['equipo'];
@@ -281,6 +281,8 @@ function ObtenerTablaPosiciones($limite,$torneo)
         $gf     = $informacion['gf'];
         $gc     = $informacion['gc'];
         $dg     = $informacion['dg'];
+        $grupo     = $informacion['grupo'];
+        $id     = $informacion['id'];
         $vector = array(
             'equipo' => "$equipo",
             'puntos' => "$puntos",
@@ -290,6 +292,8 @@ function ObtenerTablaPosiciones($limite,$torneo)
             'pp' => "$pp",
             'gf' => "$gf",
             'gc' => "$gc",
+            'id' => "$id",
+            'grupo' => "$grupo",
             'dg' => "$dg"
             );
         array_push($datos, $vector);
@@ -947,38 +951,38 @@ function Get_Medallero()
         COALESCE(bronce, 0 ) as bronce,
         COALESCE(total, 0 ) as total 
         FROM tb_colegio cl LEFT JOIN (SELECT t.id_colegio,COALESCE(oro, 0 ) as oro,
-            COALESCE(plata, 0 ) as plata,
-            COALESCE(bronce, 0 ) as bronce,
-            COALESCE(total, 0 ) as total 
-            FROM
-            (SELECT  id_colegio,COUNT(*) as total FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio GROUP bY id_colegio ) AS t
-            LEFT JOIN
-            (SELECT  id_colegio,COUNT(*) as oro FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio and medalla='oro' GROUP bY id_colegio) AS O ON t.id_colegio=O.id_colegio
-            LEFT JOIN
-            (SELECT  id_colegio,COUNT(*) as plata FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio and medalla='plata' GROUP bY id_colegio) AS P ON t.id_colegio=P.id_colegio
-            LEFT JOIN
-            (SELECT  id_colegio,COUNT(*) as bronce FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio and medalla='bronce' GROUP bY id_colegio) AS B ON t.id_colegio=B.id_colegio )  AS TB_GENERAL ON cl.id_colegio=TB_GENERAL.id_colegio ORDER BY ORO DESC,PLATA DESC,BRONCE DESC
-");
-$vector    = array();
-while ($valor = mysqli_fetch_array($query)) {
-    $nombre = $valor['nombre'];
-    $id_colegio = $valor['id_colegio'];
-    $oro  = $valor['oro'];
-    $plata  = $valor['plata'];
-    $bronce  = $valor['bronce'];
-    $total  = $valor['total'];
-    $vectores = array(
-        'nombre' => "$nombre",
-        'id_colegio' => "$id_colegio",
-        'oro' => "$oro",
-        'plata' => "$plata",
-        'bronce' => "$bronce",
-        'total' => "$total"
-        );
-    array_push($vector, $vectores);
-}
+        COALESCE(plata, 0 ) as plata,
+        COALESCE(bronce, 0 ) as bronce,
+        COALESCE(total, 0 ) as total 
+        FROM
+        (SELECT  id_colegio,COUNT(*) as total FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio GROUP bY id_colegio ) AS t
+        LEFT JOIN
+        (SELECT  id_colegio,COUNT(*) as oro FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio and medalla='oro' GROUP bY id_colegio) AS O ON t.id_colegio=O.id_colegio
+        LEFT JOIN
+        (SELECT  id_colegio,COUNT(*) as plata FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio and medalla='plata' GROUP bY id_colegio) AS P ON t.id_colegio=P.id_colegio
+        LEFT JOIN
+        (SELECT  id_colegio,COUNT(*) as bronce FROM tb_medallas,tb_equipos,tb_colegio WHERE tb_medallas.equipo=tb_equipos.id_equipo AND tb_colegio.id_colegio=tb_equipos.colegio and medalla='bronce' GROUP bY id_colegio) AS B ON t.id_colegio=B.id_colegio )  AS TB_GENERAL ON cl.id_colegio=TB_GENERAL.id_colegio ORDER BY ORO DESC,PLATA DESC,BRONCE DESC
+        ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+        $nombre = $valor['nombre'];
+        $id_colegio = $valor['id_colegio'];
+        $oro  = $valor['oro'];
+        $plata  = $valor['plata'];
+        $bronce  = $valor['bronce'];
+        $total  = $valor['total'];
+        $vectores = array(
+            'nombre' => "$nombre",
+            'id_colegio' => "$id_colegio",
+            'oro' => "$oro",
+            'plata' => "$plata",
+            'bronce' => "$bronce",
+            'total' => "$total"
+            );
+        array_push($vector, $vectores);
+    }
 
-return $vector;
+    return $vector;
 }
 
 function Generar_Tabla_De_Posiciones($torneo)
@@ -1014,21 +1018,21 @@ function Generar_Tabla_De_Posiciones($torneo)
        partido,equipo1,resultado1,equipo2,resultado2 
        FROM 
        (SELECT partido,equipo as equipo1,resultado as resultado1 
-        FROM tb_partidos,tr_equiposxpartidos,tb_equipos,tb_torneo 
-        WHERE tb_partidos.id_partido=tr_equiposxpartidos.partido
-        AND tb_equipos.id_equipo=tr_equiposxpartidos.equipo 
-        AND tb_torneo.id_torneo=tb_equipos.torneo 
-        AND tb_torneo.id_torneo=$torneo 
-        AND tb_partidos.estado='2'
-        AND numero=1) as tabla1, 
-    (SELECT partido,equipo as equipo2,resultado as resultado2 
-        FROM tb_partidos,tr_equiposxpartidos,tb_equipos,tb_torneo
-        WHERE tb_partidos.id_partido=tr_equiposxpartidos.partido 
-        AND tb_equipos.id_equipo=tr_equiposxpartidos.equipo 
-        AND tb_torneo.id_torneo=tb_equipos.torneo 
-        AND tb_torneo.id_torneo=$torneo 
-        AND tb_partidos.estado='2'
-        AND numero=2) as tabla2 WHERE tabla1.partido=tabla2.partido");
+       FROM tb_partidos,tr_equiposxpartidos,tb_equipos,tb_torneo 
+       WHERE tb_partidos.id_partido=tr_equiposxpartidos.partido
+       AND tb_equipos.id_equipo=tr_equiposxpartidos.equipo 
+       AND tb_torneo.id_torneo=tb_equipos.torneo 
+       AND tb_torneo.id_torneo=$torneo 
+       AND tb_partidos.estado='2'
+       AND numero=1) as tabla1, 
+       (SELECT partido,equipo as equipo2,resultado as resultado2 
+       FROM tb_partidos,tr_equiposxpartidos,tb_equipos,tb_torneo
+       WHERE tb_partidos.id_partido=tr_equiposxpartidos.partido 
+       AND tb_equipos.id_equipo=tr_equiposxpartidos.equipo 
+       AND tb_torneo.id_torneo=tb_equipos.torneo 
+       AND tb_torneo.id_torneo=$torneo 
+       AND tb_partidos.estado='2'
+       AND numero=2) as tabla2 WHERE tabla1.partido=tabla2.partido");
 
     while ($equipoparticipante = mysqli_fetch_array($lugardentrodelospartidos)) {
         if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo'] || $equipoparticipante['equipo2'] == $identificaciones['id_equipo']) {
@@ -1106,7 +1110,7 @@ for ($i = 0; $i < $numerodeequiposparaeltamañodelamatriz; $i++) {
 
                             $variable1 = $matriz[$i]['1'];  // nombre equipo
                             $variable11 = $matriz[$i]['0'];  // id
-                            $variable2 = (($matriz[$i]['6'] * 2) + $matriz[$i]['7']);  // puntos
+         $variable2 = (($matriz[$i]['6'] * Get_Puntos_Ganador_Torneo($torneo)) + $matriz[$i]['7']);  // puntos
                             $variable3 = $matriz[$i]['8'];  // partidos jugados
                             $variable4 = $matriz[$i]['6'];  // partidos ganados
                             $variable5 = $matriz[$i]['7'];  // empates
@@ -1191,8 +1195,8 @@ function Get_Lista_Partido_Por_Torneo($torneo,$estado)
     $query = mysqli_query($conexion, 
         "SELECT DISTINCT partido from tr_equiposxpartidos,tb_equipos
         WHERE  partido in (SELECT id_partido from tb_partidos 
-           WHERE estado=$estado order by fecha desc , hora desc) 
-    AND equipo=id_equipo and torneo='$torneo' ");
+        WHERE estado=$estado order by fecha desc , hora desc) 
+        AND equipo=id_equipo and torneo='$torneo' ");
     $vector    = array();
     while ($valor = mysqli_fetch_array($query)) {
 
@@ -1245,8 +1249,8 @@ function Formato_Fecha_Sin_Ano($fecha)
 function Get_Equipos_Partido_Clasico($partido)
 {
     global $conexion;
-    $valor  = mysqli_fetch_array(mysqli_query($conexion, "SELECT * FROM tb_partidos,
-     (SELECT equipo as equipo1,resultado as resultado1,partido FROM `tr_equiposxpartidos` WHERE partido='$partido' and numero='1' ) as tabla1, (SELECT equipo as equipo2,resultado as resultado2,partido FROM `tr_equiposxpartidos` WHERE partido='$partido' and numero='2') as tabla2 
+    $valor  = mysqli_fetch_array(mysqli_query($conexion, "SELECT * FROM 
+     (SELECT equipo as equipo1,resultado as resultado1,partido FROM `tr_equiposxpartidos` WHERE partido='$partido' and numero='1' ) as tabla1, (SELECT equipo as equipo2,resultado as resultado2,partido FROM `tr_equiposxpartidos` WHERE partido='$partido' and numero='2') as tabla2,tb_partidos 
      WHERE tabla1.partido=tabla2.partido and tb_partidos.id_partido=tabla2.partido"));
     $partido        = $valor['partido'];
     $equipo1      = $valor['equipo1'];
@@ -1271,7 +1275,7 @@ function Get_Lista_Torneos_Partido_Terminados()
 {
     global $conexion;
     $query = mysqli_query($conexion, 
-        "SELECT id_torneo,deporte,logo,tipo_deporte,tipo_resultado,categoria,id_deportes,nombre_torneo from tr_equiposxpartidos,tb_partidos,tb_equipos,tb_torneo,tb_deportes WHERE  partido=id_partido and estado=2 and id_equipo=equipo and id_torneo=torneo and deporte=id_deportes Group by partido   order by fecha desc , hora desc  ");
+        "SELECT id_torneo,deporte,logo,tipo_deporte,tipo_resultado,categoria,id_deportes,nombre_torneo from tr_equiposxpartidos,tb_partidos,tb_equipos,tb_torneo,tb_deportes WHERE  partido=id_partido and estado=2 and id_equipo=equipo and id_torneo=torneo and deporte=id_deportes Group by torneo   order by fecha desc , hora desc  ");
     $vector    = array();
     while ($valor = mysqli_fetch_array($query)) {
 
@@ -1344,7 +1348,7 @@ function Get_Equipos_Partido_Especial($partido)
         );
 }
 /**
- * [Get_Lista_Participantes]
+ * [Get_Lista_Participantes de un partido de natacioón ejemplo]
  * @param [type] $partido [description]
  */
 function Get_Lista_Participantes($partido)
@@ -1376,7 +1380,7 @@ function Get_Lista_Partido_Deporte($deporte,$estado)
 {
     global $conexion;
     $query = mysqli_query($conexion, 
-        "SELECT id_torneo,deporte,logo,tipo_deporte,tipo_resultado,categoria,id_deportes,nombre_torneo from tr_equiposxpartidos,tb_partidos,tb_equipos,tb_torneo,tb_deportes WHERE estado='$estado' and partido=id_partido  and id_equipo=equipo and id_torneo=torneo and deporte=id_deportes and deporte='$deporte'  Group by partido   order by fecha asc , hora asc ");
+        "SELECT id_torneo,deporte,logo,tipo_deporte,tipo_resultado,categoria,id_deportes,nombre_torneo from tr_equiposxpartidos,tb_partidos,tb_equipos,tb_torneo,tb_deportes WHERE estado='$estado' and partido=id_partido  and id_equipo=equipo and id_torneo=torneo and deporte=id_deportes and deporte='$deporte'  Group by id_torneo    order by fecha asc , hora asc ");
     $vector    = array();
     while ($valor = mysqli_fetch_array($query)) {
 
@@ -1403,4 +1407,140 @@ function Get_Lista_Partido_Deporte($deporte,$estado)
  }
  return $vector;
 } 
+/**
+ * [Get_Lista_Torneos lista de torneos de un deporte]
+ * @param [type] $deporte [Id_deporte]
+ */
+function Get_Lista_Torneos($deporte)
+{
+    global $conexion;
+    $query = mysqli_query($conexion, "SELECT * from tb_torneo WHERE tb_torneo.deporte='$deporte' ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+
+     $id_torneo  = $valor['id_torneo'];
+     $nombre_torneo  = $valor['nombre_torneo'];
+     $categoria  = $valor['categoria'];
+
+
+     $vectores = array(
+        'id_torneo' => "$id_torneo",
+        'nombre_torneo' => "$nombre_torneo",
+        'categoria' => "$categoria"
+        );
+     array_push($vector, $vectores);
+ }
+ return $vector;
+}
+/**
+ * [Get_Torneo ]
+ * @param [type] $deporte [id_torneo]
+ */
+function Get_Torneo($torneo)
+{
+  global $conexion;
+  $valor  = mysqli_fetch_array(mysqli_query($conexion, "SELECT * FROM tb_torneo,tb_deportes WHERE tb_torneo.deporte=tb_deportes.id_deportes and tb_torneo.id_torneo='$torneo'"));
+  $id_torneo        = $valor['id_torneo'];
+  $nombre_torneo        = $valor['nombre_torneo'];
+  $deporte        = $valor['deporte'];
+  $categoria        = $valor['categoria'];
+  $nombre        = $valor['nombre'];
+  $logo        = $valor['logo'];
+  $tipo_deporte        = $valor['tipo_deporte'];
+  $tipo_resultado        = $valor['tipo_resultado'];
+  return array(
+    "id_torneo" => "$id_torneo",
+    "nombre_torneo" => "$nombre_torneo",
+    "deporte" => "$deporte",
+    "categoria" => "$categoria",
+    "nombre" => "$nombre",
+    "logo" => "$logo",
+    "tipo_deporte" => "$tipo_deporte",
+    "tipo_resultado" => "$tipo_resultado",
+
+    );
+}
+
+/**
+ * [Get_Lista_Grupos de un torneo]
+ * @param [type] $torneo [Id_Torneo]
+ */
+function Get_Lista_Grupos($torneo)
+{
+    global $conexion;
+    $query = mysqli_query($conexion, "SELECT DISTINCT grupo from tb_equipos WHERE torneo='$torneo' ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+
+     $grupo  = $valor['grupo'];
+     $vectores = array(
+        'grupo' => "$grupo",
+
+        );
+     array_push($vector, $vectores);
+ }
+ return $vector;
+}
+
+// Recibe : Torneo
+// Retorna : Puntos al ganador.
+function Get_Puntos_Ganador_Torneo($torneo)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT puntos_ganador FROM `tb_torneo` WHERE id_torneo=$torneo "));
+    $valor = $valor['puntos_ganador'];
+    
+    return $valor;
+}
+/**
+ * [Get_Colegio ]
+ * @param [type] $torneo [id_coelgio]
+ */
+function Get_Colegio($colegio)
+{
+  global $conexion;
+  $valor  = mysqli_fetch_array(mysqli_query($conexion, "SELECT * FROM `tb_colegio` WHERE id_colegio='$colegio'"));
+  $id_colegio        = $valor['id_colegio'];
+  $nombre        = $valor['nombre'];
+  $logo        = $valor['logo'];
+
+  return array(
+    "id_colegio" => "$id_colegio",
+    "nombre" => "$nombre",
+    "logo" => "$logo"
+    );
+}
+/**
+ * [Get_Lista_Partido_Programados_Deporte Los partidos partidos progamados para un torneo]
+ * @param [type] $deporte [Id_deporte]
+ */
+function Get_Lista_Partido_Colegio($colegio,$estado)
+{
+    global $conexion;
+    $query = mysqli_query($conexion, 
+        "SELECT id_torneo,deporte,tipo_deporte,tipo_resultado,categoria,id_deportes,nombre_torneo from tr_equiposxpartidos,tb_partidos,tb_equipos,tb_torneo,tb_deportes,tb_colegio WHERE estado='$estado' and partido=id_partido  and id_equipo=equipo and id_torneo=torneo and deporte=id_deportes  and tb_colegio.id_colegio=tb_equipos.colegio and colegio='$colegio'    Group by id_torneo    order by fecha asc , hora asc ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+
+     $id_torneo  = $valor['id_torneo'];
+     $nombre_torneo = $valor['nombre_torneo'];
+     $deporte  = $valor['deporte'];
+     $categoria  = $valor['categoria'];
+     $id_deportes  = $valor['id_deportes'];
+     $tipo_deporte  = $valor['tipo_deporte'];
+     $tipo_resultado  = $valor['tipo_resultado'];
+
+     $vectores = array(
+        'id_torneo' => "$id_torneo",
+        'nombre_torneo' => "$nombre_torneo",
+        'deporte' => "$deporte",
+        'categoria' => "$categoria",
+        'id_deportes' => "$id_deportes",
+        'tipo_deporte' => "$tipo_deporte",
+        'tipo_resultado' => "$tipo_resultado"
+        );
+     array_push($vector, $vectores);
+ }
+  return $vector;
+}
 ?>

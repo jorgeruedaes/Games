@@ -33,7 +33,7 @@ $url= $_SERVER["REQUEST_URI"];
   						  <tbody>
      						 <tr style="color: #C0392B;font-size: 1.4em;font-family: 'Audiowide', cursive;margin: 0 0 10px 0;">
 						        <td><?php echo NombreEquipo($datos['equipo1']); ?></td>
-						        <td><?php echo $datos['resultado1'].""."-"."".$datos['resultado2']; ?></td>
+						        <td>vs</td>
 						        <td><?php echo NombreEquipo($datos['equipo2']); ?></td>
 						      </tr>
 						        <tr style="background:#DDDDDD">

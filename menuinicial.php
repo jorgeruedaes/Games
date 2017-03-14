@@ -17,7 +17,7 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
 	<link href="web/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link rel="shortcut icon" href="images/<?php echo String_Get_Valores('favicon');?>">
 	<style type="text/css">
-.background {
+	.background {
 		background: <?php echo String_Get_Valores('color'); ?>;
 		color : <?php echo String_Get_Valores('letratitulo'); ?>;
 	}
@@ -26,6 +26,9 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
 	}
 	.top-menu ul li a {
 		color : <?php echo String_Get_Valores('colortitulo'); ?>;
+	}
+	.cursor-type{
+		    cursor: pointer;
 	}
 
 	</style>
@@ -80,7 +83,7 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
 				foreach ($vector as $value)
 					{
 					?>
-				<a style="color:#054C89;cursor:all-scroll;font-family:'Audiowide', cursive" 
+				<a class="cursor-type" style="color:#054C89;font-family:'Audiowide', cursive" 
 				href="web/Deportes/principal.php?id=<?php echo $value['id_deportes']; ?>">
 				<img src="images/deportes/<?php echo $value['logo']; ?>" alt="Smiley face" height="42" width="42"> <?php echo $value['nombre']; ?> <a/>
 				<?php

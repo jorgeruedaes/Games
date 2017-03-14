@@ -29,6 +29,7 @@ ContadorVisitas($ipvisitante,'calendario');
 		<div class="content-bottom-grids">
 			<div class="col-md-6 popular">	
 				<h3>Calendario</h3>
+				<div style="max-height: 500px; overflow-y:scroll;">
 				<table style="width:100% " class="table table-condensed">
 					<thead>
 						<tr>
@@ -64,7 +65,7 @@ ContadorVisitas($ipvisitante,'calendario');
 								if ($value['tipo_resultado']=='tiempo') 
 								{
 									?>
-									<tr style="cursor : all-scroll;" onclick="location.href='web/Calendario/calendario-especial.php?id=<?php echo $valores['partido']; ?>'">
+									<tr class="cursor-type" onclick="location.href='web/Calendario/calendario-especial.php?id=<?php echo $valores['partido']; ?>'">
 										<td>
 											<?php
 											echo $datospartido['nombre_partido'];	
@@ -72,7 +73,7 @@ ContadorVisitas($ipvisitante,'calendario');
 										else
 										{
 											?>
-											<tr style="cursor : all-scroll;" onclick="location.href='web/Calendario/calendario.php?id=<?php echo $valores['partido']; ?>'">
+											<tr class="cursor-type" onclick="location.href='web/Calendario/calendario.php?id=<?php echo $valores['partido']; ?>'">
 												<td>
 													<?php
 													$datosequipos = Get_Equipos_Partido_Clasico($valores['partido']);
@@ -95,10 +96,12 @@ ContadorVisitas($ipvisitante,'calendario');
 								?>
 							</tbody>
 						</table>
+						</div>
 
 					</div>
 					<div class="col-md-6 popular">
 						<h3>Resultados</h3>
+						<div style="max-height: 500px; overflow-y:scroll;">
 						<table style="width:100% " class="table table-condensed">
 							<thead>
 								<tr>
@@ -115,62 +118,60 @@ ContadorVisitas($ipvisitante,'calendario');
 								echo (empty($vector)) ? '<cite>No hay partidos terminados.</cite>' :'';
 								foreach ($vector as $value)
 								{
-								
-										$torneo =$value['id_torneo'];
-
-										?>
-										<tr class="background"  >
-											<td colspan="2">Torneo: <?php echo $value['nombre_torneo']; ?></td>
-											<td colspan="2">Categoria <?php echo $value['categoria']; ?>
-											</td>
-										</tr>
-										<?php
-										$vectores = Get_Lista_Partido_Por_Torneo($torneo,'2');
-										foreach ($vectores  as $valores)
-										{
-											$datospartido =Get_Partido($valores['partido']);
-
-											if ($value['tipo_resultado']=='tiempo') 
-											{
-												?>
-												<tr style="cursor : all-scroll;" onclick="location.href='web/Resultados/resultado-especiales.php?id=<?php echo $valores['partido']; ?>'">
-
-													<td colspan="2"><?php echo $datospartido['nombre_partido'] ?></td>
-
-													<td><?php echo  Formato_Fecha_Sin_Ano($datospartido['fecha']).' '.FormatoHora($datospartido['hora']); ?></td>
-
-												</tr>	
-												<?php
-											}
-											else
-											{
-												$datosequipos = Get_Equipos_Partido_Clasico($valores['partido']);
-												?>
-												<tr style="cursor : all-scroll;" onclick="location.href='web/Resultados/resultados.php?id=<?php echo $valores['partido']; ?>'">
-
-													<td><?php echo NombreEquipo($datosequipos['equipo1']) ?></td>
-													<td><?php echo  $datosequipos['resultado1'].'-'.$datosequipos['resultado2']; ?></td>
-													<td><?php echo NombreEquipo($datosequipos['equipo2']); ?></td>
-												</tr>	
-												<?php
-											}
-											?>
-											<?php
-											$contador=$contador+1;
-										}
-
-
 									
+									$torneo =$value['id_torneo'];
+
+									?>
+									<tr class="background"  >
+										<td colspan="2">Torneo: <?php echo $value['nombre_torneo']; ?></td>
+										<td colspan="2">Categoria <?php echo $value['categoria']; ?>
+										</td>
+									</tr>
+									<?php
+									$vectores = Get_Lista_Partido_Por_Torneo($torneo,'2');
+									foreach ($vectores  as $valores)
+									{
+										$datospartido =Get_Partido($valores['partido']);
+
+										if ($value['tipo_resultado']=='tiempo') 
+										{
+											?>
+											<tr class="cursor-type" onclick="location.href='web/Resultados/resultado-especiales.php?id=<?php echo $valores['partido']; ?>'">
+
+												<td colspan="2"><?php echo $datospartido['nombre_partido'] ?></td>
+
+												<td><?php echo  Formato_Fecha_Sin_Ano($datospartido['fecha']).' '.FormatoHora($datospartido['hora']); ?></td>
+
+											</tr>	
+											<?php
+										}
+										else
+										{
+											$datosequipos = Get_Equipos_Partido_Clasico($valores['partido']);
+											?>
+											<tr class="cursor-type" onclick="location.href='web/Resultados/resultados.php?id=<?php echo $valores['partido']; ?>'">
+
+												<td><?php echo NombreEquipo($datosequipos['equipo1']) ?></td>
+												<td><?php echo  $datosequipos['resultado1'].'-'.$datosequipos['resultado2']; ?></td>
+												<td><?php echo NombreEquipo($datosequipos['equipo2']); ?></td>
+											</tr>	
+											<?php
+										}
+										?>
+										<?php
+										$contador=$contador+1;
+									}
 								}
 								?>
-								</tbody>
-							</table>
+							</tbody>
+						</table>
 						</div>
-						<div class="col-md-4 welcome-pic">
-						</div>
+					</div>
+					<div class="col-md-4 welcome-pic">
 					</div>
 				</div>
 			</div>
-			<?php
-			include('../footerinicial.php');
-			?>
+		</div>
+		<?php
+		include('../footerinicial.php');
+		?>
