@@ -2,7 +2,7 @@
 
 <?php
 session_start();
-include('../conexion.php');
+include('../Admin/php/conexion.php');
 if (isset($_SESSION['admin'])) {
 include('RutinaDeLogue.php');
  if ($_SESSION['tipo_usuario'] == 1) {

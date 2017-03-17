@@ -65,7 +65,7 @@ ContadorVisitas($ipvisitante,'colegios'.'_'.$id);
 							</td>
 						</tr>
 						<?php
-						$vectores = Get_Lista_Partido_Por_Torneo($torneo,'1');
+						$vectores = Get_Lista_Partido_Por_Torneo_Colegio($torneo,'1',$id);
 						foreach ($vectores  as $valores)
 						{
 							$datospartido = Get_Partido($valores['partido']);
@@ -136,7 +136,7 @@ ContadorVisitas($ipvisitante,'colegios'.'_'.$id);
 											</td>
 										</tr>
 										<?php
-										$vectores = Get_Lista_Partido_Por_Torneo($torneo,'2');
+										$vectores = Get_Lista_Partido_Por_Torneo_Colegio($torneo,'2',$id);
 										foreach ($vectores  as $valores)
 										{
 											$datospartido =Get_Partido($valores['partido']);
@@ -180,38 +180,47 @@ ContadorVisitas($ipvisitante,'colegios'.'_'.$id);
 		</div>
 		<script src="js/responsiveslides.min.js"></script>
 		<div class="col-md-4 welcome-pic">
-			<h3>Medalleria</h3>
-			<div style="max-height: 300px; overflow-y:scroll;">
-				<table style="width:100% " class="table table-condensed">
-					<thead>
-						<tr class="background">
-							<th style="width:3%">Pos</th>
-							<th style="width:15%">Jugador</th>
-							<th style="width:3%">PJ</th>
-							<th style="width:5%">Goles</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						$contador=1;
-						$vector = ObtenerGoleadoresEquipo($id);
-						foreach ($vector as $value)
-						{
-							$jugador = $value['jugador'];
-							?>
-							<tr>
-								<td><?php echo $contador;?></td>
-								<td><?php echo ObtenerNombreCompletoJugador($jugador);?></td>
-								<td><?php echo ObtenerPartidosAsistidos($jugador); ?></td>
-								<td><?php echo $value['goles']; ?> </td>
-							</tr>
-							<?php
-							$contador = $contador + 1;   
-						}
-						?>
-					</tbody>
-				</table>
-			</div>
+				<h3>Medallero</h3>
+						
+						<table style="width:100% " class="table table-condensed">
+							<thead>
+								<tr class="background">
+									<th style="width:5%"></th>
+									<th >Colegio</th>
+									<th style="width:10%"><img src="images/deportes/oro.png" alt="Smiley face" height="25" width="25px"></th>
+									<th style="width:10%"><img src="images/deportes/plata.png" alt="Smiley face" height="25" width="25px"></th>
+									<th style="width:10%"><img src="images/deportes/bronze.png" alt="Smiley face" height="25" width="25px"></th>
+									<th style="width:5%">Total</th>
+
+								</tr>
+							</thead>
+
+							<tbody>
+								<?php
+								$vector = Get_Medallero();
+								$contador = 1;
+								foreach ($vector as  $value)
+								{     
+									if($value['id_colegio']==$id)
+								{
+									?>
+									<tr class="cursor-type" onclick="location.href='web/Equipos/principal.php?id=<?php echo $value['id_colegio']; ?>'">
+										<td><?php echo $contador; ?> </td>
+										<td><?php echo $value['nombre']; ?></td>
+										<td><?php echo $value['oro']; ?> </td>
+										<td><?php echo $value['plata']; ?> </td>
+										<td> <?php echo $value['bronce']; ?></td>
+										<td> <?php echo $value['total']; ?></td>
+									</tr>
+									<?php
+									$contador = $contador + 1;
+								}
+								}
+								?>
+							</tbody>
+						</table>	
+						 
+	
 		</div>
 		<div class="clearfix"></div>
 	</div>
@@ -233,19 +242,21 @@ ContadorVisitas($ipvisitante,'colegios'.'_'.$id);
 								<tr class="background">
 									<th>Participante</th>
 									<th style="width:25%">Torneo</th>
+									<th style="width:25%">Categoria</th>
 									<th style="width:25%">Deporte</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
-								$vectores = ObtenerJugadoresEquipo($id);
+								$vectores = Get_Jugadores_Colegio($id);
 								foreach ($vectores as  $value)
 								{
 									?>
 									<tr>
-										<td><?php echo ObtenerNombreCompletoJugador($value['id_jugador']); ?></td>
-										<td><img src="web/images/<?php echo ObtenerCarnet($value['fecha_nacimiento']); ?>"
-											whith="10px" heigth="10px" style="width: 15px;"></td>
+										<td><?php echo $value['nombre_equipo']; ?></td>
+										<td><?php echo $value['nombre_torneo']; ?></td>
+										<td><?php echo $value['categoria']; ?></td>
+										<td><?php echo $value['nombre']; ?></td>
 										</tr>
 										<?php 
 									}
