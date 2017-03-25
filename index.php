@@ -13,7 +13,7 @@ ContadorVisitas($ipvisitante,'principal');
 						<tr >
 							<th style="width:40%"></th>
 							<th style="width:20%"></th>
-							<th style="width:30%"></th>
+							<th style="width:30%"> </th>
 
 						</tr>
 					</thead>
