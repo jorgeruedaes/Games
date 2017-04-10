@@ -4,92 +4,141 @@ include('Admin/php/funciones.php');
 date_default_timezone_set('America/Bogota');
 setlocale(LC_TIME, 'es_ES.UTF-8');
 ?>
-<html>
- 	<head>
+<!-- Mirrored from eyecix.com/html/eyesports/index.html by HTTrack Website Copier/3.x [XR&CO'2010], Fri, 07 Apr 2017 20:18:38 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<base  href="<?php echo base_url_usuarios();?>"/>
 	<title><?php echo String_Get_Valores('titulo');?></title>
-	<!--fonts-->
-	<link href='http://fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Cabin:400,500,600,700' rel='stylesheet' type='text/css'>	
-	<link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>		
-	<!--//fonts-->		
-	<link href="web/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="web/css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link rel="shortcut icon" href="images/<?php echo String_Get_Valores('favicon');?>">
-	<style type="text/css">
-	.background {
-		background: <?php echo String_Get_Valores('color'); ?>;
-		color : <?php echo String_Get_Valores('letratitulo'); ?>;
-	}
-	.welcome-pic h3,.coach h3,.popular h3{
-		color : <?php echo String_Get_Valores('colortitulo'); ?>;
-	}
-	.top-menu ul li a {
-		color : <?php echo String_Get_Valores('colortitulo'); ?>;
-	}
-	.cursor-type{
-		    cursor: pointer;
-	}
+		<!-- Favicon-->
+	<link rel="icon" href="webs/images/<?php echo String_Get_Valores('favicon') ?>" type="image/x-icon">
+    <!-- Css Files -->
+    <link href="webs/css/bootstrap.css" rel="stylesheet">
+    <link href="webs/css/font-awesome.css" rel="stylesheet">
+    <link href="webs/style.css" rel="stylesheet">
+    <link href="webs/css/owl.carousel.css" rel="stylesheet">
+    <link href="webs/css/color.css" rel="stylesheet">
+    <link href="webs/css/dl-menu.css" rel="stylesheet">
+    <link href="webs/css/flexslider.css" rel="stylesheet">
+    <link href="webs/css/prettyphoto.css" rel="stylesheet">
+    <link href="webs/css/responsive.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 
-	</style>
-	<!-- for-mobile-apps -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-	<!-- //for-mobile-apps -->
-	<!-- js -->
-	<script src="web/js/jquery.min.js"></script>
-	<!-- js -->
-  	</head>
-	<body>
-		<!-- header -->
-		<div class="header">
-			<div class="container">
-			<div class="logo">
-				<h1><a href="index.php">
-					<img  style=" width :100%; max-width:50px;" src="images/<?php echo String_Get_Valores('favicon'); ?>" alt=""></a></h1>
-			</div>	
-				<div class="top-menu">
-					<span class="menu"></span>
-					<ul>
-						<?php
-						$vector = Array_Get_Modulos_All_Users();
-						foreach ($vector as $value) {
+<body>
+    <!--// Main Wrapper \\-->
+    <div class="ec-main-wrapper">
+        <!--// Main Header \\-->
+        <header id="ec-header">
+            <!--// TopSection \\-->
+            <div class="ec-top-strip">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="ec-strip-info">
+                                <li><i class="fa fa-phone"></i><?php echo String_Get_Valores('telefono') ?></li>
+                                <li><i class="fa fa-map-marker"></i><?php echo String_Get_Valores('direccion') ?></li>
+                                <li><i class="fa fa-envelope-o"></i> <a href="#"><?php echo String_Get_Valores('email') ?></a></li>
+                            </ul>
+                            <div class="ec-login-section">
+                                <a href="Admin/pages/inicio.php" class="ec-login-section-btn ec-bgcolor"><i class="fa fa-user"></i> Login </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--// TopSection \\-->
+            <!--// Main Header \\-->
+            <div class="ec-main-navsection">
+                <div class="container">
+                    <a href="#" class="ec-logo"><img width="80%" src="webs/images/<?php echo String_Get_Valores('favicon')?>" alt=""></a>
+                    <div class="ec-right-section">
+                        <nav class="ec-navigation">
+                            <ul>
+                            <?php
+                            	$vector = Array_Get_Modulos_All_Users();
+					    	foreach ($vector as $value) {
+
+					    		if ($value['submenu']=='0')
+					    		{
+                            ?>
+                                <li class=""><a href="<?php echo $value['ruta']; ?>"><?php echo $value['nombre']; ?></a></li>
+							<?php 
+								}
+							    else
+							    {
+							    ?>
+							     <li class="active"><a href="<?php echo $value['ruta']; ?>"><?php echo $value['nombre']; ?></a>
+							     <ul class="as-dropdown">
+							             <?php
+							            $vectores = Array_Get_Modulos_Sons_All_Users($value['id_modulos']); 
+							            	foreach ($vectores as $values) {
+							           	  ?>
+                                 <li><a href="<?php echo $values['ruta']; ?>"><?php echo $values['nombre']; ?></a></li>
+                                        <?php
+										}	
+                                        ?>
+                               
+                                </ul>
+                                 </li>
+							    <?php
+								}
+													   }
 							?>
-							<li><a href="<?php echo $value['ruta']; ?>"><?php echo $value['nombre']; ?></a>
-							</li>
-							<?php
-						}
-						?>
-					</ul>			 
-				</div>			
-				<!-- script-for-menu -->
-				<script>
-					$("span.menu").click(function(){
-						$(".top-menu ul").slideToggle("slow" , function(){
-						});
-					});
-				</script>
-				<!-- script-for-menu -->	  	
+                            </ul>
+                        </nav>
+                        <!--// End Main Header \\-->
 
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		<!-- //header -->
-		<div class="strip background">
-		<MARQUEE WIDTH=100% HEIGHT=40 SCROLLDELAY =200 SCROLLAMOUNT=12>
-				<?php
-				$vector = Get_Lista_Deportes();
-				foreach ($vector as $value)
-					{
-					?>
-				<a class="cursor-type" style="color:#054C89;font-family:'Audiowide', cursive" 
-				href="web/Deportes/principal.php?id=<?php echo $value['id_deportes']; ?>">
-				<img src="images/deportes/<?php echo $value['logo']; ?>" alt="Smiley face" height="42" width="42"> <?php echo $value['nombre']; ?> <a/>
-				<?php
-			}
-			?>
-		</MARQUEE>
-		</div>
-	</body>
-</html>
+                        <!--// Responsive Menu //-->
+                        <div id="as-menu" class="as-menuwrapper">
+                            <button class="as-trigger">Open Menu</button>
+                            <ul class="as-menu">
+                                  <?php
+                            	$vector = Array_Get_Modulos_All_Users();
+					    	foreach ($vector as $value) {
+
+					    		if ($value['submenu']=='0')
+					    		{
+                            ?>
+                                <li class=""><a href="<?php echo $value['ruta']; ?>"><?php echo $value['nombre']; ?></a></li>
+							<?php 
+								}
+							    else
+							    {
+							    ?>
+							     <li class="active"><a href="<?php echo $value['ruta']; ?>"><?php echo $value['nombre']; ?></a>
+							   <ul class="as-submenu">
+							             <?php
+							            $vectores = Array_Get_Modulos_Sons_All_Users($value['id_modulos']); 
+							            	foreach ($vectores as $values) {
+							           	  ?>
+                                 <li><a href="<?php echo $values['ruta']; ?>"><?php echo $values['nombre']; ?></a></li>
+                                        <?php
+										}	
+                                        ?>
+                               
+                                </ul>
+                                 </li>
+							    <?php
+								}
+													   }
+							?>
+
+                            </ul>
+                        </div>
+                        <!--// Responsive Menu //-->
+                        <!--  -->
+                    </div>
+                </div>
+            </div>
+            <!--// Main Header \\-->
+        </header>
+        <!--// Main Header \\-->
+</body>

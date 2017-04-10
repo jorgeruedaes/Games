@@ -840,7 +840,34 @@ function Array_Get_Modulos_All_Users()
 {
     global $conexion;
     $consulta = mysqli_query($conexion,"SELECT * FROM `tb_modulos` where tipo='users' 
-        and estado='activo' Order by orden asc");   
+        and estado='activo' and padre='0' Order by orden asc");   
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($consulta)) {
+        $id_modulos  = $informacion['id_modulos'];
+        $nombre  = $informacion['nombre'];
+        $ruta  = $informacion['ruta'];
+        $submenu =$informacion['submenu'];
+        $padre =$informacion['padre'];
+        $vector = array(
+            'id_modulos' => "$id_modulos",
+            'nombre' => "$nombre",
+            'ruta' =>"$ruta",
+            'submenu'=>"$submenu",
+            'padre' =>"$padre"
+            );
+        array_push($datos, $vector);
+    }
+    return $datos;
+
+}
+/**
+ * [Array_Get_Modulos_All_Users Obtiene el menu principal]
+ */
+function Array_Get_Modulos_Sons_All_Users($padre)
+{
+    global $conexion;
+    $consulta = mysqli_query($conexion,"SELECT * FROM `tb_modulos` where tipo='users' 
+        and estado='activo' and padre=$padre  and padre !='0'  Order by orden asc");   
     $datos = array();
     while ($informacion = mysqli_fetch_array($consulta)) {
         $id_modulos  = $informacion['id_modulos'];
@@ -849,7 +876,7 @@ function Array_Get_Modulos_All_Users()
         $vector = array(
             'id_modulos' => "$id_modulos",
             'nombre' => "$nombre",
-            'ruta' =>"$ruta"
+            'ruta' =>"$ruta",
             );
         array_push($datos, $vector);
     }
