@@ -15,7 +15,7 @@ if(isset($_SESSION['id_usuarios']))
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<title>Inicio de sesion Administración |<?php echo String_Get_Valores('titulo') ?></title>
 	<!-- Favicon-->
-	<link rel="icon" href="../<?php echo String_Get_Valores('favicon') ?>" type="image/x-icon">
+	<link rel="icon" href="../../webs/images/<?php echo String_Get_Valores('favicon') ?>" type="image/x-icon">
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -49,7 +49,7 @@ if(isset($_SESSION['id_usuarios']))
 							<i class="material-icons">person</i>
 						</span>
 						<div class="form-line">
-							<input type="text" class="form-control" name="username" placeholder="Nombre de usuario o email" required autofocus>
+							<input type="text" class="form-control" name="username" placeholder="Email" required autofocus>
 						</div>
 					</div>
 					<div class="input-group">

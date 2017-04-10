@@ -7,15 +7,15 @@
 function Array_Get_Usuario($usuario)
 {
 
-	$usuario = consultar("SELECT `id_usuarios`,`nombre`, `apellido`, `perfil`, `email`, `estado`,pregunta,respuesta FROM `tb_usuarios` WHERE id_usuarios=$usuario ");
-	while ($valor = mysqli_fetch_array($usuario)) {
-		$id_usuarios = $valor['id_usuarios'];
-		$nombre       = $valor['nombre'];
-		$apellido          = $valor['apellido'];
+	$usuarios = consultar("SELECT `id_usuario`,`nombre_usuario`, `apellido_usuario`, `perfil`, `email_usuario`, `estado`,pregunta_usuario,respuesta FROM `tb_usuarios` WHERE id_usuario=$usuario ");
+	while ($valor = mysqli_fetch_array($usuarios)) {
+		$id_usuarios = $valor['id_usuario'];
+		$nombre       = $valor['nombre_usuario'];
+		$apellido          = $valor['apellido_usuario'];
 		$perfil          = $valor['perfil'];
-		$email        = $valor['email'];
+		$email        = $valor['email_usuario'];
 		$estado        = $valor['estado'];
-		$pregunta   = $valor['pregunta'];
+		$pregunta   = $valor['pregunta_usuario'];
 		$respuesta = $valor['respuesta'];
 		$datos = array(
 			'id_usuarios'=>"$id_usuarios",
@@ -38,9 +38,9 @@ function Array_Get_Usuario($usuario)
  */
 function String_Get_Nombre($usuario)
 {
-	$usuario = consultar("SELECT `nombre`, `apellido` FROM `tb_usuarios` WHERE id_usuarios=$usuario"); 
+	$usuario = consultar("SELECT `nombre_usuario`, `apellido_usuario` FROM `tb_usuarios` WHERE id_usuario=$usuario"); 
 	while ($valor = mysqli_fetch_array($usuario)) {
-		return $valor['nombre']." ".$valor['apellido'];
+		return $valor['nombre_usuario']." ".$valor['apellido_usuario'];
 	}
 }
 
@@ -51,20 +51,20 @@ function Array_Get_Usuarios($perfil)
 {
 	if($perfil==3)
 	{
-		$usuario = consultar("SELECT `id_usuarios`,`nombre`, `apellido`, `perfil`, `email`, `estado` FROM `tb_usuarios`");
+		$usuario = consultar("SELECT `id_usuario`,`nombre_usuario`, `apellido_usuario`, `perfil`, `email_usuario`, `estado` FROM `tb_usuarios`");
 	}
 
 	else
 	{
-		$usuario = consultar("SELECT `id_usuarios`,`nombre`, `apellido`, `perfil`, `email`, `estado` FROM `tb_usuarios` WHERE perfil!=3  ");	
+		$usuario = consultar("SELECT `id_usuario`,`nombre_usuario`, `apellido_usuario`, `perfil`, `email_usuario`, `estado` FROM `tb_usuarios` WHERE perfil!=3  ");	
 	}	
 	$datos = array();
 	while ($valor = mysqli_fetch_array($usuario)) {
-		$id_usuarios = $valor['id_usuarios'];
-		$nombre       = $valor['nombre'];
-		$apellido          = $valor['apellido'];
+		$id_usuarios = $valor['id_usuario'];
+		$nombre       = $valor['nombre_usuario'];
+		$apellido          = $valor['apellido_usuario'];
 		$perfil          = $valor['perfil'];
-		$email        = $valor['email'];
+		$email        = $valor['email_usuario'];
 		$estado        = $valor['estado'];
 		$vector = array(
 			'id_usuarios'=>"$id_usuarios",
@@ -196,7 +196,8 @@ function Boolean_Insertar_Usuario($nombre,$apellido,$username,$password,$pregunt
 	list ($valid,$mensaje) = Boolean_Existencia_Usuario($username,$email);
 	if(!$valid)
 	{
-		$query = ingresar(sprintf("INSERT INTO `tb_usuarios`(`id_usuarios`, `nombre`, `apellido`, `perfil``usuario`, `contraseña`, `pregunta`, `respuesta`,`email`, `estado`)
+		$query = ingresar(sprintf("INSERT INTO `tb_usuarios`(`id_usuario`, `nombre_usuario`, `apellido_usuario`, `perfil`,
+			`usuario`, `contrasena`, `pregunta_usuario`, `respuesta`,`email_usuario`, `estado`)
 			VALUES (NULL,'%s','%s','2','%s','%s','%d','%s','%s',
 				'procesando')",escape($nombre),escape($apellido),escape($username),escape($password),
 		escape($pregunta),escape($respuesta),escape($email)));	
@@ -221,7 +222,7 @@ function Boolean_Insertar_Usuario($nombre,$apellido,$username,$password,$pregunt
  */
 function Boolean_Existencia_Usuario($username,$email)
 {
-	$query = consultar(sprintf("SELECT email,usuario FROM tb_usuarios WHERE email='%s' or usuario='%s'",escape($username),escape($email)));
+	$query = consultar(sprintf("SELECT email_usuario,usuario FROM tb_usuarios WHERE email_usuario='%s' or usuario='%s'",escape($username),escape($email)));
 	if(Int_consultaVacia($query)>0)
 	{
 		return array(True,'El usuario o el email ya existen, intenta nuevamente.');
@@ -239,7 +240,7 @@ function Boolean_Existencia_Usuario($username,$email)
  */
 function Boolean_Set_Perfil_Estado_Usuario($id_usuarios,$estado,$id_perfiles)
 {
-	$query = modificar(sprintf("UPDATE `tb_usuarios` SET `estado`='%s', `perfil` ='%d' WHERE id_usuarios='%d' ",escape($estado),escape($id_perfiles),escape($id_usuarios)));
+	$query = modificar(sprintf("UPDATE `tb_usuarios` SET `estado`='%s', `perfil` ='%d' WHERE id_usuario='%d' ",escape($estado),escape($id_perfiles),escape($id_usuarios)));
 	return $query;
 }
 /**
@@ -250,7 +251,7 @@ function Boolean_Set_Perfil_Estado_Usuario($id_usuarios,$estado,$id_perfiles)
 function Boolean_Set_Password($password,$usuario)
 {
 	$password  = password_hash($password, PASSWORD_BCRYPT);
-	$query =  modificar(sprintf("UPDATE `tb_usuarios` SET contraseña='%s' WHERE id_usuarios='%d'",escape($password),escape($usuario)));
+	$query =  modificar(sprintf("UPDATE `tb_usuarios` SET contrasena='%s' WHERE id_usuario='%d'",escape($password),escape($usuario)));
 	return $query;
 }
 /**
@@ -264,7 +265,7 @@ function Boolean_Set_Password($password,$usuario)
  */
 function Boolean_Set_Usuario($nombre,$apellido,$email,$pregunta,$respuesta,$usuario)
 {
-	$query =  modificar(sprintf("UPDATE `tb_usuarios` SET nombre='%s',apellido='%s',email='%s',pregunta='%d',respuesta='%s' WHERE id_usuarios='%d'",escape($nombre),escape($apellido),escape($email),escape($pregunta),escape($respuesta),escape($usuario)));
+	$query =  modificar(sprintf("UPDATE `tb_usuarios` SET nombre_usuario='%s',apellido_usuario='%s',email_usuario='%s',pregunta_usuario='%d',respuesta='%s' WHERE id_usuario='%d'",escape($nombre),escape($apellido),escape($email),escape($pregunta),escape($respuesta),escape($usuario)));
 	return $query;	
 }
 /**
@@ -275,12 +276,12 @@ function Boolean_Delete_Usuario($id_usuarios,$perfil)
 {
 	if($perfil==3)
 	{
-	$query =  eliminar(sprintf("DELETE `tb_usuarios` WHERE id_usuarios='%d' and perfil!=3 ",escape($id_usuarios)));
+	$query =  eliminar(sprintf("DELETE `tb_usuarios` WHERE id_usuario='%d' and perfil!=3 ",escape($id_usuarios)));
 	return $query;	
 	}
 	else
 	{
-	$query =  eliminar(sprintf("DELETE `tb_usuarios` WHERE id_usuarios='%d' and perfil='1' ",escape($id_usuarios)));
+	$query =  eliminar(sprintf("DELETE `tb_usuarios` WHERE id_usuario='%d' and perfil='1' ",escape($id_usuarios)));
 	return $query;	
 	}
 	

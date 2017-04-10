@@ -41,11 +41,13 @@ else if($bandera === "validar-usuario") {
 	// Permite recuperar la contraseña
 }else if($bandera === "recuperar") {
 	$email = $_POST['email'];
-	$query = consultar(sprintf("SELECT  id_usuarios,pregunta FROM `tb_usuarios` WHERE email='%s'",escape($email)));
+	$query = consultar(sprintf("SELECT  id_usuario,pregunta_usuario FROM `tb_usuarios` WHERE email_usuario='%s'",escape($email)));
 	$values = mysqli_fetch_array($query);
 	if (Int_consultaVacia($query)>0) {
-		$_SESSION['usuario']=$values['id_usuarios'];
-		$_SESSION['pregunta']=$values['pregunta'];
+		 session_start();   
+
+		$_SESSION['usuario']=$values['id_usuario'];
+		$_SESSION['pregunta']=$values['pregunta_usuario'];
 		header("location:../pages/preguntas.php");
 	} else {
 		session_destroy();
@@ -54,7 +56,7 @@ else if($bandera === "validar-usuario") {
 	// Valida la respuesta del usuario.
 }else if($bandera === "validar-respuesta") {
 	$respuesta = $_POST['respuesta'];
-	$query = consultar(sprintf("SELECT id_usuarios FROM `tb_usuarios` WHERE id_usuarios='%d' and respuesta= '%s' ",escape($_SESSION['usuario']),escape($respuesta)));
+	$query = consultar(sprintf("SELECT id_usuario FROM `tb_usuarios` WHERE id_usuario='%d' and respuesta= '%s' ",escape($_SESSION['usuario']),escape($respuesta)));
 	if (Int_consultaVacia($query)>0) {
 		$_SESSION['valido']=$_SESSION['usuario'];
 		header("location:../pages/nuevacontrasena.php");
@@ -77,23 +79,24 @@ else if($bandera === "nueva") {
 }
 // Permite el inicio de sesión.
 else if($bandera === "conectar") {
-	$contraseña= $_POST['password'];
-	$usuario = $_POST['username'];
-	$usuario_resgistrado=consultar(sprintf("SELECT id_usuarios,perfil,contraseña FROM tb_usuarios WHERE (usuario='%s' or email='%s') and estado='activo' ",escape($usuario),escape($usuario)));
+	$contrasena= $_POST['password'];
+	$email = $_POST['username'];
+	$usuario_resgistrado=consultar(sprintf("SELECT id_usuario,perfil,contrasena FROM tb_usuarios WHERE (usuario='%s' or email_usuario='%s') and estado='activo' ",escape($email),escape($email)));
 	if(Int_consultaVacia($usuario_resgistrado)>0){
 		$values=mysqli_fetch_array($usuario_resgistrado);
-		if (password_verify($contraseña,$values['contraseña']))
+		if (password_verify($contrasena,$values['contrasena']))
 		{
-			session_start();
-			$_SESSION['id_usuarios']=$values['id_usuarios'];
+			session_start();   
+			$_SESSION['id_usuarios']=$values['id_usuario'];
 			$_SESSION['perfil']=$values['perfil'];
-			$_SESSION['Id']=Int_New_Sesion($values['id_usuarios']);
+			$_SESSION['Id']=Int_New_Sesion($values['id_usuario']);
 			header("location:../pages/administracion.php");
 		}else{
-			header("location:../pages/error.php");
+				session_destroy();
+			header("location:../pages/error.php?=".$values['contrasena']." ");
 		}
 	}else{
-		header("location:../pages/error.php");
+		header("location:../pages/inicio.php");
 	}
 }
 

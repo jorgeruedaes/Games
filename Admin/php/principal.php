@@ -136,12 +136,12 @@ function Array_Get_Modulos($boolean,$padre)
 {
 	if($boolean=='true')
 	{
-		$consulta = consultar("SELECT * FROM `tb_modulos` WHERE padre='0' and submenu=1 Order by orden");
+		$consulta = consultar("SELECT * FROM `tb_modulos` WHERE padre='0' and tipo='admin' and submenu=1 Order by orden");
 		
 	}
 	else
 	{
-		$consulta = consultar("SELECT * FROM `tb_modulos` WHERE padre=$padre  Order by orden");	
+		$consulta = consultar("SELECT * FROM `tb_modulos` WHERE padre=$padre and tipo='admin'  Order by orden");	
 	}
 	
 	$datos = array();
