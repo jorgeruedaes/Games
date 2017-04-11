@@ -76,6 +76,7 @@ function Int_consultaVacia($consulta)
  */
 function start()
 {
+	global $conexion;
 	return mysqli_begin_transaction($conexion,MYSQLI_TRANS_START_READ_WRITE);
 }
  /**
@@ -84,6 +85,7 @@ function start()
   */
  function commit()
  {
+ 	global $conexion;
  	return mysqli_commit($conexion);
  }
 /**
@@ -92,6 +94,7 @@ function start()
  */
 function rollback()
 {
+	global $conexion;
 	return mysqli_rollback($conexion);
 }
 

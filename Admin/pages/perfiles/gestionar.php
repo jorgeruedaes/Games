@@ -90,6 +90,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 		</div>
 	</div>
 </section>
+<?php echo  phpversion()?>
 
 <!-- JS ====================================================================================================================== -->
 <!--  Js-principal -->
@@ -99,7 +100,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Edición perfíl</h4>
+				<h4 class="modal-title" id="defaultModalLabel">Nuevo perfíl</h4>
 			</div>
 			<div class="modal-body">
 
@@ -120,7 +121,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<label for="estado">Descripción</label>
 						<div class="form-group">
 							<div class="form-line">
-								<textarea rows="4" class="form-control no-resize" placeholder="Escriba la descripción del perfil"></textarea>
+								<textarea rows="4" class="form-control no-resize detalle" placeholder="Escriba la descripción del perfil"></textarea>
 							</div>
 						</div>
 
@@ -128,7 +129,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
 				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
@@ -210,7 +211,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 											?>
 											<div class="row clearfix">
 												<div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
-													<input data-id='<?php echo $values['id_modulos']?>' type="checkbox" id="basic_checkbox_<?php echo $values['id_modulos']?>" class="filled-in modulo-<?php echo $values['id_modulos']?>"/>
+													<input data-id='<?php echo $values['id_modulos']?>' type="checkbox" id="basic_checkbox_<?php echo $values['id_modulos']?>" class="filled-in modulo-<?php echo $values['id_modulos']?> permisos"/>
 													<label for="basic_checkbox_<?php echo $values['id_modulos']?>"><?php echo $values['nombre']; ?></label>
 												</div>
 											</div>
@@ -228,7 +229,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+					<button type="button" class="btn btn-info waves-effect guardar-edit">Guardar cambios</button>
 					<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>

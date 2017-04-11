@@ -1,19 +1,20 @@
-//	var Creador = '<?php echo $usuario['id_perfiles']; ?>'
+//	var Creador = '<?php echo $usuario['id_campeonatos']; ?>'
 $(function() {
 
-	var perfiles = {
+	var campeonatos = {
 		inicio: function () {
-			perfiles.recargar();
+			campeonatos.recargar();
 		},
 		recargar: function () {
-			perfiles.enviarDatos();
-			perfiles.borrarUsuario();
-			perfiles.editarItem();
-			perfiles.editarModulos();
-			perfiles.addPerfil();
-			perfiles.Nuevo();
-			perfiles.Permisos();
-			perfiles.Modulos();
+			campeonatos.enviarDatos();
+			campeonatos.borrarUsuario();
+			campeonatos.editarItem();
+			campeonatos.editarModulos();
+			campeonatos.addPerfil();
+			campeonatos.Nuevo();
+			campeonatos.Permisos();
+			campeonatos.Modulos();
+			campeonatos.ModalArchivos();
 		},
 		Modulos : function ()
 		{
@@ -33,12 +34,12 @@ $(function() {
 		{
 				$('.guardar-edit').off('click').on('click', function () {	
 				$.ajax({
-					url: 'pages/perfiles/peticiones/peticiones.php',
+					url: 'pages/campeonatos/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "modificar-permisos",
 						perfil: $('#ModalModulos').data('perfil'),
-						json: perfiles.Modulos(),
+						json: campeonatos.Modulos(),
 						
 			
 					},
@@ -71,7 +72,7 @@ $(function() {
 		{
 		$('.guardar-nuevo').off('click').on('click', function () {	
 				$.ajax({
-					url: 'pages/perfiles/peticiones/peticiones.php',
+					url: 'pages/campeonatos/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "nuevo",
@@ -108,7 +109,7 @@ $(function() {
 		enviarDatos: function () {
 			$('.guardar').off('click').on('click', function () {
 				$.ajax({
-					url: 'pages/perfiles/peticiones/peticiones.php',
+					url: 'pages/campeonatos/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "modificar-perfil",
@@ -157,7 +158,7 @@ $(function() {
 					closeOnCancel: false
 				}, function (isConfirm) {
 					if (isConfirm) {
-						perfiles.desactivar(valor);
+						campeonatos.desactivar(valor);
 					} else {
 						swal("Cancelado", "", "error");
 					}
@@ -170,11 +171,11 @@ $(function() {
 		desactivar: function(valor)
 		{
 			$.ajax({
-				url: 'pages/perfiles/peticiones/peticiones.php',
+				url: 'pages/campeonatos/peticiones/peticiones.php',
 				type: 'POST',
 				data: {
 					bandera: "eliminar",
-					id_perfiles: valor.data('id')
+					id_campeonatos: valor.data('id')
 
 				},
 				success: function (resp) {
@@ -206,15 +207,15 @@ $(function() {
 			$('.nivel').val(nivel);
 			$('#defaultModal').data('perfil',perfil);
 			$('#defaultModal').modal('show'); 
-			perfiles.recargar();
+			campeonatos.recargar();
 		},
 		cargarModalModulos: function(nombre,perfil,modulos)
 		{
 			$('#defaultModalLabel1').text('Editar Permisos del perfil : ' + nombre);
 			$('#ModalModulos').data('perfil',perfil);
-			perfiles.Selecionarmodulos(modulos);
+			campeonatos.Selecionarmodulos(modulos);
 			$('#ModalModulos').modal('show'); 
-			perfiles.recargar();
+			campeonatos.recargar();
 		},
 		addPerfil : function()
 		{
@@ -229,7 +230,7 @@ $(function() {
 				var nombre = $(this).data('nombre');
 				var perfil = $(this).data('id');
 				var modulos = $(this).data('modulos');
-				perfiles.cargarModalModulos(nombre,perfil,modulos);
+				campeonatos.cargarModalModulos(nombre,perfil,modulos);
 			});
 		},
 
@@ -239,7 +240,7 @@ $(function() {
 				var nombre = $(this).data('nombre');
 				var nivel = $(this).data('nivel');
 				var perfil = $(this).data('id');
-				perfiles.cargarModal(nombre,nivel,perfil);
+				campeonatos.cargarModal(nombre,nivel,perfil);
 			});
 		},
 		Selecionarmodulos : function(modulos)
@@ -250,11 +251,18 @@ $(function() {
 			}
 
 
+		},
+		ModalArchivos :function()
+		{
+			$('.add-pdf').off('click').on('click', function () {
+				//campeonatos.cargarModal(nombre,nivel,perfil);
+				$('#defaultModalReglamentos').modal('show'); 
+			});
 		}
 	};
 	$(document).ready(function () {
 
-		perfiles.inicio();
+		campeonatos.inicio();
 
 	});
 

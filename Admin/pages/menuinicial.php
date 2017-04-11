@@ -41,6 +41,8 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
     
     <!-- Sweetalert Css -->
     <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+        <!-- Dropzone Css -->
+    <link href="plugins/dropzone/dropzone.css" rel="stylesheet">
 
 
     <!-- Bootstrap Material Datetime Picker Css -->
@@ -896,6 +898,8 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
 
 <!-- SweetAlert Plugin Js -->
 <script src="plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- Dropzone Plugin Js -->
+    <script src="plugins/dropzone/dropzone.js"></script>
 
 
 <!-- Autosize Plugin Js -->

@@ -5,10 +5,10 @@
  * @param [Int] $nivel       [nivel de seguridad]
  * @param [Int] $id_perfiles [identificador del perfil]
  */
-function Boolean_Set_Perfil($perfil,$nivel,$id_perfiles)
+function Boolean_Set_Perfil($nombre,$nivel,$id_perfiles)
 {
-	$query = modificar(sprintf("UPDATE `tb_perfiles` SET `
-		nombre`='%s',`nivel`='%d' WHERE id_perfiles='%d' ",escape($perfil),escape($nivel),escape($id_perfiles)));
+	$query = modificar(sprintf("UPDATE `tb_perfiles` SET 
+		nombre='%s',`nivel`='%d' WHERE id_perfiles='%d' ",escape($nombre),escape($nivel),escape($id_perfiles)));
 	return $query;
 
 }
@@ -55,20 +55,24 @@ function  Boolean_Delete_Perfil($id_perfiles)
 function Boolean_Set_PerfilxModulos($json,$id_perfiles)
 {
 	$json = json_decode($json);
-	if(start()){
-		Boolean_Delete_ModulosxPerfil($id_perfiles);
-		for ($i=0; $i < count($json)-1 ; $i++) {
-			Boolean_New_ModulosxPerfil($id_perfiles,$json[$i]);	
+	$bandera ='';
+	if(Boolean_Delete_ModulosxPerfil($id_perfiles)){
+		for ($i=0; $i < count($json) ; $i++) {
+			if(Boolean_New_ModulosxPerfil($id_perfiles,$json[$i]))
+			{
+				$bandera=true;
+			}	
+			else
+			{
+				$bandera=false;
+			}
 		}
 	}
-	try
+	else
 	{
-		return commit();
+		$bandera=false;
 	}
-	catch
-	{
-		rollback();
-	}
+	return $bandera;
 }
 /**
  * [Boolean_Pass_Delete_Perfil Prueba si puede borrar un perfil]
