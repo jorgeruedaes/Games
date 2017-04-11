@@ -7,7 +7,7 @@
 function Array_Get_Usuario($usuario)
 {
 
-	$usuarios = consultar("SELECT `id_usuario`,`nombre_usuario`, `apellido_usuario`, `perfil`, `email_usuario`, `estado`,pregunta_usuario,respuesta FROM `tb_usuarios` WHERE id_usuario=$usuario ");
+	$usuarios = consultar("SELECT `id_usuario`,`nombre_usuario`, `apellido_usuario`, `perfil`, `email_usuario`, `estado`,pregunta_usuario,respuesta,color FROM `tb_usuarios` WHERE id_usuario=$usuario ");
 	while ($valor = mysqli_fetch_array($usuarios)) {
 		$id_usuarios = $valor['id_usuario'];
 		$nombre       = $valor['nombre_usuario'];
@@ -17,6 +17,7 @@ function Array_Get_Usuario($usuario)
 		$estado        = $valor['estado'];
 		$pregunta   = $valor['pregunta_usuario'];
 		$respuesta = $valor['respuesta'];
+		$color = $valor['color'];
 		$datos = array(
 			'id_usuarios'=>"$id_usuarios",
 			'nombre' => "$nombre",
@@ -25,7 +26,8 @@ function Array_Get_Usuario($usuario)
 			'email' => "$email",
 			'estado' => "$estado",
 			'pregunta' => "$pregunta",
-			'respuesta' => "$respuesta"
+			'respuesta' => "$respuesta",
+			'color' => "$color"
 			);
 	}
 

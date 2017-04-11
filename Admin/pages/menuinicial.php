@@ -53,7 +53,7 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
     <link href="css/themes/all-themes.css" rel="stylesheet" />
 </head>
 
-<body class="theme-blue">
+<body class="theme-<?php echo $usuario['color'] ?>">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
