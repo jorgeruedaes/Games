@@ -12,43 +12,26 @@ $(function() {
 			campeonatos.editarModulos();
 			campeonatos.addPerfil();
 			campeonatos.Nuevo();
-			campeonatos.Permisos();
-			campeonatos.Modulos();
+			campeonatos.reglamento();
 			campeonatos.ModalArchivos();
 		},
-		Modulos : function ()
-		{
-			var array =[];
 
-		 $('.permisos').each(function(indice, elemento) {
- 		 if($(elemento).is(':checked'))
- 		 { 
- 		 	var item = $(elemento).data('id');
- 		 	 array.push(item); 
- 		 } ;
-			}); 
-			 return array;
-		},
-
-		Permisos :  function ()
+		reglamento :  function ()
 		{
-				$('.guardar-edit').off('click').on('click', function () {	
+				$('.guardar-reglamentos').off('click').on('click', function () {	
+					var formData = new FormData($("#frmFileUpload")[0]);
 				$.ajax({
 					url: 'pages/campeonatos/peticiones/peticiones.php',
 					type: 'POST',
-					data: {
-						bandera: "modificar-permisos",
-						perfil: $('#ModalModulos').data('perfil'),
-						json: campeonatos.Modulos(),
-						
-			
-					},
+					data: formData,
+                	contentType: false,
+               	    processData: false,
 					success: function (resp) {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
 							swal({title: "",
-								text: "El perfil modifico los permisos exitosamente!",
+								text: "El reglamento se modificos de manera Exitosa!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",

@@ -2,7 +2,7 @@
 $ubicacion ="../";
 $id_modulos="1";
 include("../menuinicial.php");
-if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
+if(isset($_SESSION['id_usuarios'])){
 	$usuario =Array_Get_Usuario($_SESSION['id_usuarios']);
 	?>
 	<section class="content">

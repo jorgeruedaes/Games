@@ -7,9 +7,9 @@
 function String_Get_Valores($solicitud){
 
 	if ($solicitud == "titulo") {
-		return "Intercolegiados 2017";
+		return "Liga Santandereana de Fútbol";
 	}else if ($solicitud == "copyright") {
-		return "Torneos Developers - w3layouts";
+		return "Torneos Developers - Eyecix";
 	}else if ($solicitud == "version") {
 		return "1.0";
 	}else if ($solicitud == "año") {
@@ -23,7 +23,7 @@ function String_Get_Valores($solicitud){
 	}else if ($solicitud == "password") {
 		return "";
 	}else if ($solicitud == "basededatos") {
-		return "losjuegos";
+		return "liga";
 	}else if ($solicitud == "color") { // color de todo el form
 		return "#ECF0F1";
 	}else if ($solicitud == "letracolor") {// color de el encabezado de las tablas
@@ -33,7 +33,14 @@ function String_Get_Valores($solicitud){
 	}else if ($solicitud == "letratitulo") {// letra de el encabezado 
 		return "#054C89";
 	}
-
+	// VALORES DE CONTACTO 
+	else if ($solicitud == "telefono") {// color de el encabezado de las tablas
+		return "+7 6328898 -  317 427 9583";
+	}else if ($solicitud == "direccion") {// color de los titulos de las tablas
+		return "Carrera 30 No 14 - 45 Oficina 409";
+	}else if ($solicitud == "email") {// letra de el encabezado 
+		return "mlizarazo@ligasantandereanadefutbol.co";
+	}
 }
 /**
  * [base_url Base de las paginas]
@@ -41,13 +48,13 @@ function String_Get_Valores($solicitud){
  */
 function base_url()
 {
-	$pagina = "localhost";
-	return "http://".$pagina."/Admin/";
+	$pagina = "localhost:8081";
+	return "http://".$pagina."/Games/Admin/";
 }
 function base_url_usuarios()
 {
-	$pagina = "localhost";
-	return "http://".$pagina."/losjuegos/";
+	$pagina = "localhost:8081";
+	return "http://".$pagina."/Games/";
 }	
 
 /*   

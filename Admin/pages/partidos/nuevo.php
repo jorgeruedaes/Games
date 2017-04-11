@@ -4,6 +4,8 @@ $id_modulos="11";
 include("../menuinicial.php");
 include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
+include($ubicacion."../php/campeonatos.php");
+
 
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
@@ -48,6 +50,23 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						</div>
 						<div class="body">
 							<form>
+								<h2 class="card-inside-title">Campeonato o torneo</h2>
+								<div class="row clearfix">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+										<select class="form-control show-tick select-equipoa">
+											<option value="">--Selecciona un Campeonato --</option>
+											<?php
+											$vector = Array_Get_Campeonatos();
+											foreach ($vector as  $value) 
+											{
+												?>
+												<option value="<?php echo $value['id_torneo'] ?>"><?php echo $value['nombre_torneo'] ?></option>
+												<?php 
+											} 
+											?>	
+										</select>
+									</div>
+								</div>
 								<h2 class="card-inside-title">Horario y lugar </h2>
 								<div class="row clearfix">
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
