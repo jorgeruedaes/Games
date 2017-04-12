@@ -43,4 +43,10 @@ echo ($resultado);
 
 
 
-  
+   IF UPDATING THEN
+ 
+ END IF;
+
+ IF DELETING THEN
+ 
+ END IF;

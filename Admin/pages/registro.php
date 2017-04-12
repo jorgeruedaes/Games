@@ -11,8 +11,7 @@ require('../php/principal.php');
     <link rel="icon" href="../<?php echo String_Get_Valores('favico') ?>" type="image/x-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <link href="../css/google-fonts.css" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
     <link href="../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -39,15 +38,30 @@ require('../php/principal.php');
         </div>
         <div class="card">
         	<div class="body">
-        		<form id="sign_up" name="registration" method="POST">
         			<div class="msg"><small>Recuerda que para poder ingresar el usuario debe ser autorizado por un administrador.</small></div>
+                     <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" id="name" class="form-control" name="name" placeholder="Nombre" required autofocus>
+                        </div>
+                    </div>
+                       <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Apellido" required autofocus>
+                        </div>
+                    </div>
 
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                        	<input type="text" class="form-control" name="namesurname" placeholder="Nombre de usuario" required autofocus>
+                        	<input type="text" class="form-control" id="username"  name="username" placeholder="Nombre de usuario" required autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -55,7 +69,7 @@ require('../php/principal.php');
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                        	<input type="email" class="form-control" name="email" placeholder="Email" required>
+                        	<input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                         </div>
                         
                     </div>
@@ -63,7 +77,7 @@ require('../php/principal.php');
                         <span class="input-group-addon">
                             <i class="material-icons">touch_app</i>
                         </span>
-                        <select class="form-control show-tick" required>
+                        <select class="form-control show-tick select-pregunta" required>
                             <option value="">-- Selecciona una pregunta --</option>
                             <?php 
                             $vector = Array_Get_Preguntas();
@@ -81,7 +95,7 @@ require('../php/principal.php');
                         <i class="material-icons">question_answer</i>
                     </span>
                     <div class="form-line">
-                        <input type="text" class="form-control" name="respuesta" placeholder="Respuesta" required>
+                        <input type="text" class="form-control" name="respuesta" id="respuesta" placeholder="Respuesta" required>
                     </div>
                 </div>
                 <div class="input-group">
@@ -89,7 +103,7 @@ require('../php/principal.php');
                         <i class="material-icons">lock</i>
                     </span>
                     <div class="form-line">
-                       <input type="password" class="form-control" name="password" minlength="8" placeholder="Contraseña" required>
+                       <input type="password" class="form-control" id="password" name="password" minlength="8" placeholder="Contraseña" required>
                    </div>
                </div>
                <div class="input-group">
@@ -105,12 +119,12 @@ require('../php/principal.php');
             <label for="terms">Ya he leido, acepto los <a href="javascript:void(0);">terminos de uso</a>.</label>
         </div>
 
-        <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">Registrarse</button>
+        <button class="btn btn-block btn-lg bg-pink waves-effect registrarse" type="button">Registrarse</button>
 
         <div class="m-t-25 m-b--5 align-center">
             <a href="inicio.php">¿ Ya estas registrado ?</a>
         </div>
-    </form>
+
 </div>
 </div>
 </div>

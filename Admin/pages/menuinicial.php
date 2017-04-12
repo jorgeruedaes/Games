@@ -20,9 +20,8 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
     <!-- Favicon-->
     <link rel="icon" href="../webs/images/<?php echo String_Get_Valores('favicon')?>" type="image/x-icon">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <!-- Google Fonts-->
+    <link href="css/google-fonts.css" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
     <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
