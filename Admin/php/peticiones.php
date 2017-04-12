@@ -9,8 +9,8 @@ $bandera = $_POST['bandera'];
 // Permite guardar el nuevo usuario en la BD.
 if ($bandera === "guardar") {
 
-	$nombre = $_POST['nombre'];
-	$apeliido = $_POST['apellido'];
+	$nombre = $_POST['name'];
+	$apellido = $_POST['lastname'];
 	$username = $_POST['username'];
 	$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 	$pregunta = $_POST['pregunta'];
@@ -22,9 +22,11 @@ if ($bandera === "guardar") {
 	if ($query) {
 		$resultado.='"mensaje":true';
 		$resultado.=',"comentario":'.$mensaje.'';
+				header("location:../pages/usuariocreado.php");
 	} else {
 		$resultado.='"mensaje":false';
 		$resultado.=',"comentario":'.$mensaje.'';
+	    header("location:../pages/registro.php");
 	}
 }
 // Permite saber si se puede o no registrar el nuevo usuario con ese nombre y email.

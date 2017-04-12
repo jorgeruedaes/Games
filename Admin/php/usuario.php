@@ -198,7 +198,7 @@ function Boolean_Insertar_Usuario($nombre,$apellido,$username,$password,$pregunt
 	list ($valid,$mensaje) = Boolean_Existencia_Usuario($username,$email);
 	if(!$valid)
 	{
-		$query = ingresar(sprintf("INSERT INTO `tb_usuarios`(`id_usuario`, `nombre_usuario`, `apellido_usuario`, `perfil`,
+		$query = insertar(sprintf("INSERT INTO `tb_usuarios`(`id_usuario`, `nombre_usuario`, `apellido_usuario`, `perfil`,
 			`usuario`, `contrasena`, `pregunta_usuario`, `respuesta`,`email_usuario`, `estado`)
 			VALUES (NULL,'%s','%s','2','%s','%s','%d','%s','%s',
 				'procesando')",escape($nombre),escape($apellido),escape($username),escape($password),

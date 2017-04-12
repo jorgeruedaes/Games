@@ -12,7 +12,7 @@ $(function() {
 			resgistro.Validar();
 		},
 		enviarDatos: function () {
-			$('.registrarse').off('click').on('click', function () {
+			$('.registro').on('click', function () {
 				$.ajax({
 					url: 'php/peticiones.php',
 					type: 'POST',
