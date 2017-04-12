@@ -278,12 +278,12 @@ function Boolean_Delete_Usuario($id_usuarios,$perfil)
 {
 	if($perfil==3)
 	{
-	$query =  eliminar(sprintf("DELETE `tb_usuarios` WHERE id_usuario='%d' and perfil!=3 ",escape($id_usuarios)));
+	$query =  eliminar(sprintf("DELETE FROM `tb_usuarios` WHERE id_usuario='%d' and perfil!=3 ",escape($id_usuarios)));
 	return $query;	
 	}
 	else
 	{
-	$query =  eliminar(sprintf("DELETE `tb_usuarios` WHERE id_usuario='%d' and perfil='1' ",escape($id_usuarios)));
+	$query =  eliminar(sprintf("DELETE  FROM`tb_usuarios` WHERE id_usuario='%d' and perfil='1' ",escape($id_usuarios)));
 	return $query;	
 	}
 	
