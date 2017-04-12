@@ -5,6 +5,7 @@ function SubirArchivos($archivos,$carpeta)
 	$_FILES['file']=$archivos;
 	$reporte = '';
 	$bandera=true;
+
 	for($x=0; $x<count($_FILES["file"]["name"]); $x++)
 	{
 		$file = $_FILES["file"];
@@ -13,9 +14,10 @@ function SubirArchivos($archivos,$carpeta)
 		$ruta_provisional = $file["tmp_name"][$x];
 		$size = $file["size"][$x];
 
-		if ($tipo != 'image/jpeg' && $tipo != 'image/jpg' && $tipo != 'image/png' && $tipo != 'image/gif')
+		if ( $tipo !='application/pdf' && $tipo != 'image/jpeg' && 
+			$tipo != 'image/jpg' && $tipo != 'image/png' && $tipo != 'image/gif')
 		{
-			$reporte .= "Error $nombre, el archivo no es una imagen.";
+			$reporte .= "Error $nombre, el archivo no es del formato esperado.";
 			$bandera=false;
 		}
 		else if($size > 1024*1024)

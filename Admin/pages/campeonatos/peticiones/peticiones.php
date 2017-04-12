@@ -11,8 +11,8 @@ if(isset($_SESSION['id_usuarios']))
 // Modifica uno de los perfiles de usuario.
     if ($bandera === "modificar-reglamentos") {
 
-        $carpeta="../../Archivos/Reglamentos/";
-        
+        $carpeta="../../../../Archivos/Reglamentos/";
+
         if (SubirArchivos($_FILES['file'],$carpeta)[0]) {
             $resultado.='"mensaje":true';
         } else {

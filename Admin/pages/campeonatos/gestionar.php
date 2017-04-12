@@ -185,7 +185,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 			<div class="modal-body">
 
 				<div class="body">
-					<form action="/"  id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+					<form action="pages/campeonatos/peticiones/peticiones.php" class="dropzone"  id="frmFileUpload"  method="post" enctype="multipart/form-data">
 						<div class="dz-message">
 							<div class="drag-icon-cph">
 								<i class="material-icons">touch_app</i>
@@ -197,6 +197,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 							<input name="file[]" type="file" multiple />
 						</div>
 						<input name="bandera" type="hidden" value="modificar-reglamentos"/>
+						</form>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -215,3 +216,5 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 	require("../sinpermiso.php");
 }
 ?>
+
+
