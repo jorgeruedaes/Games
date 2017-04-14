@@ -3,7 +3,7 @@ $ubicacion ="../";
 $id_modulos="38";
 include("../menuinicial.php");
 include('../../php/campeonatos.php');
-if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
+if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
 	<section class="content">
 		<div class="container-fluid">

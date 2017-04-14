@@ -40,3 +40,46 @@ function Array_Get_Clubs()
 
 	return $datos;	
 }
+/**
+ * [Set_Clubs description]
+ * @param [type] $nombre    [description]
+ * @param [type] $categoria [description]
+ * @param [type] $estado    [description]
+ * @param [type] $torneo    [description]
+ */
+function Set_Clubs($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado,$club)
+{
+
+	$campeonatos = modificar(sprintf("UPDATE `tb_colegio` SET `nombre`='%s',`direccion`='%s',`telefono`='%s',`correo`='%s',`presidente`='%s',`cancha_entrenamiento`='%s',`horario`='%s',`estado`='%s' WHERE id_colegio='%d' ",
+		escape($nombre),escape($direccion),escape($telefono),escape($correo),escape($presidente),
+		escape($cancha),escape($horario),escape($estado),escape($club)));
+	return $campeonatos;	
+}
+
+/**
+ * [boolean_set_imagene_clubs description]
+ * @param  [type] $reglamento [description]
+ * @param  [type] $torneo     [description]
+ * @return [type]             [description]
+ */
+function boolean_set_imagen_clubs($imagen,$club)
+{
+
+	$campeonatos = modificar(sprintf("UPDATE `tb_colegio` SET `logo`='%s' WHERE  `id_colegio`='%d' ",
+		escape($imagen),escape($club)));
+	return $campeonatos;	
+}
+/**
+ * [boolean_new_Club description]
+ * @param  [type] $nombre    [description]
+ * @param  [type] $categoria [description]
+ * @return [type]            [description]
+ */
+function boolean_new_Club($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado)
+{
+	$campeonatos = insertar(sprintf("INSERT INTO `tb_colegio`(`id_colegio`, `nombre`, `direccion`, `telefono`, `correo`, `presidente`, `cancha_entrenamiento`, `horario`, `logo`, `estado`) VALUES (NULL,'%s','%s','%s','%s','%s','%s','%s','','%s')",
+		escape($nombre),escape($direccion),escape($telefono),escape($correo),escape($presidente),
+		escape($cancha),escape($horario),escape($estado)));
+	return $campeonatos;	
+
+}

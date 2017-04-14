@@ -11,19 +11,19 @@ $(function() {
 			campeonatos.addPerfil();
 			campeonatos.Nuevo();
 			campeonatos.reglamento();
-			campeonatos.ModalArchivos();
+			campeonatos.ModalImagen();
 		},
 
 		reglamento :  function ()
 		{
-				$('.guardar-reglamentos').off('click').on('click', function () {	
-					var formData = new FormData($("#frmFileUpload")[0]);
+			$('.guardar-reglamentos').off('click').on('click', function () {	
+				var formData = new FormData($("#frmFileUpload")[0]);
 				$.ajax({
 					url: 'pages/campeonatos/peticiones/peticiones.php',
 					type: 'POST',
 					data: formData,
-                	contentType: false,
-               	    processData: false,
+					contentType: false,
+					processData: false,
 					success: function (resp) {
 
 						var resp = $.parseJSON(resp);
@@ -51,23 +51,29 @@ $(function() {
 		,
 		Nuevo : function ()
 		{
-		$('.guardar-nuevo').off('click').on('click', function () {	
+			$('.guardar-nuevo').off('click').on('click', function () {	
 				$.ajax({
-					url: 'pages/campeonatos/peticiones/peticiones.php',
+					url: 'pages/clubs/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "nuevo",
-						nombre: $('.nuevo-nombre').val(),
-						categoria:$('.select-nuevo-categoria option:selected').val()
+						nombre:	$('.n-nombre').val(),
+						presidente :$('.n-presidente').val(),
+						direccion: $('.n-direccion').val(),
+						telefono:$('.n-telefono').val(),
+						email:$('.n-email').val(),
+						horario:$('.n-horario').val(),
+						cancha:$('.n-cancha').val(),
+						estado :$('.select-n-estado option:selected').val()
 						
-			
+
 					},
 					success: function (resp) {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
 							swal({title: "",
-								text: "El campeonato se ha creado exitosamente!, recuerde que por defecto esta en estado inactivo.",
+								text: "El club se ha creado exitosamente!.",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
@@ -86,26 +92,32 @@ $(function() {
 
 			});
 		},
+		
 		enviarDatos: function () {
 			$('.guardar').off('click').on('click', function () {
 				$.ajax({
-					url: 'pages/campeonatos/peticiones/peticiones.php',
+					url: 'pages/clubs/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
-						bandera: "modificar-campeonato",
-						nombre: $('.nombre').val(),
-						categoria:$('.select-categoria option:selected').val(),
-						estado : $('.select-estado option:selected').val(),
-						torneo: $('#defaultModal').data('torneo')
+						bandera: "modificar",
+						nombre:	$('.nombre').val(),
+						presidente :$('.presidente').val(),
+						direccion: $('.direccion').val(),
+						telefono:$('.telefono').val(),
+						email:$('.email').val(),
+						horario:$('.horario').val(),
+						cancha:$('.cancha').val(),
+						estado :$('.select-estado option:selected').val(),
+						club : $('#defaultModal').data('club')
 						
-			
+
 					},
 					success: function (resp) {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
 							swal({title: "",
-								text: "El campeonato se ha modificado exitosamente!",
+								text: "El club se ha modificado exitosamente!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
@@ -121,50 +133,74 @@ $(function() {
 						}
 					}
 				});
-			});
+});
 
-		},
-		cargarModal: function(torneo,nombre,estado,categoria)
-		{
-			$('.nombre').val(nombre);
-			$('.select-estado').val(estado);
-			$('.select-estado').change();
-			$('.select-categoria').val(categoria);
-			$('.select-categoria').change();
-			$('#defaultModal').data('torneo',torneo);
-			$('#defaultModal').modal('show'); 
-			campeonatos.recargar();
-		},
-		addPerfil : function()
-		{
-			$('.add-perfil').off('click').on('click', function () {	
-				$('#nuevoPerfil').modal('show'); 
-			});
-
-		},
-
-		editarCampeonato : function()
-		{
-			$('.edit-item').off('click').on('click', function () {
-				var nombre = $(this).data('nombre');
-				var categoria = $(this).data('categoria');
-				var estado = $(this).data('estado');
-				var torneo = $(this).data('torneo');
-				campeonatos.cargarModal(torneo,nombre,estado,categoria);
-			});
-		},
-		ModalArchivos :function()
-		{
-			$('.add-pdf').off('click').on('click', function () {
-				//campeonatos.cargarModal(nombre,nivel,perfil);
-				$('#defaultModalReglamentos').modal('show'); 
-			});
-		}
-	};
-	$(document).ready(function () {
-
-		campeonatos.inicio();
-
+},
+cargarModal: function(club,nombre,presidente,direccion,telefono,email,horario,cancha,estado)
+{
+	$('.nombre').val(nombre);
+	$('.presidente').val(presidente);
+	$('.direccion').val(direccion);
+	$('.telefono').val(telefono);
+	$('.email').val(email);
+	$('.horario').val(horario);
+	$('.cancha').val(cancha);
+	$('.select-estado').val(estado);
+	$('.select-estado').change();
+	$('#defaultModal').data('club',club);
+	$('#defaultModal').modal('show'); 
+	campeonatos.recargar();
+},
+addPerfil : function()
+{
+	$('.add-perfil').off('click').on('click', function () {	
+		$('#nuevoPerfil').modal('show'); 
 	});
+
+},
+
+editarCampeonato : function()
+{
+	$('.edit-item').off('click').on('click', function () {
+		var nombre = $(this).data('nombre');
+		var presidente = $(this).data('presidente');
+		var direccion = $(this).data('direccion');
+		var telefono = $(this).data('telefono');
+		var email = $(this).data('correo');
+		var horario = $(this).data('horario');
+		var cancha = $(this).data('cancha');
+		var club = $(this).data('club');
+		var estado = $(this).data('estado');
+		campeonatos.cargarModal(club,nombre,presidente,direccion,telefono,email,horario,cancha,estado);
+	});
+},
+ModalImagen :function()
+{
+	$('#tabla-clubs').on("click", ".ver", function(){
+
+			$('#imagenes').attr('src','../images/Escudos/'+$(this).data('logo'))
+	 		$('#imagenesvisor').modal('show'); 
+	});
+
+	$('#tabla-clubs').on("click", ".edit-item", function(){
+		var tabla = $(this);
+		var nombre = $(this).data('nombre');
+		var presidente = $(this).data('presidente');
+		var direccion = $(this).data('direccion');
+		var telefono = $(this).data('telefono');
+		var email = $(this).data('correo');
+		var horario = $(this).data('horario');
+		var cancha = $(this).data('cancha');
+		var club = $(this).data('club');
+		var estado = $(this).data('estado');
+		campeonatos.cargarModal(club,nombre,presidente,direccion,telefono,email,horario,cancha,estado);
+	});
+}
+};
+$(document).ready(function () {
+
+	campeonatos.inicio();
+
+});
 
 });

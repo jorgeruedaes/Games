@@ -48,12 +48,14 @@ function String_Get_Valores($solicitud){
  */
 function base_url()
 {
-	$pagina = "localhost";
+	//$pagina = "192.168.1.58";
+	$pagina= "localhost";
 	return "http://".$pagina."/Games/Admin/";
 }
 function base_url_usuarios()
 {
-	$pagina = "localhost";
+	//$pagina = "192.168.1.58";
+	$pagina= "localhost";
 	return "http://".$pagina."/Games/";
 }	
 

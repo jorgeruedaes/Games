@@ -3,8 +3,10 @@ $ubicacion ="../";
 $id_modulos="51";
 include("../menuinicial.php");
 include('../../php/clubs.php');
-if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
+if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
+
+
 	<section class="content">
 		<div class="container-fluid">
 			<div class="block-header">
@@ -53,8 +55,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 							<li></li>
 						</ul>
 					</div>
-					<div class="body table-responsive">
-						<table class="table table-striped">
+					<div class="body">
+						<table  id="tabla-clubs" class="table table-bordered table-striped table-hover js-basic-example dataTable">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -76,7 +78,9 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 										<td><?php echo $value['presidente']; ?></td>
 										<td><?php echo $value['estado']; ?></td>
 										<td> 
-											<div class="demo-google-material-icon"><a href="../images/Escudos/<?php echo $value['logo']; ?>" target="_blank"> <i class="material-icons">collections</i> <span class="icon-name"></span><a/></div>
+										<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
+											<button  data-logo="<?php echo $value['logo']; ?>" type="button" class="btn btn-primary waves-effect ver"><i class="material-icons">collections</i></button>
+										<div>
 										</td>
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
@@ -85,10 +89,10 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 												data-direccion="<?php echo $value['direccion']; ?>"
 												data-correo="<?php echo $value['correo']; ?>"
 												data-horario="<?php echo $value['horario']; ?>"
-												data-cancha-entrenamiento="<?php echo $value['cancha_entrenamiento']; ?>"
+												data-cancha="<?php echo $value['cancha_entrenamiento']; ?>"
 
 												  data-presidente="<?php echo $value['presidente']; ?>"  data-nombre="<?php echo $value['nombre']; ?>" data-club="<?php echo $value['id_colegio']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
-												<button  data-id="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect add-pdf"><i class="material-icons">collections</i></button>
+												<button  data-id="<?php echo $value['id_colegio']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">collections</i></button>
 
 											</div>
 
@@ -120,20 +124,43 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 
 				<div class="body">
 					<form>
-						<label for="perfil">Nombre</label>
+						<label for="">Club</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" class="form-control nuevo-nombre" placeholder="Nombre campeonato" />
+								<input type="text" class="form-control n-nombre" placeholder="Nombre campeonato" />
 							</div>
 						</div>
-						<label for="estado">Categoria</label>
+						<label for="">Presidente</label>
 						<div class="form-group ">
-							<select class="form-control show-tick select-nuevo-categoria">
-								<option value="">--Selecciona una categoria --</option>
+							<input type="text" class="form-control n-presidente" placeholder="Nombre presidente" />
+						</div>
+						<label for="">Email</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-email" placeholder="Email" />
+						</div>
+						<label for="">Dirección</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-direccion" placeholder="Dirección " />
+						</div>
+						<label for="">Teléfono</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-telefono" placeholder="Teléfono " />
+						</div>
+						<label for="">Cancha</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-cancha" placeholder="Cancha " />
+						</div>
+						<label for="">Horario</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-horario" placeholder="Horario " />
+						</div>
+						<label for="">Estado</label>
+						<div class="form-group ">
+							<select class="form-control show-tick select-n-estado">
+								<option value="">--Selecciona un estado --</option>
 
-								<option value="menores">Menores</option>
-								<option value="intermedio">Intermedio</option>
-								<option value="mayores">Mayores</option>
+								<option value="activo">Activo</option>
+								<option value="inactivo">Inactivo</option>
 
 							</select>
 						</div>
@@ -151,32 +178,45 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 
 <!-- Modal Dialogs ====================================================================================================================== -->
 <!-- Default Size -->
-<div class="modal fade" id="defaultModal" data-torneo="" tabindex="-1" role="dialog">
+<div class="modal fade" id="defaultModal" data-club="" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Edición Campeonato</h4>
+				<h4 class="modal-title" id="defaultModalLabel">Edición Clubs</h4>
 			</div>
 			<div class="modal-body">
 
 				<div class="body">
 					<form>
-						<label for="">Campeonato</label>
+						<label for="">Club</label>
 						<div class="form-group">
 							<div class="form-line">
 								<input type="text" class="form-control nombre" placeholder="Nombre campeonato" />
 							</div>
 						</div>
-						<label for="">Categotria</label>
+						<label for="">Presidente</label>
 						<div class="form-group ">
-							<select class="form-control show-tick select-categoria">
-								<option value="">--Selecciona una categoria --</option>
-
-								<option value="menores">Menores</option>
-								<option value="intermedio">Intermedio</option>
-								<option value="mayores">Mayores</option>
-
-							</select>
+							<input type="text" class="form-control presidente" placeholder="Nombre presidente" />
+						</div>
+						<label for="">Email</label>
+						<div class="form-group ">
+							<input type="text" class="form-control email" placeholder="Email" />
+						</div>
+						<label for="">Dirección</label>
+						<div class="form-group ">
+							<input type="text" class="form-control direccion" placeholder="Dirección " />
+						</div>
+						<label for="">Teléfono</label>
+						<div class="form-group ">
+							<input type="text" class="form-control telefono" placeholder="Teléfono " />
+						</div>
+						<label for="">Cancha</label>
+						<div class="form-group ">
+							<input type="text" class="form-control cancha" placeholder="Cancha " />
+						</div>
+						<label for="">Horario</label>
+						<div class="form-group ">
+							<input type="text" class="form-control horario" placeholder="Horario " />
 						</div>
 						<label for="">Estado</label>
 						<div class="form-group ">
@@ -205,7 +245,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Agregar Reglamentos</h4>
+				<h4 class="modal-title" id="defaultModalLabel">Agregar logo</h4>
 			</div>
 			<div class="modal-body">
 
@@ -237,35 +277,27 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Nuevo de campeonato</h4>
+				<h4 class="modal-title" id="defaultModalLabel">Logo Club</h4>
 			</div>
 			<div class="modal-body">
 
 				<div class="body">
-					<form>
-						<label for="perfil">Nombre</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="text" class="form-control nuevo-nombre" placeholder="Nombre campeonato" />
-							</div>
-						</div>
-						<label for="estado">Categoria</label>
-						<div class="form-group ">
-							<select class="form-control show-tick select-nuevo-categoria">
-								<option value="">--Selecciona una categoria --</option>
+					<div class="row clearfix">
+                <!-- Basic Example -->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2></h2>
+                        </div>
 
-								<option value="menores">Menores</option>
-								<option value="intermedio">Intermedio</option>
-								<option value="mayores">Mayores</option>
-
-							</select>
-						</div>
-
-					</form>
+                       <img id="imagenes" src="" />
+                               
+                        </div>
+                    </div>
+                </div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
 				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
