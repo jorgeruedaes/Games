@@ -1,0 +1,284 @@
+<?php  
+$ubicacion ="../";
+$id_modulos="51";
+include("../menuinicial.php");
+include('../../php/clubs.php');
+if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
+	?>
+	<section class="content">
+		<div class="container-fluid">
+			<div class="block-header">
+				<h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="pages/administracion.php">
+								<!--<i class="material-icons">home</i>-->
+								Administración
+							</a>
+						</li>
+						<?php
+						$vector = Array_Get_PadreHijo($id_modulos);
+						foreach ($vector as $value)
+						{
+							?>
+							<li>
+								<a href="<?php echo $value['ruta'] ?>" class="active">
+									<!--<i class="material-icons"><?php echo $value['icono'] ?></i>-->
+									<?php echo $value['nombre'] ?>
+								</a>
+							</li>
+							<?php
+						}
+						?>
+					</ol>
+				</h2>
+			</div>
+			<!-- Basic Table -->
+			<div class="row ">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>
+								GESTION DE CLUBS 
+							</h2>
+							<ul class="header-dropdown m-r--5">
+								<li></li>
+								<li>
+									<button type="button" class="btn bg-red 
+									waves-effect add-perfil">
+									<i class="material-icons">add</i>
+								</button>
+
+							</li>
+							<li></li>
+						</ul>
+					</div>
+					<div class="body table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nombre</th>
+									<th>Presidente</th>
+									<th>Estado</th>
+									<th>Logo</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$vector = Array_Get_Clubs();
+								foreach ($vector as  $value) {
+									?>
+									<tr>
+										<th scope="row"><?php echo $value['id_colegio']; ?></th>
+										<td><?php echo $value['nombre']; ?></td>
+										<td><?php echo $value['presidente']; ?></td>
+										<td><?php echo $value['estado']; ?></td>
+										<td> 
+											<div class="demo-google-material-icon"><a href="../images/Escudos/<?php echo $value['logo']; ?>" target="_blank"> <i class="material-icons">collections</i> <span class="icon-name"></span><a/></div>
+										</td>
+										<td>
+											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
+												<button data-estado="<?php echo $value['estado']; ?>" 
+												data-telefono="<?php echo $value['telefono']; ?>"
+												data-direccion="<?php echo $value['direccion']; ?>"
+												data-correo="<?php echo $value['correo']; ?>"
+												data-horario="<?php echo $value['horario']; ?>"
+												data-cancha-entrenamiento="<?php echo $value['cancha_entrenamiento']; ?>"
+
+												  data-presidente="<?php echo $value['presidente']; ?>"  data-nombre="<?php echo $value['nombre']; ?>" data-club="<?php echo $value['id_colegio']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
+												<button  data-id="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect add-pdf"><i class="material-icons">collections</i></button>
+
+											</div>
+
+										</td>
+									</tr>
+									<?php
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- JS ====================================================================================================================== -->
+<!--  Js-principal -->
+<script src="pages/clubs/js/nuevo.js"></script>
+
+<div class="modal fade" id="nuevoPerfil" data-perfil="" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="defaultModalLabel">Nuevo de campeonato</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="body">
+					<form>
+						<label for="perfil">Nombre</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control nuevo-nombre" placeholder="Nombre campeonato" />
+							</div>
+						</div>
+						<label for="estado">Categoria</label>
+						<div class="form-group ">
+							<select class="form-control show-tick select-nuevo-categoria">
+								<option value="">--Selecciona una categoria --</option>
+
+								<option value="menores">Menores</option>
+								<option value="intermedio">Intermedio</option>
+								<option value="mayores">Mayores</option>
+
+							</select>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Dialogs ====================================================================================================================== -->
+<!-- Default Size -->
+<div class="modal fade" id="defaultModal" data-torneo="" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="defaultModalLabel">Edición Campeonato</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="body">
+					<form>
+						<label for="">Campeonato</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control nombre" placeholder="Nombre campeonato" />
+							</div>
+						</div>
+						<label for="">Categotria</label>
+						<div class="form-group ">
+							<select class="form-control show-tick select-categoria">
+								<option value="">--Selecciona una categoria --</option>
+
+								<option value="menores">Menores</option>
+								<option value="intermedio">Intermedio</option>
+								<option value="mayores">Mayores</option>
+
+							</select>
+						</div>
+						<label for="">Estado</label>
+						<div class="form-group ">
+							<select class="form-control show-tick select-estado">
+								<option value="">--Selecciona un estado --</option>
+
+								<option value="activo">Activo</option>
+								<option value="inactivo">Inactivo</option>
+
+							</select>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Default Size -->
+<div class="modal fade" id="defaultModalReglamentos" data-perfil="" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="defaultModalLabel">Agregar Reglamentos</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="body">
+					<form action="pages/campeonatos/peticiones/peticiones.php" class="dropzone"  id="frmFileUpload"  method="post" enctype="multipart/form-data">
+						<div class="dz-message">
+							<div class="drag-icon-cph">
+								<i class="material-icons">touch_app</i>
+							</div>
+							<h3>Arrastra el archivo o Haz click para cargarlo.</h3>
+							<em>(Selecciona solamente  <strong>un (1 )</strong> Archivo.)</em>
+						</div>
+						<div class="fallback">
+							<input name="file[]" type="file" multiple />
+						</div>
+						<input name="bandera" type="hidden" value="modificar-reglamentos"/>
+						</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info waves-effect guardar-reglamentos">Guardar</button>
+				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="imagenesvisor" data-perfil="" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="defaultModalLabel">Nuevo de campeonato</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="body">
+					<form>
+						<label for="perfil">Nombre</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control nuevo-nombre" placeholder="Nombre campeonato" />
+							</div>
+						</div>
+						<label for="estado">Categoria</label>
+						<div class="form-group ">
+							<select class="form-control show-tick select-nuevo-categoria">
+								<option value="">--Selecciona una categoria --</option>
+
+								<option value="menores">Menores</option>
+								<option value="intermedio">Intermedio</option>
+								<option value="mayores">Mayores</option>
+
+							</select>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<?php
+}else
+{
+	require("../sinpermiso.php");
+}
+?>
+
+
