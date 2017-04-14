@@ -7,9 +7,7 @@ $(function() {
 		},
 		recargar: function () {
 			campeonatos.enviarDatos();
-			campeonatos.borrarUsuario();
-			campeonatos.editarItem();
-			campeonatos.editarModulos();
+			campeonatos.editarCampeonato();
 			campeonatos.addPerfil();
 			campeonatos.Nuevo();
 			campeonatos.reglamento();
@@ -60,8 +58,7 @@ $(function() {
 					data: {
 						bandera: "nuevo",
 						nombre: $('.nuevo-nombre').val(),
-						nivel:$('.nuevo-nivel').val(),
-						descripcion: $('.detalle').val()
+						categoria:$('.select-nuevo-categoria option:selected').val()
 						
 			
 					},
@@ -70,7 +67,7 @@ $(function() {
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
 							swal({title: "",
-								text: "El perfil se ha creado exitosamente!",
+								text: "El campeonato se ha creado exitosamente!, recuerde que por defecto esta en estado inactivo.",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
@@ -95,10 +92,11 @@ $(function() {
 					url: 'pages/campeonatos/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
-						bandera: "modificar-perfil",
+						bandera: "modificar-campeonato",
 						nombre: $('.nombre').val(),
-						nivel:$('.nivel').val(),
-						id_perfil: $('#defaultModal').data('perfil')
+						categoria:$('.select-categoria option:selected').val(),
+						estado : $('.select-estado option:selected').val(),
+						torneo: $('#defaultModal').data('torneo')
 						
 			
 					},
@@ -107,7 +105,7 @@ $(function() {
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
 							swal({title: "",
-								text: "El perfil se ha modificado exitosamente!",
+								text: "El campeonato se ha modificado exitosamente!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
@@ -126,78 +124,15 @@ $(function() {
 			});
 
 		},
-		borrarUsuario: function () {
-			$('.delete-item').off('click').on('click', function () {
-				var valor = $(this);
-				swal({
-					title: "¿ Esta seguro ?",
-					text: "Todos los usuarios que tengan este perfil seran eliminados, esta seguro ?!",
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "Si,Eliminalo!",
-					cancelButtonText: "No,Cancelalo!",
-					closeOnConfirm: false,
-					closeOnCancel: false
-				}, function (isConfirm) {
-					if (isConfirm) {
-						campeonatos.desactivar(valor);
-					} else {
-						swal("Cancelado", "", "error");
-					}
-				});
-
-			});
-
-
-		},
-		desactivar: function(valor)
-		{
-			$.ajax({
-				url: 'pages/campeonatos/peticiones/peticiones.php',
-				type: 'POST',
-				data: {
-					bandera: "eliminar",
-					id_campeonatos: valor.data('id')
-
-				},
-				success: function (resp) {
-
-					var resp = $.parseJSON(resp);
-					if (resp.salida === true && resp.mensaje === true) {
-						swal({
-							title: "",
-							text: "El perfil se ha eliminado exitosamente!",
-							type: "info",
-							showCancelButton: false,
-							confirmButtonColor: "rgb(174, 222, 244)",
-							confirmButtonText: "Ok",
-							closeOnConfirm: false
-						}, function (isConfirm) {
-							if (isConfirm) {
-								window.location.reload();
-							}
-						});
-					} else {
-						swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
-					}
-				}
-			});
-		},
-		cargarModal: function(nombre,nivel,perfil)
+		cargarModal: function(torneo,nombre,estado,categoria)
 		{
 			$('.nombre').val(nombre);
-			$('.nivel').val(nivel);
-			$('#defaultModal').data('perfil',perfil);
+			$('.select-estado').val(estado);
+			$('.select-estado').change();
+			$('.select-categoria').val(categoria);
+			$('.select-categoria').change();
+			$('#defaultModal').data('torneo',torneo);
 			$('#defaultModal').modal('show'); 
-			campeonatos.recargar();
-		},
-		cargarModalModulos: function(nombre,perfil,modulos)
-		{
-			$('#defaultModalLabel1').text('Editar Permisos del perfil : ' + nombre);
-			$('#ModalModulos').data('perfil',perfil);
-			campeonatos.Selecionarmodulos(modulos);
-			$('#ModalModulos').modal('show'); 
 			campeonatos.recargar();
 		},
 		addPerfil : function()
@@ -207,33 +142,16 @@ $(function() {
 			});
 
 		},
-		editarModulos : function()
-		{
-			$('.edit-modulos').off('click').on('click', function () {	
-				var nombre = $(this).data('nombre');
-				var perfil = $(this).data('id');
-				var modulos = $(this).data('modulos');
-				campeonatos.cargarModalModulos(nombre,perfil,modulos);
-			});
-		},
 
-		editarItem : function()
+		editarCampeonato : function()
 		{
 			$('.edit-item').off('click').on('click', function () {
 				var nombre = $(this).data('nombre');
-				var nivel = $(this).data('nivel');
-				var perfil = $(this).data('id');
-				campeonatos.cargarModal(nombre,nivel,perfil);
+				var categoria = $(this).data('categoria');
+				var estado = $(this).data('estado');
+				var torneo = $(this).data('torneo');
+				campeonatos.cargarModal(torneo,nombre,estado,categoria);
 			});
-		},
-		Selecionarmodulos : function(modulos)
-		{
-			$('input').prop("checked", "");
-			for (i = 0; i < modulos.length; i++) { 
-				$('div').find("[data-id='"+modulos[i]+"']").prop("checked", "checked");
-			}
-
-
 		},
 		ModalArchivos :function()
 		{

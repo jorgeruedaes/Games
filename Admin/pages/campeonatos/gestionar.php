@@ -1,6 +1,6 @@
 <?php  
 $ubicacion ="../";
-$id_modulos="39";
+$id_modulos="38";
 include("../menuinicial.php");
 include('../../php/campeonatos.php');
 if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
@@ -60,6 +60,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 									<th>#</th>
 									<th>Nombre</th>
 									<th>Categoria</th>
+									<th>Estado</th>
 									<th>Reglamentos</th>
 									<th>Opciones</th>
 								</tr>
@@ -73,12 +74,13 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 										<th scope="row"><?php echo $value['id_torneo']; ?></th>
 										<td><?php echo $value['nombre_torneo']; ?></td>
 										<td><?php echo $value['categoria']; ?></td>
+										<td><?php echo $value['estado']; ?></td>
 										<td> 
 											<div class="demo-google-material-icon"><a href="../Archivos/Reglamentos/<?php echo $value['reglamento']; ?>" target="_blank"> <i class="material-icons">picture_as_pdf</i> <span class="icon-name"></span><a/></div>
 										</td>
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-												<button  data-categoria="<?php echo $value['categoria']; ?>"  data-nombre="<?php echo $value['nombre_torneo']; ?>" data-id="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
+												<button data-estado="<?php echo $value['estado']; ?>"  data-categoria="<?php echo $value['categoria']; ?>"  data-nombre="<?php echo $value['nombre_torneo']; ?>" data-torneo="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
 												<button  data-id="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect add-pdf"><i class="material-icons">picture_as_pdf</i></button>
 
 											</div>
@@ -114,7 +116,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 						<label for="perfil">Nombre</label>
 						<div class="form-group">
 							<div class="form-line">
-								<input type="text" class="form-control nuevo-nombre" placeholder="Nombre perfil" />
+								<input type="text" class="form-control nuevo-nombre" placeholder="Nombre campeonato" />
 							</div>
 						</div>
 						<label for="estado">Categoria</label>
@@ -124,10 +126,11 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 
 								<option value="menores">Menores</option>
 								<option value="intermedio">Intermedio</option>
-								<option value="Mayores">Mayores</option>
+								<option value="mayores">Mayores</option>
 
 							</select>
 						</div>
+
 					</form>
 				</div>
 			</div>
@@ -141,7 +144,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 
 <!-- Modal Dialogs ====================================================================================================================== -->
 <!-- Default Size -->
-<div class="modal fade" id="defaultModal" data-perfil="" tabindex="-1" role="dialog">
+<div class="modal fade" id="defaultModal" data-torneo="" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -151,17 +154,32 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,"3")){
 
 				<div class="body">
 					<form>
-						<label for="perfil">Campeonato</label>
+						<label for="">Campeonato</label>
 						<div class="form-group">
 							<div class="form-line">
 								<input type="text" class="form-control nombre" placeholder="Nombre campeonato" />
 							</div>
 						</div>
-						<label for="estado">Categoria</label>
+						<label for="">Categotria</label>
 						<div class="form-group ">
-							<div class="form-line">
-								<input type="Text" class="form-control nivel" placeholder="Categoria" />
-							</div>
+							<select class="form-control show-tick select-categoria">
+								<option value="">--Selecciona una categoria --</option>
+
+								<option value="menores">Menores</option>
+								<option value="intermedio">Intermedio</option>
+								<option value="mayores">Mayores</option>
+
+							</select>
+						</div>
+						<label for="">Estado</label>
+						<div class="form-group ">
+							<select class="form-control show-tick select-estado">
+								<option value="">--Selecciona un estado --</option>
+
+								<option value="activo">Activo</option>
+								<option value="inactivo">Inactivo</option>
+
+							</select>
 						</div>
 
 					</form>

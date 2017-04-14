@@ -23,7 +23,7 @@ function String_Get_Valores($solicitud){
 	}else if ($solicitud == "password") {
 		return "";
 	}else if ($solicitud == "basededatos") {
-		return "liga";
+		return "losjuegos";
 	}else if ($solicitud == "color") { // color de todo el form
 		return "#ECF0F1";
 	}else if ($solicitud == "letracolor") {// color de el encabezado de las tablas
@@ -48,12 +48,12 @@ function String_Get_Valores($solicitud){
  */
 function base_url()
 {
-	$pagina = "localhost:8081";
+	$pagina = "localhost";
 	return "http://".$pagina."/Games/Admin/";
 }
 function base_url_usuarios()
 {
-	$pagina = "localhost:8081";
+	$pagina = "localhost";
 	return "http://".$pagina."/Games/";
 }	
 

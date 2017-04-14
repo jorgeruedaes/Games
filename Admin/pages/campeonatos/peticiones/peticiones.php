@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('../../../php/consultas.php');
-include('../../../php/archivos.php');
+include('../../../php/campeonatos.php');
 
 if(isset($_SESSION['id_usuarios']))
 {
@@ -19,13 +19,27 @@ if(isset($_SESSION['id_usuarios']))
             $resultado.='"mensaje":false';
         }
     }
-    // Guarda los datos de un nuevo perfil.
+    // Guarda los datos de un nuevo campeonato.
     else if($bandera === "nuevo") {
 
         $nombre = $_POST['nombre'];
-        $nivel = $_POST['nivel'];
-        $descripcion = $_POST['descripcion'];
-        if (Boolean_New_Perfil($nombre,$nivel,$descripcion)) {
+        $categoria = $_POST['categoria'];
+
+        if (boolean_new_Campeonato($nombre,$categoria)) {
+            $resultado.='"mensaje":true';
+        } else {
+            $resultado.='"mensaje":false';
+        }
+    }
+    // Guarda los datos de un nuevo perfil.
+    else if($bandera === "modificar-campeonato") {
+
+        $nombre = $_POST['nombre'];
+        $categoria = $_POST['categoria'];
+        $estado = $_POST['estado'];
+        $torneo = $_POST['torneo'];
+
+        if (boolean_set__Campeonatos($nombre,$categoria,$estado,$torneo)) {
             $resultado.='"mensaje":true';
         } else {
             $resultado.='"mensaje":false';
@@ -39,14 +53,3 @@ else
 $resultado.='}';
 echo ($resultado);
 ?>
-
-
-
-
-   IF UPDATING THEN
- 
- END IF;
-
- IF DELETING THEN
- 
- END IF;
