@@ -32,10 +32,10 @@ function Get_Partido($identificador)
     $id_partido    = $valor['id_partido'];
     $equipo1    = $valor['equipo1'];
     $equipo2    = $valor['equipo2'];
-    $estado     = $valor['Estado'];
+    $estado     = $valor['estado'];
     $fecha      = $valor['fecha'];
     $hora       = $valor['hora'];
-    $lugar      = $valor['Lugar'];
+    $lugar      = $valor['lugar'];
     $Nfecha     = $valor['numero_fecha'];
     $resultado1 = $valor['resultado1'];
     $resultado2 = $valor['resultado2'];

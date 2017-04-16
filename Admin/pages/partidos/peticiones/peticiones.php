@@ -11,7 +11,7 @@ if(isset($_SESSION['perfil']))
 	$modulo =$_POST['modulo'];
 
 // Agrega un partido al sitio.
-	if ($bandera === "nuevo" and Boolean_Get_Modulo_Permiso($modulo,$perfil)) {
+	if ($bandera === "nuevo") {
 		$equipoa = $_POST['equipoa'];
 		$equipob = $_POST['equipob'];
 		$fecha = $_POST['fecha'];
@@ -26,7 +26,7 @@ if(isset($_SESSION['perfil']))
 		}
 	}
 	// Obtiene los datos de un partido.
-	else if($bandera === "get_datos" and Boolean_Get_Modulo_Permiso($modulo,$perfil)) {
+	else if($bandera === "get_datos") {
 		$id_partido = $_POST['id_partido'];
 		    $vector = Get_Partido($id_partido);
 		if (!empty($vector)) {
@@ -37,7 +37,7 @@ if(isset($_SESSION['perfil']))
 		}
 	}
 	// Modifica un partido del sitio.
-	else if($bandera === "modificar" and Boolean_Get_Modulo_Permiso($modulo,$perfil)) {
+	else if($bandera === "modificar") {
 		$partido = $_POST['partido'];
 		$fecha = $_POST['fecha'];
 		$hora = $_POST['hora'];
@@ -52,7 +52,7 @@ if(isset($_SESSION['perfil']))
 		}
 	}
 	//  Elimina un partido.
-	else if($bandera === "eliminar" and Boolean_Get_Modulo_Permiso($modulo,$perfil)) {
+	else if($bandera === "eliminar") {
 		$partido = $_POST['partido'];
 		$query = Delete_Partido($partido);
 		if ($query) {

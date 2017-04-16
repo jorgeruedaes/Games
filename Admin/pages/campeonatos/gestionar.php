@@ -1,8 +1,8 @@
 <?php  
 $ubicacion ="../";
-$id_modulos="38";
 include("../menuinicial.php");
 include('../../php/campeonatos.php');
+$id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
 	<section class="content">

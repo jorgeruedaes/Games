@@ -83,3 +83,15 @@ function boolean_new_Club($nombre,$telefono,$direccion,$presidente,$horario,$can
 	return $campeonatos;	
 
 }
+/**
+ * [Get_nombre_club description]
+ * @param [type] $identificador [id]
+ */
+function Get_nombre_club($identificador)
+{
+    $valor = mysqli_fetch_array(consultar("SELECT nombre 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['nombre'];
+    
+    return $valor;
+}

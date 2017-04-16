@@ -1,10 +1,10 @@
 <?php  
 $ubicacion ="../";
-$id_modulos="25";
 include("../menuinicial.php");
 include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
 include($ubicacion."../php/jugador.php");
+$id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	$partido = Get_Partido($_GET['id']);
 	?>

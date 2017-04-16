@@ -1,8 +1,9 @@
 <?php  
 $ubicacion ="../";
-$id_modulos="51";
 include("../menuinicial.php");
 include('../../php/clubs.php');
+$id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
+
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
 
@@ -118,7 +119,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Nuevo de campeonato</h4>
+				<h4 class="modal-title" id="defaultModalLabel">Nuevo  campeonato</h4>
 			</div>
 			<div class="modal-body">
 

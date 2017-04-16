@@ -1,13 +1,33 @@
 <?php
+
 /**
- * [Array_Get_Equipos Obtengo un array con todos los equipos del torneo]
+ * [Array_Get_Equipos description]
  */
 function Array_Get_Equipos()
 {
-    $query = consultar("SELECT * FROM tb_equipos ORDER BY nombre_equipo ASC ");
+    $query = consultar("SELECT  `id_equipo`, `nombre_equipo`, `tecnico1`, `torneo`, `grupo`, `colegio`, `estado`
+     FROM tb_equipos ORDER BY torneo asc,colegio desc,nombre_equipo desc ");
     $vector    = array();
     while ($valor = mysqli_fetch_array($query)) {
-        $arreglo = Get_Equipo($valor['id_equipo']);
+
+    $id_equipo = $valor['id_equipo'];
+    $nombre_equipo = $valor['nombre_equipo'];
+    $tecnico1 = $valor['tecnico1'];
+    $torneo = $valor['torneo'];
+    $grupo = $valor['grupo'];
+    $colegio = $valor['colegio'];
+    $estado = $valor['estado'];
+
+
+    $arreglo = array(
+      'id_equipo'=>"$id_equipo",
+      'nombre_equipo'=>"$nombre_equipo",
+      'tecnico1'=>"$tecnico1",
+      'torneo'=>"$torneo",
+      'grupo'=>"$grupo",
+      'colegio'=>"$colegio",
+      'estado'=>"$estado"
+      );
         array_push($vector, $arreglo);
     }
     
@@ -50,4 +70,76 @@ function Get_NombreEquipo($identificador)
     
     return $valor;
 }
+
+/**
+ * [boolean_new_equipo description]
+ * @param  [type] $nombre  [description]
+ * @param  [type] $tecnico [description]
+ * @param  [type] $grupo   [description]
+ * @param  [type] $torneo  [description]
+ * @param  [type] $club    [description]
+ * @param  [type] $estado  [description]
+ * @return [boolean]          [description]
+ */
+function boolean_new_equipo($nombre,$tecnico,$grupo,$torneo,$club,$estado)
+{
+  $campeonatos = insertar(sprintf("INSERT INTO `tb_equipos`(`id_equipo`, `nombre_equipo`, `tecnico1`, `torneo`, `grupo`, `colegio`, `estado`)
+   VALUES (NULL,'%s','%s','%d','%s','%d','%s')",
+    escape($nombre),escape($tecnico),escape($torneo),escape($grupo),escape($club),
+    escape($estado)));
+  return $campeonatos;  
+
+}
+
+/**
+ * [boolean_Set_equipo description]
+ * @param  [type] $nombre  [description]
+ * @param  [type] $tecnico [description]
+ * @param  [type] $grupo   [description]
+ * @param  [type] $torneo  [description]
+ * @param  [type] $club    [description]
+ * @param  [type] $estado  [description]
+ * @param  [type] $equipo  [description]
+ * @return [boolean]          [description]
+ */
+function boolean_Set_equipo($nombre,$tecnico,$grupo,$torneo,$club,$estado,$equipo)
+{
+
+  $campeonatos = modificar(sprintf("UPDATE `tb_equipos` SET `nombre_equipo`='%s',`tecnico1`='%s',`torneo`='%s',`grupo`='%s',`colegio`='%s',`estado`='%s' WHERE id_equipo='%d' ",
+    escape($nombre),escape($tecnico),escape($torneo),escape($grupo),escape($club),
+    escape($estado),escape($equipo)));
+  return $campeonatos;  
+}
+/**
+ * [Array_Get_Equipos_Torneo description]
+ * @param [type] $torneo [description]
+ */
+function Array_Get_Equipos_Torneo($torneo)
+{
+    $query = consultar("SELECT  `id_equipo`, `nombre_equipo`, `tecnico1`, `torneo`, `grupo`, `colegio`, `estado`
+     FROM tb_equipos WHERE torneo=$torneo ORDER BY torneo asc,colegio desc,nombre_equipo desc ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+
+    $id_equipo = $valor['id_equipo'];
+    $nombre_equipo = $valor['nombre_equipo'];
+    $tecnico1 = $valor['tecnico1'];
+    $torneo = $valor['torneo'];
+    $grupo = $valor['grupo'];
+    $colegio = $valor['colegio'];
+    $estado = $valor['estado'];
+
+
+    $arreglo = array(
+      'id_equipo'=>"$id_equipo",
+      'nombre_equipo'=>"$nombre_equipo",
+      'tecnico1'=>"$tecnico1",
+      'torneo'=>"$torneo",
+      'grupo'=>"$grupo",
+      'colegio'=>"$colegio",
+      'estado'=>"$estado"
+      );
+        array_push($vector, $arreglo);
+    }
+  }
 ?>

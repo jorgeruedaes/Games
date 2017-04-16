@@ -1,16 +1,13 @@
 <?php  
 $ubicacion ="../";
-$id_modulos="11";
 include("../menuinicial.php");
 include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
 include($ubicacion."../php/campeonatos.php");
-
+$id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
-	<input type="hidden" id="modulo" value="<?php echo $id_modulos ?>">
-	<input type="hidden" id="perfil" value="<?php echo $_SESSION['perfil'] ?>">
 	<section class="content">
 		<div class="container-fluid">
 			<div class="block-header">
@@ -103,28 +100,11 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 										<select class="form-control show-tick select-equipoa">
 											<option value="">--Selecciona un Equipo --</option>
-											<?php
-											$vector = Array_Get_Equipos();
-											foreach ($vector as  $value) 
-											{
-												?>
-												<option value="<?php echo $value['id_equipo'] ?>"><?php echo $value['nombre_equipo'] ?></option>
-												<?php 
-											} 
-											?>	
 										</select>
 									</div>
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
 										<select class="form-control show-tick select-equipob">
 										<option value="">--Selecciona un Equipo --</option>
-										<?php
- 											$vector = Array_Get_Equipos();
-											foreach ($vector as  $value) 
-											{
-												?>
-												<option value="<?php echo $value['id_equipo'] ?>"><?php echo $value['nombre_equipo'] ?></option>
-												<?php  
-											}
 											?>	
 										</select>
 									</div>

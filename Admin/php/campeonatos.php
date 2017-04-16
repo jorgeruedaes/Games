@@ -81,3 +81,15 @@ function boolean_new_Campeonato($nombre,$categoria)
 	return $campeonatos;	
 
 }
+/**
+ * [Get_nombre_campeonato description]
+ * @param [type] $identificador [description]
+ */
+function Get_nombre_campeonato($identificador)
+{
+    $valor = mysqli_fetch_array(consultar("SELECT nombre_torneo 
+      FROM tb_torneo WHERE id_torneo=$identificador"));
+    $valor = $valor['nombre_torneo'];
+    
+    return $valor;
+}
