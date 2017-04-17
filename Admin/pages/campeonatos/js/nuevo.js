@@ -94,6 +94,7 @@ $(function() {
 					data: {
 						bandera: "modificar-campeonato",
 						nombre: $('.nombre').val(),
+						puntos: $('.puntos').val(),
 						categoria:$('.select-categoria option:selected').val(),
 						estado : $('.select-estado option:selected').val(),
 						torneo: $('#defaultModal').data('torneo')
@@ -124,9 +125,10 @@ $(function() {
 			});
 
 		},
-		cargarModal: function(torneo,nombre,estado,categoria)
+		cargarModal: function(torneo,nombre,estado,categoria,puntos)
 		{
 			$('.nombre').val(nombre);
+			$('.puntos').val(puntos);
 			$('.select-estado').val(estado);
 			$('.select-estado').change();
 			$('.select-categoria').val(categoria);
@@ -149,8 +151,9 @@ $(function() {
 				var nombre = $(this).data('nombre');
 				var categoria = $(this).data('categoria');
 				var estado = $(this).data('estado');
+				var puntos = $(this).data('puntos');
 				var torneo = $(this).data('torneo');
-				campeonatos.cargarModal(torneo,nombre,estado,categoria);
+				campeonatos.cargarModal(torneo,nombre,estado,categoria,puntos);
 			});
 		},
 		ModalArchivos :function()

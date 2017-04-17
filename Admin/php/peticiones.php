@@ -95,7 +95,7 @@ else if($bandera === "conectar") {
 			header("location:../pages/administracion.php");
 		}else{
 				session_destroy();
-			header("location:../pages/error.php?=".$values['contrasena']." ");
+			header("location:../pages/error.php");
 		}
 	}else{
 		header("location:../pages/inicio.php");

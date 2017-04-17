@@ -37,9 +37,10 @@ if(isset($_SESSION['id_usuarios']))
         $nombre = $_POST['nombre'];
         $categoria = $_POST['categoria'];
         $estado = $_POST['estado'];
+        $puntos = $_POST['puntos'];
         $torneo = $_POST['torneo'];
 
-        if (boolean_set__Campeonatos($nombre,$categoria,$estado,$torneo)) {
+        if (Set_Campeonatos($nombre,$categoria,$estado,$torneo,$puntos)) {
             $resultado.='"mensaje":true';
         } else {
             $resultado.='"mensaje":false';

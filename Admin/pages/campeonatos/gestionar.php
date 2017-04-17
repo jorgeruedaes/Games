@@ -80,7 +80,9 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 										</td>
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-												<button data-estado="<?php echo $value['estado']; ?>"  data-categoria="<?php echo $value['categoria']; ?>"  data-nombre="<?php echo $value['nombre_torneo']; ?>" data-torneo="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
+												<button data-estado="<?php echo $value['estado']; ?>" 
+												data-puntos="<?php echo $value['puntos_ganador']; ?>" 
+												 data-categoria="<?php echo $value['categoria']; ?>"  data-nombre="<?php echo $value['nombre_torneo']; ?>" data-torneo="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
 												<button  data-id="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect add-pdf"><i class="material-icons">picture_as_pdf</i></button>
 
 											</div>
@@ -170,6 +172,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<option value="mayores">Mayores</option>
 
 							</select>
+						</div>
+							<label for="">Puntos</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control puntos" placeholder="Puntos" />
+							</div>
 						</div>
 						<label for="">Estado</label>
 						<div class="form-group ">

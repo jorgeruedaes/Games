@@ -1,9 +1,9 @@
 <?php  
 $ubicacion ="../";
-$id_modulos="25";
 include("../menuinicial.php");
 include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
+$id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
 
@@ -43,7 +43,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					<div class="card">
 						<div class="header">
 							<h2>
-								Agregar resultados
+								Agregar resultados 
 								<small>Seleciona el partido del cual quieres agregar el resultado.</small>
 							</h2>
 						</div>

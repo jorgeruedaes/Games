@@ -5,7 +5,7 @@
 function Array_Get_Campeonatos()
 {
 
-	$campeonatos = consultar("SELECT `id_torneo`, `nombre_torneo`, `deporte`, `categoria`, `reglamento`,estado FROM `tb_torneo` order by id_torneo  ");	
+	$campeonatos = consultar("SELECT `id_torneo`, `nombre_torneo`, `deporte`, `categoria`, `reglamento`,estado,puntos_ganador FROM `tb_torneo` order by id_torneo  ");	
 
 
 	$datos = array();
@@ -15,13 +15,15 @@ function Array_Get_Campeonatos()
 		$categoria = $valor['categoria'];
 		$reglamento = $valor['reglamento'];
 		$estado = $valor['estado'];
+		$puntos_ganador = $valor['puntos_ganador'];
 
 		$vector = array(
 			'id_torneo'=>"$id_torneo",
 			'nombre_torneo'=>"$nombre_torneo",
 			'categoria'=>"$categoria",
 			'reglamento'=>"$reglamento",
-			'estado'=>"$estado"
+			'estado'=>"$estado",
+			'puntos_ganador'=>"$puntos_ganador"
 
 			);
 		array_push($datos, $vector);
@@ -32,12 +34,12 @@ function Array_Get_Campeonatos()
 /**
  * [Set_Campeonatos el reglamento de un campeonato]
  */
-function Set_Campeonatos($nombre,$categoria,$estado,$torneo)
+function Set_Campeonatos($nombre,$categoria,$estado,$torneo,$puntos)
 {
 
-	$campeonatos = modificar(sprintf("UPDATE `tb_torneo` SET`nombre_torneo`='%s',`categoria`='%s',`estado`='%s'
+	$campeonatos = modificar(sprintf("UPDATE `tb_torneo` SET`nombre_torneo`='%s',`categoria`='%s',`estado`='%s',puntos_ganador='%d'
 	 WHERE  `id_torneo`='%d' ",
-		escape($nombre),escape($categoria),escape($estado),escape($torneo)));
+		escape($nombre),escape($categoria),escape($estado),escape($puntos),escape($torneo)));
 	return $campeonatos;	
 }
 /**
@@ -53,30 +55,14 @@ function boolean_set_reglamento_campeonatos($reglamento,$torneo)
 }
 
 /**
- * [Set__Campeonatos description]
- * @param [type] $nombre    [description]
- * @param [type] $categoria [description]
- * @param [type] $estado    [description]
- *  * @return [type] [Boolean]
- */
-function boolean_set__Campeonatos($nombre,$categoria,$estado,$torneo)
-{
-
-	$campeonatos = modificar(sprintf("UPDATE `tb_torneo` SET`nombre_torneo`='%s',categoria='%s',estado='%s'
-	 WHERE  `id_torneo`='%d' ",
-		escape($nombre),escape($categoria),escape($estado),escape($torneo)));
-	return $campeonatos;	
-}
-
-/**
  * [new_Campeonato description]
  * @return [type] [Boolean]
  */
 function boolean_new_Campeonato($nombre,$categoria)
 {
 	$campeonatos = insertar(sprintf("INSERT INTO
-	 `tb_torneo`(`id_torneo`, `nombre_torneo`, `deporte`, `categoria`, `reglamento`, `estado`)
-	 VALUES (NULL,'%s','1','%s','','inactivo')",
+	 `tb_torneo`(`id_torneo`, `nombre_torneo`, `deporte`, `categoria`, `reglamento`, `estado`,puntos_ganador)
+	 VALUES (NULL,'%s','1','%s','','inactivo','3')",
 		escape($nombre),escape($categoria)));
 	return $campeonatos;	
 

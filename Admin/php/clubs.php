@@ -5,7 +5,7 @@
 function Array_Get_Clubs()
 {
 
-	$clubs = consultar("SELECT `id_colegio`, `nombre`, `direccion`, `telefono`, `correo`, `presidente`, `cancha_entrenamiento`, `horario`, `logo`, `estado` FROM `tb_colegio`  order by id_colegio  ");	
+	$clubs = consultar("SELECT `id_colegio`, `nombre`, `direccion`, `telefono`, `correo`, `presidente`, `cancha_entrenamiento`, `horario`, `logo`, `estado` FROM `tb_colegio`  order by nombre asc  ");	
 
 
 	$datos = array();

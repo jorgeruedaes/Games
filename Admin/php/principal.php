@@ -222,5 +222,22 @@ $consulta = consultar("SELECT * FROM `tb_modulos`   Order by orden");
 
  	return $modulo;
  }
+  	function Int_RutaModulo_Anterior($uri)
+ {
+ 	$modulo='0';
+
+ 	$consulta = consultar("SELECT ruta,id_modulos FROM `tb_modulos` 
+ 		WHERE submenu='0' and tipo='admin' and estado='activo' ");	
+ 	while ($informacion = mysqli_fetch_array($consulta))
+ 	{
+ 	 if($uri==url().$informacion['ruta'])
+ 	 {
+ 	 	$modulo =$informacion['id_modulos']; 
+ 	 }
+ 	}
+ 	
+
+ 	return $modulo;
+ }
 
 ?>
