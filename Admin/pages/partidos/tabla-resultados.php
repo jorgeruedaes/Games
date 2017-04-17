@@ -3,6 +3,7 @@ $ubicacion ="../";
 include("../menuinicial.php");
 include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
+include($ubicacion."../php/campeonatos.php");
 $id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
@@ -43,12 +44,42 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					<div class="card">
 						<div class="header">
 							<h2>
+								Selecciona un campeonato 
+								<small>Selecciona un campeonato, para visualizar sus respecivos partidos.</small>
+							</h2>
+						</div>
+						<div class="body">
+								<label for="">Campeonato</label>
+								<div class="form-group">
+									<select class="form-control show-tick selector-campeonato">
+										<option value="">--Selecciona un campeonato --</option>
+										<?php 
+										$vector = Array_Get_Campeonatos();
+										foreach ($vector as $value) {
+									
+										?>
+								<option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
+										<?php
+										}
+										?>
+
+									</select>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>
 								Agregar resultados 
 								<small>Seleciona el partido del cual quieres agregar el resultado.</small>
 							</h2>
 						</div>
 						<div class="body">
-							<table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+							<table class="table table-bordered table-striped table-hover  tabla-resultados">
 								<thead>
 									<tr>
 										<th>Partido</th>
@@ -57,30 +88,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$vector = Array_Get_Partidos_Estado('1');
-									$i=1;
-									foreach ($vector as $value) {
-										?>
-										<tr>
-											<td><?php echo Get_NombreEquipo($value['equipo1'])." <strong>vs</strong> ".Get_NombreEquipo($value['equipo2']) ?></td>
-											<td><strong><?php echo $value['Nfecha'] ?></strong><br><?php echo $value['fecha'] ?></td>
-
-											<td>
-												<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
-													<button data-id="<?php echo $value['id_partido']?>" type="button" 
-														class="btn bg-blue waves-effect
-														to-partido"> 
-														<i class="material-icons">border_color</i></button>
-													</div>	
-
-												</td>
-											</tr>
-											<?php
-											$i++; 
-										}
-										?>
-									</tbody>
+			
+								</tbody>
 								</table>
 							</div>
 

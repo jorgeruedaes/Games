@@ -1,6 +1,6 @@
 
 $(function() {
-
+	var t='';
 	var partidos = {
 		inicio: function () {
 			partidos.recargar();
@@ -11,7 +11,52 @@ $(function() {
 			partidos.ModificarPartido();
 			partidos.EliminarPartido();
 			partidos.AbrirAgregarResultado();
+			partidos.SeleccionCampeonato();
+			partidos.Tabla();
 		},
+		Tabla : function()
+		{
+		t = $('.tabla-resultados').DataTable();
+
+		},
+		SeleccionCampeonato : function()
+	{
+		$('.selector-campeonato').on('change', function () {
+				$.ajax({
+							url: 'pages/partidos/peticiones/peticiones.php',
+							type: 'POST',
+							data: {
+								bandera: "getcampeonato",
+								estado : '1',
+								campeonato:  $('.selector-campeonato option:selected').val()
+
+							},
+							success: function (resp) {
+
+								var resp = $.parseJSON(resp);
+								if (resp.salida === true && resp.mensaje === true) {
+									 t.row($('.selector-campeonato').parents('tr') ).remove().draw();
+									for (var i = 0; i < resp.datos.length; i++) {
+										 t.row.add( [ 
+										 	resp.datos[i].equipo1,
+										 	resp.datos[i].equipo2,
+										 	resp.datos[i].fecha
+
+										  ] ).draw( false );
+										
+									}
+								
+
+								} else {
+									swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+								}
+							}
+						});
+
+
+		});
+	}
+		,
 		EliminarPartido: function () {
 			$('.delete-partido').off('click').on('click', function () {
 				var partido =$(this).data('id');

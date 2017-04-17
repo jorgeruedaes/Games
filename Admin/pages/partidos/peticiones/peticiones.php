@@ -7,8 +7,6 @@ if(isset($_SESSION['perfil']))
 {
 	$resultado = '{"salida":true,';
 	$bandera = $_POST['bandera'];
-	$perfil = $_SESSION['perfil'];
-	$modulo =$_POST['modulo'];
 
 // Agrega un partido al sitio.
 	if ($bandera === "nuevo") {
@@ -57,6 +55,17 @@ if(isset($_SESSION['perfil']))
 		$query = Delete_Partido($partido);
 		if ($query) {
 			$resultado.='"mensaje":true';
+
+		} else {
+			$resultado.='"mensaje":false';
+		}
+	}else if($bandera === "getcampeonato") {
+		$campeonato = $_POST['campeonato'];
+		$estado = $_POST['estado'];
+		$vector = Array_Get_Partidos_Campeonato($estado,$campeonato);
+		if (!empty($vector)) {
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode($vector).'';
 		} else {
 			$resultado.='"mensaje":false';
 		}

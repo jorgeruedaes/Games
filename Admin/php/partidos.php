@@ -94,6 +94,17 @@ function Array_Get_Partidos_No_Estado($estado)
     
     return $vector;
 }
+function Array_Get_Partidos_Campeonato($estado,$campeonato)
+{
+    $query = consultar("SELECT * FROM tb_partidos WHERE (equipo1 IN (select id_equipo from tb_equipos where torneo='$campeonato' ) and equipo2  IN (select id_equipo from tb_equipos where torneo='$campeonato' )) and estado='$estado' ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+        $arreglo = Get_Partido($valor['id_partido']);
+        array_push($vector, $arreglo);
+    }
+    
+    return $vector;
+}
 /**
  * [Array_Get_Partidos_Estado Partidos en un estado especifico]
  * @param [type] $estado [Codigo del estado]
