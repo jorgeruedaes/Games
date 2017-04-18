@@ -109,13 +109,13 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
         <!-- JS ====================================================================================================================== -->
         <!--  Js-principal -->
-        <script src="pages/equipos/js/nuevo.js"></script>
+        <script src="pages/jugadores/js/nuevo.js"></script>
 
         <div class="modal fade" id="nuevoPerfil" data-perfil="" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="defaultModalLabel">Nuevo  equipo</h4>
+                        <h4 class="modal-title" id="defaultModalLabel">Nuevo jugador</h4>
                     </div>
                     <div class="modal-body">
 
@@ -124,7 +124,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
                                 <label for="">Nombre</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" class="form-control n-nombre" placeholder="Nombre del equipo" />
+                                        <input type="text" class="form-control n-nombre" placeholder="Nombre " />
+                                    </div>
+                                     <label for="">Apellido</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" class="form-control n-nombre" placeholder="Apellido" />
                                     </div>
                                 </div>
                                 <label for="">Club</label>
@@ -143,37 +148,25 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
                                     </select>
                                 </div>
-                                <label for="">Campeonato</label>
+                                <label for="">Equipos</label>
                                 <div class="form-group">
-                                    <select class="form-control show-tick select-n-torneo">
-                                        <option value="">--Selecciona un campeonato --</option>
-                                        <?php 
-                                        $vector = Array_Get_Campeonatos();
-                                        foreach ($vector as $value) {
-                                    
-                                        ?>
-                                        <option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
+                                    <select class="form-control show-tick select-n-equipos">
+                                        <option value="">--Selecciona un equipo --</option>
+                                     
 
                                     </select>
                                 </div>
-                                <label for="">Tecnico</label>
+                                <label for="">Fecha de nacimiento</label>
                                 <div class="form-group ">
                                 <input type="text" class="form-control n-tecnico" placeholder="Nombre del tecnico" />
-                                </div>
-                                <label for="">Grupo</label>
-                                <div class="form-group ">
-                                    <input type="text" class="form-control n-grupo" placeholder="Grupo ejemplo: A" />
                                 </div>
                                 <label for="">Estado</label>
                                 <div class="form-group">
                                     <select class="form-control show-tick select-n-estado">
                                         <option value="">--Selecciona un estado --</option>
 
-                                        <option value="activo">Activo</option>
-                                        <option value="inactivo">Inactivo</option>
+                                        <option value="1">Activo</option>
+                                        <option value="2">Inactivo</option>
 
                                     </select>
                                 </div>
