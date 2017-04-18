@@ -13,97 +13,119 @@ $(function() {
 			partidos.AbrirAgregarResultado();
 			partidos.SeleccionCampeonato();
 			partidos.Tabla();
+			partidos.Cargar();
+		},
+		Cargar : function()
+		{
+			$.ajax({
+				url: 'pages/partidos/peticiones/peticiones.php',
+				type: 'POST',
+				data: {
+					bandera: "get_campeonato",
+					campeonato:  $('.selector-campeonato option:selected').val()
+				},
+				success: function (resp) {
+
+					var resp = $.parseJSON(resp);
+					if (resp.salida === true && resp.mensaje === true) {
+						$('.selector-campeonato').val(resp.datos);
+						$('.selector-campeonato').change();
+					} else {
+						swal("Importante", "Selecciona un campeonato.", "info");
+					}
+				}
+			});
 		},
 		Tabla : function()
 		{
-		t = $('.tabla-resultados').DataTable();
+			t = $('.tabla-resultados').DataTable();
 
 		},
 		SeleccionCampeonato : function()
-	{
-		$('.selector-campeonato').on('change', function () {
+		{
+			$('.selector-campeonato').on('change', function () {
 				$.ajax({
-							url: 'pages/partidos/peticiones/peticiones.php',
-							type: 'POST',
-							data: {
-								bandera: "getcampeonato",
-								estado : '1',
-								campeonato:  $('.selector-campeonato option:selected').val()
+					url: 'pages/partidos/peticiones/peticiones.php',
+					type: 'POST',
+					data: {
+						bandera: "getcampeonato",
+						estado : '1',
+						campeonato:  $('.selector-campeonato option:selected').val()
 
-							},
-							success: function (resp) {
+					},
+					success: function (resp) {
 
-								var resp = $.parseJSON(resp);
-								if (resp.salida === true && resp.mensaje === true) {
-									 t.row($('.selector-campeonato').parents('tr') ).remove().draw();
-									for (var i = 0; i < resp.datos.length; i++) {
-										 t.row.add( [ 
-										 	resp.datos[i].equipo1,
-										 	resp.datos[i].equipo2,
-										 	resp.datos[i].fecha
+						var resp = $.parseJSON(resp);
+						if (resp.salida === true && resp.mensaje === true) {
+							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
+							for (var i = 0; i < resp.datos.length; i++) {
+								t.row.add( [ 
+									resp.datos[i].equipo1+' vs '+resp.datos[i].equipo2,
+									resp.datos[i].Nfecha+' '+resp.datos[i].fecha,
+									'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button data-id="'+resp.datos[i].id_partido+'" type="button" class="btn btn-primary waves-effect to-partido"><i class="material-icons">edit</i></button></div>'
 
-										  ] ).draw( false );
-										
-									}
-								
+									] ).draw( false );
+								partidos.AbrirAgregarResultado();
 
-								} else {
-									swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
-								}
 							}
-						});
-
-
-		});
-	}
-		,
-		EliminarPartido: function () {
-			$('.delete-partido').off('click').on('click', function () {
-				var partido =$(this).data('id');
-				var datos = $(this).data('partido');
-				swal({title: "¿Esta seguro que desea ELIMINAR el partido?",
-					text: datos,
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "rgb(174, 222, 244)",
-					confirmButtonText: "Ok",
-					closeOnConfirm: false
-				}, function (isConfirm) {
-					if (isConfirm) {
-
-						$.ajax({
-							url: 'pages/partidos/peticiones/peticiones.php',
-							type: 'POST',
-							data: {
-								bandera: "eliminar",
-								perfil:  $('#perfil').val(),
-								modulo:  $('#modulo').val(),
-								partido: partido
-
-							},
-							success: function (resp) {
-
-								var resp = $.parseJSON(resp);
-								if (resp.salida === true && resp.mensaje === true) {
-									swal({title: "",
-										text: "El partido se ha Eliminado exitosamente!",
-										type: "success",
-										showCancelButton: false,
-										confirmButtonColor: "rgb(174, 222, 244)",
-										confirmButtonText: "Ok",
-										closeOnConfirm: false
-									}, function (isConfirm) {
-										if (isConfirm) {
-											window.location.reload();
-										}
-									});
-								} else {
-									swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
-								}
-							}
-						});
+						} else {
+							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
+								swal("Importante", "No hay partidos en los cuales AGREGAR RESULTADOS para este campeonato, o selecciona alguno.", "info");
+						}
 					}
 				});
+
+
+			});
+}
+,
+EliminarPartido: function () {
+	$('.delete-partido').off('click').on('click', function () {
+		var partido =$(this).data('id');
+		var datos = $(this).data('partido');
+		swal({title: "¿Esta seguro que desea ELIMINAR el partido?",
+			text: datos,
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "rgb(174, 222, 244)",
+			confirmButtonText: "Ok",
+			closeOnConfirm: false
+		}, function (isConfirm) {
+			if (isConfirm) {
+
+				$.ajax({
+					url: 'pages/partidos/peticiones/peticiones.php',
+					type: 'POST',
+					data: {
+						bandera: "eliminar",
+						perfil:  $('#perfil').val(),
+						modulo:  $('#modulo').val(),
+						partido: partido
+
+					},
+					success: function (resp) {
+
+						var resp = $.parseJSON(resp);
+						if (resp.salida === true && resp.mensaje === true) {
+							swal({title: "",
+								text: "El partido se ha Eliminado exitosamente!",
+								type: "success",
+								showCancelButton: false,
+								confirmButtonColor: "rgb(174, 222, 244)",
+								confirmButtonText: "Ok",
+								closeOnConfirm: false
+							}, function (isConfirm) {
+								if (isConfirm) {
+									window.location.reload();
+								}
+							});
+						} else {
+							swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+						}
+					}
+				});
+			}
+		});
 
 
 });

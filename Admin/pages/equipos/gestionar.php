@@ -91,6 +91,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 													data-grupo="<?php echo $value['grupo']; ?>"
 													data-torneo="<?php echo $value['torneo']; ?>"
 													 type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
+													 </div>
 
 												</td>
 											</tr>

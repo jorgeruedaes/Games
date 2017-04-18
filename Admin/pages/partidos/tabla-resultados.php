@@ -52,7 +52,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<label for="">Campeonato</label>
 								<div class="form-group">
 									<select class="form-control show-tick selector-campeonato">
-										<option value="">--Selecciona un campeonato --</option>
+										<option value="0">--Selecciona un campeonato --</option>
 										<?php 
 										$vector = Array_Get_Campeonatos();
 										foreach ($vector as $value) {
@@ -84,7 +84,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<tr>
 										<th>Partido</th>
 										<th>Ronda y fecha</th>
-										<th>Opciones</th>
+										<th width="15%">Opciones</th>
 									</tr>
 								</thead>
 								<tbody>

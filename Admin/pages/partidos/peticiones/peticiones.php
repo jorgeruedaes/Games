@@ -64,8 +64,20 @@ if(isset($_SESSION['perfil']))
 		$estado = $_POST['estado'];
 		$vector = Array_Get_Partidos_Campeonato($estado,$campeonato);
 		if (!empty($vector)) {
+			$_SESSION['campeonato'] = $campeonato;
 			$resultado.='"mensaje":true,';
 			$resultado.='"datos":'.json_encode($vector).'';
+		} else {
+			$_SESSION['campeonato']='0';
+			$resultado.='"mensaje":false';
+
+		}
+		// saber si ha sido o no definida la session del campeonato.
+	}else if($bandera === "get_campeonato") {
+		if (isset($_SESSION['campeonato'])) {
+		$campeonato =$_SESSION['campeonato'];
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode($campeonato).'';
 		} else {
 			$resultado.='"mensaje":false';
 		}
