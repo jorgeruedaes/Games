@@ -82,7 +82,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							<table class="table table-bordered table-striped table-hover  tabla-resultados">
 								<thead>
 									<tr>
-										<th>Partido</th>
+										<th width="70%">Partido</th>
 										<th>Ronda y fecha</th>
 										<th width="15%">Opciones</th>
 									</tr>

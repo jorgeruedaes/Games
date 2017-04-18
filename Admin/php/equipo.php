@@ -117,7 +117,7 @@ function boolean_Set_equipo($nombre,$tecnico,$grupo,$torneo,$club,$estado,$equip
 function Array_Get_Equipos_Torneo($torneo)
 {
     $query = consultar("SELECT  `id_equipo`, `nombre_equipo`, `tecnico1`, `torneo`, `grupo`, `colegio`, `estado`
-     FROM tb_equipos WHERE torneo=$torneo ORDER BY torneo asc,colegio desc,nombre_equipo desc ");
+     FROM tb_equipos WHERE torneo=$torneo ORDER BY nombre_equipo asc ");
     $vector    = array();
     while ($valor = mysqli_fetch_array($query)) {
 
@@ -141,6 +141,7 @@ function Array_Get_Equipos_Torneo($torneo)
       );
         array_push($vector, $arreglo);
     }
+    return $vector;
   }
 /**
  * [Array_Get_Equipos_Club description]

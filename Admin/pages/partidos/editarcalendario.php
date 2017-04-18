@@ -1,9 +1,11 @@
 <?php  
 $ubicacion ="../";
-$id_modulos="12";
+
 include("../menuinicial.php");
 include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
+include($ubicacion."../php/campeonatos.php");
+$id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
 	<input type="hidden" id="modulo" value="<?php echo $id_modulos ?>">
@@ -38,7 +40,36 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					</ol>
 				</h2>
 			</div>
-			<!-- Basic Examples -->
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>
+								Selecciona un campeonato 
+								<small>Selecciona un campeonato, para visualizar sus respecivos partidos.</small>
+							</h2>
+						</div>
+						<div class="body">
+							<label for="">Campeonato</label>
+							<div class="form-group">
+								<select class="form-control show-tick selector-campeonato-calendario">
+									<option value="0">--Selecciona un campeonato --</option>
+									<?php 
+									$vector = Array_Get_Campeonatos();
+									foreach ($vector as $value) {
+
+										?>
+										<option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
+										<?php
+									}
+									?>
+
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="row clearfix">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
@@ -48,7 +79,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							</h2>
 						</div>
 						<div class="body">
-							<table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+							<table class="table table-bordered table-striped table-hover js-basic-example dataTable tabla-resultados">
 								<thead>
 									<tr>
 										<th>Partido</th>
@@ -57,28 +88,6 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									</tr>
 								</thead>
 								<tbody>
-									<?php
-									$vector = Array_Get_Partidos_No_Estado('2');
-									$i=1;
-									foreach ($vector as $value) {
-										?>
-										<tr>
-											<td><?php echo Get_NombreEquipo($value['equipo1'])." <strong>vs</strong> ".Get_NombreEquipo($value['equipo2']) ?></td>
-											<td><strong><?php echo Get_NombreEstado_Partido($value['estado']) ?></strong><br><?php echo $value['fecha'] ?></td>
-											
-											<td>
-												<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
-													<button data-partido=" <?php echo Get_NombreEquipo($value['equipo1'])." vs ".Get_NombreEquipo($value['equipo2']) ?>" data-id="<?php echo $value['id_partido']?>"  type="button" class="btn bg-blue waves-effect edit-partido" data-toggle="modal" > <i class="material-icons">edit</i></button>
-
-													<button  data-partido=" <?php echo Get_NombreEquipo($value['equipo1'])." vs ".Get_NombreEquipo($value['equipo2']) ?>"  data-id="<?php echo $value['id_partido']?>" type="button" class="btn bg-red waves-effect delete-partido"> <i class="material-icons">delete</i></button>
-												</div>	
-												
-											</td>
-										</tr>
-										<?php
-										$i++; 
-									}
-									?>
 								</tbody>
 							</table>
 						</div>
@@ -184,8 +193,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 				</div>
 				<div class="modal-footer">
-				<input type="hidden" id="partido" value=""/>
-					<button type="button" class="btn btn-info waves-effect modificar">Guardar cambios</button>
+					<button type="button" class="btn btn-info waves-effect modificar" data-partido="">Guardar cambios</button>
 					<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>

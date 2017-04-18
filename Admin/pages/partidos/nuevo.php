@@ -50,7 +50,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<h2 class="card-inside-title">Campeonato o torneo</h2>
 								<div class="row clearfix">
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-										<select class="form-control show-tick select-equipoa">
+										<select class="form-control show-tick selector-campeonato-nuevo">
 											<option value="">--Selecciona un Campeonato --</option>
 											<?php
 											$vector = Array_Get_Campeonatos();
@@ -98,12 +98,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<h2 class="card-inside-title">Equipos que se enfrentan</h2>
 								<div class="row clearfix">
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-										<select class="form-control show-tick select-equipoa">
+										<select id='select-equipoa' class="form-control show-tick select-equipoa">
 											<option value="">--Selecciona un Equipo --</option>
 										</select>
 									</div>
 									<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-										<select class="form-control show-tick select-equipob">
+										<select id='select-equipob' class="form-control show-tick select-equipob">
 										<option value="">--Selecciona un Equipo --</option>
 											?>	
 										</select>

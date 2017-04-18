@@ -14,11 +14,9 @@
  */
 function Boolean_Agregar_Partido($equipoa,$equipob,$fecha,$hora,$lugar,$ronda)
 {
-	$partido = insertar(sprintf("INSERT INTO 
-      `tb_partidos`(`id_partido`, `equipo1`, `equipo2`, `resultado1`,
-         `resultado2`, `fecha`, `numero_fecha`, `Lugar`, `Estado`, `Juez`,`hora`)
-    VALUES (NULL,'%d','%d','0','0','%s','%d','%d','1','2','%s')"
-    ,escape($equipoa),escape($equipob),escape($fecha),escape($ronda),escape($lugar),escape($hora)));
+	$partido = insertar(sprintf("INSERT INTO `tb_partidos`(`id_partido`, `nombre_partido`, `equipo1`, `equipo2`, `resultado1`, `resultado2`, `fecha`, `hora`, `numero_fecha`, `lugar`, `estado`)
+     VALUES (NULL,'','%s','%s','0','0','%s','%s','%d','%d','1')"
+    ,escape($equipoa),escape($equipob),escape($fecha),escape($hora),escape($ronda),escape($lugar)));
 	return $partido;	
 }
 /**
@@ -97,6 +95,17 @@ function Array_Get_Partidos_No_Estado($estado)
 function Array_Get_Partidos_Campeonato($estado,$campeonato)
 {
     $query = consultar("SELECT * FROM tb_partidos WHERE (equipo1 IN (select id_equipo from tb_equipos where torneo='$campeonato' ) and equipo2  IN (select id_equipo from tb_equipos where torneo='$campeonato' )) and estado='$estado' ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+        $arreglo = Get_Partido($valor['id_partido']);
+        array_push($vector, $arreglo);
+    }
+    
+    return $vector;
+}
+function Array_Get_Partidos_Campeonato_Diferente($estado,$campeonato)
+{
+    $query = consultar("SELECT * FROM tb_partidos WHERE (equipo1 IN (select id_equipo from tb_equipos where torneo='$campeonato' ) and equipo2  IN (select id_equipo from tb_equipos where torneo='$campeonato' )) and estado!='$estado' ");
     $vector    = array();
     while ($valor = mysqli_fetch_array($query)) {
         $arreglo = Get_Partido($valor['id_partido']);
