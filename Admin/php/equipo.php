@@ -142,4 +142,38 @@ function Array_Get_Equipos_Torneo($torneo)
         array_push($vector, $arreglo);
     }
   }
+/**
+ * [Array_Get_Equipos_Club description]
+ * @param [type] $club [description]
+ */
+  function Array_Get_Equipos_Club($club)
+{
+    $query = consultar("SELECT  `id_equipo`, `nombre_equipo`, `tecnico1`, `torneo`, `grupo`, `colegio`, `estado`
+     FROM tb_equipos WHERE colegio='$club' ORDER BY torneo asc,colegio desc,nombre_equipo desc ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+
+    $id_equipo = $valor['id_equipo'];
+    $nombre_equipo = $valor['nombre_equipo'];
+    $tecnico1 = $valor['tecnico1'];
+    $torneo = $valor['torneo'];
+    $grupo = $valor['grupo'];
+    $colegio = $valor['colegio'];
+    $estado = $valor['estado'];
+
+
+    $arreglo = array(
+      'id_equipo'=>"$id_equipo",
+      'nombre_equipo'=>"$nombre_equipo",
+      'tecnico1'=>"$tecnico1",
+      'torneo'=>"$torneo",
+      'grupo'=>"$grupo",
+      'colegio'=>"$colegio",
+      'estado'=>"$estado"
+      );
+        array_push($vector, $arreglo);
+    }
+    
+    return $vector;
+}
 ?>
