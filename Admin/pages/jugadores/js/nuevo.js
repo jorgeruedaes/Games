@@ -1,6 +1,6 @@
 //	var Creador = '<?php echo $usuario['id_jugadores']; ?>'
 $(function() {
-
+	var t ='';
 	var jugadores = {
 		inicio: function () {
 			jugadores.recargar();
@@ -12,6 +12,71 @@ $(function() {
 			jugadores.add();
 			jugadores.evento_cambiosclub();
 			jugadores.ModalImagen();
+			jugadores.Tabla();
+			jugadores.Cargar();
+			jugadores.SeleccionCampeonato();
+		},
+		SeleccionCampeonato: function()
+{
+	$('.selector-campeonato').on('change', function () {
+		$.ajax({
+			url: 'pages/jugadores/peticiones/peticiones.php',
+			type: 'POST',
+			data: {
+				bandera: "get_jugadores",
+				campeonato:  $('.selector-campeonato option:selected').val()
+
+			},
+			success: function (resp) {
+
+				var resp = $.parseJSON(resp);
+				if (resp.salida === true && resp.mensaje === true) {
+					t.row($('#tabla-jugadores').parents('tr') ).clear().draw();
+					for (var i = 0; i < resp.datos.length; i++) {
+						t.row.add( [ 
+							resp.datos[i].id_jugador,
+							resp.datos[i].nombre,	
+							resp.datos[i].equipo,
+							resp.datos[i].nombre_estado,
+							'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button  type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button></div>'
+							] ).draw( false );
+
+							}
+						} else {
+							t.row($('#tabla-jugadores').parents('tr') ).clear().draw();
+							swal("Importante", "No hay JUGADORES  para este campeonato, o selecciona alguno.", "info");
+						}
+					}
+				});
+
+
+});
+},
+		Cargar : function()
+		{
+			$.ajax({
+				url: 'pages/jugadores/peticiones/peticiones.php',
+				type: 'POST',
+				data: {
+					bandera: "get_campeonato",
+					campeonato:  $('.selector-campeonato option:selected').val()
+				},
+				success: function (resp) {
+
+					var resp = $.parseJSON(resp);
+					if (resp.salida === true && resp.mensaje === true) {
+						$('.selector-campeonato').val(resp.datos);
+						$('.selector-campeonato').change();
+					} else {
+						swal("Importante", "Selecciona un campeonato.", "info");
+					}
+				}
+			});
+		},
+		Tabla : function()
+		{
+			t = $('#tabla-jugadores').DataTable();
+
 		},
 		evento_cambiosclub : function ()
 		{

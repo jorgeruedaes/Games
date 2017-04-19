@@ -1,8 +1,7 @@
 <?php
 session_start();
 include('../../../php/principal.php');
-include('../../../php/partidos.php');
-include('../../../php/equipo.php');
+include('../../../php/jugador.php');
 
 if(isset($_SESSION['perfil']))
 {
@@ -59,8 +58,26 @@ if(isset($_SESSION['perfil']))
 		} else {
 			$resultado.='"mensaje":false';
 		}
-	}
-	
+	}else if($bandera === "get_campeonato") {
+		if (isset($_SESSION['campeonato'])) {
+			$campeonato =$_SESSION['campeonato'];
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode($campeonato).'';
+		} else {
+			$resultado.='"mensaje":false';
+		}
+	}else if($bandera === "get_jugadores") {
+		$campeonato = $_POST['campeonato'];
+		$vector = Array_Get_Jugadores_Campeonato($campeonato);
+		if (!empty($vector)) {
+			$_SESSION['campeonato'] = $campeonato;
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode($vector).'';
+		} else {
+			$_SESSION['campeonato']='0';
+			$resultado.='"mensaje":false';
+		}
+}
 }
 else
 {
