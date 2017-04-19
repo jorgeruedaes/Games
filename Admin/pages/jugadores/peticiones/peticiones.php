@@ -2,6 +2,8 @@
 session_start();
 include('../../../php/principal.php');
 include('../../../php/jugador.php');
+include('../../../php/partidos.php');
+include('../../../php/equipo.php');
 
 if(isset($_SESSION['perfil']))
 {
@@ -10,14 +12,16 @@ if(isset($_SESSION['perfil']))
 
 // Agrega un partido al sitio.
 	if ($bandera === "nuevo") {
-		$equipoa = $_POST['equipoa'];
-		$equipob = $_POST['equipob'];
-		$fecha = $_POST['fecha'];
-		$hora = $_POST['hora'];
-		$lugar = $_POST['lugar'];
-		$ronda = $_POST['ronda'];
-		$query = Boolean_Agregar_Partido($equipoa,$equipob,$fecha,$hora,$lugar,$ronda);
-		if ($query) {
+		$nombre1 = $_POST['nombre1'];
+		$nombre2 = $_POST['nombre2'];
+		$apellido1 = $_POST['apellido1'];
+		$apellido2 = $_POST['apellido2'];
+		$estado = $_POST['estado'];
+			$fecha = $_POST['fecha'];
+		$documento= $_POST['documento'];
+		$equipo = $_POST['equipo'];
+
+		if (boolean_new_jugador($documento,$equipo,$nombre1,$nombre2,$apellido1,$apellido2,$fecha,$estado)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';
@@ -33,27 +37,16 @@ if(isset($_SESSION['perfil']))
 		} else {
 			$resultado.='"mensaje":false';
 		}
-	}
-	// Modifica un partido del sitio.
-	else if($bandera === "modificar") {
-		$partido = $_POST['partido'];
+	}else if($bandera === "modificar") {
+		$id_jugador = $_POST['id_jugador'];
 		$fecha = $_POST['fecha'];
-		$hora = $_POST['hora'];
-		$lugar = $_POST['lugar'];
+		$nombre1 = $_POST['nombre1'];
+		$nombre2 = $_POST['nombre2'];
+		$apellido1 = $_POST['apellido1'];
+		$apellido2 = $_POST['apellido2'];
 		$estado = $_POST['estado'];
-		$ronda = $_POST['ronda'];
-		$query = Set_Partido($partido,$fecha,$hora,$lugar,$estado,$ronda);
-		if ($query) {
-			$resultado.='"mensaje":true';
-		} else {
-			$resultado.='"mensaje":false';
-		}
-	}
-	//  Elimina un partido.
-	else if($bandera === "eliminar") {
-		$partido = $_POST['partido'];
-		$query = Delete_Partido($partido);
-		if ($query) {
+
+		if (Set_Jugador($id_jugador,$nombre1,$nombre2,$apellido1,$apellido2,$fecha,$estado)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';
@@ -72,12 +65,22 @@ if(isset($_SESSION['perfil']))
 		if (!empty($vector)) {
 			$_SESSION['campeonato'] = $campeonato;
 			$resultado.='"mensaje":true,';
-			$resultado.='"datos":'.json_encode($vector).'';
+			$resultado.='"datos":'.json_encode(add_nombre_equipo($vector)).'';
 		} else {
 			$_SESSION['campeonato']='0';
 			$resultado.='"mensaje":false';
 		}
-}
+	}
+	else if($bandera === "getequipos") {
+		$campeonato = $_POST['campeonato'];
+		$vector = Array_Get_Equipos_Torneo($campeonato);
+		if (!empty($vector)) {
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode($vector).'';
+		} else {
+			$resultado.='"mensaje":false';
+		}
+	}
 }
 else
 {
@@ -85,4 +88,48 @@ else
 }
 $resultado.='}';
 echo ($resultado);
-?>
+
+// funciones esecilaes
+
+function add_nombre_equipo($vectores)
+{
+	$vector = array();
+	foreach ($vectores as $valor) {
+    $id_jugador       = $valor['id_jugador'];
+        $nombre1          = $valor['nombre1'];
+        $nombre2          = $valor['nombre2'];
+        $apellido1        = $valor['apellido1'];
+        $apellido2        = $valor['apellido2'];
+        $equipo       = $valor['equipo'];
+        $nombre_equipo = Get_NombreEquipo($valor['equipo']);
+        $documento       = $valor['documento'];
+        $nombre   =      $valor['nombre'];
+        $nombre_estado  = $valor['nombre_estado'];
+        $estado_jugador   = $valor['estado_jugador'];
+        $fecha_ingreso    = $valor['fecha_ingreso'];
+        $fecha_nacimiento = $valor['fecha_nacimiento'];
+        $telefono         = $valor['telefono'];
+        $profesion        = $valor['profesion'];
+
+        $datos            = array(
+            'id_jugador' => "$id_jugador",
+            'nombre1' => "$nombre1",
+            'nombre2' => "$nombre2",
+            'apellido1' => "$apellido1",
+            'apellido2' => "$apellido2",
+            'nombre' => "$nombre",
+              'equipo' => "$equipo",
+                'documento' => "$documento",
+            'nombre_estado' =>"$nombre_estado",
+             'nombre_equipo' =>"$nombre_equipo",
+            'estado_jugador' => "$estado_jugador",
+            'fecha_ingreso' => "$fecha_ingreso",
+            'fecha_nacimiento' => "$fecha_nacimiento",
+            'telefono' => "$telefono",
+            'profesion' => "$profesion"
+            
+            );
+        array_push($vector, $datos);
+    }
+    return $vector ;
+}

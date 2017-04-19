@@ -4,42 +4,82 @@ $(function() {
 	var jugadores = {
 		inicio: function () {
 			jugadores.recargar();
+			jugadores.Cargar();
 		},
 		recargar: function () {
 			jugadores.enviarDatos();
-			jugadores.editarCampeonato();
 			jugadores.Nuevo();
-			jugadores.add();
 			jugadores.evento_cambiosclub();
-			jugadores.ModalImagen();
+			jugadores.Modal_Editar();
 			jugadores.Tabla();
-			jugadores.Cargar();
 			jugadores.SeleccionCampeonato();
+			jugadores.cargarModalNuevo();
+			jugadores.SeleccionEquipo();
+
 		},
+		SeleccionEquipo : function()
+		{
+
+
+			$('.selector-campeonato').on('change', function () {
+				$.ajax({
+					url: 'pages/jugadores/peticiones/peticiones.php',
+					type: 'POST',
+					data: {
+						bandera: "getequipos",
+						campeonato:  $('.selector-campeonato option:selected').val()
+
+					},
+					success: function (resp) {
+
+
+						var resp = $.parseJSON(resp);
+						if (resp.salida === true && resp.mensaje === true) {
+							$('#select-n-equipos').html('').selectpicker('refresh');
+							$('#select-n-equipos').append('<option value="0">--Selecciona un Equipo --</option>').selectpicker('refresh');
+							for (var i = 0; i < resp.datos.length; i++) {
+								$('#select-n-equipos').append('<option value='+resp.datos[i].id_equipo+'>'+resp.datos[i].nombre_equipo+'</option>').selectpicker('refresh');
+							
+							}
+						} else {
+							$('#select-n-equipos').html('').selectpicker('refresh');
+							$('#select-n-equipos').append('<option value="0">--Selecciona un Equipo --</option>').selectpicker('refresh');
+
+						}
+					}
+				});
+
+
+});
+
+},
 		SeleccionCampeonato: function()
-{
-	$('.selector-campeonato').on('change', function () {
-		$.ajax({
-			url: 'pages/jugadores/peticiones/peticiones.php',
-			type: 'POST',
-			data: {
-				bandera: "get_jugadores",
-				campeonato:  $('.selector-campeonato option:selected').val()
+		{
+			$('.selector-campeonato').on('change', function () {
+				$.ajax({
+					url: 'pages/jugadores/peticiones/peticiones.php',
+					type: 'POST',
+					data: {
+						bandera: "get_jugadores",
+						campeonato:  $('.selector-campeonato option:selected').val()
 
-			},
-			success: function (resp) {
+					},
+					success: function (resp) {
 
-				var resp = $.parseJSON(resp);
-				if (resp.salida === true && resp.mensaje === true) {
-					t.row($('#tabla-jugadores').parents('tr') ).clear().draw();
-					for (var i = 0; i < resp.datos.length; i++) {
-						t.row.add( [ 
-							resp.datos[i].id_jugador,
-							resp.datos[i].nombre,	
-							resp.datos[i].equipo,
-							resp.datos[i].nombre_estado,
-							'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button  type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button></div>'
-							] ).draw( false );
+						var resp = $.parseJSON(resp);
+						if (resp.salida === true && resp.mensaje === true) {
+							t.row($('#tabla-jugadores').parents('tr') ).clear().draw();
+							for (var i = 0; i < resp.datos.length; i++) {
+								t.row.add( [ 
+									resp.datos[i].id_jugador,
+									resp.datos[i].documento,
+									resp.datos[i].nombre,	
+									resp.datos[i].nombre_equipo,
+									resp.datos[i].nombre_estado,
+									'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button data-id_jugador='+resp.datos[i].id_jugador+' data-nombre1="'+resp.datos[i].nombre1+'" data-nombre2="'+resp.datos[i].nombre2+'" data-apellido1="'+resp.datos[i].apellido1+'" data-apellido2="'+resp.datos[i].apellido2+'" data-fechanacimiento="'+resp.datos[i].fecha_nacimiento+'" data-estado='+resp.datos[i].estado_jugador+'  type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button></div>'
+									] ).draw( false );
+								jugadores.Modal_Editar();
+
 
 							}
 						} else {
@@ -50,8 +90,8 @@ $(function() {
 				});
 
 
-});
-},
+			});
+		},
 		Cargar : function()
 		{
 			$.ajax({
@@ -67,6 +107,7 @@ $(function() {
 					if (resp.salida === true && resp.mensaje === true) {
 						$('.selector-campeonato').val(resp.datos);
 						$('.selector-campeonato').change();
+						jugadores.SeleccionEquipo();
 					} else {
 						swal("Importante", "Selecciona un campeonato.", "info");
 					}
@@ -97,7 +138,7 @@ $(function() {
 						if (resp.salida === true && resp.mensaje === true) {
 							for (var i = 0; i<= resp.datos.length; i++) {
 								$('.select-n-equipos').first().append('<option value="'+resp.datos[i].id_equipo+'">"'+resp.datos[i].nombre_equipo+'"</option>')
-						   
+
 							};
 
 
@@ -107,16 +148,8 @@ $(function() {
 					}
 				});
 
-		});
-		},
-		add : function()
-		{
-			$('.add-perfil').off('click').on('click', function () {	
-				$('#nuevoPerfil').modal('show'); 
 			});
-
-		}
-		,
+		},
 		Nuevo : function ()
 		{
 			$('.guardar-nuevo').off('click').on('click', function () {	
@@ -125,14 +158,14 @@ $(function() {
 					type: 'POST',
 					data: {
 						bandera: "nuevo",
-
-						nombre:	$('.n-nombre').val(),
-						grupo :$('.n-tecnico').val(),
-						direccion: $('.n-grupo').val(),
-						tecnico: $('.n-tecnico').val(),
-						torneo :$('.select-n-torneo option:selected').val(),
+						nombre1 : $('.n-nombre1').val(),
+						nombre2 :$('.n-nombre2').val(),
+						apellido1 :$('.n-apellido1').val(),
+						apellido2 : $('.n-apellido2').val(),
+						fecha :$('.n-fechanacimiento').val(),
+						documento :$('.n-documento').val(),
 						estado :$('.select-n-estado option:selected').val(),
-						club :$('.select-n-club option:selected').val()
+						equipo :$('.select-n-equipos option:selected').val(),
 						
 
 					},
@@ -158,107 +191,90 @@ $(function() {
 					}
 				});
 
-});
-},
+			});
+		},
 
-enviarDatos: function () {
-	$('.guardar').off('click').on('click', function () {
-		$.ajax({
-			url: 'pages/jugadores/peticiones/peticiones.php',
-			type: 'POST',
-			data: {
-				bandera: "modificar",
-				nombre:	$('.nombre').val(),
-				tecnico :$('.tecnico').val(),
-				grupo: $('.grupo').val(),
-				tecnico: $('.tecnico').val(),
-				torneo :$('.select-torneo option:selected').val(),
-				estado :$('.select-estado option:selected').val(),
-				club :$('.select-club option:selected').val(),
-				equipo : $('#defaultModal').data('equipo')
+		enviarDatos: function () {
+			$('.guardar').off('click').on('click', function () {
+				$.ajax({
+					url: 'pages/jugadores/peticiones/peticiones.php',
+					type: 'POST',
+					data: {
+						bandera: "modificar",
+						id_jugador : $('.guardar').data('idjugador'),
+						nombre1 : $('.nombre1').val(),
+						nombre2 :$('.nombre2').val(),
+						apellido1 :$('.apellido1').val(),
+						apellido2 : $('.apellido2').val(),
+						fecha :$('.fechanacimiento').val(),
+						estado :$('.select-estado option:selected').val(),
 
 
-			},
-			success: function (resp) {
+					},
+					success: function (resp) {
 
-				var resp = $.parseJSON(resp);
-				if (resp.salida === true && resp.mensaje === true) {
-					swal({title: "",
-						text: "El equipo se ha modificado exitosamente!",
-						type: "success",
-						showCancelButton: false,
-						confirmButtonColor: "rgb(174, 222, 244)",
-						confirmButtonText: "Ok",
-						closeOnConfirm: false
-					}, function (isConfirm) {
-						if (isConfirm) {
-							window.location.reload();
+						var resp = $.parseJSON(resp);
+						if (resp.salida === true && resp.mensaje === true) {
+							swal({title: "",
+								text: "El jugador se ha modificado exitosamente!",
+								type: "success",
+								showCancelButton: false,
+								confirmButtonColor: "rgb(174, 222, 244)",
+								confirmButtonText: "Ok",
+								closeOnConfirm: false
+							}, function (isConfirm) {
+								if (isConfirm) {
+									window.location.reload();
+								}
+							});
+						} else {
+							swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
 						}
-					});
-				} else {
-					swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
-				}
-			}
-		});
+					}
+				});
+			});
+
+		},
+		cargarModal: function(id_jugador,nombre1,nombre2,apellido1,apellido2,estado,fechanacimiento)
+		{
+			$('.guardar').data('idjugador',id_jugador)
+			$('.nombre1').val(nombre1);
+			$('.nombre2').val(nombre2);
+			$('.apellido1').val(apellido1);
+			$('.apellido2').val(apellido2);
+			$('.fechanacimiento').val(fechanacimiento);
+			$('.select-estado').val(estado);
+			$('.select-estado').change();
+			$('#defaultModal').modal('show'); 
+		},
+		cargarModalNuevo: function()
+		{
+			$('.add-jugador').on("click", function(){
+			$('#Modalnuevo').modal('show'); 
+			});
+
+
+		},
+
+		Modal_Editar :function()
+		{
+
+			$('#tabla-jugadores').on("click", ".edit-item", function(){
+				var id_jugador = $(this).data('id_jugador');
+				var nombre1 = $(this).data('nombre1');
+				var nombre2 = $(this).data('nombre2');
+				var apellido1 = $(this).data('apellido1');
+				var apellido2 = $(this).data('apellido2');
+				var estado = $(this).data('estado');
+				var fechanacimiento = $(this).data('fechanacimiento');
+				jugadores.cargarModal(id_jugador,nombre1,nombre2,apellido1,apellido2,estado,fechanacimiento);
+			});
+		}
+	};
+	$(document).ready(function () {
+
+		jugadores.inicio();
+
 	});
-
-},
-cargarModal: function(club,nombre,tecnico,torneo,grupo,estado,equipo)
-{
-	$('.nombre').val(nombre);
-	$('.tecnico').val(tecnico);
-	$('.grupo').val(grupo);
-	$('.select-torneo').val(torneo);
-	$('.select-torneo').change();
-	$('.select-club').val(club);
-	$('.select-club').change();
-	$('.select-estado').val(estado);
-	$('.select-estado').change();
-
-	$('#defaultModal').data('equipo',equipo);
-	$('#defaultModal').modal('show'); 
-	jugadores.recargar();
-},
-
-editarCampeonato : function()
-{
-	// $('.edit-item').off('click').on('click', function () {
-	// 	var nombre = $(this).data('nombre');
-	// 	var presidente = $(this).data('presidente');
-	// 	var direccion = $(this).data('direccion');
-	// 	var telefono = $(this).data('telefono');
-	// 	var email = $(this).data('correo');
-	// 	var horario = $(this).data('horario');
-	// 	var cancha = $(this).data('cancha');
-	// 	var club = $(this).data('club');
-	// 	var estado = $(this).data('estado');
-	// 	jugadores.cargarModal(club,nombre,presidente,direccion,telefono,email,horario,cancha,estado);
-//	});
-},
-ModalImagen :function()
-{
-	$('#tabla-clubs').on("click", ".ver", function(){
-
-		$('#imagenes').attr('src','../images/Escudos/'+$(this).data('logo'))
-		$('#imagenesvisor').modal('show'); 
-	});
-
-	$('#tabla-clubs').on("click", ".edit-item", function(){
-		var nombre = $(this).data('nombre');
-		var tecnico = $(this).data('tecnico');
-		var club = $(this).data('club');
-		var torneo = $(this).data('torneo');
-		var grupo = $(this).data('grupo');
-		var estado = $(this).data('estado');
-		var equipo = $(this).data('id');
-		jugadores.cargarModal(club,nombre,tecnico,torneo,grupo,estado,equipo);
-	});
-}
-};
-$(document).ready(function () {
-
-	jugadores.inicio();
-
-});
 
 });

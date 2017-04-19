@@ -57,7 +57,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
                                     <?php 
                                     $vector = Array_Get_Campeonatos();
                                     foreach ($vector as $value) {
-                                        
+
                                         ?>
                                         <option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
                                         <?php
@@ -81,7 +81,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
                                 <li></li>
                                 <li>
                                     <button type="button" class="btn bg-red 
-                                    waves-effect add-perfil">
+                                    waves-effect add-jugador">
                                     <i class="material-icons">add</i>
                                 </button>
 
@@ -94,10 +94,11 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Documento</th>
                                     <th>Nombre</th>
                                     <th>Equipo</th>
                                     <th>Estado</th>
-                                    <th>Opciones</th>
+                                    <th widht="10%">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -115,55 +116,60 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 <!--  Js-principal -->
 <script src="pages/jugadores/js/nuevo.js"></script>
 
-<div class="modal fade" id="nuevoPerfil" data-perfil="" tabindex="-1" role="dialog">
+<!-- Modal Dialogs ====================================================================================================================== -->
+<!-- Default Size -->
+<div class="modal fade" id="Modalnuevo" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="defaultModalLabel">Nuevo jugador</h4>
+                <h4 class="modal-title" id="defaultModalLabel">Edición de jugador</h4>
             </div>
             <div class="modal-body">
 
                 <div class="body">
                     <form>
-                        <label for="">Nombre</label>
+                        <label for="">Primer nombre</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" class="form-control n-nombre" placeholder="Nombre " />
+                                <input type="text" class="form-control n-nombre1" placeholder="Primer nombre" />
                             </div>
                         </div>
-                        <label for="">Apellido</label>
+                        <label for="">Segundo nombre</label>
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" class="form-control n-nombre" placeholder="Apellido" />
+                                <input type="text" class="form-control n-nombre2" placeholder="Primer nombre" />
                             </div>
                         </div>
-                        <label for="">Club</label>
+                        <label for="">Primer apellido</label>
                         <div class="form-group">
-                            <select class="form-control show-tick select-n-club">
-                                <option value="">--Selecciona un club --</option>
-                                <?php 
-                                $vector = Array_Get_Clubs();
-                                foreach ($vector as $value) {
-                                    
-                                    ?>
-                                    <option value="<?php echo $value['id_colegio']; ?>"><?php echo $value['nombre']; ?></option>
-                                    <?php
-                                }
-                                ?>
-
-                            </select>
+                            <div class="form-line">
+                                <input type="text" class="form-control n-apellido1" placeholder="Segundo apellido" />
+                            </div>
+                        </div>
+                        <label for="">Segundo apellido</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control n-apellido2" placeholder="Segundo apellido" />
+                            </div>
+                        </div>
+                        <label for="">Documento de indentidad</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control n-documento" placeholder="Documento" />
+                            </div>
+                        </div>
+                        <label for="">Fecha de nacimiento</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="datepicker form-control n-fechanacimiento" placeholder="Seleccina una fecha...">
+                            </div>
                         </div>
                         <label for="">Equipos</label>
                         <div class="form-group">
-                            <select class="form-control show-tick select-n-equipos">
+                            <select id="select-n-equipos" class="form-control show-tick select-n-equipos">
                                 <option value="">--Selecciona un equipo --</option>
-                                
 
                             </select>
-                        </div>
-                        <label for="">Fecha de nacimiento</label>
-                        <div class="form-group ">
-                            <input type="text" class="form-control n-tecnico" placeholder="Nombre del tecnico" />
                         </div>
                         <label for="">Estado</label>
                         <div class="form-group">
@@ -178,98 +184,82 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
                     </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
-                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Modal Dialogs ====================================================================================================================== -->
-<!-- Default Size -->
-<div class="modal fade" id="defaultModal" data-equipo="" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="defaultModalLabel">Edición de equipo</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="body">
-                    <form>
-                        <label for="">Nombre</label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="text" class="form-control nombre" placeholder="Nombre del equipo" />
-                            </div>
-                        </div>
-                        <label for="">Club</label>
-                        <div class="form-group">
-                            <select class="form-control show-tick select-club">
-                                <option value="">--Selecciona un club --</option>
-                                <?php 
-                                $vector = Array_Get_Clubs();
-                                foreach ($vector as $value) {
-                                    
-                                    ?>
-                                    <option value="<?php echo $value['id_colegio']; ?>"><?php echo $value['nombre']; ?></option>
-                                    <?php
-                                }
-                                ?>
-
-                            </select>
-                        </div>
-                        <label for="">Campeonato</label>
-                        <div class="form-group">
-                            <select class="form-control show-tick select-torneo">
-                                <option value="">--Selecciona un campeonato --</option>
-                                <?php 
-                                $vector = Array_Get_Campeonatos();
-                                foreach ($vector as $value) {
-                                    
-                                    ?>
-                                    <option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
-                                    <?php
-                                }
-                                ?>
-
-                            </select>
-                        </div>
-                        <label for="">Tecnico</label>
-                        <div class="form-group ">
-                            <input type="text" class="form-control tecnico" placeholder="Nombre del tecnico" />
-                        </div>
-                        <label for="">Grupo</label>
-
-                        <div class="form-group ">
-                            <input type="text" class="form-control grupo" placeholder="Grupo ejemplo: A" />
-                        </div>
-                        <label for="">Estado</label>
-                        <div class="form-group">
-                            <select class="form-control show-tick select-estado">
-                                <option value="">--Selecciona un estado --</option>
-
-                                <option value="activo">Activo</option>
-                                <option value="inactivo">Inactivo</option>
-
-                            </select>
-                        </div>
-
-                    </form>
+                <div class="modal-footer">
+                    <button type="button"  data-idjugador="" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
-                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+
+
+    <!-- Modal Dialogs ====================================================================================================================== -->
+    <!-- Default Size -->
+    <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="defaultModalLabel">Edición de jugador</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="body">
+                        <form>
+                            <label for="">Primer nombre</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control nombre1" placeholder="Primer nombre" />
+                                </div>
+                            </div>
+                            <label for="">Segundo nombre</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control nombre2" placeholder="Primer nombre" />
+                                </div>
+                            </div>
+                            <label for="">Primer apellido</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control apellido1" placeholder="Segundo apellido" />
+                                </div>
+                            </div>
+                            <label for="">Segundo apellido</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control apellido2" placeholder="Segundo apellido" />
+                                </div>
+                            </div>
+                            <label for="">Fecha de nacimiento</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="datepicker form-control fechanacimiento" placeholder="Seleccina una fecha...">
+                                </div>
+                            </div>
+                            <label for="">Estado</label>
+                            <div class="form-group">
+                                <select class="form-control show-tick select-estado">
+                                    <option value="">--Selecciona un estado --</option>
+
+                                    <option value="1">Activo</option>
+                                    <option value="2">Inactivo</option>
+
+                                </select>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button"  data-idjugador="" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-<?php
+    <?php
 }else
 {
     require("../sinpermiso.php");

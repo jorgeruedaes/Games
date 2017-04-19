@@ -49,6 +49,7 @@ function Array_Get_Jugadores_Campeonato($identificador)
         $apellido1        = $valor['apellido1'];
         $apellido2        = $valor['apellido2'];
         $equipo       = $valor['equipo'];
+        $documento       = $valor['documento'];
         $nombre   =      String_Get_NombreCompleto($valor['id_jugadores']);
         $nombre_estado  = String_Get_NombreEstado($valor['estado_jugador']);
         $estado_jugador   = $valor['estado_jugador'];
@@ -64,6 +65,7 @@ function Array_Get_Jugadores_Campeonato($identificador)
             'apellido2' => "$apellido2",
             'nombre' => "$nombre",
               'equipo' => "$equipo",
+                'documento' => "$documento",
             'nombre_estado' =>"$nombre_estado",
             'estado_jugador' => "$estado_jugador",
             'fecha_ingreso' => "$fecha_ingreso",
@@ -132,4 +134,20 @@ function String_Get_NombreEstado($identificador)
     $valor = $valor['nombre'];
     
     return $valor;
+}
+function Set_Jugador($id_jugador,$nombre1,$nombre2,$apellido1,$apellido2,$fecha,$estado)
+{
+    $valor  = insertar(sprintf("UPDATE `tb_jugadores` SET `nombre1`='%s',`nombre2`='%s',`apellido1`='%s',`apellido2`='%s',`fecha_nacimiento`='%s',`estado_jugador`='%d'
+        WHERE `id_jugadores`='%d' ",
+        escape($nombre1),escape($nombre2),escape($apellido1),escape($apellido2),escape($fecha),escape($estado),escape($id_jugador)));
+    return $valor;
+}
+
+function boolean_new_jugador($documento,$equipo,$nombre1,$nombre2,$apellido1,$apellido2,$fecha,$estado)
+{
+    $partido = insertar(sprintf("INSERT INTO `tb_jugadores`(`id_jugadores`, `documento`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, 
+        `fecha_nacimiento`, `email`, `equipo`, `foto_jugador`, `fecha_ingreso`, `estado_jugador`, `telefono`, `profesion`, `tipo_jugador`)
+     VALUES (NULL,'%d','%s','%s','%s','%s','%s','','%d','',NOW(),'%d','','','')"
+    ,escape($documento),escape($nombre1),escape($nombre2),escape($apellido1),escape($apellido2),escape($fecha),escape($equipo),escape($estado)));
+    return $partido;    
 }
