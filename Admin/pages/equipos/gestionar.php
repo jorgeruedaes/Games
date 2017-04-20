@@ -38,7 +38,36 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					</ol>
 				</h2>
 			</div>
-			<!-- Basic Table -->
+			  <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Selecciona un campeonato 
+                                <small>Selecciona un campeonato, para visualizar sus respecivos jugadores.</small>
+                            </h2>
+                        </div>
+                        <div class="body">
+                            <label for="">Campeonato</label>
+                            <div class="form-group">
+                                <select class="form-control show-tick selector-campeonato">
+                                    <option value="0">--Selecciona un campeonato --</option>
+                                    <?php 
+                                    $vector = Array_Get_Campeonatos();
+                                    foreach ($vector as $value) {
+
+                                        ?>
+                                        <option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<div class="row ">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
@@ -59,45 +88,18 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						</ul>
 					</div>
 					<div class="body">
-						<table  id="tabla-clubs" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+						<table  id="tabla-clubs" class="table table-bordered table-striped table-hover js-basic-example dataTable tabla-resultados">
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Nombre</th>
-									<th>Campeonato</th>
+									<th width="50%">Nombre</th>
 									<th>Club</th>
 									<th>Estado</th>
 									<th>Opciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php
-								$vector = Array_Get_Equipos();
-								foreach ($vector as  $value) {
-									?>
-									<tr>
-										<td scope="row"><?php echo $value['id_equipo']; ?></td>
-										<td scope="row"><?php echo $value['nombre_equipo']; ?></td>
-										<td><?php echo Get_nombre_campeonato($value['torneo']); ?></td>
-										<td><?php echo Get_nombre_club($value['colegio']); ?></td>
-										<td><?php echo $value['estado']; ?></td>
-										<td>
-											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-												<button 
-													data-id="<?php echo $value['id_equipo'];?>"
-													data-estado="<?php echo $value['estado']; ?>";
-													data-tecnico="<?php echo $value['tecnico1']; ?>"
-													data-nombre="<?php echo $value['nombre_equipo'];?>" data-club="<?php echo $value['colegio']; ?>"
-													data-grupo="<?php echo $value['grupo']; ?>"
-													data-torneo="<?php echo $value['torneo']; ?>"
-													 type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
-													 </div>
-
-												</td>
-											</tr>
-											<?php
-										}
-										?>
+							
 									</tbody>
 								</table>
 							</div>

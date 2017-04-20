@@ -3,6 +3,7 @@ session_start();
 include('../../../php/principal.php');
 include('../../../php/partidos.php');
 include('../../../php/equipo.php');
+include('../../../php/amonestaciones.php');
 
 if(isset($_SESSION['perfil']))
 {
@@ -102,6 +103,20 @@ if(isset($_SESSION['perfil']))
 		if (!empty($vector)) {
 			$resultado.='"mensaje":true,';
 			$resultado.='"datos":'.json_encode($vector).'';
+		} else {
+			$resultado.='"mensaje":false';
+		}
+	}
+	else if ($bandera === "agregardetalles")
+	{
+		$json = json_encode($_POST['json']); 
+		$partido = $_POST['partido'];
+		$fecha = $_POST['fecha'];
+		$resultado1 = $_POST['resultado1'];
+		$resultado2 = $_POST['resultado2'];
+		if (Set_resultado_Partido($partido,$resultado1,$resultado2) and Add_detalles_partido($json,$partido) and Add_detalles_amonestaciones_partido($json,$fecha)
+		) {
+			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';
 		}

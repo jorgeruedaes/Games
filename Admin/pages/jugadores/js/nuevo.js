@@ -78,10 +78,11 @@ $(function() {
 									resp.datos[i].nombre_estado,
 									'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button data-id_jugador='+resp.datos[i].id_jugador+' data-nombre1="'+resp.datos[i].nombre1+'" data-nombre2="'+resp.datos[i].nombre2+'" data-apellido1="'+resp.datos[i].apellido1+'" data-apellido2="'+resp.datos[i].apellido2+'" data-fechanacimiento="'+resp.datos[i].fecha_nacimiento+'" data-estado='+resp.datos[i].estado_jugador+'  type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button></div>'
 									] ).draw( false );
-								jugadores.Modal_Editar();
-
+								
 
 							}
+							jugadores.Modal_Editar();
+						//	$('.page-loader-wrapper').css('display','none');
 						} else {
 							t.row($('#tabla-jugadores').parents('tr') ).clear().draw();
 							swal("Importante", "No hay JUGADORES  para este campeonato, o selecciona alguno.", "info");

@@ -130,6 +130,37 @@ function Array_Get_Partidos_Estado($estado)
     return $vector;
 }
 
+function Set_resultado_Partido($partido,$resultado1,$resultado2)
+{
+    $valor  = insertar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='2' 
+        WHERE `id_partido`='%d' ",escape($resultado1),escape($resultado2),escape($partido)));
+    return $valor;
+}
+
+function Add_detalle_jugador($jugador,$partido,$amonestacion,$gol,$autogol)
+{
+    $valor  = insertar(sprintf("INSERT INTO `tr_jugadoresxpartido`(`jugador`, `partido`, `amonestacion`, `goles`, `autogoles`)
+     VALUES ('%d','%d','%d','%d','%d') ",escape($jugador),escape($partido),escape($amonestacion),escape($gol),escape($autogol)));
+    return $valor;
+}
+function Add_detalles_partido($vector,$partido)
+{
+    $json = json_decode($vector);
+    $bandera ='';
+        for ($i=0; $i < count($json) ; $i++) {
+            if(Add_detalle_jugador($json[$i][0],$partido,$json[$i][3],$json[$i][1],$json[$i][2]))
+            {
+                $bandera=true;
+            }   
+            else
+            {
+                $bandera=false;
+            }
+        }
+    return $bandera;
+}
+
+
 ////////////////////////////////////////////////////////////////////
 //////////////////////----ESTADOS----//////////////////////////////
 //////////////////////////////////////////////////////////////////

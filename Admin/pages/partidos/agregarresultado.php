@@ -5,8 +5,8 @@ include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
 include($ubicacion."../php/jugador.php");
 $id_modulos ='25';
-if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
-	$partido = Get_Partido($_GET['id']);
+$partido = Get_Partido($_GET['id']);
+if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['estado']==='1')){
 	?>
 
 
@@ -46,7 +46,16 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<div class="header">
 							<h2>
 								<?php echo Get_NombreEquipo($partido['equipo1']);  ?>
-								<small>.</small>
+								<div class="col-md-3">
+									<div class="form-group">
+										<div class="form-line">
+										<input type="text"  value="0"   id="resultado1" class="form-control"  style="font-size: xx-large; text-align: -webkit-center;"   placeholder="Goles">												
+										</div>
+									</div>
+								</div>
+
+
+								<small>Numero de goles totales</small>
 							</h2>
 						</div>
 						<div class="body">
@@ -55,8 +64,9 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<tr>
 										<th>Jugador</th>
 										<th>Tarjeta</th>
-										<th>  Gol</th>
-										<th>Autogol</th>
+										<th> Gol</th>
+										<th>A-Gol</th>
+										<th>Check</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -65,20 +75,20 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									$i=1;
 									foreach ($vector as $value) {
 										?>
-										<tr>
+										<tr class="fila-tabla" data-jugador="<?php echo $value['id_jugador']; ?>">
 											<td><?php echo String_Get_NombreCompleto($value['id_jugador']) ?></td>
 											<td>
-												<select class="form-control show-tick select-equipoa">
-													<option value="">--Tarjeta--</option>
+												<select class="form-control show-tick select-tarjeta">
+													<option value="5">--Tarjeta--</option>
 													<option value="1">Amarilla</option>
-													<option value="1">Roja</option>
+													<option value="2">Roja</option>
 												</select>
 											</td>
 											<td>
 												<div class="col-md-12">
 													<div class="form-group">
 														<div class="form-line">
-															<input type="text" id="ronda" class="form-control"  placeholder="0">
+															<input type="text" id="ronda" class="form-control gol"  value="0"   placeholder="0">
 														</div>
 													</div>
 												</div>
@@ -87,9 +97,15 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 												<div class="col-md-12">
 													<div class="form-group">
 														<div class="form-line">
-															<input type="text" id="ronda" class="form-control"  placeholder="0">
+															<input type="text" id="ronda" class="form-control autogol" value="0"  placeholder="0">
 														</div>
 													</div>
+												</div>
+											</td>
+											<td>
+												<div class="col-md-6 col-xs-6">
+													<input type="checkbox" id="md_checkbox_<?php echo $value['id_jugador']?>" class="filled-in chk-col-blue confirmacion"  />
+													<label for="md_checkbox_<?php echo $value['id_jugador']?>"></label>
 												</div>
 											</td>
 										</tr>
@@ -108,7 +124,14 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<div class="header">
 							<h2>
 								<?php echo Get_NombreEquipo($partido['equipo2']);  ?>
-								<small>.</small>
+								<div class="col-md-3">
+									<div class="form-group">
+										<div class="form-line">
+											<input type="text" value="0"  id="resultado2" class="form-control" style="font-size: xx-large; text-align: -webkit-center;"     placeholder="Goles">
+										</div>
+									</div>
+								</div>
+								<small>Numero de goles totales</small>
 							</h2>
 						</div>
 						<div class="body">
@@ -118,7 +141,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 										<th>Jugador</th>
 										<th>Tarjeta</th>
 										<th>Gol</th>
-										<th>Autogol</th>
+										<th>A-Gol</th>
+										<th>Check</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -127,20 +151,20 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									$i=1;
 									foreach ($vector as $value) {
 										?>
-									<tr>
+										<tr class="fila-tabla" data-jugador="<?php echo $value['id_jugador']; ?>">
 											<td><?php echo String_Get_NombreCompleto($value['id_jugador']) ?></td>
 											<td>
-												<select class="form-control show-tick select-equipoa">
-													<option value="">--Tarjeta--</option>
+												<select class="form-control show-tick select-tarjeta">
+													<option value="5">--Tarjeta--</option>
 													<option value="1">Amarilla</option>
-													<option value="1">Roja</option>
+													<option value="2">Roja</option>
 												</select>
 											</td>
 											<td>
 												<div class="col-md-12 col-xs-12">
 													<div class="form-group">
 														<div class="form-line">
-															<input type="text" id="ronda" class="form-control"  placeholder="0">
+															<input type="text" id="ronda" class="form-control gol" value="0"    placeholder="0">
 														</div>
 													</div>
 												</div>
@@ -149,9 +173,15 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 												<div class="col-md-12 col-xs-12">
 													<div class="form-group">
 														<div class="form-line">
-															<input type="text" id="ronda" class="form-control"  placeholder="0">
+															<input type="text"  id="ronda" class="form-control autogol" value="0"   placeholder="0">
 														</div>
 													</div>
+												</div>
+											</td>
+											<td>
+												<div class="col-md-6 col-xs-6">
+													<input type="checkbox" id="md_checkbox_<?php echo $value['id_jugador']?>" class="filled-in chk-col-green confirmacion"  />
+													<label for="md_checkbox_<?php echo $value['id_jugador']?>"></label>
 												</div>
 											</td>
 										</tr>
@@ -172,7 +202,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					<div class="card">
 						<div class="body">
 							<center>
-								<button type="button" class="btn btn-primary btn-lg m-l-15 waves-effect guardar">Guardar</button>
+					<button type="button" data-fecha="<?php echo $partido['Nfecha']; ?>" class="btn btn-primary btn-lg m-l-15 waves-effect guardar-partido" data-partido="<?php echo $_GET['id']  ?>">Guardar</button>
 							</center>
 						</div>
 

@@ -1,16 +1,87 @@
 //	var Creador = '<?php echo $usuario['id_equipos']; ?>'
 $(function() {
-
+	var t='';
 	var equipos = {
 		inicio: function () {
 			equipos.recargar();
+			equipos.Cargar();
 		},
 		recargar: function () {
+			equipos.Tabla();
 			equipos.enviarDatos();
 			equipos.editarCampeonato();
 			equipos.Nuevo();
 			equipos.add();
 			equipos.ModalImagen();
+			equipos.SeleccionEquipos();
+			
+		},
+		Tabla : function()
+		{
+			t = $('.tabla-resultados').DataTable();
+
+		},
+		SeleccionEquipos : function()
+		{
+
+
+			$('.selector-campeonato').on('change', function () {
+				$.ajax({
+					url: 'pages/partidos/peticiones/peticiones.php',
+					type: 'POST',
+					data: {
+						bandera: "getequipos",
+						campeonato:  $('.selector-campeonato option:selected').val()
+
+					},
+					success: function (resp) {
+
+
+						var resp = $.parseJSON(resp);
+						if (resp.salida === true && resp.mensaje === true) {
+								t.row($('.tabla-resultados').parents('tr') ).clear().draw();
+						for (var i = 0; i < resp.datos.length; i++) {
+							t.row.add( [ 
+							resp.datos[i].id_equipo,
+							resp.datos[i].nombre_equipo,
+							resp.datos[i].colegio,
+							resp.datos[i].estado,
+							'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button data-id="'+resp.datos[i].id_equipo+'"data-estado="'+resp.datos[i].estado+'"data-tecnico="'+resp.datos[i].tecnico1+'"data-nombre="'+resp.datos[i].nombre_equipo+'"data-club="'+resp.datos[i].colegio+'"data-grupo="'+resp.datos[i].grupo+'"data-torneo="'+resp.datos[i].torneo+'" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button></div>'
+							] ).draw( false );
+
+							}
+							equipo.ModalImagen();
+							
+						} else {
+								t.row($('.tabla-resultados').parents('tr') ).clear().draw();
+							swal("Importante", "No hay EQUIPOS para este campeonato, o selecciona alguno.", "info");
+						}
+					}
+				});
+
+
+});
+},
+		Cargar : function()
+		{
+			$.ajax({
+				url: 'pages/equipos/peticiones/peticiones.php',
+				type: 'POST',
+				data: {
+					bandera: "get_campeonato",
+					campeonato:  $('.selector-campeonato option:selected').val()
+				},
+				success: function (resp) {
+
+					var resp = $.parseJSON(resp);
+					if (resp.salida === true && resp.mensaje === true) {
+						$('.selector-campeonato').val(resp.datos);
+						$('.selector-campeonato').change();
+					} else {
+						swal("Importante", "Selecciona un campeonato.", "info");
+					}
+				}
+			});
 		},
 		add : function()
 		{
@@ -140,13 +211,7 @@ editarCampeonato : function()
 },
 ModalImagen :function()
 {
-	$('#tabla-clubs').on("click", ".ver", function(){
-
-		$('#imagenes').attr('src','../images/Escudos/'+$(this).data('logo'))
-		$('#imagenesvisor').modal('show'); 
-	});
-
-	$('#tabla-clubs').on("click", ".edit-item", function(){
+	$('.tabla-resultados').on("click", ".edit-item", function(){
 		var nombre = $(this).data('nombre');
 		var tecnico = $(this).data('tecnico');
 		var club = $(this).data('club');

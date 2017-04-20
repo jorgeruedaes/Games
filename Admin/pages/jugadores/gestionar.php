@@ -192,74 +192,75 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
             </div>
         </div>
     </div>
+</div>
 
 
-    <!-- Modal Dialogs ====================================================================================================================== -->
-    <!-- Default Size -->
-    <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="defaultModalLabel">Edición de jugador</h4>
+<!-- Modal Dialogs ====================================================================================================================== -->
+<!-- Default Size -->
+<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Edición de jugador</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="body">
+                    <form>
+                        <label for="">Primer nombre</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control nombre1" placeholder="Primer nombre" />
+                            </div>
+                        </div>
+                        <label for="">Segundo nombre</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control nombre2" placeholder="Primer nombre" />
+                            </div>
+                        </div>
+                        <label for="">Primer apellido</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control apellido1" placeholder="Segundo apellido" />
+                            </div>
+                        </div>
+                        <label for="">Segundo apellido</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control apellido2" placeholder="Segundo apellido" />
+                            </div>
+                        </div>
+                        <label for="">Fecha de nacimiento</label>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="datepicker form-control fechanacimiento" placeholder="Seleccina una fecha...">
+                            </div>
+                        </div>
+                        <label for="">Estado</label>
+                        <div class="form-group">
+                            <select class="form-control show-tick select-estado">
+                                <option value="">--Selecciona un estado --</option>
+
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+
+                            </select>
+                        </div>
+
+                    </form>
                 </div>
-                <div class="modal-body">
 
-                    <div class="body">
-                        <form>
-                            <label for="">Primer nombre</label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control nombre1" placeholder="Primer nombre" />
-                                </div>
-                            </div>
-                            <label for="">Segundo nombre</label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control nombre2" placeholder="Primer nombre" />
-                                </div>
-                            </div>
-                            <label for="">Primer apellido</label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control apellido1" placeholder="Segundo apellido" />
-                                </div>
-                            </div>
-                            <label for="">Segundo apellido</label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="text" class="form-control apellido2" placeholder="Segundo apellido" />
-                                </div>
-                            </div>
-                            <label for="">Fecha de nacimiento</label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="text" class="datepicker form-control fechanacimiento" placeholder="Seleccina una fecha...">
-                                </div>
-                            </div>
-                            <label for="">Estado</label>
-                            <div class="form-group">
-                                <select class="form-control show-tick select-estado">
-                                    <option value="">--Selecciona un estado --</option>
-
-                                    <option value="1">Activo</option>
-                                    <option value="2">Inactivo</option>
-
-                                </select>
-                            </div>
-
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button"  data-idjugador="" class="btn btn-info waves-effect guardar">Guardar cambios</button>
-                        <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button"  data-idjugador="" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <?php
+<?php
 }else
 {
     require("../sinpermiso.php");
