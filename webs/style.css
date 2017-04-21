@@ -1339,7 +1339,7 @@ span.ec-blue-transparent {
 .ec-fixture-list {
 	float: left;
 	width: 100%;
-	margin-bottom: 60px;
+	margin-bottom: 0px;
 }
 .ec-fixture-list ul {
 	display: table;
@@ -3584,4 +3584,11 @@ blockquote:after {
 	bottom: -10px;
 	border-top: 10px solid #e95842;
 	border-left: 10px solid transparent;
+}
+
+.header-torneo{
+
+	margin-left: 12px;
+	text-align: center;
+	margin-top: 5px;"
 }

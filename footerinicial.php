@@ -36,6 +36,7 @@
     <script src="webs/script/newsticker.js"></script>
     <script src="webs/script/skills.js"></script>
     <script src="webs/script/functions.js"></script>
+
     <script>
     var options = {
         newsList: "#ec-news",

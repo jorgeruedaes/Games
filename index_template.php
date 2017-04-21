@@ -250,7 +250,7 @@
         <div class="ec-mainbanner">
             <div class="flexslider">
                 <ul class="slides">
-                    <li>
+                <!--     <li>
                         <img src="extra-images/banner-1.jpg" alt="">
                         <span class="ec-transparent-color"></span>
                         <div class="ec-caption">
@@ -265,8 +265,8 @@
                                 <div class="ec-caption-image"> <img src="extra-images/banner-static.png" alt=""> </div>
                             </div>
                         </div>
-                    </li>
-                    <li>
+                    </li> -->
+                   <!--  <li>
                         <img src="extra-images/banner-2.jpg" alt="">
                         <span class="ec-transparent-color"></span>
                         <div class="ec-caption">
@@ -281,7 +281,7 @@
                                 <div class="ec-caption-image"> <img src="extra-images/banner-static.png" alt=""> </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -289,7 +289,7 @@
         <!--// Main Content \\-->
         <div class="ec-main-content">
             <!--// Main Section \\-->
-            <div class="ec-main-section ec-newsticker-wrap">
+          <!--   <div class="ec-main-section ec-newsticker-wrap">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -304,7 +304,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
             <div class="ec-main-section ec-promofull">

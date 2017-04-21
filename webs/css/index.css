@@ -1,0 +1,27 @@
+.scrollbar-height{
+	height: 450px;
+}
+.scrollbar{
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.justify{
+	text-align: justify;
+}
+.card-padding{
+	padding: 20px 20px 20px 20px;
+}
+.title-color{
+	color:#27ae60;
+}
+.center{
+	text-align: center;
+}
+.light-border{
+	border: 1px solid;
+    border-color: #DADFE1;
+}
+
+.add-pointer{
+	cursor: pointer;
+}

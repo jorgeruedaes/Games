@@ -1,6 +1,7 @@
 <?php
 include('Admin/php/conexion.php');
 include('Admin/php/funciones.php');
+include('Admin/php/datos.php');
 date_default_timezone_set('America/Bogota');
 setlocale(LC_TIME, 'es_ES.UTF-8');
 ?>
@@ -24,6 +25,8 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
     <link href="webs/css/flexslider.css" rel="stylesheet">
     <link href="webs/css/prettyphoto.css" rel="stylesheet">
     <link href="webs/css/responsive.css" rel="stylesheet">
+    <link href="webs/css/index.css" rel="stylesheet">
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,27 +41,25 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
         <!--// Main Header \\-->
         <header id="ec-header">
             <!--// TopSection \\-->
-            <div class="ec-top-strip">
+             <div class="ec-top-strip" style="background-color: #27ae60">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="ec-strip-info">
+
                                 <li><i class="fa fa-phone"></i><?php echo String_Get_Valores('telefono') ?></li>
                                 <li><i class="fa fa-map-marker"></i><?php echo String_Get_Valores('direccion') ?></li>
-                                <li><i class="fa fa-envelope-o"></i> <a href="#"><?php echo String_Get_Valores('email') ?></a></li>
-                            </ul>
-                            <div class="ec-login-section">
-                                <a href="Admin/pages/inicio.php" class="ec-login-section-btn ec-bgcolor"><i class="fa fa-user"></i> Login </a>
-                            </div>
+                                <li><i class="fa fa-envelope-o"></i> <a href="#"><?php echo String_Get_Valores('email') ?></a></li> 
+                            </ul> 
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             <!--// TopSection \\-->
             <!--// Main Header \\-->
             <div class="ec-main-navsection">
                 <div class="container">
-                    <a href="#" class="ec-logo"><img width="80%" src="webs/images/<?php echo String_Get_Valores('favicon')?>" alt=""></a>
+                <a href="#" class="ec-logo"><img src="images/logo.png" alt=""></a>
                     <div class="ec-right-section">
                         <nav class="ec-navigation">
                             <ul>

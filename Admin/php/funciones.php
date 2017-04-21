@@ -22,6 +22,79 @@ function NombreCancha($identificador)
     return $valor;
 }
 
+function NombreClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT nombre 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['nombre'];
+    
+    return $valor;
+}
+
+function LogoClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT logo 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['logo'];
+    
+    return $valor;
+}
+function DireccionClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT direccion 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['direccion'];
+    
+    return $valor;
+}
+function TelefonoClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT telefono 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['telefono'];
+    
+    return $valor;
+}
+function CorreoClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT correo 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['correo'];
+    
+    return $valor;
+}
+function NombrePresidenteClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT presidente 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['presidente'];
+    
+    return $valor;
+}
+function CanchaClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT cancha_entrenamiento 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['cancha_entrenamiento'];
+    
+    return $valor;
+}
+function HorarioClub($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT horario 
+      FROM tb_colegio WHERE id_colegio=$identificador"));
+    $valor = $valor['horario'];
+    
+    return $valor;
+}
 // Recibe : Hora
 // Retorna : 3:30 pm formato de hora .
 function FormatoHora($hora)
@@ -52,6 +125,49 @@ function FormatoFecha($fecha)
     
     return $valor;
 }
+
+
+function Int_Total_Equipos(){
+
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT COUNT(*) 
+      AS totalequipos FROM tb_equipos"));
+    $totalequipos= $valor['totalequipos'];
+    
+    return $totalequipos;
+}
+
+function Int_Total_Jugadores($estado){
+
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT COUNT(*) 
+      AS totaljugadores FROM tb_jugadores WHERE estado_jugador='$estado'"));
+    $totaljugadores= $valor['totaljugadores'];
+    
+    return $totaljugadores;
+}
+
+function Int_Total_Partidos($estado){
+
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT COUNT(*) 
+      AS totalpartidos FROM tb_partidos WHERE Estado='$estado'"));
+    $totalpartidos= $valor['totalpartidos'];
+    
+    return $totalpartidos;
+}
+
+function Int_Total_Goles(){
+
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT 
+    SUM(resultado1) + SUM(resultado2) AS totalgoles from tb_partidos"));
+    $totalgoles= $valor['totalgoles'];
+    
+    return $totalgoles;
+    
+}
+
 // Recibe : id del partido 
 // Retorna : Infomacion del paritdo en un array
 function DatosPartido($identificador)
@@ -347,6 +463,59 @@ function ObtenerFechasdePartidosDeUnEquipo($estado, $orden, $equipo)
     }
     
     return $datos;
+}
+
+// Recibe: Deporte 
+// Retorna: Array con torneos del deporte
+function ObtenerTorneosPorDeporte($deporte,$estado){
+
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT id_torneo, nombre_torneo
+     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado'");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $id  = $informacion['id_torneo'];
+        $nombre = $informacion['nombre_torneo'];
+        $vector = array(
+            'id' => "$id",
+            'nombre' => "$nombre",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+
+}
+
+// Recibe: Torneo y estado
+// Retorna: Array con diferentes partidos de ese torneo y estado.
+function ObtenerPartidosDeUnTorneo ($torneo, $estado){
+
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT equipo1, equipo2, fecha, hora, Lugar
+      FROM tb_partidos WHERE estado='$estado' and equipo1 IN 
+      (select id_equipo from tb_equipos where torneo='$torneo') AND
+      equipo2 IN (select id_equipo from tb_equipos where torneo='$torneo')   
+      ORDER BY fecha asc, hora asc ");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $equipo1    = $informacion['equipo1'];
+        $equipo2    = $informacion['equipo2'];
+        $fecha      = $informacion['fecha'];
+        $hora       = $informacion['hora'];
+        $lugar      = $informacion['Lugar'];
+        $vector     = array(
+            "equipo1" => "$equipo1",
+            "equipo2" => "$equipo2",
+            "fecha" => "$fecha",
+            "hora" => "$hora",
+            "lugar" => "$lugar",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+
 }
 // Recibe : Estado de los partidos y Fecha.
 // Retorna : Array con diferentes partidos de ese estado y fecha.
@@ -1011,8 +1180,143 @@ function Get_Medallero()
 
     return $vector;
 }
-
 function Generar_Tabla_De_Posiciones($torneo)
+{
+    global $conexion;
+/// Consulta de numero de equipos que han jugado para generar la Tabla de posiciones
+    $equiposquehanjugado = mysqli_query($conexion,"SELECT id_equipo,nombre_equipo,grupo
+FROM tb_equipos,tb_partidos 
+WHERE (tb_equipos.id_equipo = tb_partidos.equipo1
+OR tb_equipos.id_equipo = tb_partidos.equipo2)
+AND  (tb_equipos.torneo = '$torneo'
+OR tb_equipos.torneo = '$torneo')
+ AND  tb_partidos.Estado='2'
+GROUP BY id_equipo");
+
+// se realiza la busqueda equipo por equipo con el fin de que se guarden los datos en una matrix , esto ayudara a organizar la informacion
+// se calcula el numero de equipos que han jugado hasta ahora con una nueva variable que define el numero de columnas creadas (numero de equipos que ha jugado)
+    $numerodeequiposparaeltamañodelamatriz = mysqli_num_rows($equiposquehanjugado);
+
+    $matriz[$numerodeequiposparaeltamañodelamatriz]['20'] = 0;
+    $i = 0;
+    while ($identificaciones = mysqli_fetch_array($equiposquehanjugado)) {
+    $matriz[$i]['3'] = 0;  // GOLES A FAVOR
+    $matriz[$i]['4'] = 0; // GOLES CONTRA
+    $matriz[$i]['5'] = 0;  // PARTIDOS PERDIOS
+    $matriz[$i]['6'] = 0;  // PARTIDOS GANADOS
+    $matriz[$i]['7'] = 0; // EMPATES
+
+
+    $matriz[$i]['0'] = $identificaciones['id_equipo'];
+    $matriz[$i]['1'] = $identificaciones['nombre_equipo'];
+    $matriz[$i]['2'] = 0;
+    $matriz[$i]['11'] = $identificaciones['grupo'];
+
+
+// // saber en que lugar esta si en el equipo1 o equipo2 para tomar los valores de los goles 
+    $lugardentrodelospartidos = mysqli_query($conexion,"SELECT  distinct equipo1,equipo2,resultado1,resultado2
+ FROM  tb_partidos WHERE tb_partidos.Estado='2' AND numero_fecha <18");
+
+    while ($equipoparticipante = mysqli_fetch_array($lugardentrodelospartidos)) {
+        if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo'] || $equipoparticipante['equipo2'] == $identificaciones['id_equipo']) {
+
+
+            // se incluira el codigo para saber que partidos se han ganado perdido o empatado por el respectivo equipo
+// ifs para definir el ganador perdedor o empate
+            if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo']) {
+
+                if ($equipoparticipante['resultado1'] == $equipoparticipante['resultado2']) {
+                    // EMPATE
+                    $matriz[$i]['7'] = $matriz[$i]['7'] + 1;
+                }
+
+                if ($equipoparticipante['resultado1'] > $equipoparticipante['resultado2']) {
+                    // GANA EQUIPO 1
+                    $matriz[$i]['6'] = $matriz[$i]['6'] + 1;
+                }
+
+                if ($equipoparticipante['resultado1'] < $equipoparticipante['resultado2']) {
+                    // GANA EQUIPO 2
+                    $matriz[$i]['5'] = $matriz[$i]['5'] + 1;
+                }
+            }    ///---------------> PARA EQUIPO 1 ARRIBA
+
+
+            if ($equipoparticipante['equipo2'] == $identificaciones['id_equipo']) {
+
+                if ($equipoparticipante['resultado1'] == $equipoparticipante['resultado2']) {
+                    // EMPATE
+                    $matriz[$i]['7'] = $matriz[$i]['7'] + 1;
+                }
+
+                if ($equipoparticipante['resultado1'] > $equipoparticipante['resultado2']) {
+                    // GANA EQUIPO 1
+                    $matriz[$i]['5'] = $matriz[$i]['5'] + 1;
+                }
+
+                if ($equipoparticipante['resultado1'] < $equipoparticipante['resultado2']) {
+                    // GANA EQUIPO 2
+                    $matriz[$i]['6'] = $matriz[$i]['6'] + 1;
+                }
+            }//-------------------> PARA EQUIPO 2 CUANDO GPE ARRIBA
+// --->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>AQUI TERMINA CODIGO PARTIDOS GPE
+
+
+            if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo']) {
+                $Golesafavor = $equipoparticipante['resultado1'];
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $matriz[$i]['3'] = $matriz[$i]['3'] + $Golesafavor;
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $Golescontra = $equipoparticipante['resultado2'];
+                $matriz[$i]['4'] = $matriz[$i]['4'] + $Golescontra;
+            } else {
+                $Golesacontra = $equipoparticipante['resultado1'];
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $matriz[$i]['4'] = $matriz[$i]['4'] + $Golesacontra;
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $Golesafavor = $equipoparticipante['resultado2'];
+                $matriz[$i]['3'] = $matriz[$i]['3'] + $Golesafavor;
+            }
+        }
+    }
+    $i++;
+}
+
+// Ordenar matriz
+$eliminaciondeinfoanterio = mysqli_query($conexion,"DELETE FROM te_posiciones");
+
+for ($i = 0; $i < $numerodeequiposparaeltamañodelamatriz; $i++) {
+
+    $matriz[$i]['8'] = $matriz[$i]['6'] + $matriz[$i]['7'] + $matriz[$i]['5'];
+    $matriz[$i]['9'] = $matriz[$i]['3'] - $matriz[$i]['4'];
+    $matriz[$i]['10'] = $i + 1;
+
+                            $variable1 = $matriz[$i]['1'];  // nombre equipo
+                            $variable11 = $matriz[$i]['0'];  // id
+         $variable2 = (($matriz[$i]['6'] * Get_Puntos_Ganador_Torneo($torneo)) + $matriz[$i]['7']);  // puntos
+                            $variable3 = $matriz[$i]['8'];  // partidos jugados
+                            $variable4 = $matriz[$i]['6'];  // partidos ganados
+                            $variable5 = $matriz[$i]['7'];  // empates
+                            $variable6 = $matriz[$i]['5'];  // partidos perdidos
+                            $variable7 = $matriz[$i]['3'];  // goles a favor
+                            $variable8 = $matriz[$i]['4'];  // goles en contra
+                            $variable9 = $matriz[$i]['9'];  // diferencia de Gol
+                            $variable10 = $matriz[$i]['11'];  // Grupo
+                            
+                                //SITUACIONES ESPECIALES
+
+
+                            // FIN SITUACIONES ESPECIALES
+
+                            mysqli_query($conexion,"INSERT INTO `te_posiciones`(`equipo`, `puntos`, `pj`, `pg`, `pe`, `pp`, `gf`, `gc`, `dg`,`id`,`grupo`)
+                              VALUES ('$variable1','$variable2','$variable3','$variable4','$variable5','$variable6','$variable7','$variable8','$variable9','$variable11','$variable10');")
+                            or die(mysql_error());
+
+                        }
+
+                    }
+
+function Generar_Tabla_De_Posiciones_Deportes($torneo)
 {
     global $conexion;
 /// Consulta de numero de equipos que han jugado para generar la Tabla de posiciones
@@ -1621,5 +1925,39 @@ function Get_Jugadores_Colegio($colegio)
    array_push($vector, $vectores);
 }
 return $vector;
+}
+
+function Get_Lista_Clubes($estado){
+
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT *
+     FROM tb_colegio WHERE estado='$estado'");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $id  = $informacion['id_colegio'];
+        $nombre = $informacion['nombre'];
+        $direccion  = $informacion['direccion'];
+        $telefono = $informacion['telefono'];
+        $correo  = $informacion['correo'];
+        $presidente = $informacion['presidente'];
+        $cancha  = $informacion['cancha_entrenamiento'];
+        $horario = $informacion['horario'];
+        $logo = $informacion['logo'];
+        $vector = array(
+            'id' => "$id",
+            'nombre' => "$nombre",
+            'direccion' => "$direccion",
+            'telefono' => "$telefono",
+            'correo' => "$correo",
+            'presidente' => "$presidente",
+            'cancha' => "$cancha",
+            'horario' => "$horario",
+            'logo' => "$logo",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+
 }
 ?>

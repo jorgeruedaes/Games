@@ -4,23 +4,22 @@ include('menuinicial.php');
   <div class="ec-mainbanner">
             <div class="flexslider">
                 <ul class="slides">
-                    <li>
-                        <img src="webs/extra-images/banner-1.jpg" alt="">
-                        <span class="ec-transparent-color"></span>
-                        <div class="ec-caption">
-                            <div class="container">
-                                <div class="caption-inner-wrap">
-                                    <time class="ec-bgcolor" datetime="2008-02-14 20:00">From the March 7, 2014</time>
-                                    <div class="clearfix"></div>
-                                    <h1>Welcome to eyesports</h1>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id justo a arcu viverra placerat in eget dolor. In hac habitasse platea dictumst. Etiam porta diam sed lacus pharetra, elementum molestie metus fermentum.</p>
-                                    <a href="#" class="ec-bgcolor">Read More</a>
-                                </div>
-                                <div class="ec-caption-image"> <img src="webs/extra-images/banner-static.png" alt=""> </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
+                   <li>
+                        <img src="webs/images/Banner/principal4.png" alt="">
+                   </li>
+                   <li>
+                        <img src="webs/images/Banner/principal3.png" alt="">
+                   </li>
+                   <li>
+                        <img src="webs/images/Banner/principal2.png" alt="">
+                   </li>
+                   <li>
+                        <img src="webs/images/Banner/principal1.png" alt="">
+                   </li>
+                   <li>
+                        <img src="webs/images/Banner/principal6.jpg" alt="">
+                   </li>
+                   <!--  <li>
                         <img src="webs/extra-images/banner-2.jpg" alt="">
                         <span class="ec-transparent-color"></span>
                         <div class="ec-caption">
@@ -35,7 +34,7 @@ include('menuinicial.php');
                                 <div class="ec-caption-image"> <img src="webs/extra-images/banner-static.png" alt=""> </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -43,7 +42,7 @@ include('menuinicial.php');
         <!--// Main Content \\-->
         <div class="ec-main-content">
             <!--// Main Section \\-->
-            <div class="ec-main-section ec-newsticker-wrap">
+          <!--   <div class="ec-main-section ec-newsticker-wrap">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -58,117 +57,176 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
             <div class="ec-main-section ec-promofull">
                 <div class="container">
                     <div class="row">
                         <!--// Match Fixture \\-->
-                        <div class="col-md-6">
+                           <div class="col-md-6">
                             <div class="ec-fancy-title">
-                                <h2>Match Fixture</h2>
+                                <h2>Programación</h2>
                             </div>
-                            <div class="ec-fixture-list">
-                                <ul>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="webs/extra-images/fixer-flag-1.png" alt=""> Arsenal</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="webs/extra-images/fixer-flag-2.png" alt=""> Premier</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="webs/extra-images/fixer-flag-3.png" alt=""> Liver Pool</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="webs/extra-images/fixer-flag-4.png" alt=""> South United</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Sunday</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="webs/extra-images/fixer-flag-5.png" alt=""> 1.FCK</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="webs/extra-images/fixer-flag-6.png" alt=""> Chelsea</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="webs/extra-images/fixer-flag-7.png" alt=""> Real Madrid</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="webs/extra-images/fixer-flag-8.png" alt=""> Arsenal</a>
-                                        </div>
-                                    </li>
-                                </ul>
+                            <div class="ec-nextmatch">
+                            <?php
+
+                            $vector = ObtenerTorneosPorDeporte('1','activo');
+                            echo (empty($vector)) ? '<cite>No hay programación.</cite>' :'';
+                            foreach ($vector as $value)
+                            {
+
+                                $id = $value['id'];
+                                $nombre =$value['nombre'];
+                            ?>
+
+                               
+                            <div class="item scrollbar-height scrollbar">
+                            <div>
+                            <h3 class="header-torneo"><?php echo $nombre?></h3>
+                            </div>
+                            <?php
+                            $vectores = ObtenerPartidosDeUnTorneo($id,'1');
+                            echo (empty($vectores)) ? '<cite>No hay programación.</cite>' :'';
+                            foreach ($vectores  as $values)
+                                    {
+
+                                        $equipo1=$values['equipo1'];
+                                        $equipo2=$values['equipo2'];
+                                        $fecha=$values['fecha'];
+                                        $hora=$values['hora'];
+                                        $lugar=$values['lugar'];
+                                    ?>
+                             
+                   
+                                    <ul class="ec-team-matches">
+                                        <li>
+                                            <a href="#"><img src="webs/extra-images/next-match-1.png" alt=""> <span><?php echo NombreEquipo($equipo1);?></span></a>
+                                        </li>
+                                        <li>
+                                            <time class="ec-color" datetime="2008-02-14 20:00">
+                                                <?php echo FormatoFecha($fecha);?>
+                                            </time> 
+                                            <small>
+                                            <?php echo FormatoHora($hora); ?>
+                                            </small>
+                                            <br>
+                                             <small>
+                                            <?php echo NombreCancha($lugar); ?>
+                                            </small>
+                                            </li>
+                                        <li>
+                                            <a href="#"><img src="webs/extra-images/next-match-2.png" alt=""> <span><?php echo NombreEquipo($equipo2);?></span></a>
+                                        </li>
+                                    </ul>
+
+                                    <?php
+
+                                    }
+
+                                    ?>
+                                </div> 
+
+                                    <?php
+                                }
+                            ?>
                             </div>
                         </div>
                         <!--// TablePoint \\-->
                         <div class="col-md-6">
                             <div class="ec-fancy-title">
-                                <h2>Table Points</h2>
+                                <h2>Tabla de posiciones</h2>
                             </div>
-                            <div class="ec-table-point">
-                                <ul class="ec-table-head">
+
+                            <div class="ec-nextmatch">
+                            <?php
+
+                            $vector = ObtenerTorneosPorDeporte('1','activo');
+                            echo (empty($vector)) ? '<cite>No hay programación.</cite>' :'';
+                            foreach ($vector as $value)
+                            {
+
+                                $id = $value['id'];
+                                $nombre =$value['nombre'];
+                            ?>
+                               
+                            <div class="item scrollbar-height scrollbar">
+                            <div>
+                            <h3 class="header-torneo"><?php echo $nombre?></h3>
+                            </div>
+                            <ul class="ec-table-head">
                                     <li>
-                                        <div class="ec-cell">S.#</div>
-                                        <div class="ec-cell">Team</div>
+                                        <div class="ec-cell">#</div>
+                                        <div class="ec-cell">Equipo</div>
                                         <div class="ec-cell">P</div>
-                                        <div class="ec-cell">W</div>
-                                        <div class="ec-cell">D</div>
-                                        <div class="ec-cell">L</div>
+                                        <div class="ec-cell">PG</div>
+                                        <div class="ec-cell">PE</div>
+                                        <div class="ec-cell">PP</div>
                                     </li>
                                 </ul>
-                                <ul class="ec-table-list">
-                                    <li>
-                                        <div class="ec-cell">1</div>
-                                        <div class="ec-cell">Arsenal</div>
-                                        <div class="ec-cell">20</div>
-                                        <div class="ec-cell">28</div>
-                                        <div class="ec-cell">5</div>
-                                        <div class="ec-cell">5</div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell">2</div>
-                                        <div class="ec-cell">1.FCK</div>
-                                        <div class="ec-cell">30</div>
-                                        <div class="ec-cell">23</div>
-                                        <div class="ec-cell">9</div>
-                                        <div class="ec-cell">6</div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell">3</div>
-                                        <div class="ec-cell">Liver Pool</div>
-                                        <div class="ec-cell">10</div>
-                                        <div class="ec-cell">22</div>
-                                        <div class="ec-cell">10</div>
-                                        <div class="ec-cell">8</div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell">4</div>
-                                        <div class="ec-cell">Real Madrid</div>
-                                        <div class="ec-cell">5</div>
-                                        <div class="ec-cell">21</div>
-                                        <div class="ec-cell">14</div>
-                                        <div class="ec-cell">10</div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell">5</div>
-                                        <div class="ec-cell">Premier League</div>
-                                        <div class="ec-cell">14</div>
-                                        <div class="ec-cell">10</div>
-                                        <div class="ec-cell">9</div>
-                                        <div class="ec-cell">8</div>
-                                    </li>
-                                </ul>
+                            <?php
+                            $numero = 1;
+                            $vectores = ObtenerTablaPosiciones('8','A',$id);
+                            echo (empty($vectores)) ? '<cite>No hay posiciones.</cite>' :'';
+                            foreach ($vectores  as $values)
+                            {
+                            
+                            ?>
+                            <ul class="ec-table-list">
+                            <li>
+                                        <div class="ec-cell"><?php echo $numero;?></div>
+                                        <div class="ec-cell"><?php echo $values['equipo']  ?></div>
+                                        <div class="ec-cell"><?php echo $values['puntos']  ?></div>
+                                        <div class="ec-cell"><?php echo $values['pj']  ?></div>
+                                        <div class="ec-cell"><?php echo $values['pe']  ?></div>
+                                        <div class="ec-cell"><?php echo $values['pp']  ?></div>
+                                       
+                            </li>
+                            </ul>
+                             
+                            <?php
+
+                            $numero = $numero + 1;
+
+                                }
+
+                            ?>
+
+                            </div> 
+                            
+                            <?php
+                                
+                                }
+
+                            ?>
                             </div>
                         </div>
                         <!--// TablePoint \\-->
                         <!--// Partner \\-->
                         <div class="col-md-12">
+                            <div class="ec-fancy-title">
+                                <h2>Patrocinadores</h2>
+                            </div>
+                            <div class="ec-sponsored">
+                                <div class="item">
+                                    <a href="#"><img src="webs/images/Partners/macpollo.png" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href="#"><img src="webs/images/Partners/financieracomultrasan.png" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href="#"><img src="webs/images/Partners/indersantander.png" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href="#"><img src="webs/images/Partners/vanguardialiberal.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="ec-fancy-title">
+                                <h2>Asociados</h2>
+                            </div>
                             <div class="ec-sponsored">
                                 <div class="item">
                                     <a href="#"><img src="webs/extra-images/partner-logo-1.jpg" alt=""></a>
@@ -196,7 +254,7 @@ include('menuinicial.php');
             </div>
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section ec-full-parallexbg">
+            <!-- <div class="ec-main-section ec-full-parallexbg">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -209,10 +267,10 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section">
+          <!--   <div class="ec-main-section">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
@@ -250,7 +308,7 @@ include('menuinicial.php');
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                         <div class="col-md-6">
                             <div class="ec-fancy-title">
                                 <h2>Latest Result</h2>
                                 <span>On Live</span>
@@ -286,13 +344,13 @@ include('menuinicial.php');
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section">
+         <!--    <div class="ec-main-section">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -382,7 +440,7 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
             <div class="ec-main-section ec-full-counter">
@@ -395,29 +453,32 @@ include('menuinicial.php');
                                     <li class="col-md-3">
                                         <i class="fa fa-globe"></i>
                                         <div class="ec-counter-info">
-                                            <small>TOTAL GOALS</small>
-                                            <span class="word-count ec-color">15,000</span>
+                                            <small>Equipos</small>
+                                            <span class="word-count ec-color"><?php echo Int_Total_Equipos()?></span>
                                         </div>
                                     </li>
                                     <li class="col-md-3">
-                                        <i class="fa fa-glass"></i>
+                                        <i class="fa fa-user"></i>
                                         <div class="ec-counter-info">
-                                            <small>Possession &nbsp; &nbsp;</small>
-                                            <span class="word-count ec-color">7,000</span>
+                                            <small>Jugadores &nbsp; &nbsp;</small>
+                                            <span class="word-count ec-color"><?php echo Int_Total_Jugadores('1')?>
+                                            </span>
                                         </div>
                                     </li>
                                     <li class="col-md-3">
                                         <i class="fa fa-hand-o-right"></i>
                                         <div class="ec-counter-info">
-                                            <small>Win Match &nbsp; &nbsp; </small>
-                                            <span class="word-count ec-color">3,000</span>
+                                            <small>Partidos &nbsp; &nbsp; </small>
+                                            <span class="word-count ec-color"><?php echo Int_Total_Partidos('2')?>
+                                            </span>
                                         </div>
                                     </li>
                                     <li class="col-md-3">
-                                        <i class="fa fa-heart-o"></i>
+                                        <i class="fa fa-soccer-ball-o"></i>
                                         <div class="ec-counter-info">
-                                            <small>corner goal </small>
-                                            <span class="word-count ec-color">1,000</span>
+                                            <small>Goles </small>
+                                            <span class="word-count ec-color"><?php echo Int_Total_Goles()?>
+                                            </span>
                                         </div>
                                     </li>
                                 </ul>
@@ -428,7 +489,7 @@ include('menuinicial.php');
             </div>
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section blog-grid-full">
+       <!--      <div class="ec-main-section blog-grid-full">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -485,10 +546,10 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section blog-grid-full">
+          <!--   <div class="ec-main-section blog-grid-full">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -565,10 +626,10 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section blog-grid-full">
+  <!--           <div class="ec-main-section blog-grid-full">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -603,10 +664,10 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section blog-grid-full">
+         <!--    <div class="ec-main-section blog-grid-full">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -687,10 +748,10 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
             <!--// Main Section \\-->
-            <div class="ec-main-section shop-grid-full">
+           <!--  <div class="ec-main-section shop-grid-full">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -783,13 +844,13 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Main Section \\-->
         </div>
         <!--// Main Content \\-->
         <footer id="ec-footer">
             <!--// Twitter \\-->
-            <div class="ec-twitter">
+       <!--      <div class="ec-twitter">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-2 twiiter-icon">
@@ -808,79 +869,32 @@ include('menuinicial.php');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--// Twitter \\-->
             <!--// Footer Widget \\-->
             <div class="ec-footer-widget">
                 <div class="container">
                     <div class="row">
-                        <aside class="widget col-md-4 ec-recentnews_widget">
+                        <aside class="widget col-md-4 widget_text_info">
                             <div class="ec-section-heading">
-                                <h2>Recently News</h2></div>
-                            <ul>
-                                <li>
-                                    <figure>
-                                        <a href="#"><img src="webs/extra-images/recent-widget-1.jpg" alt=""></a>
-                                    </figure>
-                                    <section>
-                                        <h6><a href="#">United, Palace Aim To Rebound From Setbacks</a></h6>
-                                        <span><i class="fa fa-clock-o"></i> 2 days ago</span>
-                                    </section>
-                                </li>
-                                <li>
-                                    <figure>
-                                        <a href="#"><img src="webs/extra-images/recent-widget-2.jpg" alt=""></a>
-                                    </figure>
-                                    <section>
-                                        <h6><a href="#">The summer of 2014 all about.</a></h6>
-                                        <span><i class="fa fa-clock-o"></i> 2 days ago</span>
-                                    </section>
-                                </li>
-                                <li>
-                                    <figure>
-                                        <a href="#"><img src="webs/extra-images/recent-widget-3.jpg" alt=""></a>
-                                    </figure>
-                                    <section>
-                                        <h6><a href="#">Sevilla finished fifth and just out of the.</a></h6>
-                                        <span><i class="fa fa-clock-o"></i> 2 days ago</span>
-                                    </section>
-                                </li>
+                                <h2>Visítanos</h2></div>
+                          <ul>
+                                <?php echo String_Get_Datos('direccion_2')?>
                             </ul>
                         </aside>
-                        <aside class="widget col-md-4 widget_categories">
+                          <aside class="widget col-md-4 widget_text_info">
                             <div class="ec-section-heading">
-                                <h2>CATEGORY</h2></div>
+                                <h2>Horario de oficina</h2></div>
                             <ul>
-                                <li><a href="#">Boxing</a> 03</li>
-                                <li><a href="#">Championship</a> 05</li>
-                                <li><a href="#">Cycling</a> 03</li>
-                                <li><a href="#">Football</a> 19</li>
-                                <li><a href="#">NFL</a> 02</li>
-                                <li><a href="#">Golf</a> 11</li>
-                                <li><a href="#">Premier League</a> 12</li>
+                              <?php echo String_Get_Datos('horario')?>
                             </ul>
                         </aside>
                         <aside class="widget col-md-4 widget_text_info">
                             <div class="ec-section-heading">
-                                <h2>Contact</h2></div>
+                                <h2>Comunícate</h2></div>
                             <ul>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>177  Desoto Health Care 7805 Southcrest Parkway  Southaven, MS (Mississippi) 38671</span>
-                                </li>
-                                <li>
-                                    <i class="fa fa-phone"></i>
-                                    <span>(907) 904-6163  (660) 567-1244</span>
-                                </li>
+                               <?php echo String_Get_Datos('telefono_2')?>
                             </ul>
-                            <div class="ec-newslatter">
-                                <h6>Join the Newsletter</h6>
-                                <span>Sign up for our personalized daily newsletter</span>
-                                <form>
-                                    <input type="text" value="Enter email address" onblur="if(this.value == '') { this.value ='Enter email address'; }" onfocus="if(this.value =='Enter email address') { this.value = ''; }">
-                                    <input type="submit" value="Sign up" class="ec-bgcolor">
-                                </form>
-                            </div>
                         </aside>
                     </div>
                 </div>
