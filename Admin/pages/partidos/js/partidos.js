@@ -24,6 +24,7 @@ $(function() {
 			partidos.TomarDatos_Resultados();
 			partidos.Cargar_Goles();
 			partidos.SeleccionCampeonato_Goles();
+
 		},SeleccionCampeonato_Goles : function()
 		{
 
@@ -33,8 +34,9 @@ $(function() {
 					url: 'pages/partidos/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
-						bandera: "getcampeonato",
+						bandera: "getpartidosdobleestado",
 						estado : '1',
+						estado1 : '7',
 						campeonato:  $('.selector-campeonato-goles option:selected').val()
 
 					},
@@ -47,12 +49,12 @@ $(function() {
 								t.row.add( [ 
 									resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2,
 									'<strong>'+resp.datos[i].Nfecha+'</strong><br>'+resp.datos[i].fecha,	
-									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect edit-partidos" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
+									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect to-goles" data-partido="'+resp.datos[i].id_partido+'" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
 									] ).draw( false );
 								//partidos.EliminarPartido();
 								//partidos.CargarModal_Editar_Partidos_Eesultado();
-
 							}
+										partidos.AbrirAgregarGoles();
 						} else {
 							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
 							swal("Importante", "No hay partidos para AGREGAR GOLES para este campeonato, o selecciona alguno.", "info");
@@ -599,6 +601,14 @@ $(function() {
 			$('.tabla-resultados').on("click", ".to-partido", function(){
 				var partido = $(this).data('id');
 				var	url = "pages/partidos/agregarresultado.php?id="+partido; 
+				window.open(url, '_self');
+
+			});
+		},
+		AbrirAgregarGoles: function () {
+			$('.tabla-resultados').on("click", ".to-goles", function(){
+				var partido = $(this).data('id');
+				var	url = "pages/partidos/agregargoles.php?id="+partido; 
 				window.open(url, '_self');
 
 			});

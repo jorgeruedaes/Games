@@ -103,6 +103,17 @@ function Array_Get_Partidos_Campeonato($estado,$campeonato)
     
     return $vector;
 }
+function Array_Get_Partidos_Campeonato_DobleEstado($estado,$estado1,$campeonato)
+{
+    $query = consultar("SELECT * FROM tb_partidos WHERE (equipo1 IN (select id_equipo from tb_equipos where torneo='$campeonato' ) and equipo2  IN (select id_equipo from tb_equipos where torneo='$campeonato' )) and (estado='$estado'or estado='$estado1')");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+        $arreglo = Get_Partido($valor['id_partido']);
+        array_push($vector, $arreglo);
+    }
+    
+    return $vector;
+}
 function Array_Get_Partidos_Campeonato_Diferente($estado,$campeonato)
 {
     $query = consultar("SELECT * FROM tb_partidos WHERE (equipo1 IN (select id_equipo from tb_equipos where torneo='$campeonato' ) and equipo2  IN (select id_equipo from tb_equipos where torneo='$campeonato' )) and estado!='$estado' ");
@@ -130,10 +141,10 @@ function Array_Get_Partidos_Estado($estado)
     return $vector;
 }
 
-function Set_resultado_Partido($partido,$resultado1,$resultado2)
+function Set_resultado_Partido($partido,$resultado1,$resultado2,$estado)
 {
-    $valor  = insertar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='2' 
-        WHERE `id_partido`='%d' ",escape($resultado1),escape($resultado2),escape($partido)));
+    $valor  = insertar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='%d' 
+        WHERE `id_partido`='%d' ",escape($resultado1),escape($resultado2),escape($estado),escape($partido)));
     return $valor;
 }
 
@@ -143,11 +154,37 @@ function Add_detalle_jugador($jugador,$partido,$amonestacion,$gol,$autogol)
      VALUES ('%d','%d','%d','%d','%d') ",escape($jugador),escape($partido),escape($amonestacion),escape($gol),escape($autogol)));
     return $valor;
 }
+function Set_detalle_jugador($jugador,$partido,$gol,$autogol)
+{
+    $valor  = insertar(sprintf("UPDATE `tr_jugadoresxpartido` SET `goles`='%d',`autogoles`='%d' WHERE jugador='%d' and partido='%d' ",escape($gol),escape($autogol),escape($jugador),escape($partido)));
+    return $valor;
+}
+function Boolean_Jugadorxpartido($jugador,$partido)
+{
+    $query = consultar("SELECT * FROM  `tr_jugadoresxpartido` WHERE `jugador`='$jugador',`partido`='$partido' ");
+
+    return (Int_consultaVacia($query)>0) ? true : false ;
+}
 function Add_detalles_partido($vector,$partido)
 {
     $json = json_decode($vector);
     $bandera ='';
         for ($i=0; $i < count($json) ; $i++) {
+
+            if(Boolean_Jugadorxpartido($json[$i][0],$partido))
+            {
+            if(Set_detalle_jugador($json[$i][0],$partido,$json[$i][1],$json[$i][2]))
+            {
+                $bandera=true;
+            }   
+            else
+            {
+                $bandera=false;
+            }
+
+            }
+            else
+            {
             if(Add_detalle_jugador($json[$i][0],$partido,$json[$i][3],$json[$i][1],$json[$i][2]))
             {
                 $bandera=true;
@@ -155,6 +192,8 @@ function Add_detalles_partido($vector,$partido)
             else
             {
                 $bandera=false;
+            }
+
             }
         }
     return $bandera;
