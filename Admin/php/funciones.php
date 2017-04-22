@@ -41,6 +41,15 @@ function LogoClub($identificador)
     
     return $valor;
 }
+function ClubEquipo($id_equipo)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT colegio 
+      FROM tb_equipos WHERE id_equipo=$id_equipo"));
+    $valor = $valor['colegio'];
+    
+    return $valor;
+}
 function DireccionClub($identificador)
 {
     global $conexion;
@@ -177,10 +186,10 @@ function DatosPartido($identificador)
       FROM tb_partidos WHERE id_partido=$identificador"));
     $equipo1    = $valor['equipo1'];
     $equipo2    = $valor['equipo2'];
-    $estado     = $valor['Estado'];
+    $estado     = $valor['estado'];
     $fecha      = $valor['fecha'];
     $hora       = $valor['hora'];
-    $lugar      = $valor['Lugar'];
+    $lugar      = $valor['lugar'];
     $Nfecha     = $valor['numero_fecha'];
     $resultado1 = $valor['resultado1'];
     $resultado2 = $valor['resultado2'];
@@ -492,19 +501,52 @@ function ObtenerTorneosPorDeporte($deporte,$estado){
 function ObtenerPartidosDeUnTorneo ($torneo, $estado){
 
     global $conexion;
-    $valor = mysqli_query($conexion, "SELECT equipo1, equipo2, fecha, hora, Lugar
+    $valor = mysqli_query($conexion, "SELECT id_partido,equipo1, equipo2, fecha, hora, Lugar
       FROM tb_partidos WHERE estado='$estado' and equipo1 IN 
       (select id_equipo from tb_equipos where torneo='$torneo') AND
       equipo2 IN (select id_equipo from tb_equipos where torneo='$torneo')   
       ORDER BY fecha asc, hora asc ");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
+        $idpartido  = $informacion['id_partido'];
         $equipo1    = $informacion['equipo1'];
         $equipo2    = $informacion['equipo2'];
         $fecha      = $informacion['fecha'];
         $hora       = $informacion['hora'];
         $lugar      = $informacion['Lugar'];
         $vector     = array(
+            "idpartido" => "$idpartido",
+            "equipo1" => "$equipo1",
+            "equipo2" => "$equipo2",
+            "fecha" => "$fecha",
+            "hora" => "$hora",
+            "lugar" => "$lugar",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+
+}
+
+function ObtenerPartidosDeUnClub ($club, $estado){
+
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT id_partido,equipo1, equipo2, fecha, hora, Lugar
+      FROM tb_partidos WHERE estado='$estado' and equipo1 IN 
+      (select id_equipo from tb_equipos where colegio='$club') OR
+      equipo2 IN (select id_equipo from tb_equipos where colegio='$club')   
+      ORDER BY fecha asc, hora asc ");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $idpartido  = $informacion['id_partido'];
+        $equipo1    = $informacion['equipo1'];
+        $equipo2    = $informacion['equipo2'];
+        $fecha      = $informacion['fecha'];
+        $hora       = $informacion['hora'];
+        $lugar      = $informacion['Lugar'];
+        $vector     = array(
+            "idpartido" => "$idpartido",
             "equipo1" => "$equipo1",
             "equipo2" => "$equipo2",
             "fecha" => "$fecha",

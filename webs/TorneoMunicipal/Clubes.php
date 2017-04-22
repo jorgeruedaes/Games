@@ -25,19 +25,19 @@ include('../../menuinicial.php');
                 <div class="container">
                 <div class="row">
                         <div class="col-md-12">
-                            <div class="ec-gallery ec-modren-gallery">
+                            <div class="ec-gallery ec-gallery ec-modren-gallery">
                                 <ul class="row gallery">
 
                                  <?php
 
-	 							$vector = Get_Lista_Clubes('activo');
-	                            echo (empty($vector)) ? '<cite>No hay programación.</cite>' :'';
-	                            foreach ($vector as $value)
-	                            {
+                                $vector = Get_Lista_Clubes('activo');
+                                echo (empty($vector)) ? '<cite>No hay programación.</cite>' :'';
+                                foreach ($vector as $value)
+                                {
 
                                 $id = $value['id'];
                                 $nombre =$value['nombre'];
- 								$direccion = $value['direccion'];
+                                $direccion = $value['direccion'];
                                 $telefono =$value['telefono'];
                                 $correo = $value['correo'];
                                 $presidente =$value['presidente'];
@@ -47,17 +47,17 @@ include('../../menuinicial.php');
                                 ?>
                                      <li class="col-md-2 add-pointer">
                                         <figure>
-                                            <a href="webs/TorneoMunicipal/Club.php?id=<?php echo $id?>"><img src="webs/images/Escudos/<?php echo $logo ?>"></a>
+                                            <a href="webs/TorneoMunicipal/Club.php?id=<?php echo $id?>"><img class="club-box-size" src="images/Escudos/<?php echo $logo ?>"></a>
+                                           
                                         </figure>
                                     </li>
                                  <?php
                                  }
                                  ?>
-                                   
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                </div>
                 </div>
             </div>
             <!--// Main Section \\-->

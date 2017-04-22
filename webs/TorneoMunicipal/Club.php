@@ -26,10 +26,10 @@ $id = $_GET['id'];
                                 <h2>DATOS DEL CLUB</h2>
                             </div>
                             <div class="ec-plyer-information" >
-                                <figure style="width:20%">
-                                    <a href="#"><img src="webs/images/Escudos/<?php echo LogoClub($id) ?>" alt=""></a>
+                                <figure >
+                                    <a href="#"><img src="images/Escudos/<?php echo LogoClub($id) ?>" alt=""></a>
                                 </figure>
-                                <div class="ec-plyer-designation" style="width:80%">
+                                <div class="ec-plyer-designation">
                                     <ul>
                                         <li><small>Nombre</small> <span style="width:50%"><?php echo NombreClub($id) ?></span></li>
                                         <li><small>Dirección</small> <span style="width:50%"><?php echo DireccionClub($id) ?></span></li>
@@ -45,128 +45,48 @@ $id = $_GET['id'];
                         </div>
                         <!--// TablePoint \\-->
                         <!--// Match Fixture \\-->
-                        <div class="col-md-9">
+                      
+                      
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                          <div class="col-md-9">
                             <div class="ec-fancy-title">
                                 <h2>PROGRAMACIÓN</h2>
                             </div>
                             <div class="ec-fixture-list ec-matches-list">
                                 <ul>
+                                <?php
+                                $vectores = ObtenerPartidosDeUnClub($id,'1');
+                                echo (empty($vectores)) ? '<div class="center"><cite>No hay programación.</cite></div>' :'';
+                                foreach ($vectores  as $values)
+                                    {
+                                        $idpartido=$values['idpartido'];
+                                        $equipo1=$values['equipo1'];
+                                        $equipo2=$values['equipo2'];
+                                        $fecha=$values['fecha'];
+                                        $hora=$values['hora'];
+                                        $lugar=$values['lugar'];
+
+                                        ?>
                                     <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
+                                        <div class="ec-cell"><span><?php echo FormatoFecha($fecha) . ' ' . FormatoHora($hora)?></span></div>
+                                        <div class="ec-cell"><span><?php echo NombreCancha($lugar)?></span></div>
                                         <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-1.png" alt=""> Arsenal</a>
+                                            <a href="#" class="ec-fixture-flag"><img src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""> <?php echo NombreEquipo($equipo1)?></a>
                                             <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-2.png" alt=""> Premier League</a>
+                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""><?php echo NombreEquipo($equipo2)?></a>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="ec-cell"><span>04 Sep. Monday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-3.png" alt=""> Liver Pool</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-4.png" alt=""> South United</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>10 Sep. Sunday1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-5.png" alt=""> 1.FCK</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-6.png" alt=""> Chelsea</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>12 Sep. Wedn 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-7.png" alt=""> Real Madrid</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-8.png" alt=""> Arsenal</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-1.png" alt=""> Arsenal</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-2.png" alt=""> Premier League</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-3.png" alt=""> Liver Pool</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-4.png" alt=""> South United</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Sunday1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-5.png" alt=""> 1.FCK</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-6.png" alt=""> Chelsea</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-7.png" alt=""> Real Madrid</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-8.png" alt=""> Arsenal</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-1.png" alt=""> Arsenal</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-2.png" alt=""> Premier League</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-3.png" alt=""> Liver Pool</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-4.png" alt=""> South United</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Sunday1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-5.png" alt=""> 1.FCK</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-6.png" alt=""> Chelsea</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-7.png" alt=""> Real Madrid</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-8.png" alt=""> Arsenal</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-1.png" alt=""> Arsenal</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-2.png" alt=""> Premier League</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-cell"><span>03 Sep. Friday 1:00pm</span></div>
-                                        <div class="ec-cell">
-                                            <a href="#" class="ec-fixture-flag"><img src="extra-images/fixer-flag-3.png" alt=""> Liver Pool</a>
-                                            <span class="ec-fixture-vs"><small>vs</small></span>
-                                            <a href="#" class="ec-fixture-flag ec-next-flag"><img src="extra-images/fixer-flag-4.png" alt=""> South United</a>
-                                        </div>
-                                    </li>
+                                <?php
+                                }   
+                                ?>
                                 </ul>
                             </div>
                         </div>
-                        <aside class="col-md-3">
+
+                          <aside class="col-md-3">
                             <div class="widget ec-match_widget">
                                 <div class="ec-fancy-title">
                                     <h2>RESULTADOS</h2> </div>

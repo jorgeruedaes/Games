@@ -59,7 +59,7 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
             <!--// Main Header \\-->
             <div class="ec-main-navsection">
                 <div class="container">
-                <a href="#" class="ec-logo"><img src="images/logo.png" alt=""></a>
+                <a href="#" class="ec-logo"><img src="webs/images/logomodificado.png" alt=""></a>
                     <div class="ec-right-section">
                         <nav class="ec-navigation">
                             <ul>
@@ -98,7 +98,7 @@ setlocale(LC_TIME, 'es_ES.UTF-8');
                         <!--// End Main Header \\-->
 
                         <!--// Responsive Menu //-->
-                        <div id="as-menu" class="as-menuwrapper">
+                        <div id="as-menu" class="as-menuwrapper" >
                             <button class="as-trigger">Open Menu</button>
                             <ul class="as-menu">
                                   <?php
