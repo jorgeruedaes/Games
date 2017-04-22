@@ -1,36 +1,36 @@
 
 $(function() {
 	var t='';
-	var partidos = {
+	var amonestaciones = {
 		inicio: function () {
-			partidos.recargar();
-			partidos.Add_Resultado();
+			amonestaciones.recargar();
+			amonestaciones.Add_Resultado();
 		},
 		recargar: function () {
-			partidos.enviarDatos();
-			partidos.CargarModal_Editar_Partidos();
-			partidos.ModificarPartido();
-			partidos.EliminarPartido();
-			partidos.AbrirAgregarResultado();
-			partidos.SeleccionCampeonato();
-			partidos.SeleccionCampeonato_Calendario();
-			partidos.SeleccionCampeonato_Resultados();
-			partidos.SeleccionCampeonato_Nuevo();
-			partidos.Tabla();
-			partidos.Cargar();
-			partidos.Cargar_Calendario();
-			partidos.Cargar_Resultados();
-			partidos.Cargar_Nuevo();
-			partidos.TomarDatos_Resultados();
-			partidos.Cargar_Goles();
-			partidos.SeleccionCampeonato_Goles();
+			amonestaciones.enviarDatos();
+			amonestaciones.CargarModal_Editar_amonestaciones();
+			amonestaciones.Modificaramonestaciones();
+			amonestaciones.Eliminaramonestaciones();
+			amonestaciones.AbrirAgregarResultado();
+			amonestaciones.SeleccionCampeonato();
+			amonestaciones.SeleccionCampeonato_Calendario();
+			amonestaciones.SeleccionCampeonato_Resultados();
+			amonestaciones.SeleccionCampeonato_Nuevo();
+			amonestaciones.Tabla();
+			amonestaciones.Cargar();
+			amonestaciones.Cargar_Calendario();
+			amonestaciones.Cargar_Resultados();
+			amonestaciones.Cargar_Nuevo();
+			amonestaciones.TomarDatos_Resultados();
+			amonestaciones.Cargar_Goles();
+			amonestaciones.SeleccionCampeonato_Goles();
 		},SeleccionCampeonato_Goles : function()
 		{
 
 
 			$('.selector-campeonato-goles').on('change', function () {
 				$.ajax({
-					url: 'pages/partidos/peticiones/peticiones.php',
+					url: 'pages/amonestaciones/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "getcampeonato",
@@ -47,15 +47,15 @@ $(function() {
 								t.row.add( [ 
 									resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2,
 									'<strong>'+resp.datos[i].Nfecha+'</strong><br>'+resp.datos[i].fecha,	
-									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect edit-partidos" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
+									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-amonestaciones="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_amonestaciones+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect edit-amonestaciones" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
 									] ).draw( false );
-								//partidos.EliminarPartido();
-								//partidos.CargarModal_Editar_Partidos_Eesultado();
+								//amonestaciones.Eliminaramonestaciones();
+								//amonestaciones.CargarModal_Editar_amonestaciones_Eesultado();
 
 							}
 						} else {
 							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
-							swal("Importante", "No hay partidos para AGREGAR GOLES para este campeonato, o selecciona alguno.", "info");
+							swal("Importante", "No hay amonestaciones para AGREGAR GOLES para este campeonato, o selecciona alguno.", "info");
 						}
 					}
 				});
@@ -66,7 +66,7 @@ $(function() {
 		Cargar_Goles : function()
 		{
 			$.ajax({
-				url: 'pages/partidos/peticiones/peticiones.php',
+				url: 'pages/amonestaciones/peticiones/peticiones.php',
 				type: 'POST',
 				data: {
 					bandera: "get_campeonato",
@@ -85,9 +85,9 @@ $(function() {
 			});
 		},
 		Add_Resultado: function () {
-			$('.guardar-partido').on("click", function(){
+			$('.guardar-amonestaciones').on("click", function(){
 
-				swal({title: "¿Esta seguro que desea GUARDAR los datos del partido?",
+				swal({title: "¿Esta seguro que desea GUARDAR los datos del amonestaciones?",
 					text: "",
 					type: "warning",
 					confirmButtonText: "Aceptar",
@@ -99,13 +99,13 @@ $(function() {
 					if (isConfirm) {
 
 						$.ajax({
-							url: 'pages/partidos/peticiones/peticiones.php',
+							url: 'pages/amonestaciones/peticiones/peticiones.php',
 							type: 'POST',
 							data: {
 								bandera: "agregardetalles",
-								partido: $('.guardar-partido').data('partido'),
-								fecha: $('.guardar-partido').data('fecha'),
-								json  : partidos.TomarDatos_Resultados(),
+								amonestaciones: $('.guardar-amonestaciones').data('amonestaciones'),
+								fecha: $('.guardar-amonestaciones').data('fecha'),
+								json  : amonestaciones.TomarDatos_Resultados(),
 								resultado1 : $('#resultado1').val(),
 								resultado2 : $('#resultado2').val(),
 
@@ -175,7 +175,7 @@ $(function() {
 		Cargar_Nuevo : function()
 		{
 			$.ajax({
-				url: 'pages/partidos/peticiones/peticiones.php',
+				url: 'pages/amonestaciones/peticiones/peticiones.php',
 				type: 'POST',
 				data: {
 					bandera: "get_campeonato",
@@ -196,7 +196,7 @@ $(function() {
 		Cargar_Resultados : function()
 		{
 			$.ajax({
-				url: 'pages/partidos/peticiones/peticiones.php',
+				url: 'pages/amonestaciones/peticiones/peticiones.php',
 				type: 'POST',
 				data: {
 					bandera: "get_campeonato",
@@ -217,7 +217,7 @@ $(function() {
 		Cargar_Calendario : function()
 		{
 			$.ajax({
-				url: 'pages/partidos/peticiones/peticiones.php',
+				url: 'pages/amonestaciones/peticiones/peticiones.php',
 				type: 'POST',
 				data: {
 					bandera: "get_campeonato",
@@ -239,7 +239,7 @@ $(function() {
 		Cargar : function()
 		{
 			$.ajax({
-				url: 'pages/partidos/peticiones/peticiones.php',
+				url: 'pages/amonestaciones/peticiones/peticiones.php',
 				type: 'POST',
 				data: {
 					bandera: "get_campeonato",
@@ -268,7 +268,7 @@ $(function() {
 
 			$('.selector-campeonato-nuevo').on('change', function () {
 				$.ajax({
-					url: 'pages/partidos/peticiones/peticiones.php',
+					url: 'pages/amonestaciones/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "getequipos",
@@ -307,7 +307,7 @@ $(function() {
 
 			$('.selector-campeonato-resultados').on('change', function () {
 				$.ajax({
-					url: 'pages/partidos/peticiones/peticiones.php',
+					url: 'pages/amonestaciones/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "getcampeonato",
@@ -324,15 +324,15 @@ $(function() {
 								t.row.add( [ 
 									resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2,
 									'<strong>'+resp.datos[i].nombre_estado+'</strong><br>'+resp.datos[i].fecha,	
-									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect edit-partidos" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
+									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-amonestaciones="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_amonestaciones+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect edit-amonestaciones" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
 									] ).draw( false );
-								//partidos.EliminarPartido();
-								//partidos.CargarModal_Editar_Partidos_Eesultado();
+								//amonestaciones.Eliminaramonestaciones();
+								//amonestaciones.CargarModal_Editar_amonestaciones_Eesultado();
 
 							}
 						} else {
 							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
-							swal("Importante", "No hay partidos para EDITAR RESULTADOS para este campeonato, o selecciona alguno.", "info");
+							swal("Importante", "No hay amonestaciones para EDITAR RESULTADOS para este campeonato, o selecciona alguno.", "info");
 						}
 					}
 				});
@@ -344,7 +344,7 @@ $(function() {
 		{
 			$('.selector-campeonato-calendario').on('change', function () {
 				$.ajax({
-					url: 'pages/partidos/peticiones/peticiones.php',
+					url: 'pages/amonestaciones/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "getcampeonato-diferente",
@@ -361,15 +361,15 @@ $(function() {
 								t.row.add( [ 
 									resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2,
 									'<strong>'+resp.datos[i].nombre_estado+'</strong><br>'+resp.datos[i].fecha,	
-									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect edit-partidos" data-toggle="modal" > <i class="material-icons">edit</i></button><button  data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'"  data-id="'+resp.datos[i].id_partido+'" type="button" class="btn bg-red waves-effect delete-partido"> <i class="material-icons">delete</i></button></div>'
+									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-amonestaciones="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_amonestaciones+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect edit-amonestaciones" data-toggle="modal" > <i class="material-icons">edit</i></button><button  data-amonestaciones="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'"  data-id="'+resp.datos[i].id_amonestaciones+'" type="button" class="btn bg-red waves-effect delete-amonestaciones"> <i class="material-icons">delete</i></button></div>'
 									] ).draw( false );
-								partidos.EliminarPartido();
-								partidos.CargarModal_Editar_Partidos();
+								amonestaciones.Eliminaramonestaciones();
+								amonestaciones.CargarModal_Editar_amonestaciones();
 
 							}
 						} else {
 							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
-							swal("Importante", "No hay partidos para EDITAR CALENDARIO para este campeonato, o selecciona alguno.", "info");
+							swal("Importante", "No hay amonestaciones para EDITAR CALENDARIO para este campeonato, o selecciona alguno.", "info");
 						}
 					}
 				});
@@ -382,7 +382,7 @@ $(function() {
 		{
 			$('.selector-campeonato').on('change', function () {
 				$.ajax({
-					url: 'pages/partidos/peticiones/peticiones.php',
+					url: 'pages/amonestaciones/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "getcampeonato",
@@ -399,15 +399,15 @@ $(function() {
 								t.row.add( [ 
 									resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2,
 									'<strong>'+resp.datos[i].Nfecha+'</strong> '+resp.datos[i].fecha,	
-									'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button data-id="'+resp.datos[i].id_partido+'" type="button" class="btn btn-primary waves-effect to-partido"><i class="material-icons">edit</i></button></div>'
+									'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button data-id="'+resp.datos[i].id_amonestaciones+'" type="button" class="btn btn-primary waves-effect to-amonestaciones"><i class="material-icons">edit</i></button></div>'
 
 									] ).draw( false );
-								partidos.AbrirAgregarResultado();
+								amonestaciones.AbrirAgregarResultado();
 
 							}
 						} else {
 							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
-							swal("Importante", "No hay partidos en los cuales AGREGAR RESULTADOS para este campeonato, o selecciona alguno.", "info");
+							swal("Importante", "No hay amonestaciones para AGREGAR para este campeonato, o selecciona alguno.", "info");
 						}
 					}
 				});
@@ -416,11 +416,11 @@ $(function() {
 			});
 		}
 		,
-		EliminarPartido: function () {
-			$('.tabla-resultados').on("click", ".delete-partido", function(){
-				var partido =$(this).data('id');
-				var datos = $(this).data('partido');
-				swal({title: "¿Esta seguro que desea ELIMINAR el partido?",
+		Eliminaramonestaciones: function () {
+			$('.tabla-resultados').on("click", ".delete-amonestaciones", function(){
+				var amonestaciones =$(this).data('id');
+				var datos = $(this).data('amonestaciones');
+				swal({title: "¿Esta seguro que desea ELIMINAR el amonestaciones?",
 					text: datos,
 					type: "warning",
 					confirmButtonText: "Aceptar",
@@ -432,11 +432,11 @@ $(function() {
 					if (isConfirm) {
 
 						$.ajax({
-							url: 'pages/partidos/peticiones/peticiones.php',
+							url: 'pages/amonestaciones/peticiones/peticiones.php',
 							type: 'POST',
 							data: {
 								bandera: "eliminar",
-								partido: partido
+								amonestaciones: amonestaciones
 
 							},
 							success: function (resp) {
@@ -444,7 +444,7 @@ $(function() {
 								var resp = $.parseJSON(resp);
 								if (resp.salida === true && resp.mensaje === true) {
 									swal({title: "",
-										text: "El partido se ha eliminado exitosamente!",
+										text: "El amonestaciones se ha eliminado exitosamente!",
 										type: "success",
 										confirmButtonText: "Aceptar",
 										showCancelButton: true,
@@ -472,9 +472,9 @@ $(function() {
 
 
 			$('.guardar').off('click').on('click', function () {
-				if(partidos.Validar()){
+				if(amonestaciones.Validar()){
 					$.ajax({
-						url: 'pages/partidos/peticiones/peticiones.php',
+						url: 'pages/amonestaciones/peticiones/peticiones.php',
 						type: 'POST',
 						data: {
 							bandera: "nuevo",
@@ -492,7 +492,7 @@ $(function() {
 							var resp = $.parseJSON(resp);
 							if (resp.salida === true && resp.mensaje === true) {
 								swal({title: "",
-									text: "El partido se ha creado exitosamente!",
+									text: "El amonestaciones se ha creado exitosamente!",
 									type: "success",
 									showCancelButton: false,
 									confirmButtonColor: "rgb(174, 222, 244)",
@@ -512,15 +512,15 @@ $(function() {
 				}
 				else
 				{
-					swal("", "No es valido el partido que intenta guardar, intenta nuevamente.", "error");
+					swal("", "No es valido el amonestaciones que intenta guardar, intenta nuevamente.", "error");
 				}
 			});
 
 
 		},
-		CargarModal_Editar_Partidos: function () {
-			$('.tabla-resultados').on("click", ".edit-partidos", function(){
-				var partido = $(this).data('partido');
+		CargarModal_Editar_amonestaciones: function () {
+			$('.tabla-resultados').on("click", ".edit-amonestaciones", function(){
+				var amonestaciones = $(this).data('amonestaciones');
 				var fecha = $(this).data('fecha');
 				var hora = $(this).data('hora');
 				var lugar = $(this).data('lugar');
@@ -528,24 +528,24 @@ $(function() {
 				var Nfecha = $(this).data('nfecha');
 				var id = $(this).data('id');
 
-				$('#defaultModalLabel').text(partido);
+				$('#defaultModalLabel').text(amonestaciones);
 				$('#fecha').val(fecha);
 				$('#hora').val(hora);
 				$('.select-lugar').val(lugar);
 				$('.select-lugar').change();
-				$('.modificar').data('partido',id);
+				$('.modificar').data('amonestaciones',id);
 				$('.select-estado').val(estado);
 				$('.select-estado').change();
 				$('#ronda').val(Nfecha);
 				$('#defaultModal').modal('show'); 
-				partidos.ModificarPartido();
+				amonestaciones.Modificaramonestaciones();
 			});
 
 		},
-		ModificarPartido: function () {
+		Modificaramonestaciones: function () {
 			$('.modificar').on("click", function(){
 				swal({title: "",
-					text: " ¿ Esta seguro que desea modificar el partido ?",
+					text: " ¿ Esta seguro que desea modificar el amonestaciones ?",
 					type: "warning",
 					showCancelButton: false,
 					confirmButtonColor: "rgb(174, 222, 244)",
@@ -555,7 +555,7 @@ $(function() {
 					if (isConfirm) {
 
 						$.ajax({
-							url: 'pages/partidos/peticiones/peticiones.php',
+							url: 'pages/amonestaciones/peticiones/peticiones.php',
 							type: 'POST',
 							data: {
 								bandera: "modificar",
@@ -563,7 +563,7 @@ $(function() {
 								modulo:  $('#modulo').val(),
 								fecha:   $('#fecha').val(),
 								hora:    $('#hora').val(),
-								partido: $('.modificar').data('partido'),
+								amonestaciones: $('.modificar').data('amonestaciones'),
 								estado:  $('.select-estado option:selected').val(),
 								lugar:   $('.select-lugar option:selected').val(),
 								ronda:   $('#ronda').val()
@@ -573,7 +573,7 @@ $(function() {
 								var resp = $.parseJSON(resp);
 								if (resp.salida === true && resp.mensaje === true) {
 									swal({title: "",
-										text: "El partido se ha mdificado exitosamente!",
+										text: "El amonestaciones se ha mdificado exitosamente!",
 										type: "success",
 										showCancelButton: false,
 										confirmButtonColor: "rgb(174, 222, 244)",
@@ -596,9 +596,9 @@ $(function() {
 
 		},
 		AbrirAgregarResultado: function () {
-			$('.tabla-resultados').on("click", ".to-partido", function(){
-				var partido = $(this).data('id');
-				var	url = "pages/partidos/agregarresultado.php?id="+partido; 
+			$('.tabla-resultados').on("click", ".to-amonestaciones", function(){
+				var amonestaciones = $(this).data('id');
+				var	url = "pages/amonestaciones/agregarresultado.php?id="+amonestaciones; 
 				window.open(url, '_self');
 
 			});
@@ -606,7 +606,7 @@ $(function() {
 	};
 	$(document).ready(function () {
 
-		partidos.inicio();
+		amonestaciones.inicio();
 
 	});
 

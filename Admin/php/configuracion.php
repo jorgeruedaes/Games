@@ -54,13 +54,13 @@ function url()
 function base_url()
 {
 	//$pagina = "192.168.1.58";
-	$pagina= "localhost:8081";
+	$pagina= "localhost";
 	return "http://".$pagina.url();
 }
 function base_url_usuarios()
 {
 	//$pagina = "192.168.1.58";
-	$pagina= "localhost:8081";
+	$pagina= "localhost";
 	return "http://".$pagina."/Games/";
 }	
 
