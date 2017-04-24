@@ -51,7 +51,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<div class="body">
 								<label for="">Campeonato</label>
 								<div class="form-group">
-									<select class="form-control show-tick selector-campeonato">
+									<select class="form-control show-tick selector-campeonato-amonestaciones">
 										<option value="0">--Selecciona un campeonato --</option>
 										<?php 
 										$vector = Array_Get_Campeonatos();

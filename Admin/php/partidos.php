@@ -103,6 +103,12 @@ function Array_Get_Partidos_Campeonato($estado,$campeonato)
     
     return $vector;
 }
+/**
+ * [Array_Get_Partidos_Campeonato_DobleEstado description]
+ * @param [type] $estado     [description]
+ * @param [type] $estado1    [description]
+ * @param [type] $campeonato [description]
+ */
 function Array_Get_Partidos_Campeonato_DobleEstado($estado,$estado1,$campeonato)
 {
     $query = consultar("SELECT * FROM tb_partidos WHERE (equipo1 IN (select id_equipo from tb_equipos where torneo='$campeonato' ) and equipo2  IN (select id_equipo from tb_equipos where torneo='$campeonato' )) and (estado='$estado'or estado='$estado1')");
@@ -114,6 +120,11 @@ function Array_Get_Partidos_Campeonato_DobleEstado($estado,$estado1,$campeonato)
     
     return $vector;
 }
+/**
+ * [Array_Get_Partidos_Campeonato_Diferente description]
+ * @param [type] $estado     [description]
+ * @param [type] $campeonato [description]
+ */
 function Array_Get_Partidos_Campeonato_Diferente($estado,$campeonato)
 {
     $query = consultar("SELECT * FROM tb_partidos WHERE (equipo1 IN (select id_equipo from tb_equipos where torneo='$campeonato' ) and equipo2  IN (select id_equipo from tb_equipos where torneo='$campeonato' )) and estado!='$estado' ");
@@ -140,31 +151,68 @@ function Array_Get_Partidos_Estado($estado)
     
     return $vector;
 }
-
+/**
+ * [Set_resultado_Partido description]
+ * @param [type] $partido    [description]
+ * @param [type] $resultado1 [description]
+ * @param [type] $resultado2 [description]
+ * @param [type] $estado     [description]
+ */
 function Set_resultado_Partido($partido,$resultado1,$resultado2,$estado)
 {
     $valor  = insertar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='%d' 
         WHERE `id_partido`='%d' ",escape($resultado1),escape($resultado2),escape($estado),escape($partido)));
     return $valor;
 }
+function Set_resultado_Partido_Amonestaciones($partido,$estado)
+{
+    $valor  = insertar(sprintf("UPDATE `tb_partidos` SET `estado`='%d' 
+        WHERE `id_partido`='%d' ",escape($estado),escape($partido)));
+    return $valor;
+}
 
+/**
+ * [Add_detalle_jugador description]
+ * @param [type] $jugador      [description]
+ * @param [type] $partido      [description]
+ * @param [type] $amonestacion [description]
+ * @param [type] $gol          [description]
+ * @param [type] $autogol      [description]
+ */
 function Add_detalle_jugador($jugador,$partido,$amonestacion,$gol,$autogol)
 {
     $valor  = insertar(sprintf("INSERT INTO `tr_jugadoresxpartido`(`jugador`, `partido`, `amonestacion`, `goles`, `autogoles`)
      VALUES ('%d','%d','%d','%d','%d') ",escape($jugador),escape($partido),escape($amonestacion),escape($gol),escape($autogol)));
     return $valor;
 }
+/**
+ * [Set_detalle_jugador description]
+ * @param [type] $jugador [description]
+ * @param [type] $partido [description]
+ * @param [type] $gol     [description]
+ * @param [type] $autogol [description]
+ */
 function Set_detalle_jugador($jugador,$partido,$gol,$autogol)
 {
     $valor  = insertar(sprintf("UPDATE `tr_jugadoresxpartido` SET `goles`='%d',`autogoles`='%d' WHERE jugador='%d' and partido='%d' ",escape($gol),escape($autogol),escape($jugador),escape($partido)));
     return $valor;
 }
+/**
+ * [Boolean_Jugadorxpartido description]
+ * @param [type] $jugador [description]
+ * @param [type] $partido [description]
+ */
 function Boolean_Jugadorxpartido($jugador,$partido)
 {
-    $query = consultar("SELECT * FROM  `tr_jugadoresxpartido` WHERE `jugador`='$jugador',`partido`='$partido' ");
+    $query = consultar("SELECT * FROM  `tr_jugadoresxpartido` WHERE `jugador`='$jugador' and `partido`='$partido' ");
 
     return (Int_consultaVacia($query)>0) ? true : false ;
 }
+/**
+ * [Add_detalles_partido description]
+ * @param [type] $vector  [description]
+ * @param [type] $partido [description]
+ */
 function Add_detalles_partido($vector,$partido)
 {
     $json = json_decode($vector);

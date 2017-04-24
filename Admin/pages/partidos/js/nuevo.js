@@ -61,7 +61,7 @@ $(function() {
 								var resp = $.parseJSON(resp);
 								if (resp.salida === true && resp.mensaje === true) {
 									swal({title: "",
-										text: "Se ha agregado el resultado de manera exitosa!",
+										text: "Se ha agregado los goles de manera exitosa!",
 										type: "success",
 										confirmButtonText: "Aceptar",
 										showCancelButton: true,
