@@ -1183,7 +1183,7 @@ address {font-style: italic;}
 }
 /* Sub Header */
 .ec-mini-header {
-    background-image: url("extra-images/subheader-bg.jpg");
+    background-image: url(extra-images/banner-2.jpg);
     background-repeat: no-repeat;
     text-align: center;
     padding: 75px 0px 69px 0px;

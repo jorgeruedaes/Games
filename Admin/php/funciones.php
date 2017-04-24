@@ -5,7 +5,7 @@ function NombreEquipo($identificador)
 {
     global $conexion;
     $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT nombre_equipo 
-      FROM tb_equipos WHERE id_equipo=$identificador"));
+    FROM tb_equipos WHERE id_equipo=$identificador"));
     $valor = $valor['nombre_equipo'];
     
     return $valor;
@@ -28,6 +28,24 @@ function NombreClub($identificador)
     $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT nombre 
       FROM tb_colegio WHERE id_colegio=$identificador"));
     $valor = $valor['nombre'];
+    
+    return $valor;
+}
+function NombreTorneo($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT nombre_torneo
+      FROM tb_torneo WHERE id_torneo=$identificador"));
+    $valor = $valor['nombre_torneo'];
+    
+    return $valor;
+}
+function ReglamentoTorneo($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT reglamento
+      FROM tb_torneo WHERE id_torneo=$identificador"));
+    $valor = $valor['reglamento'];
     
     return $valor;
 }
@@ -243,6 +261,58 @@ function ObtenerJugadoresEquipo($identificador)
     return $vector;
 }
 
+function ObtenerNoticias($orden)
+{
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT * FROM tb_noticias
+        ORDER BY fecha $orden");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $id  = $informacion['id_noticias'];
+        $titulo = $informacion['titulo'];
+        $texto  = $informacion['texto'];
+        $imagen  = $informacion['imagen'];
+        $torneo  = $informacion['torneo'];
+        $fecha  = $informacion['fecha'];
+        $vector = array(
+            'id' => "$id",
+            'titulo' => "$titulo",
+            'texto' => "$texto",
+            'imagen' => "$imagen",
+            'torneo' => "$torneo",
+            'fecha' => "$fecha"
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+}
+function ObtenerNoticia($id)
+{
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT * FROM tb_noticias
+        WHERE id_noticias='$id'");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $id  = $informacion['id_noticias'];
+        $titulo = $informacion['titulo'];
+        $texto  = $informacion['texto'];
+        $imagen  = $informacion['imagen'];
+        $torneo  = $informacion['torneo'];
+        $fecha  = $informacion['fecha'];
+        $vector = array(
+            'id' => "$id",
+            'titulo' => "$titulo",
+            'texto' => "$texto",
+            'imagen' => "$imagen",
+            'torneo' => "$torneo",
+            'fecha' => "$fecha"
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+}
 // Recibe : id de equipo
 // Retorna : retorna un array con los jugadores del equipo de cancha.
 function Array_Jugadores_Equipo($identificador)
@@ -290,6 +360,31 @@ function ObtenerNombreCompletoJugador($identificador)
     ;
     
     return $valor;
+}
+function ObtenerComunicados($tipo)
+{
+    global $conexion;
+    $comunicados = mysqli_query($conexion, "SELECT *
+      FROM tb_comunicados WHERE tipo='$tipo'");
+    $vector    = array();
+     while ($valor = mysqli_fetch_array($comunicados)) {
+        $id   = $valor['id_comunicados'];
+        $tipo  = $valor['tipo'];
+        $comunicado = $valor['comunicado'];
+        $fecha = $valor['fecha'];
+        $titulo = $valor['titulo'];
+        $datos            = array(
+             'id' => "$id",
+            'tipo' => "$tipo",
+            'comunicado' => "$comunicado",
+            'fecha' => "$fecha",
+            'titulo' => "$titulo"
+            
+            );
+        array_push($vector, $datos);
+    }
+    
+    return $vector;
 }
 
 // Recibe : id del jugador 
@@ -426,6 +521,73 @@ function ObtenerTablaPosiciones($limite,$grupo,$torneo)
     
     return $datos;
 }
+
+function ObtenerGoleadoresTorneo($torneo)
+{
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT jugador,SUM(goles) AS goles1, id_equipo FROM tr_jugadoresxpartido,tb_jugadores,tb_equipos 
+        WHERE goles>=1 AND jugador=id_jugadores AND equipo=id_equipo and partido IN (SELECT id_partido FROM 
+        tb_partidos WHERE Estado=2) and tb_equipos.torneo='$torneo' GROUP BY jugador ORDER BY `goles1` DESC, 
+        nombre_equipo asc");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $jugador = $informacion['jugador'];
+        $goles1 = $informacion['goles1'];
+        $id_equipo  = $informacion['id_equipo'];
+        $vector = array(
+            'jugador' => "$jugador",
+            'goles' => "$goles1",
+            'idequipo' => "$id_equipo",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+}
+
+function ObtenerVallaMenosVencidaTorneo($torneo)
+{
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT equipo,gc FROM te_posiciones,tb_equipos 
+        WHERE tb_equipos.id_equipo=te_posiciones.id AND tb_equipos.torneo='$torneo' order by gc asc");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $equipo = $informacion['equipo'];
+        $goles = $informacion['gc'];
+        $vector = array(
+            'equipo' => "$equipo",
+            'goles' => "$goles",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+}
+function ObtenerAmonestacionesTorneo($torneo)
+{
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT jugador,amonestacion,comentario
+    FROM tr_amonestacionesxjugador,tb_jugadores,tb_equipos
+    WHERE estado_amonestacion='1' 
+    AND amonestacion!=5 
+    and tb_jugadores.id_jugadores=tr_amonestacionesxjugador.jugador
+    and tb_equipos.id_equipo=tb_jugadores.equipo
+    and tb_equipos.torneo='$torneo'");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $jugador = $informacion['jugador'];
+        $amonestacion = $informacion['amonestacion'];
+        $comentario = $informacion['comentario'];
+        $vector = array(
+            'jugador' => "$jugador",
+            'amonestacion' => "$amonestacion",
+            'comentario' => "$comentario",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+}
 // Recibe : Estado de los partidos y orden.
 // Retorna : Array con diferentes fechas.
 function ObtenerFechasdePartidos($estado, $orden)
@@ -480,7 +642,7 @@ function ObtenerTorneosPorDeporte($deporte,$estado){
 
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT id_torneo, nombre_torneo
-     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado'");
+     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado' ORDER BY RAND()");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $id  = $informacion['id_torneo'];
@@ -495,14 +657,50 @@ function ObtenerTorneosPorDeporte($deporte,$estado){
     return $datos;
 
 }
+function ObtenerTorneosPorDeporteOrdenado($deporte,$estado){
+
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT id_torneo, nombre_torneo
+     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado' ORDER BY nombre_torneo desc");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $id  = $informacion['id_torneo'];
+        $nombre = $informacion['nombre_torneo'];
+        $vector = array(
+            'id' => "$id",
+            'nombre' => "$nombre",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+
+}
+function ObtenerTorneosDeClub($club,$estado){
+
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT DISTINCT torneo FROM tb_equipos 
+        WHERE colegio='$club' and estado='$estado'");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $id  = $informacion['torneo'];
+        $vector = array(
+            'id' => "$id",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+
+}
 
 // Recibe: Torneo y estado
 // Retorna: Array con diferentes partidos de ese torneo y estado.
 function ObtenerPartidosDeUnTorneo ($torneo, $estado){
 
     global $conexion;
-    $valor = mysqli_query($conexion, "SELECT id_partido,equipo1, equipo2, fecha, hora, Lugar
-      FROM tb_partidos WHERE estado='$estado' and equipo1 IN 
+    $valor = mysqli_query($conexion, "SELECT id_partido,equipo1, equipo2, fecha, hora, Lugar, 
+      resultado1, resultado2 FROM tb_partidos WHERE estado='$estado' and equipo1 IN 
       (select id_equipo from tb_equipos where torneo='$torneo') AND
       equipo2 IN (select id_equipo from tb_equipos where torneo='$torneo')   
       ORDER BY fecha asc, hora asc ");
@@ -514,6 +712,8 @@ function ObtenerPartidosDeUnTorneo ($torneo, $estado){
         $fecha      = $informacion['fecha'];
         $hora       = $informacion['hora'];
         $lugar      = $informacion['Lugar'];
+        $resultado1    = $informacion['resultado1'];
+        $resultado2    = $informacion['resultado2'];
         $vector     = array(
             "idpartido" => "$idpartido",
             "equipo1" => "$equipo1",
@@ -521,6 +721,8 @@ function ObtenerPartidosDeUnTorneo ($torneo, $estado){
             "fecha" => "$fecha",
             "hora" => "$hora",
             "lugar" => "$lugar",
+            "resultado1" => "$resultado1",
+            "resultado2" => "$resultado2",
             );
         array_push($datos, $vector);
     }
@@ -529,14 +731,14 @@ function ObtenerPartidosDeUnTorneo ($torneo, $estado){
 
 }
 
-function ObtenerPartidosDeUnClub ($club, $estado){
+function ObtenerPartidosDeUnClub ($club, $torneo, $estado){
 
     global $conexion;
-    $valor = mysqli_query($conexion, "SELECT id_partido,equipo1, equipo2, fecha, hora, Lugar
-      FROM tb_partidos WHERE estado='$estado' and equipo1 IN 
-      (select id_equipo from tb_equipos where colegio='$club') OR
-      equipo2 IN (select id_equipo from tb_equipos where colegio='$club')   
-      ORDER BY fecha asc, hora asc ");
+    $valor = mysqli_query($conexion, "SELECT * FROM tb_equipos, tb_partidos
+    WHERE tb_equipos.colegio='$club' AND tb_equipos.torneo = '$torneo' AND 
+    tb_partidos.estado='$estado' AND 
+    (tb_equipos.id_equipo = tb_partidos.equipo1 OR tb_equipos.id_equipo = tb_partidos.equipo2)
+    GROUP BY id_partido");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $idpartido  = $informacion['id_partido'];
@@ -544,7 +746,9 @@ function ObtenerPartidosDeUnClub ($club, $estado){
         $equipo2    = $informacion['equipo2'];
         $fecha      = $informacion['fecha'];
         $hora       = $informacion['hora'];
-        $lugar      = $informacion['Lugar'];
+        $lugar      = $informacion['lugar'];
+        $resultado1    = $informacion['resultado1'];
+        $resultado2    = $informacion['resultado2'];
         $vector     = array(
             "idpartido" => "$idpartido",
             "equipo1" => "$equipo1",
@@ -552,6 +756,8 @@ function ObtenerPartidosDeUnClub ($club, $estado){
             "fecha" => "$fecha",
             "hora" => "$hora",
             "lugar" => "$lugar",
+            "resultado1" => "$resultado1",
+            "resultado2" => "$resultado2"
             );
         array_push($datos, $vector);
     }
@@ -2002,4 +2208,5 @@ function Get_Lista_Clubes($estado){
     return $datos;
 
 }
+
 ?>

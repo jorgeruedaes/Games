@@ -37,9 +37,7 @@ include('../../menuinicial.php');
                                    <?php echo String_Get_Datos('infopresidente')?>
                                 </div>
                             </div>
-                            <!-- <div class="ec-fancy-title">
-                                <h2>LOGROS</h2> </div> -->
-                            <div class="ec-detail-editor ec-plyer-information-wrap">
+                            <div class="ec-detail-editor ec-plyer-information-wrap" style="margin-top: 15px">
                                   <?php echo String_Get_Datos('infocanchamarte')?>
                                 <figure class="center" >
                                     <a href="javascript:void();"><img src="webs/images/canchamarte.jpg" alt=""></a>
