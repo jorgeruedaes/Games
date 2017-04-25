@@ -80,12 +80,15 @@ if(isset($_SESSION['perfil']))
 		$_SESSION['campeonato'] = $campeonato;
 		$resultado.='"mensaje":true,';
 		$resultado.='"datos":'.json_encode(Transforma_paritdo($vector)).'';
-	} else {
+	} 
+	else 
+	{
 		$_SESSION['campeonato']='0';
 		$resultado.='"mensaje":false';
 
 	}
-}else if ($bandera === "agregardetalles-amonestaciones")
+}
+else if ($bandera === "agregardetalles-amonestaciones")
 {
 	$json = json_encode($_POST['json']); 
 	$partido = $_POST['partido'];
@@ -101,11 +104,12 @@ if(isset($_SESSION['perfil']))
 		$estadop ='2';
 
 	}
-	if (Set_resultado_Partido_Amonestaciones($partido,$estadop) and Add_detalles_partido($json,$partido)) 
+	if (Set_resultado_Partido_Amonestaciones($partido,$estadop) and Add_detalles_partido_Amonestados($json,$partido) and  Add_detalles_amonestaciones_partido($json,$partido)) 
 	{
 		$resultado.='"mensaje":true';
 	}
-	else {
+	else
+	{
 		$resultado.='"mensaje":false';
 	}
 	

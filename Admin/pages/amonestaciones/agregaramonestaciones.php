@@ -6,7 +6,8 @@ include($ubicacion."../php/equipo.php");
 include($ubicacion."../php/jugador.php");
 $id_modulos ='62';
 $partido = Get_Partido($_GET['id']);
-if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['estado']==='1' or $partido['estado']==='8')){
+if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['estado']==='1' 
+	or $partido['estado']==='8')){
 	?>
 
 
@@ -177,7 +178,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 	</section>
 	<!-- JS ====================================================================================================================== -->
 	<!--  Js-principal -->
-	<script src="pages/partidos/js/nuevo.js"></script>
+	<script src="pages/amonestaciones/js/nuevo.js"></script>
 
 	<!-- Jquery DataTable Plugin Js -->
 	<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
