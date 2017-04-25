@@ -40,7 +40,7 @@ $id = $_GET['id'];
                                         <li>
                                         <div class="ec-result-time">
                                                     <div class="ec-time-wrap padding-top-55">
-                                                        <?php echo $resultado1 . ':' . $resultado1  ?>
+                                                        <?php echo $resultado1 . ':' . $resultado2  ?>
                                                         <small></small>
                                                     </div>
                                                 </div>

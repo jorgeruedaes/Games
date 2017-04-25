@@ -1,32 +1,45 @@
+
 <?php
-require('fpdf/fpdf.php');
+require('mc_table.php');
+
 require('../../Admin/php/conexion.php');
-$id = $_GET['id'];
+require('../../Admin/php/funciones.php');
 
-class PDF extends FPDF
-{
-   //Cabecera de página
-   function Header()
-   {
+$pdf=new PDF_MC_Table();
+$pdf->SetMargins(15, 15 , 30);
+$pdf->AddPage();
+$pdf->SetFont('Arial','',10);
+$pdf->Ln();
+$pdf->Ln();
+//Table with 20 rows and 4 columns
+$pdf->SetWidths(array(30,30,40,40,40));
 
-	  $this->Image('../../images/Escudos/logo.png',20,8,33);
-      $this->SetFont('Arial','B',12);
 
-      $this->Cell(0,10,'Liga santandereana de futbol',0,0,'C');
-      $this->Ln();
-      $this->Cell(0,10,'PROGRAMACION',0,0,'C');
+if(isset($_GET['id'])){
 
-   }
+    $id = $_GET['id'];
+    $vectores = ObtenerPartidosDeUnTorneo($id,'1');
+    if(sizeof($vectores) == 0){
+        $pdf->Write(5,'No hay programacion');
+    }else{
+
+        $pdf->Row(array('Fecha','Hora','Lugar','Local','Visitante'));
+
+
+        foreach ($vectores as $value)
+        {
+            $idpartido  = $value['idpartido'];
+            $equipo1    = $value['equipo1'];
+            $equipo2    = $value['equipo2'];
+            $fecha      = $value['fecha'];
+            $hora       = $value['hora'];
+            $lugar      = $value['lugar'];
+
+            $pdf->Row(array(FormatoFecha($fecha),FormatoHora($hora),NombreCancha($lugar),NombreEquipo($equipo1),NombreEquipo($equipo2)));
+        }
+    }
+$pdf->Output();
+
 }
 
-$pdf=new PDF();
-$pdf->SetMargins(20, 15 , 30);
-$pdf->AddPage();
-$pdf->SetFont('Times','',9);
-$pdf->Ln();
-$pdf->Ln();
-$pdf->Ln();
-
-
-$pdf->Output();
 ?>

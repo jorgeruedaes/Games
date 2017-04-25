@@ -28,7 +28,7 @@ $id = $_GET['id'];
         </a>
       </p>
       <p class="float-right font-15"  style="margin-right: 30px">Descargar programación
-        <a class="font-20  download-calendar" href="javascript:void();" id="<?php echo $id?>" style="color:#4183D7">
+        <a class="font-20"  href="webs/Pdf/Calendario.php?id=<?php echo $id?>" style="color:#4183D7" download>
           <span class="fa fa-file-pdf-o"></span>
         </a>
       </p>
@@ -62,7 +62,7 @@ $id = $_GET['id'];
                                     <div class="ec-cell"><img class="width-15" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""><span style="padding-left: 5px"><?php echo NombreEquipo($equipo1)?></span></div>
 
                                     <div class="ec-cell"><span class="ec-fixture-vs"><small>vs</small></span></div>
-                                    <div class="ec-cell"><img class="width-15" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""><span style="padding-left: 5px"><?php echo NombreEquipo($equipo2)?></span></div>
+                                    <div class="ec-cell"><img class="width-15" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""><span style="padding-left: 5px"><?php echo NombreEquipo($equipo2)?></span></div>
 
                                 </li>
 
@@ -102,7 +102,7 @@ $id = $_GET['id'];
                                         <span><?php echo NombreEquipo($equipo1);?></span>
                                     </div>
                                     <div class="ec-cell">
-                                        <span class="ec-vs" style="WIDTH: 20%;"><?php echo $resultado1 . ' - ' . $resultado1;?></span>
+                                        <span class="ec-vs" style="WIDTH: 20%;"><?php echo $resultado1 . ' - ' . $resultado2;?></span>
                                     </div>
                                     <div class="ec-cell">
                                         <span><?php echo NombreEquipo($equipo2);?></span>

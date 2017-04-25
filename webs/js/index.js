@@ -24,11 +24,7 @@ $(function() {
 
 			});
 
-			$('.download-calendar').on('click', function () {
-			var element = $(this).attr('id');
-		 	window.open("webs/Pdf/Calendario.php?id=" + element + "");
-
-			});
+			
 			$('.news-detail').on('click', function () {
 			var element = $(this).attr('id');
 		 	window.location.href = "webs/Noticias/noticia.php?id=" + element + "";
