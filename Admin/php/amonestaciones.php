@@ -14,7 +14,7 @@ function Add_detalles_amonestaciones_partido($vector,$fecha)
     $bandera ='';
         for ($i=0; $i < count($json) ; $i++) {
             if($json[$i][3]!='5'){
-            if(Add_detalle_amonestacion($json[$i][0],$json[$i][3],$duracion,$fecha))
+            if(Add_detalle_amonestacion($json[$i][0],$json[$i][3],$json[$i][2],$fecha))
             {
                 $bandera=true;
             }   
