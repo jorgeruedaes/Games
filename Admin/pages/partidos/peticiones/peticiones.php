@@ -115,7 +115,8 @@ if(isset($_SESSION['perfil']))
 		$resultado1 = $_POST['resultado1'];
 		$resultado2 = $_POST['resultado2'];
 		$estado = '2';
-		if (Set_resultado_Partido($partido,$resultado1,$resultado2,$estado) and Add_detalles_partido($json,$partido) and Add_detalles_amonestaciones_partido($json,$fecha)
+		if (Set_resultado_Partido($partido,$resultado1,$resultado2,$estado) 
+			and Add_detalles_partido($json,$partido) and Add_detalles_amonestaciones_partido($partido,$json,$fecha)
 			) {
 			$resultado.='"mensaje":true';
 	} else {
@@ -148,7 +149,7 @@ if(isset($_SESSION['perfil']))
 	{
 		$estadop ='8';
 	}
-	else if ($estado==='7')
+	else if ($estado==='7' or $estado==='2' )
 	{
 		$estadop ='2';
 
@@ -161,6 +162,18 @@ if(isset($_SESSION['perfil']))
 		$resultado.='"mensaje":false';
 	}
 	
+}else if ($bandera === "get_detalles_partido")
+{
+	$partido = $_POST['partido'];
+	$vector = Array_Get_Datos_Partido($partido);
+	if (!empty($vector)) 
+	{
+		$resultado.='"mensaje":true,';
+		$resultado.='"datos":'.json_encode($vector).'';
+	} 
+	else {
+		$resultado.='"mensaje":false';
+	}
 }
 
 }

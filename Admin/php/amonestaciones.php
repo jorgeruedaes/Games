@@ -1,20 +1,20 @@
 <?php
 
-function Add_detalle_amonestacion($jugador,$amonestacion,$comentario,$jornada)
+function Add_detalle_amonestacion($partido,$jugador,$amonestacion,$comentario,$jornada)
 {
-    $valor  = insertar(sprintf("INSERT INTO `tr_amonestacionesxjugador`(`id_amonestacioxjugador`, `jugador`, `amonestacion`, `estado_amonestacion`, `duracion`, `comentario`, `jornada_amonestacion`)
-        VALUES (NULL,'%d','%d','1','','%s','%d') "
- ,escape($jugador),escape($amonestacion),escape($comentario),escape($jornada)));
+    $valor  = insertar(sprintf("INSERT INTO `tr_amonestacionesxjugador`(`partido`, `jugador`, `amonestacion`, `estado_amonestacion`, `duracion`, `comentario`, `jornada_amonestacion`)
+        VALUES ('%d','%d','%d','1','','%s','%d') ",
+        escape($partido),escape($jugador),escape($amonestacion),escape($comentario),escape($jornada)));
     return $valor;
 }
 
-function Add_detalles_amonestaciones_partido($vector,$fecha)
+function Add_detalles_amonestaciones_partido($partido,$vector,$fecha)
 {
     $json = json_decode($vector);
     $bandera ='';
-        for ($i=0; $i < count($json) ; $i++) {
-            if($json[$i][3]!='5'){
-            if(Add_detalle_amonestacion($json[$i][0],$json[$i][3],$json[$i][2],$fecha))
+    for ($i=0; $i < count($json) ; $i++) {
+        if($json[$i][3]!='5'){
+            if(Add_detalle_amonestacion($partido,$json[$i][0],$json[$i][3],$json[$i][2],$fecha))
             {
                 $bandera=true;
             }   
@@ -25,11 +25,11 @@ function Add_detalles_amonestaciones_partido($vector,$fecha)
         }
         else
         {
-         $bandera=true;   
-        }
+           $bandera=true;   
+       }
 
-        }
-    return $bandera;
+   }
+   return $bandera;
 }
 function Boolean_Jugadorxpartido_amonestaciones($jugador,$partido)
 {
@@ -40,14 +40,14 @@ function Boolean_Jugadorxpartido_amonestaciones($jugador,$partido)
 function Set_detalle_jugador_amonestado($jugador,$partido,$amonestacion)
 {
     $valor  = insertar(sprintf("UPDATE `tr_jugadoresxpartido` SET amonestacion='%d' WHERE jugador='%d'
-     and partido='%d' ",escape($amonestacion),escape($jugador),escape($partido)));
+       and partido='%d' ",escape($amonestacion),escape($jugador),escape($partido)));
     return $valor;
 }
 
 function Add_detalle_jugador_amonestado($jugador,$partido,$amonestacion,$gol,$autogol)
 {
     $valor  = insertar(sprintf("INSERT INTO `tr_jugadoresxpartido`(`jugador`, `partido`, `amonestacion`, `goles`, `autogoles`)
-     VALUES ('%d','%d','%d','%d','%d') ",escape($jugador),escape($partido),escape($amonestacion),escape($gol),escape($autogol)));
+       VALUES ('%d','%d','%d','%d','%d') ",escape($jugador),escape($partido),escape($amonestacion),escape($gol),escape($autogol)));
     return $valor;
 }
 
@@ -55,10 +55,10 @@ function Add_detalles_partido_Amonestados($vector,$partido)
 {
     $json = json_decode($vector);
     $bandera ='';
-        for ($i=0; $i < count($json) ; $i++) {
+    for ($i=0; $i < count($json) ; $i++) {
 
-            if(Boolean_Jugadorxpartido_amonestaciones($json[$i][0],$partido))
-            {
+        if(Boolean_Jugadorxpartido_amonestaciones($json[$i][0],$partido))
+        {
             if(Set_detalle_jugador_amonestado($json[$i][0],$partido,$json[$i][3]))
             {
                 $bandera=true;
@@ -68,9 +68,9 @@ function Add_detalles_partido_Amonestados($vector,$partido)
                 $bandera=false;
             }
 
-            }
-            else
-            {
+        }
+        else
+        {
             if(Add_detalle_jugador_amonestado($json[$i][0],$partido,$json[$i][3],'0','0'))
             {
                 $bandera=true;
@@ -80,7 +80,7 @@ function Add_detalles_partido_Amonestados($vector,$partido)
                 $bandera=false;
             }
 
-            }
         }
+    }
     return $bandera;
 }

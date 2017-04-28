@@ -5,10 +5,45 @@ $(function() {
 		inicio: function () {
 			goles.recargar();
 			goles.Add_Resultado();
+			goles.get_datos();
+			goles.Add_Edit_Resultado();
 		},
 		recargar: function () {
 			goles.TomarDatos_Resultados();
 
+
+		},
+		get_datos : function ()
+		{
+			$.ajax({
+							url: 'pages/partidos/peticiones/peticiones.php',
+							type: 'POST',
+							data: {
+								bandera: "get_detalles_partido",
+								partido: $('.guardar-editar-goles').data('partido'),
+							},
+							success: function (resp) {
+
+								var resp = $.parseJSON(resp);
+								if (resp.salida === true && resp.mensaje === true) {
+								for (var i = 0; i <= resp.datos.length; i++) {
+									$('.fila-tabla').each(function(indice, elemento) {
+										if( ($(elemento).data('jugador')==resp.datos[i].jugador)
+											&& (resp.datos[i].goles>0) || (resp.datos[i].autogoles>0)  )
+										{
+										$(elemento).find('.confirmacion').prop("checked", "checked");
+										$(elemento).find('.gol').val(resp.datos[i].goles);
+										$(elemento).find('.autogol').val(resp.datos[i].autogoles);
+										}
+									});
+									
+								};
+
+								} else {
+									swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+								}
+							}
+						});
 
 		},
 		TomarDatos_Resultados : function ()
@@ -64,7 +99,63 @@ $(function() {
 										text: "Se ha agregado los goles de manera exitosa!",
 										type: "success",
 										confirmButtonText: "Aceptar",
-										showCancelButton: true,
+										showCancelButton: false,
+										confirmButtonColor: "rgb(174, 222, 244)",
+										closeOnConfirm: false
+									}, function (isConfirm) {
+										if (isConfirm) {
+											history.back();
+										}
+									});
+
+								} else {
+									swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+								}
+							}
+						});
+					}
+				});
+
+
+			});
+
+		},
+		Add_Edit_Resultado: function () {
+			$('.guardar-editar-goles').on("click", function(){
+
+				swal({title: "¿Esta seguro que desea GUARDAR los goles del partido?",
+					text: "",
+					type: "warning",
+					confirmButtonText: "Aceptar",
+					showCancelButton: true,
+					confirmButtonColor: "rgb(174, 222, 244)",
+
+					closeOnConfirm: false
+				}, function (isConfirm) {
+					if (isConfirm) {
+
+						$.ajax({
+							url: 'pages/partidos/peticiones/peticiones.php',
+							type: 'POST',
+							data: {
+								bandera: "agregardetalles-goles",
+								partido: $('.guardar-editar-goles').data('partido'),
+								fecha: $('.guardar-editar-goles').data('fecha'),
+								estado : $('.guardar-editar-goles').data('estado'),
+								json  : goles.TomarDatos_Resultados(),
+								resultado1 : $('#resultado1').val(),
+								resultado2 : $('#resultado2').val(),
+
+							},
+							success: function (resp) {
+
+								var resp = $.parseJSON(resp);
+								if (resp.salida === true && resp.mensaje === true) {
+									swal({title: "",
+										text: "Se ha agregado los goles de manera exitosa!",
+										type: "success",
+										confirmButtonText: "Aceptar",
+										showCancelButton: false,
 										confirmButtonColor: "rgb(174, 222, 244)",
 										closeOnConfirm: false
 									}, function (isConfirm) {

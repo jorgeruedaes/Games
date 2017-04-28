@@ -104,7 +104,9 @@ else if ($bandera === "agregardetalles-amonestaciones")
 		$estadop ='2';
 
 	}
-	if (Set_resultado_Partido_Amonestaciones($partido,$estadop) and Add_detalles_partido_Amonestados($json,$partido) and  Add_detalles_amonestaciones_partido($json,$partido)) 
+	if (Set_resultado_Partido_Amonestaciones($partido,$estadop) 
+		and Add_detalles_partido_Amonestados($json,$partido) 
+		and  Add_detalles_amonestaciones_partido($partido,$json,$fecha)) 
 	{
 		$resultado.='"mensaje":true';
 	}

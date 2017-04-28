@@ -16,7 +16,7 @@ function Boolean_Agregar_Partido($equipoa,$equipob,$fecha,$hora,$lugar,$ronda)
 {
 	$partido = insertar(sprintf("INSERT INTO `tb_partidos`(`id_partido`, `nombre_partido`, `equipo1`, `equipo2`, `resultado1`, `resultado2`, `fecha`, `hora`, `numero_fecha`, `lugar`, `estado`)
      VALUES (NULL,'','%s','%s','0','0','%s','%s','%d','%d','1')"
-    ,escape($equipoa),escape($equipob),escape($fecha),escape($hora),escape($ronda),escape($lugar)));
+     ,escape($equipoa),escape($equipob),escape($fecha),escape($hora),escape($ronda),escape($lugar)));
 	return $partido;	
 }
 /**
@@ -64,7 +64,7 @@ function Set_Partido($partido,$fecha,$hora,$lugar,$estado,$ronda)
 {
     $valor  = insertar(sprintf("UPDATE tb_partidos 
         SET fecha='%s', hora='%s', Estado='%d',Lugar='%d',numero_fecha='%d'
-         WHERE id_partido='%d' ",escape($fecha),escape($hora),escape($estado),escape($lugar),escape($ronda),escape($partido)));
+        WHERE id_partido='%d' ",escape($fecha),escape($hora),escape($estado),escape($lugar),escape($ronda),escape($partido)));
     return $valor;
 }
 /**
@@ -209,6 +209,30 @@ function Boolean_Jugadorxpartido($jugador,$partido)
     return (Int_consultaVacia($query)>0) ? true : false ;
 }
 /**
+ * [Array_Get_Datos_Partido description]
+ * @param [type] $partido [description]
+ */
+function Array_Get_Datos_Partido($partido)
+{
+    $query = consultar("SELECT * FROM  `tr_jugadoresxpartido` WHERE  `partido`='$partido' "); 
+    $datos = array();
+    while ($valor = mysqli_fetch_array($query)) {
+        $jugador = $valor['jugador'];
+        $partido = $valor['partido'];
+        $goles = $valor['goles'];
+        $autogoles = $valor['autogoles'];
+        $vector = array(
+            'jugador'=>"$jugador",
+            'partido' => "$partido",
+            'goles' => "$goles",
+            'autogoles' => "$autogoles",
+            );
+        array_push($datos, $vector);
+    }
+
+    return $datos;   
+}
+/**
  * [Add_detalles_partido description]
  * @param [type] $vector  [description]
  * @param [type] $partido [description]
@@ -217,10 +241,10 @@ function Add_detalles_partido($vector,$partido)
 {
     $json = json_decode($vector);
     $bandera ='';
-        for ($i=0; $i < count($json) ; $i++) {
+    for ($i=0; $i < count($json) ; $i++) {
 
-            if(Boolean_Jugadorxpartido($json[$i][0],$partido))
-            {
+        if(Boolean_Jugadorxpartido($json[$i][0],$partido))
+        {
             if(Set_detalle_jugador($json[$i][0],$partido,$json[$i][1],$json[$i][2]))
             {
                 $bandera=true;
@@ -230,9 +254,9 @@ function Add_detalles_partido($vector,$partido)
                 $bandera=false;
             }
 
-            }
-            else
-            {
+        }
+        else
+        {
             if(Add_detalle_jugador($json[$i][0],$partido,$json[$i][3],$json[$i][1],$json[$i][2]))
             {
                 $bandera=true;
@@ -242,8 +266,8 @@ function Add_detalles_partido($vector,$partido)
                 $bandera=false;
             }
 
-            }
         }
+    }
     return $bandera;
 }
 
