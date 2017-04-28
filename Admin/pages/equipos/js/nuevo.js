@@ -27,7 +27,7 @@ $(function() {
 
 			$('.selector-campeonato').on('change', function () {
 				$.ajax({
-					url: 'pages/partidos/peticiones/peticiones.php',
+					url: 'pages/equipos/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
 						bandera: "getequipos",
@@ -50,7 +50,7 @@ $(function() {
 							] ).draw( false );
 
 							}
-							equipo.ModalImagen();
+							equipos.ModalImagen();
 							
 						} else {
 								t.row($('.tabla-resultados').parents('tr') ).clear().draw();
@@ -68,8 +68,7 @@ $(function() {
 				url: 'pages/equipos/peticiones/peticiones.php',
 				type: 'POST',
 				data: {
-					bandera: "get_campeonato",
-					campeonato:  $('.selector-campeonato option:selected').val()
+					bandera: "get_campeonato"
 				},
 				success: function (resp) {
 

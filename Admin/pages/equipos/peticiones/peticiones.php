@@ -18,8 +18,8 @@ if(isset($_SESSION['id_usuarios']))
         $tecnico = $_POST['tecnico'];
         $torneo = $_POST['torneo'];
         $grupo = $_POST['grupo'];
-         $club = $_POST['club'];
-         $estado = $_POST['estado'];
+        $club = $_POST['club'];
+        $estado = $_POST['estado'];
         if (boolean_new_equipo($nombre,$tecnico,$grupo,$torneo,$club,$estado)) {
             $resultado.='"mensaje":true';
         } else {
@@ -33,8 +33,8 @@ if(isset($_SESSION['id_usuarios']))
         $tecnico = $_POST['tecnico'];
         $torneo = $_POST['torneo'];
         $grupo = $_POST['grupo'];
-         $club = $_POST['club'];
-         $estado = $_POST['estado'];
+        $club = $_POST['club'];
+        $estado = $_POST['estado'];
 
         if (boolean_Set_equipo($nombre,$tecnico,$grupo,$torneo,$club,$estado,$equipo)) {
             $resultado.='"mensaje":true';
@@ -45,13 +45,14 @@ if(isset($_SESSION['id_usuarios']))
         if (isset($_SESSION['campeonato'])) {
             $campeonato =$_SESSION['campeonato'];
             $resultado.='"mensaje":true,';
-            $resultado.='"datos":'.json_encode($campeonato).'';
+            $resultado.='"datos":'.$campeonato.'';
         } else {
             $resultado.='"mensaje":false';
         }
     }
     else if($bandera === "getequipos") {
-        $campeonato = $_POST['campeonato'];
+        $campeonato =$_POST['campeonato'];
+        $_SESSION['campeonato']=$_POST['campeonato'];
         $vector = Array_Get_Equipos_Torneo($campeonato);
         if (!empty($vector)) {
             $resultado.='"mensaje":true,';
@@ -59,7 +60,7 @@ if(isset($_SESSION['id_usuarios']))
         } else {
             $resultado.='"mensaje":false';
         }
-    }
+}
 }
 else
 {

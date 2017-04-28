@@ -43,7 +43,6 @@ if(isset($_SESSION['perfil']))
 			$resultado.='"mensaje":true,';
 			$resultado.='"datos":'.json_encode(Transforma_paritdo($vector)).'';
 		} else {
-			$_SESSION['campeonato']='0';
 			$resultado.='"mensaje":false';
 
 		}
@@ -57,7 +56,6 @@ if(isset($_SESSION['perfil']))
 			$resultado.='"mensaje":true,';
 			$resultado.='"datos":'.json_encode(Transforma_paritdo($vector)).'';
 		} else {
-			$_SESSION['campeonato']='0';
 			$resultado.='"mensaje":false';
 
 		}
@@ -83,7 +81,6 @@ if(isset($_SESSION['perfil']))
 	} 
 	else 
 	{
-		$_SESSION['campeonato']='0';
 		$resultado.='"mensaje":false';
 
 	}

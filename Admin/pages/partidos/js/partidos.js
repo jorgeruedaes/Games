@@ -120,7 +120,7 @@ $(function() {
 										text: "Se ha agregado el resultado de manera exitosa!",
 										type: "success",
 										confirmButtonText: "Aceptar",
-										showCancelButton: true,
+										showCancelButton: false,
 										confirmButtonColor: "rgb(174, 222, 244)",
 										closeOnConfirm: false
 									}, function (isConfirm) {
@@ -448,7 +448,7 @@ $(function() {
 										text: "El partido se ha eliminado exitosamente!",
 										type: "success",
 										confirmButtonText: "Aceptar",
-										showCancelButton: true,
+										showCancelButton: false,
 										confirmButtonColor: "rgb(174, 222, 244)",
 										closeOnConfirm: false
 									}, function (isConfirm) {
