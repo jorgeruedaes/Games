@@ -4,9 +4,9 @@ include("../menuinicial.php");
 include($ubicacion."../php/partidos.php");
 include($ubicacion."../php/equipo.php");
 include($ubicacion."../php/jugador.php");
-$id_modulos ='24';
+$id_modulos ='26';
 $partido = Get_Partido($_GET['id']);
-if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['estado']==='2' or ($partido['estado']==='8'))){
+if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['estado']==='2')){
 	?>
 
 
@@ -46,16 +46,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 						<div class="header">
 							<h2>
 								<?php echo Get_NombreEquipo($partido['equipo1']);  ?>
-								<div class="col-md-3">
-									<div class="form-group">
-										<div class="form-line">
-										<input type="text"  value="<?php echo $partido['resultado1'] ?>"   id="resultado1" class="form-control"  style="font-size: xx-large; text-align: -webkit-center;"   placeholder="Goles">												
-										</div>
-									</div>
-								</div>
-
-
-								<small>Numero de goles totales</small>
+								<small>Amonestaciones</small>
 							</h2>
 						</div>
 						<div class="body">
@@ -63,8 +54,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 								<thead>
 									<tr>
 										<th>Jugador</th>
-										<th>Gol</th>
-										<th>A-Gol</th>
+										<th>Tarjeta</th>
+										<th>Comentario</th>
 										<th>Check</th>
 									</tr>
 								</thead>
@@ -77,19 +68,17 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 										<tr class="fila-tabla" data-jugador="<?php echo $value['id_jugador']; ?>">
 											<td><?php echo String_Get_NombreCompleto($value['id_jugador']) ?></td>
 											<td>
-												<div class="col-md-12">
-													<div class="form-group">
-														<div class="form-line">
-															<input type="text" id="ronda" class="form-control gol"  value="0"   placeholder="0">
-														</div>
-													</div>
-												</div>
+												<select class="form-control show-tick select-tarjeta">
+													<option value="5">--Tarjeta--</option>
+													<option value="1">Amarilla</option>
+													<option value="2">Roja</option>
+												</select>
 											</td>
 											<td>
 												<div class="col-md-12">
 													<div class="form-group">
 														<div class="form-line">
-															<input type="text" id="ronda" class="form-control autogol" value="0"  placeholder="0">
+														<textarea rows="4" class="form-control no-resize comentario" placeholder="Escriba un comentario"></textarea>
 														</div>
 													</div>
 												</div>
@@ -116,14 +105,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 						<div class="header">
 							<h2>
 								<?php echo Get_NombreEquipo($partido['equipo2']);  ?>
-								<div class="col-md-3">
-									<div class="form-group">
-										<div class="form-line">
-											<input type="text" value="<?php echo $partido['resultado2'] ?>"  id="resultado2" class="form-control" style="font-size: xx-large; text-align: -webkit-center;"     placeholder="Goles">
-										</div>
-									</div>
-								</div>
-								<small>Numero de goles totales</small>
+								<small>Amonestaciones</small>
 							</h2>
 						</div>
 						<div class="body">
@@ -131,8 +113,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 								<thead>
 									<tr>
 										<th>Jugador</th>
-										<th>Gol</th>
-										<th>A-Gol</th>
+										<th>Tarjeta</th>
+										<th>Comentario</th>
 										<th>Check</th>
 									</tr>
 								</thead>
@@ -145,19 +127,17 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 										<tr class="fila-tabla" data-jugador="<?php echo $value['id_jugador']; ?>">
 											<td><?php echo String_Get_NombreCompleto($value['id_jugador']) ?></td>
 											<td>
-												<div class="col-md-12 col-xs-12">
-													<div class="form-group">
-														<div class="form-line">
-															<input type="text" id="ronda" class="form-control gol" value="0"    placeholder="0">
-														</div>
-													</div>
-												</div>
+												<select class="form-control show-tick select-tarjeta">
+													<option value="5">--Tarjeta--</option>
+													<option value="1">Amarilla</option>
+													<option value="2">Roja</option>
+												</select>
 											</td>
 											<td>
 												<div class="col-md-12 col-xs-12">
 													<div class="form-group">
 														<div class="form-line">
-															<input type="text"  id="ronda" class="form-control autogol" value="0"   placeholder="0">
+															<textarea rows="4" class="form-control no-resize comentario" placeholder="Escriba un comentario"></textarea>
 														</div>
 													</div>
 												</div>
@@ -186,7 +166,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 					<div class="card">
 						<div class="body">
 							<center>
-					<button type="button" data-estado="<?php echo $partido['estado'] ?>" data-fecha="<?php echo $partido['Nfecha']; ?>" class="btn btn-primary btn-lg m-l-15 waves-effect guardar-editar-goles" data-partido="<?php echo $_GET['id']?>">Guardar</button>
+					<button type="button" data-estado="<?php echo $partido['estado'] ?>" data-fecha="<?php echo $partido['Nfecha']; ?>" class="btn btn-primary btn-lg m-l-15 waves-effect guardar-amonestaciones-editar" data-partido="<?php echo $_GET['id']?>">Guardar</button>
 							</center>
 						</div>
 
@@ -197,7 +177,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 	</section>
 	<!-- JS ====================================================================================================================== -->
 	<!--  Js-principal -->
-	<script src="pages/partidos/js/nuevo.js"></script>
+	<script src="pages/amonestaciones/js/nuevo.js"></script>
 
 	<!-- Jquery DataTable Plugin Js -->
 	<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>

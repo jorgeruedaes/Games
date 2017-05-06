@@ -87,6 +87,7 @@ $(function() {
 								fecha: $('.guardar-goles').data('fecha'),
 								estado : $('.guardar-goles').data('estado'),
 								json  : goles.TomarDatos_Resultados(),
+								tipo :"nuevo",
 								resultado1 : $('#resultado1').val(),
 								resultado2 : $('#resultado2').val(),
 
@@ -142,6 +143,7 @@ $(function() {
 								partido: $('.guardar-editar-goles').data('partido'),
 								fecha: $('.guardar-editar-goles').data('fecha'),
 								estado : $('.guardar-editar-goles').data('estado'),
+								tipo : "editar",
 								json  : goles.TomarDatos_Resultados(),
 								resultado1 : $('#resultado1').val(),
 								resultado2 : $('#resultado2').val(),

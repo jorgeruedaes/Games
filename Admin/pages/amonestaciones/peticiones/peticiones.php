@@ -70,50 +70,95 @@ if(isset($_SESSION['perfil']))
 		}
 	}
 	else if($bandera === "getpartidosdobleestado") {
-	$campeonato = $_POST['campeonato'];
-	$estado = $_POST['estado'];
-	$estado1 = $_POST['estado1'];
-	$vector = Array_Get_Partidos_Campeonato_DobleEstado($estado,$estado1,$campeonato);
-	if (!empty($vector)) {
+		$campeonato = $_POST['campeonato'];
+		$estado = $_POST['estado'];
+		$estado1 = $_POST['estado1'];
+		$vector = Array_Get_Partidos_Campeonato_DobleEstado($estado,$estado1,$campeonato);
+		if (!empty($vector)) {
+			$_SESSION['campeonato'] = $campeonato;
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode(Transforma_paritdo($vector)).'';
+		} 
+		else 
+		{
+			$resultado.='"mensaje":false';
+
+		}
+	}
+	else if ($bandera === "agregardetalles-amonestaciones")
+	{
+		$json = json_encode($_POST['json']); 
+		$partido = $_POST['partido'];
+		$fecha = $_POST['fecha'];
+		$estado = $_POST['estado'];
+		$tipo = $_POST['tipo'];
+
+		if ($tipo == "editar") {
+			Delete_detalles_amonestaciones_partidos($partido);
+			Delete_partido_detalles_amonestaciones($partido);
+			Reinicia_Detalles_Partido_amonestaciones($partido);
+		}
+
+		if($estado==='1')
+		{
+			$estadop ='7';
+		}
+		else if ($estado==='8' or $estado==='2')
+		{
+			$estadop ='2';
+
+		}
+		if (Set_resultado_Partido_Amonestaciones($partido,$estadop) 
+			and Add_detalles_partido_Amonestados($json,$partido) 
+			and  Add_detalles_amonestaciones_partido($partido,$json,$fecha)) 
+		{
+			$resultado.='"mensaje":true';
+		}
+		else
+		{
+			$resultado.='"mensaje":false';
+			echo $tipo;
+		}
+
+	}
+	else if($bandera == "get_datosamonestaciones")
+	{
+
+		$partido = $_POST['partido'];
+		$vector = Array_Get_Detalles_Amonestacion($partido);
+		if (!empty($vector)) 
+		{
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode($vector).'';
+		} 
+		else {
+			$resultado.='"mensaje":false';
+		}
+	}
+	else if($bandera == "get_fechas")
+	{
+		$campeonato = $_POST['campeonato'];
+		$vector = Array_Get_fechas_terminadas($campeonato);
 		$_SESSION['campeonato'] = $campeonato;
-		$resultado.='"mensaje":true,';
-		$resultado.='"datos":'.json_encode(Transforma_paritdo($vector)).'';
-	} 
-	else 
+		if (!empty($vector)) 
+		{
+			$resultado.='"mensaje":true,';
+			$resultado.='"datos":'.json_encode($vector).'';
+		} 
+		else {
+			$resultado.='"mensaje":false';
+		}
+	}else if($bandera == "agregardetalles-amonestaciones-gestion")
 	{
-		$resultado.='"mensaje":false';
-
+		$json = json_encode($_POST['json']); 
+		if (Set_Detalles_Amonestacion($json)) 
+		{
+			$resultado.='"mensaje":true';
+		} 
+		else {
+			$resultado.='"mensaje":false';
+		}
 	}
-}
-else if ($bandera === "agregardetalles-amonestaciones")
-{
-	$json = json_encode($_POST['json']); 
-	$partido = $_POST['partido'];
-	$fecha = $_POST['fecha'];
-	$estado = $_POST['estado'];
-
-	if($estado==='1')
-	{
-		$estadop ='7';
-	}
-	else if ($estado==='8')
-	{
-		$estadop ='2';
-
-	}
-	if (Set_resultado_Partido_Amonestaciones($partido,$estadop) 
-		and Add_detalles_partido_Amonestados($json,$partido) 
-		and  Add_detalles_amonestaciones_partido($partido,$json,$fecha)) 
-	{
-		$resultado.='"mensaje":true';
-	}
-	else
-	{
-		$resultado.='"mensaje":false';
-	}
-	
-}
-	
 }
 else
 {

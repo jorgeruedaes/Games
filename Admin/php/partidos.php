@@ -77,6 +77,16 @@ function Delete_Partido($partido)
     return $valor;
 }
 
+function Delete_Detalles_Partido($partido)
+{
+    $valor  = eliminar("DELETE FROM tr_jugadoresxpartido WHERE id_partido=$partido and amonestacion='5' ");
+    return $valor;
+}
+function Reinicia_Detalles_Partido($partido)
+{
+    $valor  = modificar("UPDATE `tr_jugadoresxpartido` SET `goles`='0',`autogoles`='0' WHERE  partido='$partido'");
+    return $valor;
+}
 /**
  * [Array_Get_Partidos_No_Estado Trae los partidos que no tengan ese estado]
  * @param [type] $estado [Codigo Estado que no queremos mostrar]
@@ -270,6 +280,35 @@ function Add_detalles_partido($vector,$partido)
     }
     return $bandera;
 }
+
+function Array_Get_fechas_terminadas($torneo)
+{
+$query = consultar("SELECT  distinct numero_fecha FROM tb_partidos,tb_equipos WHERE tb_partidos.estado='2' 
+and ((tb_equipos.id_equipo=tb_partidos.equipo1) or (tb_equipos.id_equipo=tb_partidos.equipo2)) 
+and tb_equipos.torneo='$torneo' "); 
+    $datos = array();
+    while ($valor = mysqli_fetch_array($query)) {
+        $numero_fecha = $valor['numero_fecha'];
+        $vector = array(
+            'numero_fecha'=>"$numero_fecha"
+            );
+        array_push($datos, $vector);
+    }
+
+    return $datos; 
+}
+function Array_Get_Gestion_Amonestaciones($estado)
+{
+    $query = consultar("SELECT * FROM tb_partidos WHERE estado!='$estado' and estado!='6' ORDER BY fecha ASC ");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+        $arreglo = Get_Partido($valor['id_partido']);
+        array_push($vector, $arreglo);
+    }
+    
+    return $vector;
+}
+
 
 
 ////////////////////////////////////////////////////////////////////

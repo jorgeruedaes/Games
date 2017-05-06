@@ -348,8 +348,9 @@ $(function() {
 					url: 'pages/partidos/peticiones/peticiones.php',
 					type: 'POST',
 					data: {
-						bandera: "getcampeonato-diferente",
-						estado : '2',
+						bandera: "getpartidosdobleestado",
+						estado : '1',
+						estado1 : '3',
 						campeonato:  $('.selector-campeonato-calendario option:selected').val()
 
 					},

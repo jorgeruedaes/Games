@@ -98,6 +98,7 @@ if(isset($_SESSION['perfil']))
 	else if($bandera === "getequipos") {
 		$campeonato = $_POST['campeonato'];
 		$vector = Array_Get_Equipos_Torneo($campeonato);
+		$_SESSION['campeonato']=$campeonato;
 		if (!empty($vector)) {
 			$resultado.='"mensaje":true,';
 			$resultado.='"datos":'.json_encode($vector).'';
@@ -139,8 +140,15 @@ if(isset($_SESSION['perfil']))
 	$partido = $_POST['partido'];
 	$fecha = $_POST['fecha'];
 	$estado = $_POST['estado'];
+	$tipo = $_POST['tipo'];
 	$resultado1 = $_POST['resultado1'];
 	$resultado2 = $_POST['resultado2'];
+
+	if ($tipo=='editar')
+	{
+	Delete_Detalles_Partido($partido);
+	Reinicia_Detalles_Partido($partido);
+	}
 
 	if($estado==='1')
 	{
