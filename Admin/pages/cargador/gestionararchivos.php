@@ -2,10 +2,11 @@
 $ubicacion ="../";
 include("../menuinicial.php");
 include('../../php/cargador.php');
-$id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
+$id_modulos ='65';
 
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
+
 	<section class="content">
 		<div class="container-fluid">
 			<div class="block-header">
@@ -46,7 +47,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<li></li>
 								<li>
 									<button type="button" class="btn bg-red 
-									waves-effect add-folder">
+									waves-effect add-files">
 									<i class="material-icons">add</i>
 								</button>
 
@@ -57,8 +58,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					<div class="body">
 						<div class="row clearfix">
 							<?php
-							$vector =  Read_Folders_Folder('../../../Archivos');
-
+							$vector =  Read_Files_Folder('../../../Archivos/'.$_GET['id'],$_GET['id']);
+							if(empty($vector)){echo 'No hay archivos en esta carpeta.';}
 							foreach ($vector as $value) {
 								?>
 								<div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -66,15 +67,27 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 										<div class="header">
 											<h2><small></small>
 											</h2>
+											<ul class="header-dropdown m-r--5">
+												<li class="dropdown">
+													<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+														<i class="material-icons">more_vert</i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li><a href="javascript:void(0);"  data-url="<?php  echo $value['Url'];?>"  class=" waves-effect waves-block copy-clipboard ">Copiar Url</a></li>
+														<li><a href="javascript:void(0);" data-url="<?php  echo $value['Url'];?>"  class=" waves-effect waves-block preview">Vista Previa</a></li>
+														<li><a href="javascript:void(0);" data-url="<?php echo $value['Archivo'];?>"" class=" waves-effect waves-block  delete">Eliminar</a></li>
+													</ul>
+												</li>
+											</ul>
 										</div>
 										<div class="body">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<div class="icon" style="padding-left: 30%;">
-													<i data-url="<?php  echo $value['archivo'];?>" style="font-size: 60px;cursor: pointer;" class="material-icons to_folder col-<?php echo Get_Icon($value['archivo'])[1]?>">folder</i>
+													<i data-url="<?php  echo $value['Url'];?>" style="font-size: 60px;cursor: pointer;" class="material-icons preview col-<?php echo Get_Icon($value['Extension'])[1]?>"><?php echo Get_Icon($value['Extension'])[0]; ?></i>
 												</div>
 											</div>
 											<div class="content">
-												<div class="text"><?php  echo strtoupper($value['archivo'])?></div>
+												<div class="text"><?php  echo strtoupper($value['FileName'])?></div>
 												<div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20"></div>
 											</div>
 										</div>
@@ -97,28 +110,31 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 <!--  Js-principal -->
 <script src="pages/cargador/js/nuevo.js"></script>
 
-<div class="modal fade" id="nuevacarpeta" data-perfil="" tabindex="-1" role="dialog">
+<div class="modal fade" id="nuevaarchivos" data-perfil="" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Nueva carpeta</h4>
+				<h4 class="modal-title" id="defaultModalLabel">Cargador de archivos</h4>
 			</div>
 			<div class="modal-body">
 
 				<div class="body">
-					<form>
-						<label for="">Nombre</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="text" class="form-control n-carpeta" placeholder="Nombre de la carpeta" />
-							</div>
-						</div>
-
-					</form>
+					   <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                                <div class="dz-message">
+                                    <div class="drag-icon-cph">
+                                        <i class="material-icons">touch_app</i>
+                                    </div>
+                                    <h3>Pon los archivos aqui para subirlos al servidor.</h3>
+                                    
+                                </div>
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </form>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar-nuevo-carpeta">Guardar</button>
+				<button type="button" class="btn btn-info waves-effect guardar-nuevo-folder">Guardar cambios</button>
 				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
@@ -175,6 +191,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 		</div>
 	</div>
 </div>
+
+
+    <!-- Dropzone Plugin Js -->
+    <script src="plugins/dropzone/dropzone.js"></script>
+    	    <!-- Dropzone Css -->
+    <link href="plugins/dropzone/dropzone.css" rel="stylesheet">
 
 <?php
 }else
