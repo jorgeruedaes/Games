@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('../../../php/consultas.php');
-include('../../../php/noticias.php');
+include('../../../php/comunicados.php');
 
 if(isset($_SESSION['id_usuarios']))
 {
@@ -11,12 +11,11 @@ if(isset($_SESSION['id_usuarios']))
 // Agrega un nuevo modulo al sitio.
 	if ($bandera === "nuevo") {
 		$titulo = $_POST['titulo'];
-		$emcabezado = $_POST['emcabezado'];
-		$torneo = $_POST['torneo'];
-		$texto = $_POST['texto'];
+		$tipo = $_POST['tipo'];
 		$fecha = $_POST['fecha'];
+		$comunicado ='';
 
-		if (boolean_new_noticia($titulo,$emcabezado,$texto,$fecha,$torneo)) {
+		if (boolean_new_Comunicado($tipo,$comunicado,$fecha,$titulo)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';
@@ -25,20 +24,18 @@ if(isset($_SESSION['id_usuarios']))
 	// Permite modificar un modulo.
 	else if($bandera === "modificar") {
 		$titulo = $_POST['titulo'];
-		$emcabezado = $_POST['emcabezado'];
-		$torneo = $_POST['torneo'];
-		$texto = $_POST['texto'];
+		$tipo = $_POST['tipo'];
 		$fecha = $_POST['fecha'];
-		$noticia = $_POST['noticia'];
+		$comunicado = $_POST['comunicado'];
 
 		
-		if (boolean_set_noticia($titulo,$emcabezado,$texto,$fecha,$torneo,$noticia)) {
+		if (boolean_set_Comunicado($tipo,$fecha,$titulo,$comunicado)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';
 		}
 	}else if($bandera === "eliminar") {
-		$noticia = $_POST['noticia'];
+		$comunicado = $_POST['comunicado'];
 		if (boolean_delete_noticia($noticia)) {
 			$resultado.='"mensaje":true';
 		} else {

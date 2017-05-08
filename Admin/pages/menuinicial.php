@@ -935,12 +935,6 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
 
 <!-- Demo Js -->
 <script src="js/demo.js"></script>
-
-<script src="plugins/tinymce/tinymce.js"></script>
-
-<script src="plugins/ckeditor/ckeditor.js"></script>
-
-<script src="js/pages/forms/editors.js"></script>
 </body>
 
 </html>

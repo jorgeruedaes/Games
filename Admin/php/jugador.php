@@ -135,14 +135,35 @@ function String_Get_NombreEstado($identificador)
     
     return $valor;
 }
+/**
+ * [Set_Jugador description]
+ * @param [type] $id_jugador [description]
+ * @param [type] $nombre1    [description]
+ * @param [type] $nombre2    [description]
+ * @param [type] $apellido1  [description]
+ * @param [type] $apellido2  [description]
+ * @param [type] $fecha      [description]
+ * @param [type] $estado     [description]
+ */
 function Set_Jugador($id_jugador,$nombre1,$nombre2,$apellido1,$apellido2,$fecha,$estado)
 {
-    $valor  = insertar(sprintf("UPDATE `tb_jugadores` SET `nombre1`='%s',`nombre2`='%s',`apellido1`='%s',`apellido2`='%s',`fecha_nacimiento`='%s',`estado_jugador`='%d'
+    $valor  = modificar(sprintf("UPDATE `tb_jugadores` SET `nombre1`='%s',`nombre2`='%s',`apellido1`='%s',`apellido2`='%s',`fecha_nacimiento`='%s',`estado_jugador`='%d'
         WHERE `id_jugadores`='%d' ",
         escape($nombre1),escape($nombre2),escape($apellido1),escape($apellido2),escape($fecha),escape($estado),escape($id_jugador)));
     return $valor;
 }
-
+/**
+ * [boolean_new_jugador description]
+ * @param  [type] $documento [description]
+ * @param  [type] $equipo    [description]
+ * @param  [type] $nombre1   [description]
+ * @param  [type] $nombre2   [description]
+ * @param  [type] $apellido1 [description]
+ * @param  [type] $apellido2 [description]
+ * @param  [type] $fecha     [description]
+ * @param  [type] $estado    [description]
+ * @return [type]            [description]
+ */
 function boolean_new_jugador($documento,$equipo,$nombre1,$nombre2,$apellido1,$apellido2,$fecha,$estado)
 {
     $partido = insertar(sprintf("INSERT INTO `tb_jugadores`(`id_jugadores`, `documento`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, 

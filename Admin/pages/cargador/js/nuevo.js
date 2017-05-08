@@ -1,21 +1,44 @@
-//	var Creador = '<?php echo $usuario['id_noticias']; ?>'
+//	var Creador = '<?php echo $usuario['id_cargador']; ?>'
 $(function() {
 	var goblal='';
-	var noticias = {
+	var cargador = {
 		inicio: function () {
-			noticias.recargar();
-			noticias.Inicial();
+			cargador.recargar();
 		},
 		recargar: function () {
-			noticias.enviarDatos();
-			noticias.Nuevo();
-			noticias.add();
-			noticias.ModalImagen();
+			cargador.enviarDatos();
+			cargador.Nuevo();
+			cargador.add();
+			cargador.ModalImagen();
+			cargador.CopiarUrl();
+			cargador.Eliminar_Archivo();
+			cargador.VistaPrevia();
+		},
+		CopiarUrl: function()
+		{
+			$('.copy-clipboard').off('click').on('click', function () {	
+				  window.prompt("Copiar la Url : Ctrl+C, Enter",$(this).data('url'));
+			});
+
+		},
+		VistaPrevia : function()
+		{
+			$('.preview').off('click').on('click', function () {	
+				window.open($(this).data('url'),"_blank")
+			});
+
+		},
+		Eliminar_Archivo : function()
+		{
+			$('.delete').off('click').on('click', function () {	
+			Eliminar($(this).data('url'));
+			});
+
 		},
 		Eliminar : function (valor)
 		{
 			swal({title: "",
-				text: " ¿ Esta seguro que desea eliminar esta noticia ?.",
+				text: " ¿ Esta seguro que desea eliminar el archivo ?.",
 				type: "warning",
 				showCancelButton: true,
 				confirmButtonColor: "rgb(174, 222, 244)",
@@ -24,18 +47,18 @@ $(function() {
 			}, function (isConfirm) {
 				if (isConfirm) {
 					$.ajax({
-						url: 'pages/noticias/peticiones/peticiones.php',
+						url: 'pages/cargador/peticiones/peticiones.php',
 						type: 'POST',
 						data: {
 							bandera: "eliminar",
-							noticia: valor
+							comunicado: valor
 						},
 						success: function (resp) {
 
 							var resp = $.parseJSON(resp);
 							if (resp.salida === true && resp.mensaje === true) {
 								swal({title: "",
-									text: "La noticia se ha eliminado exitosamente!.",
+									text: "El comunicado se ha eliminado exitosamente!.",
 									type: "success",
 									showCancelButton: false,
 									confirmButtonColor: "rgb(174, 222, 244)",
@@ -56,22 +79,12 @@ $(function() {
 			});
 
 
-},
-Inicial: function()
-{
-
-	//CKEditor
-	CKEDITOR.replace('ckeditor');
-	CKEDITOR.config.height = 300;
-
-	CKEDITOR.replace('ckeditor1');
-	CKEDITOR.config.height = 300;
 
 },
 add : function()
 {
-	$('.add-noticia').off('click').on('click', function () {	
-		$('#nuevanoticias').modal('show'); 
+	$('.add-files').off('click').on('click', function () {	
+		$('#nuevacargador').modal('show'); 
 	});
 
 }
@@ -80,15 +93,13 @@ Nuevo : function ()
 {
 	$('.guardar-nuevo').off('click').on('click', function () {	
 		$.ajax({
-			url: 'pages/noticias/peticiones/peticiones.php',
+			url: 'pages/cargador/peticiones/peticiones.php',
 			type: 'POST',
 			data: {
 				bandera: "nuevo",
 				titulo:	$('.n-titulo').val(),
-				emcabezado:	$('.n-emcabezado').val(),
 				fecha:	$('.n-fecha').val(),
-				texto : CKEDITOR.instances['ckeditor'].getData(),
-				torneo :$('.select-n-torneo option:selected').val()
+				tipo :$('.select-n-tipo option:selected').val()
 
 
 
@@ -98,7 +109,7 @@ Nuevo : function ()
 				var resp = $.parseJSON(resp);
 				if (resp.salida === true && resp.mensaje === true) {
 					swal({title: "",
-						text: "La noticia se ha creado exitosamente!.",
+						text: "El comunicado se ha creado exitosamente!.",
 						type: "success",
 						showCancelButton: false,
 						confirmButtonColor: "rgb(174, 222, 244)",
@@ -121,16 +132,14 @@ Nuevo : function ()
 enviarDatos: function () {
 	$('.guardar').off('click').on('click', function () {
 		$.ajax({
-			url: 'pages/noticias/peticiones/peticiones.php',
+			url: 'pages/cargador/peticiones/peticiones.php',
 			type: 'POST',
 			data: {
 				bandera: "modificar",
 				titulo:	$('.titulo').val(),
-				emcabezado:	$('.emcabezado').val(),
 				fecha:	$('.fecha').val(),
-				noticia:$('#defaultModal').data('id'),
-				texto : CKEDITOR.instances['ckeditor1'].getData(),
-				torneo :$('.select-torneo option:selected').val()
+				comunicado:$('#defaultModal').data('id'),
+				tipo :$('.select-tipo option:selected').val()
 				
 
 
@@ -140,7 +149,7 @@ enviarDatos: function () {
 				var resp = $.parseJSON(resp);
 				if (resp.salida === true && resp.mensaje === true) {
 					swal({title: "",
-						text: "La noticia  se ha modificado exitosamente!",
+						text: "El comunicado  se ha modificado exitosamente!",
 						type: "success",
 						showCancelButton: false,
 						confirmButtonColor: "rgb(174, 222, 244)",
@@ -159,39 +168,35 @@ enviarDatos: function () {
 	});
 
 },
-cargarModal: function(titulo,emcabezado,fecha,id,texto,torneo)
+cargarModal: function(titulo,fecha,id,tipo)
 {
 	$('.titulo').val(titulo);
-	$('.select-torneo').val(torneo);
-	$('.select-torneo').change();
-	CKEDITOR.instances['ckeditor1'].setData(texto);
+	$('.select-tipo').val(tipo);
+	$('.select-tipo').change();
 	$('.fecha').val(fecha);
-	$('.emcabezado').val(emcabezado);
 	$('#defaultModal').data('id',id);
 	$('#defaultModal').modal('show'); 
-	noticias.recargar();
+	cargador.recargar();
 },
 ModalImagen :function()
 {
 
-	$('#tabla-noticias').on("click", ".edit-item", function(){
+	$('#tabla-cargador').on("click", ".edit-item", function(){
 		var titulo = $(this).data('titulo');
 		var fecha = $(this).data('fecha');
-		var emcabezado = $(this).data('emcabezado');
-		var texto = $(this).data('texto');
 		var id = $(this).data('id');
-		var torneo = $(this).data('torneo');
-		noticias.cargarModal(titulo,emcabezado,fecha,id,texto,torneo);
+		var tipo = $(this).data('tipo');
+		cargador.cargarModal(titulo,fecha,id,tipo);
 	});
-	$('#tabla-noticias').on("click", ".delete-item", function(){
+	$('#tabla-cargador').on("click", ".delete-item", function(){
 		var id = $(this).data('id');
-		noticias.Eliminar(id);
+		cargador.Eliminar(id);
 	});
 }
 };
 $(document).ready(function () {
 
-	noticias.inicio();
+	cargador.inicio();
 
 });
 

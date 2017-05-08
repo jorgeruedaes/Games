@@ -1,7 +1,7 @@
 <?php  
 $ubicacion ="../";
 include("../menuinicial.php");
-include('../../php/noticias.php');
+include('../../php/comunicados.php');
 include('../../php/campeonatos.php');
 $id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 
@@ -41,7 +41,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					<div class="card">
 						<div class="header">
 							<h2>
-								GESTION DE NOTICIAS  
+								GESTION DE COMUNICADOS  
 							</h2>
 							<ul class="header-dropdown m-r--5">
 								<li></li>
@@ -56,37 +56,37 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						</ul>
 					</div>
 					<div class="body">
-						<table  id="tabla-noticias" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+						<table  id="tabla-comunicados" class="table table-bordered table-striped table-hover js-basic-example dataTable">
 							<thead>
 								<tr>
 									<th>#</th>
 									<th width="70%">Titulo</th>
+									<th width="15%">Tipo</th>
 									<th width="15%">Fecha</th>
 									<th width="15%">Opciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
-								$vector = Array_Get_Noticias();
+								$vector = Array_Get_Comunicados();
 								foreach ($vector as  $value) {
 									?>
 									<tr>
-										<td scope="row"><?php echo $value['id_noticias']; ?></td>
+										<td scope="row"><?php echo $value['id_comunicados']; ?></td>
 										<td scope="row"><?php echo $value['titulo']; ?></td>
+										<td scope="row"><?php echo $value['tipo']; ?></td>
 										<td><?php echo $value['fecha']; ?></td>
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
 												<button 
-												data-id="<?php echo $value['id_noticias'];?>"
+												data-id="<?php echo $value['id_comunicados'];?>"
 												data-titulo="<?php echo $value['titulo']; ?>"
 												data-fecha="<?php echo $value['fecha'];?>"
-												data-emcabezado="<?php echo $value['emcabezado'];?>"
-												data-texto="<?php echo $value['texto'];?>"
-												data-torneo="<?php echo $value['torneo'];?>"
-
+												data-comunicado="<?php echo $value['comunicado'];?>"
+												data-tipo="<?php echo $value['tipo'];?>"
 												type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
 												<button 
-												data-id="<?php echo $value['id_noticias'];?>"
+												data-id="<?php echo $value['id_comunicados'];?>"
 												type="button" class="btn btn-danger waves-effect delete-item"><i class="material-icons">delete</i></button>
 
 											</td>
@@ -105,13 +105,13 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 	<!-- JS ====================================================================================================================== -->
 	<!--  Js-principal -->
-	<script src="pages/noticias/js/nuevo.js"></script>
+	<script src="pages/comunicados/js/nuevo.js"></script>
 
-	<div class="modal fade" id="nuevanoticias" data-perfil="" tabindex="-1" role="dialog">
+	<div class="modal fade" id="nuevacomunicados" data-perfil="" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="defaultModalLabel">Nueva noticia</h4>
+					<h4 class="modal-title" id="defaultModalLabel">Nuevo comunicado</h4>
 				</div>
 				<div class="modal-body">
 
@@ -120,29 +120,19 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							<label for="">Titulo</label>
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" class="form-control n-titulo" placeholder="Titulo de la noticia" />
+									<input type="text" class="form-control n-titulo" placeholder="Titulo del comunicado" />
 								</div>
 							</div>
-							<label for="">Emcabezado</label>
-							<div class="form-group">
-								<div class="form-line">
-									<textarea rows="4" class="form-control no-resize n-emcabezado" placeholder="Escriba al menos 300 caracteres, para el resumen de la noticia."></textarea>
-								</div>
-							</div>
-								<div class="row clearfix">
+							<div class="row clearfix">
 								<div class="col-sm-6">
-									<label for="">Torneo</label>
+									<label for="">Tipo</label>
 									<div class="form-group">
-										<select class="form-control show-tick select-n-torneo">
-											<option value="">--Selecciona un torneo --</option>
-											<?php 
-											$vector = Array_Get_Campeonatos();
-											foreach ($vector as  $value) {
-												?>
-												<option value="<?php echo $value['id_torneo'];?>"><?php echo $value['nombre_torneo']; ?></option>
-												<?php
-											}
-											?>
+										<select class="form-control show-tick select-n-tipo">
+											<option value="">--Selecciona un tipo --</option>
+											<option value="boletin">Boletín</option>
+											<option value="resolucion">Resolución</option>
+											<option value="documentos">Documentos</option>
+
 										</select>
 									</div>
 								</div>
@@ -155,13 +145,6 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									</div>
 								</div>
 							</div>
-							<label for="">Noticia</label>
-							<div class="form-group">
-								<div class="form-line">
-									<textarea class="n-texto" id="ckeditor"></textarea>
-								</div>
-							</div>
-
 						</form>
 					</div>
 				</div>
@@ -179,7 +162,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="defaultModalLabel">Edición de canchas</h4>
+					<h4 class="modal-title" id="defaultModalLabel">Edición de comunicados</h4>
 				</div>
 				<div class="modal-body">
 
@@ -191,26 +174,16 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<input type="text" class="form-control titulo" placeholder="Titulo de la noticia" />
 								</div>
 							</div>
-							<label for="">Emcabezado</label>
-							<div class="form-group">
-								<div class="form-line">
-									<textarea rows="4" class="form-control no-resize emcabezado" placeholder="Escriba al menos 300 caracteres, para el resumen de la noticia."></textarea>
-								</div>
-							</div>
 							<div class="row clearfix">
 								<div class="col-sm-6">
-									<label for="">Torneo</label>
+									<label for="">Tipo</label>
 									<div class="form-group">
-										<select class="form-control show-tick select-torneo">
-											<option value="">--Selecciona un torneo --</option>
-											<?php 
-											$vector = Array_Get_Campeonatos();
-											foreach ($vector as  $value) {
-												?>
-												<option value="<?php echo $value['id_torneo'];?>"><?php echo $value['nombre_torneo']; ?></option>
-												<?php
-											}
-											?>
+										<select class="form-control show-tick select-tipo">
+											<option value="">--Selecciona un tipo --</option>
+											<option value="boletin">Boletín</option>
+											<option value="resolucion">Resolución</option>
+											<option value="documentos">Documentos</option>
+
 										</select>
 									</div>
 								</div>
@@ -223,12 +196,6 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									</div>
 								</div>
 							</div>
-							<label for="">Noticia</label>
-							<div class="form-group">
-								<div class="form-line">
-									<textarea class="texto" id="ckeditor1"></textarea>
-								</div>
-							</div>
 						</form>
 					</div>
 				</div>
@@ -239,14 +206,6 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 			</div>
 		</div>
 	</div>
-
-
-	<script src="plugins/tinymce/tinymce.js"></script>
-
-	<script src="plugins/ckeditor/ckeditor.js"></script>
-
-	<script src="js/pages/forms/editors.js"></script>
-
 
 	<?php
 }else
