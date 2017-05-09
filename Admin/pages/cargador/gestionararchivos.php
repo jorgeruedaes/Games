@@ -75,14 +75,14 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 													<ul class="dropdown-menu pull-right">
 														<li><a href="javascript:void(0);"  data-url="<?php  echo $value['Url'];?>"  class=" waves-effect waves-block copy-clipboard ">Copiar Url</a></li>
 														<li><a href="javascript:void(0);" data-url="<?php  echo $value['Url'];?>"  class=" waves-effect waves-block preview">Vista Previa</a></li>
-														<li><a href="javascript:void(0);" data-url="<?php echo $value['Archivo'];?>"" class=" waves-effect waves-block  delete">Eliminar</a></li>
+														<li><a href="javascript:void(0);" data-url="<?php echo $value['Archivo'];?>" class=" waves-effect waves-block  delete">Eliminar</a></li>
 													</ul>
 												</li>
 											</ul>
 										</div>
 										<div class="body">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<div class="icon" style="padding-left: 30%;">
+												<div class="icon" style="padding-left: 30%;">
 													<i data-url="<?php  echo $value['Url'];?>" style="font-size: 60px;cursor: pointer;" class="material-icons preview col-<?php echo Get_Icon($value['Extension'])[1]?>"><?php echo Get_Icon($value['Extension'])[0]; ?></i>
 												</div>
 											</div>
@@ -119,7 +119,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 			<div class="modal-body">
 
 				<div class="body">
-					   <form action="/" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+					   <form action="pages/cargador/peticiones/subir.php?carpeta=<?php echo $_GET['id'] ?>" 
+					   id="dropzone" class="dropzone" >
                                 <div class="dz-message">
                                     <div class="drag-icon-cph">
                                         <i class="material-icons">touch_app</i>
@@ -128,82 +129,81 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
                                     
                                 </div>
                                 <div class="fallback">
-                                    <input name="file" type="file" multiple />
+                                    <input name="file" type="file" multiple id="archivos" />
                                 </div>
-                            </form>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar-nuevo-folder">Guardar cambios</button>
-				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>
+                            </form> 
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    	<button data-carpeta='<?php echo $_GET['id']?>' type="button" class="btn btn-danger waves-effect guardar-files" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- Modal Dialogs ====================================================================================================================== -->
-<!-- Default Size -->
-<div class="modal fade" id="defaultModal" data-id="" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Edición de comunicados</h4>
-			</div>
-			<div class="modal-body">
+        <!-- Modal Dialogs ====================================================================================================================== -->
+        <!-- Default Size -->
+        <div class="modal fade" id="defaultModal" data-id="" tabindex="-1" role="dialog">
+        	<div class="modal-dialog" role="document">
+        		<div class="modal-content">
+        			<div class="modal-header">
+        				<h4 class="modal-title" id="defaultModalLabel">Edición de comunicados</h4>
+        			</div>
+        			<div class="modal-body">
 
-				<div class="body">
-					<form>
-						<label for="">Titulo</label>
-						<div class="form-group">
-							<div class="form-line">
-								<input type="text" class="form-control titulo" placeholder="Titulo de la noticia" />
-							</div>
-						</div>
-						<div class="row clearfix">
-							<div class="col-sm-6">
-								<label for="">Tipo</label>
-								<div class="form-group">
-									<select class="form-control show-tick select-tipo">
-										<option value="">--Selecciona un tipo --</option>
-										<option value="boletin">Boletín</option>
-										<option value="resolucion">Resolución</option>
-										<option value="documentos">Documentos</option>
+        				<div class="body">
+        					<form>
+        						<label for="">Titulo</label>
+        						<div class="form-group">
+        							<div class="form-line">
+        								<input type="text" class="form-control titulo" placeholder="Titulo de la noticia" />
+        							</div>
+        						</div>
+        						<div class="row clearfix">
+        							<div class="col-sm-6">
+        								<label for="">Tipo</label>
+        								<div class="form-group">
+        									<select class="form-control show-tick select-tipo">
+        										<option value="">--Selecciona un tipo --</option>
+        										<option value="boletin">Boletín</option>
+        										<option value="resolucion">Resolución</option>
+        										<option value="documentos">Documentos</option>
 
-									</select>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<label for="">Fecha de publicación</label>
-								<div class="form-group">
-									<div class="form-line">
-										<input type="text" id="fecha" class="datepicker form-control fecha" placeholder="Seleccina una fecha...">
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
-				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>
+        									</select>
+        								</div>
+        							</div>
+        							<div class="col-sm-6">
+        								<label for="">Fecha de publicación</label>
+        								<div class="form-group">
+        									<div class="form-line">
+        										<input type="text" id="fecha" class="datepicker form-control fecha" placeholder="Seleccina una fecha...">
+        									</div>
+        								</div>
+        							</div>
+        						</div>
+        					</form>
+        				</div>
+        			</div>
+        			<div class="modal-footer">
+        				<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+        				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+        			</div>
+        		</div>
+        	</div>
+        </div>
 
 
-    <!-- Dropzone Plugin Js -->
-    <script src="plugins/dropzone/dropzone.js"></script>
-    	    <!-- Dropzone Css -->
-    <link href="plugins/dropzone/dropzone.css" rel="stylesheet">
+        <!-- Dropzone Plugin Js -->
+        <script src="plugins/dropzone/dropzone.js"></script>
+        <!-- Dropzone Css -->
+        <link href="plugins/dropzone/dropzone.css" rel="stylesheet">
 
-<?php
-}else
-{
-	require("../sinpermiso.php");
+        <?php
+    }else
+    {
+    	require("../sinpermiso.php");
 
-}
-?>
+    }
+    ?>
 
 

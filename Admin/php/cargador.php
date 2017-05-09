@@ -21,7 +21,7 @@ function Read_Folders_Folder($directorio)
 
 function new_Folder($carpeta)
 {
-	$carpeta = $_SERVER['DOCUMENT_ROOT'].'/Games1'.'/Archivos/'.$carpeta;
+	$carpeta = $_SERVER['DOCUMENT_ROOT'].'/Games'.'/Archivos/'.$carpeta;
 if (!file_exists($carpeta)) {
    return mkdir($carpeta, 0777, true);
 }
@@ -42,7 +42,7 @@ function Read_Files_Folder($directorio,$carpeta)
 			$ex = explode(".",$archivo);
 			$extension = $ex[1];
 			$nombre = $ex[0];
-			$archivo = $_SERVER['DOCUMENT_ROOT'].'/Games1'.'/Archivos/'.$carpeta.'/'.$archivo;
+			$archivo = $_SERVER['DOCUMENT_ROOT'].'/Games'.'/Archivos/'.$carpeta.'/'.$archivo;
 
 			$informacion= array(
 				'FileName' => "$nombre",
