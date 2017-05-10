@@ -75,6 +75,7 @@ Nuevo : function ()
 				bandera: "nuevo",
 				titulo:	$('.n-titulo').val(),
 				fecha:	$('.n-fecha').val(),
+				comunicado:	$('.n-url').val(),
 				tipo :$('.select-n-tipo option:selected').val()
 
 
@@ -114,7 +115,8 @@ enviarDatos: function () {
 				bandera: "modificar",
 				titulo:	$('.titulo').val(),
 				fecha:	$('.fecha').val(),
-				comunicado:$('#defaultModal').data('id'),
+				comunicado:	$('.url').val(),
+				codigo:$('#defaultModal').data('id'),
 				tipo :$('.select-tipo option:selected').val()
 				
 
@@ -144,9 +146,10 @@ enviarDatos: function () {
 	});
 
 },
-cargarModal: function(titulo,fecha,id,tipo)
+cargarModal: function(titulo,fecha,id,tipo,comunicado)
 {
 	$('.titulo').val(titulo);
+	$('.url').val(comunicado);
 	$('.select-tipo').val(tipo);
 	$('.select-tipo').change();
 	$('.fecha').val(fecha);
@@ -160,12 +163,13 @@ ModalImagen :function()
 	$('#tabla-comunicados').on("click", ".edit-item", function(){
 		var titulo = $(this).data('titulo');
 		var fecha = $(this).data('fecha');
-		var id = $(this).data('id');
+		var id = $(this).data('codigo');
 		var tipo = $(this).data('tipo');
-		comunicados.cargarModal(titulo,fecha,id,tipo);
+		var comunicado = $(this).data('url');
+		comunicados.cargarModal(titulo,fecha,id,tipo,comunicado);
 	});
 	$('#tabla-comunicados').on("click", ".delete-item", function(){
-		var id = $(this).data('id');
+		var id = $(this).data('codigo');
 		comunicados.Eliminar(id);
 	});
 }

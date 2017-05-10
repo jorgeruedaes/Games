@@ -84,10 +84,10 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 												</td>
 												<td>
 													<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-														<button data-estado="<?php echo $value['imagen']; ?>" 
-															data-codigo="<?php echo $value['coigo']; ?>" 
+<button  data-url="<?php echo $value['imagen']; ?>" data-codigo="<?php echo $value['codigo']; ?>" 
+data-torneo="<?php echo $value['torneo']; ?>" 
 															type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
-															<button  data-id="<?php echo $value['codigo']; ?>" type="button" class="btn btn-red waves-effect delete-item"><i class="material-icons">delete</i></button>
+															<button  data-codigo="<?php echo $value['codigo']; ?>" type="button" class="btn btn-danger  waves-effect delete-item"><i class="material-icons">delete</i></button>
 
 														</div>
 
@@ -195,7 +195,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+							<button type="button" data-imagen="" class="btn btn-info waves-effect guardar">Guardar cambios</button>
 							<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 						</div>
 					</div>

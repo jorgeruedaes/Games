@@ -36,11 +36,11 @@ function Array_Get_Noticias()
  * @param  [type] $torneo     [description]
  * @return [type]             [description]
  */
-function boolean_new_noticia($titulo,$emcabezado,$texto,$fecha,$torneo)
+function boolean_new_noticia($titulo,$emcabezado,$texto,$fecha,$torneo,$url)
 {
   $noticia = insertar(sprintf("INSERT INTO `tb_noticias`(`id_noticias`, `titulo`, `emcabezado`, `texto`, `imagen`, `torneo`, `fecha`)
-   VALUES (NULL,'%s','%s','%s','','%s','%s')"
-   ,escape($titulo),escape($emcabezado),escape($texto),escape($torneo),escape($fecha)));
+   VALUES (NULL,'%s','%s','%s','%s','%s','%s')"
+   ,escape($titulo),escape($emcabezado),escape($texto),escape($url),escape($torneo),escape($fecha)));
   return $noticia;    
 }
 /**
@@ -52,11 +52,11 @@ function boolean_new_noticia($titulo,$emcabezado,$texto,$fecha,$torneo)
  * @param  [type] $torneo     [description]
  * @return [type]             [description]
  */
-function boolean_set_noticia($titulo,$emcabezado,$texto,$fecha,$torneo,$noticia)
+function boolean_set_noticia($titulo,$emcabezado,$texto,$fecha,$torneo,$noticia,$url)
 {
-  $noticia = insertar(sprintf("UPDATE `tb_noticias` SET `titulo`='%s',`emcabezado`='%s',`texto`='%s',`torneo`='%d',`fecha`='%s' 
+  $noticia = insertar(sprintf("UPDATE `tb_noticias` SET `imagen`= '%s',`titulo`='%s',`emcabezado`='%s',`texto`='%s',`torneo`='%d',`fecha`='%s' 
     WHERE id_noticias='%d' "
-    ,escape($titulo),escape($emcabezado),escape($texto),escape($torneo),escape($fecha),escape($noticia)));
+    ,escape($url),escape($titulo),escape($emcabezado),escape($texto),escape($torneo),escape($fecha),escape($noticia)));
   return $noticia;    
 }
 /**

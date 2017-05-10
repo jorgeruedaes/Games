@@ -15,8 +15,9 @@ if(isset($_SESSION['id_usuarios']))
 		$torneo = $_POST['torneo'];
 		$texto = $_POST['texto'];
 		$fecha = $_POST['fecha'];
+			$url = $_POST['url'];
 
-		if (boolean_new_noticia($titulo,$emcabezado,$texto,$fecha,$torneo)) {
+		if (boolean_new_noticia($titulo,$emcabezado,$texto,$fecha,$torneo,$url)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';
@@ -29,10 +30,11 @@ if(isset($_SESSION['id_usuarios']))
 		$torneo = $_POST['torneo'];
 		$texto = $_POST['texto'];
 		$fecha = $_POST['fecha'];
+				$url = $_POST['url'];
 		$noticia = $_POST['noticia'];
 
 		
-		if (boolean_set_noticia($titulo,$emcabezado,$texto,$fecha,$torneo,$noticia)) {
+		if (boolean_set_noticia($titulo,$emcabezado,$texto,$fecha,$torneo,$noticia,$url)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';

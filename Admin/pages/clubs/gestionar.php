@@ -68,23 +68,32 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							</thead>
 							<tbody>
 								<?php
-								$vector = Array_Get_Galeria();
+								$vector = Array_Get_Clubs();
 								foreach ($vector as  $value) {
 									?>
 									<tr>
-										<th scope="row"><?php echo $value['codigo']; ?></th>
-										<td><?php echo $value['imagen']; ?></td>
+										<th scope="row"><?php echo $value['id_colegio']; ?></th>
+										<td><?php echo $value['nombre']; ?></td>
 										<td> 
 										<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-											<button  data-logo="<?php echo $value['imagen']; ?>" type="button" class="btn btn-primary waves-effect ver"><i class="material-icons">collections</i></button>
+											<button  data-logo="<?php echo $value['logo']; ?>" 
+											type="button" class="btn btn-primary waves-effect ver"><i class="material-icons">collections</i></button>
 										<div>
 										</td>
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
 												<button data-url="<?php echo $value['imagen']; ?>" 
+												 data-nombre="<?php echo $value['nombre']; ?>" 
+												  data-presidente="<?php echo $value['presidente']; ?>" 
+												  data-direccion="<?php echo $value['direccion']; ?>" 
+												  data-telefono="<?php echo $value['telefono']; ?>" 
+												  data-correo="<?php echo $value['correo']; ?>" 
+												  data-logo="<?php echo $value['logo']; ?>" 
+												   data-horario="<?php echo $value['horario']; ?>" 
+												    data-cancha="<?php echo $value['cancha_entrenamiento']; ?>" 
+												    data-club="<?php echo $value['id_colegio']; ?>" 
+												     data-estado="<?php echo $value['estado']; ?>" 
 												    type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
-												<button  data-id="<?php echo $value['id_colegio']; ?>" type="button" class="btn btn-primary waves-effect delete-item"><i class="material-icons">collections</i></button>
-
 											</div>
 
 										</td>
@@ -103,7 +112,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 <!-- JS ====================================================================================================================== -->
 <!--  Js-principal -->
-<script src="pages/galeria/js/nuevo.js"></script>
+<script src="pages/clubs/js/nuevo.js"></script>
 
 <div class="modal fade" id="nuevoPerfil" data-perfil="" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -115,13 +124,37 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 				<div class="body">
 					<form>
-						<label for="">Url</label>
+						<label for="">Club</label>
 						<div class="form-group">
 							<div class="form-line">
 								<input type="text" class="form-control n-nombre" placeholder="Nombre campeonato" />
 							</div>
 						</div>
-						<label for="">Torneo</label>
+						<label for="">Presidente</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-presidente" placeholder="Nombre presidente" />
+						</div>
+						<label for="">Email</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-email" placeholder="Email" />
+						</div>
+						<label for="">Dirección</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-direccion" placeholder="Dirección " />
+						</div>
+						<label for="">Teléfono</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-telefono" placeholder="Teléfono " />
+						</div>
+						<label for="">Cancha</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-cancha" placeholder="Cancha " />
+						</div>
+						<label for="">Horario</label>
+						<div class="form-group ">
+							<input type="text" class="form-control n-horario" placeholder="Horario " />
+						</div>
+						<label for="">Estado</label>
 						<div class="form-group ">
 							<select class="form-control show-tick select-n-estado">
 								<option value="">--Selecciona un estado --</option>
@@ -131,12 +164,11 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 							</select>
 						</div>
-
 					</form>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar</button>
 				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>

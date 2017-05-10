@@ -79,6 +79,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 												<button 
 												data-id="<?php echo $value['id_noticias'];?>"
 												data-titulo="<?php echo $value['titulo']; ?>"
+												data-url="<?php echo $value['imagen'];?>"
 												data-fecha="<?php echo $value['fecha'];?>"
 												data-emcabezado="<?php echo $value['emcabezado'];?>"
 												data-texto="<?php echo $value['texto'];?>"
@@ -129,6 +130,14 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<textarea rows="4" class="form-control no-resize n-emcabezado" placeholder="Escriba al menos 300 caracteres, para el resumen de la noticia."></textarea>
 								</div>
 							</div>
+							<label for="">Url</label>
+							<div class="form-group">
+								<div class="form-line">
+									<div class="form-line">
+									<input type="text" class="form-control n-url" placeholder="Url de la imagen principal" />
+								</div>
+								</div>
+							</div>
 								<div class="row clearfix">
 								<div class="col-sm-6">
 									<label for="">Torneo</label>
@@ -166,7 +175,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+					<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar </button>
 					<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
@@ -195,6 +204,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							<div class="form-group">
 								<div class="form-line">
 									<textarea rows="4" class="form-control no-resize emcabezado" placeholder="Escriba al menos 300 caracteres, para el resumen de la noticia."></textarea>
+								</div>
+							</div>
+							<label for="">Url</label>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control url" placeholder="Url imagen principal" />
 								</div>
 							</div>
 							<div class="row clearfix">

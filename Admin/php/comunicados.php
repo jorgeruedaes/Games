@@ -45,10 +45,10 @@ function boolean_new_Comunicado($tipo,$comunicado,$fecha,$titulo)
  * @param  [type] $identificador [description]
  * @return [type]                [description]
  */
-function boolean_set_Comunicado($tipo,$fecha,$titulo,$identificador)
+function boolean_set_Comunicado($tipo,$fecha,$titulo,$identificador,$comunicado)
 {
-  $noticia = insertar(sprintf("UPDATE `tb_comunicados` SET `tipo`='%s',`fecha`='%s',`titulo`='%s' WHERE  id_comunicados='%d' "
-    ,escape($tipo),escape($fecha),escape($titulo),escape($identificador)));
+  $noticia = insertar(sprintf("UPDATE `tb_comunicados` SET `tipo`='%s',`comunicado`='%s',`fecha`='%s',`titulo`='%s'  WHERE  id_comunicados='%d' "
+    ,escape($tipo),escape($comunicado),escape($fecha),escape($titulo),escape($identificador)));
   return $noticia;    
 }
 /**

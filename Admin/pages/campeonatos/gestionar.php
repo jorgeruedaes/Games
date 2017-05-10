@@ -54,7 +54,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						</ul>
 					</div>
 					<div class="body table-responsive">
-						<table class="table table-striped">
+						<table  id="tabla-campeonatos" class="table table-bordered table-striped table-hover js-basic-example dataTable">
 							<thead>
 								<tr>
 									<th>#</th>
@@ -76,14 +76,17 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 										<td><?php echo $value['categoria']; ?></td>
 										<td><?php echo $value['estado']; ?></td>
 										<td> 
-											<div class="demo-google-material-icon"><a href="../Archivos/Reglamentos/<?php echo $value['reglamento']; ?>" target="_blank"> <i class="material-icons">picture_as_pdf</i> <span class="icon-name"></span><a/></div>
+											<div class="demo-google-material-icon"><a href="<?php echo $value['reglamento']; ?>" target="_blank"> <i class="material-icons">picture_as_pdf</i> <span class="icon-name"></span><a/></div>
 										</td>
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
 												<button data-estado="<?php echo $value['estado']; ?>" 
 												data-puntos="<?php echo $value['puntos_ganador']; ?>" 
-												 data-categoria="<?php echo $value['categoria']; ?>"  data-nombre="<?php echo $value['nombre_torneo']; ?>" data-torneo="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
-												<button  data-id="<?php echo $value['id_torneo']; ?>" type="button" class="btn btn-primary waves-effect add-pdf"><i class="material-icons">picture_as_pdf</i></button>
+												data-url="<?php echo $value['reglamento']; ?>" 
+												 data-categoria="<?php echo $value['categoria']; ?>" 
+												  data-nombre="<?php echo $value['nombre_torneo']; ?>"
+												   data-torneo="<?php echo $value['id_torneo']; ?>"
+												    type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
 
 											</div>
 
@@ -121,6 +124,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<input type="text" class="form-control nuevo-nombre" placeholder="Nombre campeonato" />
 							</div>
 						</div>
+						<label for="perfil">Reglamentos</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control nuevo-url" placeholder="Url del pdf" />
+							</div>
+						</div>
 						<label for="estado">Categoria</label>
 						<div class="form-group ">
 							<select class="form-control show-tick select-nuevo-categoria">
@@ -132,12 +141,18 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 							</select>
 						</div>
+							<label for="">Puntos</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control nuevo-puntos" placeholder="Puntos" />
+							</div>
+						</div>
 
 					</form>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar</button>
 				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
@@ -160,6 +175,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<div class="form-group">
 							<div class="form-line">
 								<input type="text" class="form-control nombre" placeholder="Nombre campeonato" />
+							</div>
+						</div>
+							<label for="">Reglamentos</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control url" placeholder=" Url de PDF" />
 							</div>
 						</div>
 						<label for="">Categotria</label>
@@ -201,38 +222,6 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	</div>
 </div>
 
-<!-- Default Size -->
-<div class="modal fade" id="defaultModalReglamentos" data-perfil="" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Agregar Reglamentos</h4>
-			</div>
-			<div class="modal-body">
-
-				<div class="body">
-					<form action="pages/campeonatos/peticiones/peticiones.php" class="dropzone"  id="frmFileUpload"  method="post" enctype="multipart/form-data">
-						<div class="dz-message">
-							<div class="drag-icon-cph">
-								<i class="material-icons">touch_app</i>
-							</div>
-							<h3>Arrastra el archivo o Haz click para cargarlo.</h3>
-							<em>(Selecciona solamente  <strong>un (1 )</strong> Archivo.)</em>
-						</div>
-						<div class="fallback">
-							<input name="file[]" type="file" multiple />
-						</div>
-						<input name="bandera" type="hidden" value="modificar-reglamentos"/>
-						</form>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar-reglamentos">Guardar</button>
-				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 

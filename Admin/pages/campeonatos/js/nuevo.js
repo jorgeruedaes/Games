@@ -10,45 +10,8 @@ $(function() {
 			campeonatos.editarCampeonato();
 			campeonatos.addPerfil();
 			campeonatos.Nuevo();
-			campeonatos.reglamento();
 			campeonatos.ModalArchivos();
 		},
-
-		reglamento :  function ()
-		{
-				$('.guardar-reglamentos').off('click').on('click', function () {	
-					var formData = new FormData($("#frmFileUpload")[0]);
-				$.ajax({
-					url: 'pages/campeonatos/peticiones/peticiones.php',
-					type: 'POST',
-					data: formData,
-                	contentType: false,
-               	    processData: false,
-					success: function (resp) {
-
-						var resp = $.parseJSON(resp);
-						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
-								text: "El reglamento se modificos de manera Exitosa!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
-								closeOnConfirm: false
-							}, function (isConfirm) {
-								if (isConfirm) {
-									window.location.reload();
-								}
-							});
-						} else {
-							swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
-						}
-					}
-				});
-
-			});
-		}
-		,
 		Nuevo : function ()
 		{
 		$('.guardar-nuevo').off('click').on('click', function () {	
@@ -58,6 +21,8 @@ $(function() {
 					data: {
 						bandera: "nuevo",
 						nombre: $('.nuevo-nombre').val(),
+						puntos: $('.nuevo-puntos').val(),
+						url: $('.nuevo-url').val(),
 						categoria:$('.select-nuevo-categoria option:selected').val()
 						
 			
@@ -95,6 +60,7 @@ $(function() {
 						bandera: "modificar-campeonato",
 						nombre: $('.nombre').val(),
 						puntos: $('.puntos').val(),
+						url: $('.url').val(),
 						categoria:$('.select-categoria option:selected').val(),
 						estado : $('.select-estado option:selected').val(),
 						torneo: $('#defaultModal').data('torneo')
@@ -125,10 +91,11 @@ $(function() {
 			});
 
 		},
-		cargarModal: function(torneo,nombre,estado,categoria,puntos)
+		cargarModal: function(torneo,nombre,estado,categoria,puntos,url)
 		{
 			$('.nombre').val(nombre);
 			$('.puntos').val(puntos);
+			$('.url').val(url);
 			$('.select-estado').val(estado);
 			$('.select-estado').change();
 			$('.select-categoria').val(categoria);
@@ -147,13 +114,14 @@ $(function() {
 
 		editarCampeonato : function()
 		{
-			$('.edit-item').off('click').on('click', function () {
+				$('#tabla-campeonatos').on("click", ".edit-item", function(){
 				var nombre = $(this).data('nombre');
 				var categoria = $(this).data('categoria');
 				var estado = $(this).data('estado');
 				var puntos = $(this).data('puntos');
 				var torneo = $(this).data('torneo');
-				campeonatos.cargarModal(torneo,nombre,estado,categoria,puntos);
+				var url = $(this).data('url');
+				campeonatos.cargarModal(torneo,nombre,estado,categoria,puntos,url);
 			});
 		},
 		ModalArchivos :function()

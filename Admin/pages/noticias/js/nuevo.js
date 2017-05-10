@@ -87,6 +87,7 @@ Nuevo : function ()
 				titulo:	$('.n-titulo').val(),
 				emcabezado:	$('.n-emcabezado').val(),
 				fecha:	$('.n-fecha').val(),
+				url:	$('.n-url').val(),
 				texto : CKEDITOR.instances['ckeditor'].getData(),
 				torneo :$('.select-n-torneo option:selected').val()
 
@@ -128,6 +129,7 @@ enviarDatos: function () {
 				titulo:	$('.titulo').val(),
 				emcabezado:	$('.emcabezado').val(),
 				fecha:	$('.fecha').val(),
+				url:	$('.url').val(),
 				noticia:$('#defaultModal').data('id'),
 				texto : CKEDITOR.instances['ckeditor1'].getData(),
 				torneo :$('.select-torneo option:selected').val()
@@ -159,7 +161,7 @@ enviarDatos: function () {
 	});
 
 },
-cargarModal: function(titulo,emcabezado,fecha,id,texto,torneo)
+cargarModal: function(titulo,emcabezado,fecha,id,texto,torneo,url)
 {
 	$('.titulo').val(titulo);
 	$('.select-torneo').val(torneo);
@@ -167,6 +169,7 @@ cargarModal: function(titulo,emcabezado,fecha,id,texto,torneo)
 	CKEDITOR.instances['ckeditor1'].setData(texto);
 	$('.fecha').val(fecha);
 	$('.emcabezado').val(emcabezado);
+	$('.url').val(url);
 	$('#defaultModal').data('id',id);
 	$('#defaultModal').modal('show'); 
 	noticias.recargar();
@@ -180,8 +183,9 @@ ModalImagen :function()
 		var emcabezado = $(this).data('emcabezado');
 		var texto = $(this).data('texto');
 		var id = $(this).data('id');
+			var url = $(this).data('url');
 		var torneo = $(this).data('torneo');
-		noticias.cargarModal(titulo,emcabezado,fecha,id,texto,torneo);
+		noticias.cargarModal(titulo,emcabezado,fecha,id,texto,torneo,url);
 	});
 	$('#tabla-noticias').on("click", ".delete-item", function(){
 		var id = $(this).data('id');

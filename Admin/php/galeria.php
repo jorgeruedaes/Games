@@ -12,11 +12,14 @@ function Array_Get_Galeria()
     $codigo = $valor['codigo'];
     $imagen = $valor['imagen'];
     $fecha =$valor['fecha'];
+     $torneo =$valor['torneo'];
 
     $arreglo = array(
       'codigo'=>"$codigo",
       'imagen'=>"$imagen",
-      'fecha'=>"$fecha"
+      'fecha'=>"$fecha",
+       'torneo'=>"$torneo",
+
       );
         array_push($vector, $arreglo);
     }
@@ -34,6 +37,14 @@ function boolean_new_imagen($url,$torneo)
   $galeria = insertar(sprintf("INSERT INTO `tb_galeria`(`codigo`, `imagen`, `fecha`, `torneo`) 
   	VALUES (NULL,'%s',NOW(),'%d')",
     escape($url),escape($torneo)));
+  return $galeria;  
+
+}
+
+function boolean_set_imagen($url,$torneo,$codigo)
+{
+  $galeria = insertar(sprintf("UPDATE `tb_galeria` SET `imagen`='%s',`torneo`='%d' WHERE codigo='%d'  ",
+    escape($url),escape($torneo),escape($codigo)));
   return $galeria;  
 
 }

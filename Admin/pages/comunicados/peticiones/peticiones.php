@@ -13,7 +13,7 @@ if(isset($_SESSION['id_usuarios']))
 		$titulo = $_POST['titulo'];
 		$tipo = $_POST['tipo'];
 		$fecha = $_POST['fecha'];
-		$comunicado ='';
+		$comunicado =$_POST['comunicado'];
 
 		if (boolean_new_Comunicado($tipo,$comunicado,$fecha,$titulo)) {
 			$resultado.='"mensaje":true';
@@ -27,16 +27,16 @@ if(isset($_SESSION['id_usuarios']))
 		$tipo = $_POST['tipo'];
 		$fecha = $_POST['fecha'];
 		$comunicado = $_POST['comunicado'];
-
-		
-		if (boolean_set_Comunicado($tipo,$fecha,$titulo,$comunicado)) {
+		$codigo = $_POST['codigo'];
+		if (boolean_set_Comunicado($tipo,$fecha,$titulo,$codigo,$comunicado)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';
 		}
 	}else if($bandera === "eliminar") {
 		$comunicado = $_POST['comunicado'];
-		if (boolean_delete_noticia($noticia)) {
+
+		if (boolean_delete_Comunicado($comunicado)) {
 			$resultado.='"mensaje":true';
 		} else {
 			$resultado.='"mensaje":false';

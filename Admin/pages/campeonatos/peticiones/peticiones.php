@@ -10,22 +10,16 @@ if(isset($_SESSION['id_usuarios']))
 
 // Modifica uno de los perfiles de usuario.
     if ($bandera === "modificar-reglamentos") {
-
-        $carpeta="../../../../Archivos/Reglamentos/";
-
-        if (SubirArchivos($_FILES['file'],$carpeta)[0]) {
-            $resultado.='"mensaje":true';
-        } else {
-            $resultado.='"mensaje":false';
-        }
     }
     // Guarda los datos de un nuevo campeonato.
     else if($bandera === "nuevo") {
 
         $nombre = $_POST['nombre'];
         $categoria = $_POST['categoria'];
+        $puntos = $_POST['puntos'];
+        $url = $_POST['url'];
 
-        if (boolean_new_Campeonato($nombre,$categoria)) {
+        if (boolean_new_Campeonato($nombre,$categoria,$puntos,$url)) {
             $resultado.='"mensaje":true';
         } else {
             $resultado.='"mensaje":false';
@@ -39,8 +33,9 @@ if(isset($_SESSION['id_usuarios']))
         $estado = $_POST['estado'];
         $puntos = $_POST['puntos'];
         $torneo = $_POST['torneo'];
+        $url = $_POST['url'];
 
-        if (Set_Campeonatos($nombre,$categoria,$estado,$torneo,$puntos)) {
+        if (Set_Campeonatos($nombre,$categoria,$estado,$torneo,$puntos,$url)) {
             $resultado.='"mensaje":true';
         } else {
             $resultado.='"mensaje":false';

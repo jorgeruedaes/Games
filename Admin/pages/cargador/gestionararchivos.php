@@ -3,7 +3,6 @@ $ubicacion ="../";
 include("../menuinicial.php");
 include('../../php/cargador.php');
 $id_modulos ='65';
-
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
 
@@ -203,8 +202,5 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
     }else
     {
     	require("../sinpermiso.php");
-
     }
     ?>
-
-

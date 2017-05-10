@@ -79,14 +79,14 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
 												<button 
-												data-id="<?php echo $value['id_comunicados'];?>"
+												data-codigo="<?php echo $value['id_comunicados'];?>"
 												data-titulo="<?php echo $value['titulo']; ?>"
 												data-fecha="<?php echo $value['fecha'];?>"
-												data-comunicado="<?php echo $value['comunicado'];?>"
+												data-url="<?php echo $value['comunicado'];?>"
 												data-tipo="<?php echo $value['tipo'];?>"
 												type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
 												<button 
-												data-id="<?php echo $value['id_comunicados'];?>"
+												data-codigo="<?php echo $value['id_comunicados'];?>"
 												type="button" class="btn btn-danger waves-effect delete-item"><i class="material-icons">delete</i></button>
 
 											</td>
@@ -123,6 +123,12 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<input type="text" class="form-control n-titulo" placeholder="Titulo del comunicado" />
 								</div>
 							</div>
+							<label for="">Url</label>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control n-url" placeholder="Url del comunicado" />
+								</div>
+							</div>
 							<div class="row clearfix">
 								<div class="col-sm-6">
 									<label for="">Tipo</label>
@@ -149,7 +155,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+					<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar</button>
 					<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
@@ -171,7 +177,13 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							<label for="">Titulo</label>
 							<div class="form-group">
 								<div class="form-line">
-									<input type="text" class="form-control titulo" placeholder="Titulo de la noticia" />
+									<input type="text" class="form-control titulo" placeholder="Titulo del comunicado" />
+								</div>
+							</div>
+							<label for="">Url</label>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control url" placeholder="Url del comunicado" />
 								</div>
 							</div>
 							<div class="row clearfix">

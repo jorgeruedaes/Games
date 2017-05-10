@@ -178,7 +178,7 @@ ModalImagen :function()
 {
 	$('#tabla-clubs').on("click", ".ver", function(){
 
-			$('#imagenes').attr('src','../images/Escudos/'+$(this).data('logo'))
+			$('#imagenes').attr('src',$(this).data('logo'))
 	 		$('#imagenesvisor').modal('show'); 
 	});
 
