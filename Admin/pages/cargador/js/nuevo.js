@@ -34,7 +34,7 @@ $(function() {
 			var carpeta = $('.guardar-files').data('carpeta');
 			
 			var dropzone  = new Dropzone("#archivos", {
-				url: 'pages/cargador/peticiones/subir.php?carpeta=Documentos'
+				url: 'pages/cargador/peticiones/subir.php?carpeta='+carpeta
 			});
 		},
 		Nuevo_Folder : function(){

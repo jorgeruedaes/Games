@@ -1,5 +1,10 @@
 <?php
+session_start();
+include('../../../php/consultas.php');
+include('../../../php/cargador.php');
 
+if(isset($_SESSION['id_usuarios']))
+{
 	$carpeta = $_GET['carpeta'];
 
 	$archivo = $_FILES['file'];
@@ -11,16 +16,23 @@
 	{
 		echo "No se ha seleccionado ningun archivo.";
 	}
-
-	if(move_uploaded_file($temp,'Archivos/$name'));
-	{
-		echo "Se ha guardado un archivo en el servidor";
-	}
 	else
 	{
-		echo "NO! se ha guardado un archivo en el servidor";
+		if(move_uploaded_file($temp,'../../../../Archivos/'.$carpeta.'/'.$name))
+		{
+			echo "Se ha guardado un archivo en el servidor";
+		}
+		else
+		{
+			echo "NO! se ha guardado un archivo en el servidor";
+		}
+
+		
+
 	}
 
+
+}
 
 
 

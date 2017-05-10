@@ -62,38 +62,28 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<tr>
 									<th>#</th>
 									<th>Nombre</th>
-									<th>Presidente</th>
-									<th>Estado</th>
 									<th>Logo</th>
 									<th>Opciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
-								$vector = Array_Get_Clubs();
+								$vector = Array_Get_Galeria();
 								foreach ($vector as  $value) {
 									?>
 									<tr>
-										<th scope="row"><?php echo $value['id_colegio']; ?></th>
-										<td><?php echo $value['nombre']; ?></td>
-										<td><?php echo $value['presidente']; ?></td>
-										<td><?php echo $value['estado']; ?></td>
+										<th scope="row"><?php echo $value['codigo']; ?></th>
+										<td><?php echo $value['imagen']; ?></td>
 										<td> 
 										<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-											<button  data-logo="<?php echo $value['logo']; ?>" type="button" class="btn btn-primary waves-effect ver"><i class="material-icons">collections</i></button>
+											<button  data-logo="<?php echo $value['imagen']; ?>" type="button" class="btn btn-primary waves-effect ver"><i class="material-icons">collections</i></button>
 										<div>
 										</td>
 										<td>
 											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-												<button data-estado="<?php echo $value['estado']; ?>" 
-												data-telefono="<?php echo $value['telefono']; ?>"
-												data-direccion="<?php echo $value['direccion']; ?>"
-												data-correo="<?php echo $value['correo']; ?>"
-												data-horario="<?php echo $value['horario']; ?>"
-												data-cancha="<?php echo $value['cancha_entrenamiento']; ?>"
-
-												  data-presidente="<?php echo $value['presidente']; ?>"  data-nombre="<?php echo $value['nombre']; ?>" data-club="<?php echo $value['id_colegio']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
-												<button  data-id="<?php echo $value['id_colegio']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">collections</i></button>
+												<button data-url="<?php echo $value['imagen']; ?>" 
+												    type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
+												<button  data-id="<?php echo $value['id_colegio']; ?>" type="button" class="btn btn-primary waves-effect delete-item"><i class="material-icons">collections</i></button>
 
 											</div>
 
@@ -113,49 +103,25 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 <!-- JS ====================================================================================================================== -->
 <!--  Js-principal -->
-<script src="pages/clubs/js/nuevo.js"></script>
+<script src="pages/galeria/js/nuevo.js"></script>
 
 <div class="modal fade" id="nuevoPerfil" data-perfil="" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="defaultModalLabel">Nuevo  campeonato</h4>
+				<h4 class="modal-title" id="defaultModalLabel">Nueva Imagen</h4>
 			</div>
 			<div class="modal-body">
 
 				<div class="body">
 					<form>
-						<label for="">Club</label>
+						<label for="">Url</label>
 						<div class="form-group">
 							<div class="form-line">
 								<input type="text" class="form-control n-nombre" placeholder="Nombre campeonato" />
 							</div>
 						</div>
-						<label for="">Presidente</label>
-						<div class="form-group ">
-							<input type="text" class="form-control n-presidente" placeholder="Nombre presidente" />
-						</div>
-						<label for="">Email</label>
-						<div class="form-group ">
-							<input type="text" class="form-control n-email" placeholder="Email" />
-						</div>
-						<label for="">Dirección</label>
-						<div class="form-group ">
-							<input type="text" class="form-control n-direccion" placeholder="Dirección " />
-						</div>
-						<label for="">Teléfono</label>
-						<div class="form-group ">
-							<input type="text" class="form-control n-telefono" placeholder="Teléfono " />
-						</div>
-						<label for="">Cancha</label>
-						<div class="form-group ">
-							<input type="text" class="form-control n-cancha" placeholder="Cancha " />
-						</div>
-						<label for="">Horario</label>
-						<div class="form-group ">
-							<input type="text" class="form-control n-horario" placeholder="Horario " />
-						</div>
-						<label for="">Estado</label>
+						<label for="">Torneo</label>
 						<div class="form-group ">
 							<select class="form-control show-tick select-n-estado">
 								<option value="">--Selecciona un estado --</option>

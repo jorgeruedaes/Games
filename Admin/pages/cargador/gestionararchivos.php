@@ -27,7 +27,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<a href="<?php echo $value['ruta'] ?>" class="active">
 									<!--<i class="material-icons"><?php echo $value['icono'] ?></i>-->
 									<?php echo $value['nombre'] ?>
-								</a>
+									</a>
+
 							</li>
 							<?php
 						}
@@ -87,7 +88,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 												</div>
 											</div>
 											<div class="content">
-												<div class="text"><?php  echo strtoupper($value['FileName'])?></div>
+												<div class="text"><?php  echo substr(strtoupper($value['FileName']),0,20)?></div>
 												<div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20"></div>
 											</div>
 										</div>
