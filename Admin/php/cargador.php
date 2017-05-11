@@ -67,7 +67,7 @@ function Get_Icon($tipo)
 		return array("picture_as_pdf","red");
 	}else
 	{
-	return	array("attach_file","blue");
+	return	array("dvr","blue");
 	}
 }
 
