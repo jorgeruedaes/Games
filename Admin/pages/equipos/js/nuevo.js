@@ -9,7 +9,6 @@ $(function() {
 		recargar: function () {
 			equipos.Tabla();
 			equipos.enviarDatos();
-			equipos.editarCampeonato();
 			equipos.Nuevo();
 			equipos.add();
 			equipos.ModalImagen();
@@ -113,12 +112,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "Información",
 								text: "El equipo se ha creado exitosamente!.",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {
@@ -156,12 +155,12 @@ enviarDatos: function () {
 
 				var resp = $.parseJSON(resp);
 				if (resp.salida === true && resp.mensaje === true) {
-					swal({title: "",
+					swal({title: "Información",
 						text: "El equipo se ha modificado exitosamente!",
 						type: "success",
 						showCancelButton: false,
 						confirmButtonColor: "rgb(174, 222, 244)",
-						confirmButtonText: "Ok",
+						confirmButtonText: "Aceptar",
 						closeOnConfirm: false
 					}, function (isConfirm) {
 						if (isConfirm) {
@@ -191,22 +190,6 @@ cargarModal: function(club,nombre,tecnico,torneo,grupo,estado,equipo)
 	$('#defaultModal').data('equipo',equipo);
 	$('#defaultModal').modal('show'); 
 	equipos.recargar();
-},
-
-editarCampeonato : function()
-{
-	// $('.edit-item').off('click').on('click', function () {
-	// 	var nombre = $(this).data('nombre');
-	// 	var presidente = $(this).data('presidente');
-	// 	var direccion = $(this).data('direccion');
-	// 	var telefono = $(this).data('telefono');
-	// 	var email = $(this).data('correo');
-	// 	var horario = $(this).data('horario');
-	// 	var cancha = $(this).data('cancha');
-	// 	var club = $(this).data('club');
-	// 	var estado = $(this).data('estado');
-	// 	equipos.cargarModal(club,nombre,presidente,direccion,telefono,email,horario,cancha,estado);
-//	});
 },
 ModalImagen :function()
 {

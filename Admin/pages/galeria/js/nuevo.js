@@ -65,12 +65,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
-								text: "La imagen se ha creado agregado exitosamente!.",
+							swal({title: "Información",
+								text: "La imagen se ha agregado exitosamente!.",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {
@@ -103,12 +103,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "Información",
 								text: "La imagen se ha modificado exitosamente!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {
@@ -150,12 +150,12 @@ ModalImagen :function()
 	$('#tabla-clubs').on("click", ".delete-item", function(){
 		var valor = $(this).data('codigo');
 
-		swal({title: "",
-				text: " ¿ Esta seguro que desea eliminar la imagen de la galeria ?.",
+		swal({title: "¿ Esta seguro ?",
+				text: " Desea eliminar la imagen de la galeria, sera de manera permanente.",
 				type: "warning",
 				showCancelButton: true,
 				confirmButtonColor: "rgb(174, 222, 244)",
-				confirmButtonText: "Ok",
+				confirmButtonText: "Aceptar",
 				closeOnConfirm: false
 			}, function (isConfirm) {
 				if (isConfirm) {
@@ -170,12 +170,12 @@ ModalImagen :function()
 
 							var resp = $.parseJSON(resp);
 							if (resp.salida === true && resp.mensaje === true) {
-								swal({title: "",
+								swal({title: "Información",
 									text: "La imagen se ha eliminado exitosamente!.",
 									type: "success",
 									showCancelButton: false,
 									confirmButtonColor: "rgb(174, 222, 244)",
-									confirmButtonText: "Ok",
+									confirmButtonText: "Aceptar",
 									closeOnConfirm: false
 								}, function (isConfirm) {
 									if (isConfirm) {

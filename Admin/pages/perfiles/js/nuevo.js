@@ -46,12 +46,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "información",
 								text: "El perfil modifico los permisos exitosamente!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {
@@ -85,12 +85,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "información",
 								text: "El perfil se ha creado exitosamente!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {
@@ -122,12 +122,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "información",
 								text: "El perfil se ha modificado exitosamente!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {
@@ -147,7 +147,7 @@ $(function() {
 				var valor = $(this);
 				swal({
 					title: "¿ Esta seguro ?",
-					text: "Todos los usuarios que tengan este perfil seran eliminados, esta seguro ?!",
+					text: "Todos los usuarios que tengan este perfil seran eliminados!",
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#DD6B55",
@@ -182,12 +182,12 @@ $(function() {
 					var resp = $.parseJSON(resp);
 					if (resp.salida === true && resp.mensaje === true) {
 						swal({
-							title: "",
+							title: "información",
 							text: "El perfil se ha eliminado exitosamente!",
 							type: "info",
 							showCancelButton: false,
 							confirmButtonColor: "rgb(174, 222, 244)",
-							confirmButtonText: "Ok",
+							confirmButtonText: "Aceptar",
 							closeOnConfirm: false
 						}, function (isConfirm) {
 							if (isConfirm) {

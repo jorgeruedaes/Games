@@ -75,11 +75,12 @@ function boolean_set_imagen_clubs($imagen,$club)
  * @param  [type] $categoria [description]
  * @return [type]            [description]
  */
-function boolean_new_Club($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado)
+function boolean_new_Club($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado,$url)
 {
-	$campeonatos = insertar(sprintf("INSERT INTO `tb_colegio`(`id_colegio`, `nombre`, `direccion`, `telefono`, `correo`, `presidente`, `cancha_entrenamiento`, `horario`, `logo`, `estado`) VALUES (NULL,'%s','%s','%s','%s','%s','%s','%s','','%s')",
+	$campeonatos = insertar(sprintf("INSERT INTO `tb_colegio`(`id_colegio`, `nombre`, `direccion`, `telefono`, `correo`, `presidente`, `cancha_entrenamiento`, `horario`, `logo`, `estado`) 
+		VALUES (NULL,'%s','%s','%s','%s','%s','%s','%s','%s','%s')",
 		escape($nombre),escape($direccion),escape($telefono),escape($correo),escape($presidente),
-		escape($cancha),escape($horario),escape($estado)));
+		escape($cancha),escape($horario),escape($url),escape($estado)));
 	return $campeonatos;	
 
 }

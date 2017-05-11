@@ -14,12 +14,13 @@ $(function() {
 		},
 		Eliminar : function (valor)
 		{
-			swal({title: "",
-				text: " ¿ Esta seguro que desea eliminar esta noticia ?.",
+			swal({title: "¿ Esta seguro ?",
+				text: " Desea eliminar esta noticia.",
 				type: "warning",
 				showCancelButton: true,
-				confirmButtonColor: "rgb(174, 222, 244)",
-				confirmButtonText: "Ok",
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Si,Eliminalo!",
+				cancelButtonText: "No,Cancelalo!",
 				closeOnConfirm: false
 			}, function (isConfirm) {
 				if (isConfirm) {
@@ -34,12 +35,12 @@ $(function() {
 
 							var resp = $.parseJSON(resp);
 							if (resp.salida === true && resp.mensaje === true) {
-								swal({title: "",
+								swal({title: "Información",
 									text: "La noticia se ha eliminado exitosamente!.",
 									type: "success",
 									showCancelButton: false,
 									confirmButtonColor: "rgb(174, 222, 244)",
-									confirmButtonText: "Ok",
+									confirmButtonText: "Aceptar",
 									closeOnConfirm: false
 								}, function (isConfirm) {
 									if (isConfirm) {
@@ -98,12 +99,12 @@ Nuevo : function ()
 
 				var resp = $.parseJSON(resp);
 				if (resp.salida === true && resp.mensaje === true) {
-					swal({title: "",
+					swal({title: "Información",
 						text: "La noticia se ha creado exitosamente!.",
 						type: "success",
 						showCancelButton: false,
 						confirmButtonColor: "rgb(174, 222, 244)",
-						confirmButtonText: "Ok",
+						confirmButtonText: "Aceptar",
 						closeOnConfirm: false
 					}, function (isConfirm) {
 						if (isConfirm) {
@@ -141,12 +142,12 @@ enviarDatos: function () {
 
 				var resp = $.parseJSON(resp);
 				if (resp.salida === true && resp.mensaje === true) {
-					swal({title: "",
+					swal({title: "Información",
 						text: "La noticia  se ha modificado exitosamente!",
 						type: "success",
 						showCancelButton: false,
 						confirmButtonColor: "rgb(174, 222, 244)",
-						confirmButtonText: "Ok",
+						confirmButtonText: "Aceptar",
 						closeOnConfirm: false
 					}, function (isConfirm) {
 						if (isConfirm) {
@@ -183,7 +184,7 @@ ModalImagen :function()
 		var emcabezado = $(this).data('emcabezado');
 		var texto = $(this).data('texto');
 		var id = $(this).data('id');
-			var url = $(this).data('url');
+		var url = $(this).data('url');
 		var torneo = $(this).data('torneo');
 		noticias.cargarModal(titulo,emcabezado,fecha,id,texto,torneo,url);
 	});

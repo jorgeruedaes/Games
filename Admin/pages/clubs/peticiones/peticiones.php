@@ -10,14 +10,6 @@ if(isset($_SESSION['id_usuarios']))
 
 // Modifica un club.
     if ($bandera === "modificar-imagen") {
-
-
-
-        if (SubirArchivos($_FILES['file'],$carpeta)[0]) {
-            $resultado.='"mensaje":true';
-        } else {
-            $resultado.='"mensaje":false';
-        }
     }
     // Guarda los datos de un nuevo campeonato.
     else if($bandera === "nuevo") {
@@ -26,12 +18,13 @@ if(isset($_SESSION['id_usuarios']))
         $telefono = $_POST['telefono'];
         $direccion = $_POST['direccion'];
         $presidente = $_POST['presidente'];
-         $horario = $_POST['horario'];
-         $cancha = $_POST['cancha'];
-         $correo = $_POST['email'];
-         $estado = $_POST['estado'];
+        $horario = $_POST['horario'];
+        $cancha = $_POST['cancha'];
+        $correo = $_POST['email'];
+        $estado = $_POST['estado'];
+        $url = $_POST['url'];
 
-        if (boolean_new_Club($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado)) {
+        if (boolean_new_Club($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado,$url)) {
             $resultado.='"mensaje":true';
         } else {
             $resultado.='"mensaje":false';
@@ -43,13 +36,14 @@ if(isset($_SESSION['id_usuarios']))
         $telefono = $_POST['telefono'];
         $direccion = $_POST['direccion'];
         $presidente = $_POST['presidente'];
-         $horario = $_POST['horario'];
-         $cancha = $_POST['cancha'];
-         $correo = $_POST['email'];
-         $estado = $_POST['estado'];
-         $club = $_POST['club'];
+        $horario = $_POST['horario'];
+        $cancha = $_POST['cancha'];
+        $correo = $_POST['email'];
+        $estado = $_POST['estado'];
+        $club = $_POST['club'];
+         $url = $_POST['url'];
 
-        if (Set_Clubs($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado,$club)) {
+        if (Set_Clubs($nombre,$telefono,$direccion,$presidente,$horario,$cancha,$correo,$estado,$club) and boolean_set_imagen_clubs($url,$club)) {
             $resultado.='"mensaje":true';
         } else {
             $resultado.='"mensaje":false';

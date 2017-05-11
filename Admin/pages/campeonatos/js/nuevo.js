@@ -31,12 +31,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "Información",
 								text: "El campeonato se ha creado exitosamente!, recuerde que por defecto esta en estado inactivo.",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {
@@ -71,12 +71,12 @@ $(function() {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "Información",
 								text: "El campeonato se ha modificado exitosamente!",
 								type: "success",
 								showCancelButton: false,
 								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
+								confirmButtonText: "Aceptar",
 								closeOnConfirm: false
 							}, function (isConfirm) {
 								if (isConfirm) {

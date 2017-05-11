@@ -96,7 +96,7 @@ $(function() {
 
 								var resp = $.parseJSON(resp);
 								if (resp.salida === true && resp.mensaje === true) {
-									swal({title: "",
+									swal({title: "Información",
 										text: "Se ha agregado los goles de manera exitosa!",
 										type: "success",
 										confirmButtonText: "Aceptar",
@@ -153,7 +153,7 @@ $(function() {
 
 								var resp = $.parseJSON(resp);
 								if (resp.salida === true && resp.mensaje === true) {
-									swal({title: "",
+									swal({title: "Información",
 										text: "Se ha agregado los goles de manera exitosa!",
 										type: "success",
 										confirmButtonText: "Aceptar",

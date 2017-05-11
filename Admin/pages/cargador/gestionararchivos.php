@@ -26,7 +26,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<a href="<?php echo $value['ruta'] ?>" class="active">
 									<!--<i class="material-icons"><?php echo $value['icono'] ?></i>-->
 									<?php echo $value['nombre'] ?>
-									</a>
+								</a>
 
 							</li>
 							<?php
@@ -82,9 +82,21 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 										</div>
 										<div class="body">
 											<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-												<div class="icon" style="padding-left: 30%;">
-													<i data-url="<?php  echo $value['Url'];?>" style="font-size: 60px;cursor: pointer;" class="material-icons preview col-<?php echo Get_Icon($value['Extension'])[1]?>"><?php echo Get_Icon($value['Extension'])[0]; ?></i>
-												</div>
+												<?php
+												if(Get_Icon($value['Extension'])[0] == "image"){
+													?>
+													<img class="media-object preview" style="cursor: pointer;" src="<?php  echo $value['Url'];?>" width="64px" height="64px" >
+													<?php
+												}
+												else
+												{
+													?>
+													<div class="icon" style="padding-left: 30%;">
+														<i data-url="<?php  echo $value['Url'];?>" style="font-size: 60px;cursor: pointer;" class="material-icons preview col-<?php echo Get_Icon($value['Extension'])[1]?>"><?php echo Get_Icon($value['Extension'])[0]; ?></i>
+													</div>
+													<?php
+												}
+												?>											
 											</div>
 											<div class="content">
 												<div class="text"><?php  echo substr(strtoupper($value['FileName']),0,20)?></div>
@@ -119,88 +131,88 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 			<div class="modal-body">
 
 				<div class="body">
-					   <form action="pages/cargador/peticiones/subir.php?carpeta=<?php echo $_GET['id'] ?>" 
-					   id="dropzone" class="dropzone" >
-                                <div class="dz-message">
-                                    <div class="drag-icon-cph">
-                                        <i class="material-icons">touch_app</i>
-                                    </div>
-                                    <h3>Pon los archivos aqui para subirlos al servidor.</h3>
-                                    
-                                </div>
-                                <div class="fallback">
-                                    <input name="file" type="file" multiple id="archivos" />
-                                </div>
-                            </form> 
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    	<button data-carpeta='<?php echo $_GET['id']?>' type="button" class="btn btn-danger waves-effect guardar-files" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+					<form action="pages/cargador/peticiones/subir.php?carpeta=<?php echo $_GET['id'] ?>" 
+						id="dropzone" class="dropzone" >
+						<div class="dz-message">
+							<div class="drag-icon-cph">
+								<i class="material-icons">touch_app</i>
+							</div>
+							<h3>Pon los archivos aqui para subirlos al servidor.</h3>
 
-        <!-- Modal Dialogs ====================================================================================================================== -->
-        <!-- Default Size -->
-        <div class="modal fade" id="defaultModal" data-id="" tabindex="-1" role="dialog">
-        	<div class="modal-dialog" role="document">
-        		<div class="modal-content">
-        			<div class="modal-header">
-        				<h4 class="modal-title" id="defaultModalLabel">Edición de comunicados</h4>
-        			</div>
-        			<div class="modal-body">
+						</div>
+						<div class="fallback">
+							<input name="file" type="file" multiple id="archivos" />
+						</div>
+					</form> 
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button data-carpeta='<?php echo $_GET['id']?>' type="button" class="btn btn-danger waves-effect guardar-files" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
 
-        				<div class="body">
-        					<form>
-        						<label for="">Titulo</label>
-        						<div class="form-group">
-        							<div class="form-line">
-        								<input type="text" class="form-control titulo" placeholder="Titulo de la noticia" />
-        							</div>
-        						</div>
-        						<div class="row clearfix">
-        							<div class="col-sm-6">
-        								<label for="">Tipo</label>
-        								<div class="form-group">
-        									<select class="form-control show-tick select-tipo">
-        										<option value="">--Selecciona un tipo --</option>
-        										<option value="boletin">Boletín</option>
-        										<option value="resolucion">Resolución</option>
-        										<option value="documentos">Documentos</option>
+<!-- Modal Dialogs ====================================================================================================================== -->
+<!-- Default Size -->
+<div class="modal fade" id="defaultModal" data-id="" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="defaultModalLabel">Edición de comunicados</h4>
+			</div>
+			<div class="modal-body">
 
-        									</select>
-        								</div>
-        							</div>
-        							<div class="col-sm-6">
-        								<label for="">Fecha de publicación</label>
-        								<div class="form-group">
-        									<div class="form-line">
-        										<input type="text" id="fecha" class="datepicker form-control fecha" placeholder="Seleccina una fecha...">
-        									</div>
-        								</div>
-        							</div>
-        						</div>
-        					</form>
-        				</div>
-        			</div>
-        			<div class="modal-footer">
-        				<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
-        				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
-        			</div>
-        		</div>
-        	</div>
-        </div>
+				<div class="body">
+					<form>
+						<label for="">Titulo</label>
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" class="form-control titulo" placeholder="Titulo de la noticia" />
+							</div>
+						</div>
+						<div class="row clearfix">
+							<div class="col-sm-6">
+								<label for="">Tipo</label>
+								<div class="form-group">
+									<select class="form-control show-tick select-tipo">
+										<option value="">--Selecciona un tipo --</option>
+										<option value="boletin">Boletín</option>
+										<option value="resolucion">Resolución</option>
+										<option value="documentos">Documentos</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<label for="">Fecha de publicación</label>
+								<div class="form-group">
+									<div class="form-line">
+										<input type="text" id="fecha" class="datepicker form-control fecha" placeholder="Seleccina una fecha...">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 
-        <!-- Dropzone Plugin Js -->
-        <script src="plugins/dropzone/dropzone.js"></script>
-        <!-- Dropzone Css -->
-        <link href="plugins/dropzone/dropzone.css" rel="stylesheet">
+<!-- Dropzone Plugin Js -->
+<script src="plugins/dropzone/dropzone.js"></script>
+<!-- Dropzone Css -->
+<link href="plugins/dropzone/dropzone.css" rel="stylesheet">
 
-        <?php
-    }else
-    {
-    	require("../sinpermiso.php");
-    }
-    ?>
+<?php
+}else
+{
+	require("../sinpermiso.php");
+}
+?>

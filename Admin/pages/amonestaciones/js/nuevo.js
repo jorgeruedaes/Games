@@ -66,7 +66,7 @@ $(function() {
 
 								var resp = $.parseJSON(resp);
 								if (resp.salida === true && resp.mensaje === true) {
-									swal({title: "",
+									swal({title: "Información",
 										text: "Se han gestionado las amonestaciones de manera exitosa!",
 										type: "success",
 										confirmButtonText: "Aceptar",
@@ -181,7 +181,7 @@ Add_Amonestaciones_Edit: function () {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "Información",
 								text: "Se han editado las amonestaciones de manera exitosa!",
 								type: "success",
 								confirmButtonText: "Aceptar",
@@ -430,7 +430,7 @@ Add_Resultado: function () {
 
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
+							swal({title: "Información",
 								text: "Se ha agregado los amonestaciones de manera exitosa!",
 								type: "success",
 								confirmButtonText: "Aceptar",
