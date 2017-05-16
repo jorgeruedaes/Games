@@ -5,9 +5,9 @@ ContadorVisitas($ipvisitante,'contacto');
 ?>
 
 <head>
-	
 	 <link href="Admin/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 </head>
+<div class="ec-loading-section"><div class="ball-scale-multiple"><div></div><div></div><div></div></div></div>
 <div class="ec-mini-header">
 	<span class="ec-blue-transparent"></span>
 	<div class="container">

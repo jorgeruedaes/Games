@@ -3,6 +3,7 @@ include('../../menuinicial.php');
 $ipvisitante=$_SERVER["REMOTE_ADDR"];
 ContadorVisitas($ipvisitante,'nuestroequipo');
 ?>
+<div class="ec-loading-section"><div class="ball-scale-multiple"><div></div><div></div><div></div></div></div>
 <div class="ec-mini-header">
             <span class="ec-blue-transparent"></span>
             <div class="container">

@@ -2,7 +2,7 @@
 include('../../menuinicial.php');
 $id = $_GET['id'];
 ?>
-
+<div class="ec-loading-section"><div class="ball-scale-multiple"><div></div><div></div><div></div></div></div>
 <div class="ec-main-content">
     <!--// Main Section \\-->
     <div class="ec-main-section">
