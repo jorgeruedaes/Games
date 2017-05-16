@@ -101,6 +101,16 @@ else if($bandera === "conectar") {
 		header("location:../pages/inicio.php");
 	}
 }
+else if($bandera === "EnviarCorreo") {
+
+	$remitente= $_POST['nombre'];
+	$email = $_POST['email'];
+	$asunto = $_POST['asunto'];
+	$mensaje = $_POST['mensaje'];
+
+$destinatario  = 'liz.rood7@gmail.com'; 
+
+}
 
 
 $resultado.='}';
