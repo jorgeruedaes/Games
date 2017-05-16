@@ -29,7 +29,7 @@ ContadorVisitas($ipvisitante,'club'.'_'.$id);
                     </div>
                     <div class="ec-plyer-information" >
                     <figure class="center">
-                            <a href="#"><img class="width-60 no-float" src="images/Escudos/<?php echo LogoClub($id) ?>" alt=""></a>
+                            <a href="#"><img class="width-60 no-float" src="<?php echo LogoClub($id) ?>" alt=""></a>
                         </figure>
                         <div class="ec-plyer-designation info-club">
                             <ul>

@@ -52,7 +52,7 @@ ContadorVisitas($ipvisitante,'clubes');
                             onclick="window.location.href = 'webs/TorneoMunicipal/Club.php?id=<?php echo $id?>  ';"   >
 
                             <div class="ec-cell">
-                             <img style="height:70px;float: left" src="images/Escudos/<?php echo $logo ?>" alt=""/>
+                             <img style="height:70px;float: left" src="<?php echo $logo ?>" alt=""/>
                              <a href="webs/TorneoMunicipal/Club.php?id=<?php echo $id?>" class="club-box-size">
                              <p style="margin-left: 80px"><?php echo $nombre?></p>
                              </a>

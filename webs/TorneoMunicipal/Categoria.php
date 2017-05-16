@@ -61,10 +61,10 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
                                     <div class="ec-cell"><span><?php echo FormatoFecha($fecha);?></span></div>
                                     <div class="ec-cell"><span><?php echo FormatoHora($hora);?></span></div>
                                     <div class="ec-cell"><span><?php echo NombreCancha($lugar)?></span></div>
-                                    <div class="ec-cell"><img class="width-15" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""><span style="padding-left: 5px"><?php echo NombreEquipo($equipo1)?></span></div>
+                                    <div class="ec-cell"><img class="width-15" src="<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""><span style="padding-left: 5px"><?php echo NombreEquipo($equipo1)?></span></div>
 
                                     <div class="ec-cell"><span class="ec-fixture-vs"><small>vs</small></span></div>
-                                    <div class="ec-cell"><img class="width-15" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""><span style="padding-left: 5px"><?php echo NombreEquipo($equipo2)?></span></div>
+                                    <div class="ec-cell"><img class="width-15" src="<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""><span style="padding-left: 5px"><?php echo NombreEquipo($equipo2)?></span></div>
 
                                 </li>
 

@@ -37,7 +37,7 @@ ContadorVisitas($ipvisitante,'resultado'.'_'.$id);
                                     <ul>
                                         <li>
                                             <span><?php echo NombreEquipo($equipo1) ?></span>
-                                            <img class="width-30" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo1))?>" alt="">
+                                            <img class="width-30" src="<?php echo LogoClub(ClubEquipo($equipo1))?>" alt="">
                                         </li>
                                         <li>
                                         <div class="ec-result-time">
@@ -49,7 +49,7 @@ ContadorVisitas($ipvisitante,'resultado'.'_'.$id);
                                         </li>
                                         <li>
                                             <span><?php echo NombreEquipo($equipo2) ?></span>
-                                            <img class="width-30" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo2))?>" alt="">
+                                            <img class="width-30" src="<?php echo LogoClub(ClubEquipo($equipo2))?>" alt="">
                                         </li>
                                     </ul>
                                 </div>
