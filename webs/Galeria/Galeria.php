@@ -1,5 +1,7 @@
 <?php
 include('../../menuinicial.php');
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'galeria');
 ?>
 <div class="ec-mini-header">
 	<span class="ec-blue-transparent"></span>
@@ -37,7 +39,7 @@ include('../../menuinicial.php');
 								?>
 								<li class="col-md-3">
 									<figure>
-									<a href="javascript:void();"><img src="webs/extra-images/gallery-list-1.jpg" alt=""></a>
+									<a href="javascript:void();"><img src="<?php echo $value['imagen'];?>" alt=""></a>
 									</figure>
 								</li>
 								<?php

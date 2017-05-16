@@ -1,5 +1,7 @@
 <?php
 include('../../menuinicial.php');
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'noticias');
 ?>
 
 <div class="ec-mini-header">
@@ -40,7 +42,7 @@ include('../../menuinicial.php');
 								<li class="col-md-12 add-pointer news-detail" id="<?php echo $value['id']?>">
 									<div class="ec-blog-wrap">
 										<figure>
-											<a href="javascript:void();"><img src="webs/images/Noticias/<?php echo $value['imagen']; ?>" alt=""></a>
+											<a href="javascript:void();"><img src="<?php echo $value['imagen']; ?>" alt=""></a>
 										</figure>
 										<div class="ec-blog-text">
 											<ul class="ec-blog-option">
@@ -51,7 +53,7 @@ include('../../menuinicial.php');
 												</li>
 											</ul>
 											<h2><a href="javascript:void();"><?php echo $value['titulo'];?></a></h2>
-											<p class="justify"><?php echo $value['texto'];?></p>
+											<p class="justify"><?php echo $value['encabezado'];?></p>
 
 										</div>
 									</div>

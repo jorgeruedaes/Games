@@ -1,6 +1,8 @@
 <?php
 include('../../menuinicial.php');
 $id = $_GET['id'];
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'noticia'.'_'.$id);
 ?>
 
 <div class="ec-mini-header">
@@ -35,15 +37,15 @@ $id = $_GET['id'];
                             <ul class="ec-blog-option">
 												<li>
 												<i class="fa fa-clock-o"></i> Fecha publicación: 
-												<a href="javascript:void();" class="ec-colorhover">2017-04-12</a>
-												<a href="javascript:void();" class="ec-color float-right font-15">Sub Baby</a>
+												<a href="javascript:void();" class="ec-colorhover"><?php echo $value['fecha'];?></a>
+												<a href="javascript:void();" class="ec-color float-right font-15"><?php echo NombreTorneo($value['torneo']);?></a>
 												</li>
 											</ul>
                                 <h4 class="center font-20"><?php echo $value['titulo']?></h4>
                                 <br>
                                 <div class="row">
                                 	<div class="col-md-6">
-                                		  <figure class="ec-detail-thumb" ><img src="webs/images/Noticias/<?php echo $value['imagen']; ?>" alt=""></figure>
+                                		  <figure class="ec-detail-thumb" ><img src="<?php echo $value['imagen']; ?>" alt=""></figure>
                                 	</div>
                                 	<div class="col-md-6">
                                 <p class="justify" style=""><?php echo $value['texto']?></p>

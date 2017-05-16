@@ -18,7 +18,7 @@ $pdf->SetWidths(array(30,30,40,40,40));
 if(isset($_GET['id'])){
 
     $id = $_GET['id'];
-    $vectores = ObtenerPartidosDeUnTorneo($id,'1');
+    $vectores = ObtenerPartidosPorJugarDeUnTorneo($id,'1');
     if(sizeof($vectores) == 0){
         $pdf->Write(5,'No hay programacion');
     }else{

@@ -1,5 +1,7 @@
 <?php
 include('../../menuinicial.php');
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'documentacion');
 ?>
 
 <div class="ec-main-content">
@@ -27,7 +29,7 @@ include('../../menuinicial.php');
 
 									?>
 									<li>
-									<a class="font-20" target="_blank"  href="webs/Archivos/Boletines/<?php echo $comunicado?>" ><?php echo $titulo?>
+									<a class="font-20" target="_blank"  href="<?php echo $comunicado?>" ><?php echo $titulo?>
 											&nbsp&nbsp<span style="color:#4183D7" class="fa fa-file-pdf-o font-20"></span>
 										</a>
 

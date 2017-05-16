@@ -1,6 +1,8 @@
 <?php
 include('../../menuinicial.php');
 $id = $_GET['id'];
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
 ?>
 
 <div class="ec-mini-header">
@@ -44,7 +46,7 @@ $id = $_GET['id'];
                         <ul>
 
                             <?php
-                            $vectores = ObtenerPartidosDeUnTorneo($id,'1');
+                            $vectores = ObtenerPartidosPorJugarDeUnTorneo($id,'1');
                             echo (empty($vectores)) ? '<div class="center"><cite>No hay programación.</cite></div>' :'';
                             foreach ($vectores as $value)
                             {
@@ -273,6 +275,7 @@ $id = $_GET['id'];
       <li>
         <div class="ec-cell">#</div>
         <div class="ec-cell">Jugador</div>
+        <div class="ec-cell">Equipo</div>
         <div class="ec-cell">Amonestación</div>
     </li>
 </ul>';
@@ -287,6 +290,7 @@ $id = $_GET['id'];
         <li>
             <div class="ec-cell"><?php echo $numero;?></div>
             <div class="ec-cell"><?php echo ObtenerNombreCompletoJugador($values['jugador'])  ?></div>
+              <div class="ec-cell"><?php echo NombreEquipoJugador($values['jugador'])  ?></div>
             <div class="ec-cell">
              <a href="#" data-toggle="tooltip" title="<?php echo $values['comentario']?>">
                <?php echo ObtenerTipoTarjeta($values['amonestacion'])?>

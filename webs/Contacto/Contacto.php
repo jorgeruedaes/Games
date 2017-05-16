@@ -1,6 +1,13 @@
 <?php
 include('../../menuinicial.php');
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'contacto');
 ?>
+
+<head>
+	
+	 <link href="Admin/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+</head>
 <div class="ec-mini-header">
 	<span class="ec-blue-transparent"></span>
 	<div class="container">
@@ -63,71 +70,33 @@ include('../../menuinicial.php');
 							<h2>Formulario de contacto</h2> </div>
 							<form method="post">
 								<p>
-									<input type="text" value="Nombre" onblur="if(this.value == '') { this.value ='Nombre'; }" onfocus="if(this.value =='Nombre') { this.value = ''; }" name="usrname" required=""> </p>
+									<input type="text" id="nombre" value="Nombre" onblur="if(this.value == '') { this.value ='Nombre'; }" onfocus="if(this.value =='Nombre') { this.value = ''; }" name="usrname" required=""> </p>
 									<p>
-										<input type="text" value="Email" onblur="if(this.value == '') { this.value ='Email'; }" onfocus="if(this.value =='Email') { this.value = ''; }" name="usrname" required=""> </p>
+										<input type="text" id="email" value="Email" onblur="if(this.value == '') { this.value ='Email'; }" onfocus="if(this.value =='Email') { this.value = ''; }" name="usrname" required=""> </p>
 										<p>
-											<input type="text" value="Asunto" onblur="if(this.value == '') { this.value ='Asunto'; }" onfocus="if(this.value =='Asunto') { this.value = ''; }" name="usrname" required=""> </p>
+											<input type="text" id="asunto" value="Asunto" onblur="if(this.value == '') { this.value ='Asunto'; }" onfocus="if(this.value =='Asunto') { this.value = ''; }" name="usrname" required=""> </p>
 											<p class="ec-comment">
-												<textarea placeholder="Mensaje"></textarea>
+												<textarea id="mensaje" placeholder="Mensaje"></textarea>
 											</p>
+
 											<p class="ec-submit">
-												<input type="submit" name="submit" value="Enviar" class="ec-bgcolor"> </p>
+												<button id="sendEmailBtn" type="button" class="btn btn-danger">ENVIAR</button> </p>
 											</form>
 										</div>
-										<!--// Comment Form //-->
+										
 									</div>
 
 								</div>
 							</div>
 						</div>
-						<!--// Main Section \\-->
 					</div>
 					<?php
-// 					if(isset($_POST['submit'])){
 
-// // Varios destinatarios
-// $para  = 'correomargarita' . ', '; // atención a la coma
-// $para .= 'liz.rood7@gmail.com';
-
-// // título
-// $título = 'Solicitud de página web';
-
-// // mensaje
-// $mensaje = '
-// <html>
-// <head>
-// 	<title>Mensaje de página web - Liga santandereana de fútbol</title>
-// </head>
-// <body>
-// 	<p></p>
-// 	<table>
-
-// 	</body>
-// 	</html>
-// 	';
-
-// // Para enviar un correo HTML, debe establecerse la cabecera Content-type
-// 	$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-// 	$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-// // Cabeceras adicionales
-// 	$cabeceras .= 'To: <correodestinatario' . "\r\n";
-// 	$cabeceras .= 'From: <correoliga>' . "\r\n";
-
-// // Enviarlo
-// 	if(mail($para, $título, $mensaje, $cabeceras)){
-
-// 		echo "Mensaje enviado con éxito!";
-// 	}else
-// 	{
-// 		echo "No se pudo enviar el mensaje.";
-// 	}
-
-// }
 
 include('../../footerinicial.php');
 ?>
 
+  <script src="webs/js/index.js"></script>
+<script src="Admin/plugins/sweetalert/sweetalert.min.js"></script>
 
 

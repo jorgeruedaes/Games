@@ -1,5 +1,7 @@
 <?php
 include('../../menuinicial.php');
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'nuestroequipo');
 ?>
 <div class="ec-mini-header">
             <span class="ec-blue-transparent"></span>

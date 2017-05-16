@@ -1,6 +1,8 @@
 <?php
 include('../../menuinicial.php');
 $id = $_GET['id'];
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'resultado'.'_'.$id);
 ?>
 
 <div class="ec-main-content">
@@ -88,12 +90,17 @@ $id = $_GET['id'];
                                         $amonestacion=$values['amonestacion'];
                                         $goles=$values['goles'];
                                         $autogoles=$values['autogoles'];
+                                        $partido = $values['partido'];
 
                                         ?>
                                     <li>
                                         <div class="ec-cell">1</div>
                                         <div class="ec-cell"><?php echo ObtenerNombreCompletoJugador($jugador)?></div>
-                                        <div class="ec-cell"><?php echo ObtenerTipoTarjeta($amonestacion)?></div>
+                                    <div class="ec-cell">
+                                    <a href="#" data-toggle="tooltip" >
+                                    <?php echo ObtenerTipoTarjeta($values['amonestacion'])?>
+                                    </a>
+                                     </div>
                                         <div class="ec-cell"><?php echo $goles?></div>
                                         <div class="ec-cell"><?phpe echo $autogoles?></div>
                                     </li>
@@ -130,14 +137,18 @@ $id = $_GET['id'];
                                         $amonestacion=$values['amonestacion'];
                                         $goles=$values['goles'];
                                         $autogoles=$values['autogoles'];
+                                        $partido=$values['partido'];
 
                                         ?>
                                     <li>
                                         <div class="ec-cell"><?php echo $numero?></div>
                                         <div class="ec-cell"><?php echo ObtenerNombreCompletoJugador($jugador)?></div>
-                                        <div class="ec-cell">  
-                                        	<?php echo ObtenerTipoTarjeta($amonestacion)?>
-                                        </div>
+                                        <div class="ec-cell">
+                                    <a href="#" data-toggle="tooltip" title="<?php echo 
+                                    ComentarioAmonestacion($jugador,$partido)?>">
+                                    <?php echo ObtenerTipoTarjeta($values['amonestacion'])?>
+                                    </a>
+                                     </div>
                                         <div class="ec-cell"><?php echo $goles?></div>
                                         <div class="ec-cell"><?phpe echo $autogoles?></div>
                                     </li>

@@ -1,6 +1,8 @@
 <?php
 include('../../menuinicial.php');
 $id = $_GET['id'];
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'club'.'_'.$id);
 ?>
 
 <div class="ec-mini-header">
@@ -69,7 +71,7 @@ $id = $_GET['id'];
                                     <h3 class="header-torneo"><?php echo NombreTorneo($torneo)?></h3>
                                 </div>
                                 <?php
-                                $vectores = ObtenerPartidosDeUnClub($id,$torneo,'1');
+                                $vectores = ObtenerPartidosPorJugarDeUnClub($id,$torneo,'1');
                                 echo (empty($vectores)) ? '<div class="center"><cite>No hay programación.</cite></div>' :'';
                                 foreach ($vectores  as $values)
                                 {
