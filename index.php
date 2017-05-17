@@ -5,7 +5,7 @@ $ipvisitante=$_SERVER["REMOTE_ADDR"];
 ContadorVisitas($ipvisitante,'index');
  ?>
  <div class="ec-loading-section"><div class="ball-scale-multiple"><div></div><div></div><div></div></div></div>
- <div class="ec-mainbanner">
+ <div class="ec-mainbanner">  
     <div class="flexslider">
         <ul class="slides">
            <li>
