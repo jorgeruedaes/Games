@@ -44,6 +44,7 @@ $(function() {
 							resp.datos[i].id_equipo,
 							resp.datos[i].nombre_equipo,
 							resp.datos[i].colegio,
+							resp.datos[i].grupo,
 							resp.datos[i].estado,
 							'<div class="btn-group btn-group-xs" role="group" aria-label="Small button group"><button data-id="'+resp.datos[i].id_equipo+'"data-estado="'+resp.datos[i].estado+'"data-tecnico="'+resp.datos[i].tecnico1+'"data-nombre="'+resp.datos[i].nombre_equipo+'"data-club="'+resp.datos[i].colegio+'"data-grupo="'+resp.datos[i].grupo+'"data-torneo="'+resp.datos[i].torneo+'" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button></div>'
 							] ).draw( false );

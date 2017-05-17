@@ -94,6 +94,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<th>#</th>
 									<th width="50%">Nombre</th>
 									<th>Club</th>
+									<th>Grupo</th>
 									<th>Estado</th>
 									<th>Opciones</th>
 								</tr>

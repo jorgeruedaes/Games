@@ -129,7 +129,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+				<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar</button>
 				<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>

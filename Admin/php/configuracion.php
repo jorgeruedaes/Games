@@ -17,13 +17,13 @@ function String_Get_Valores($solicitud){
 	}else if ($solicitud == "favicon") {
 		return "logo.png";
 	}else if ($solicitud == "server") {
-		return "localhost";
+		return "eliseo.colombiahosting.com.co";
 	}else if ($solicitud == "username") {
-		return "root";
+		return "ligasa_admind";
 	}else if ($solicitud == "password") {
-		return "";
+		return "Fu!oDrxNOm3&";
 	}else if ($solicitud == "basededatos") {
-		return "liga";
+		return "ligasa_desarrollo";
 	}else if ($solicitud == "color") { // color de todo el form
 		return "#ECF0F1";
 	}else if ($solicitud == "letracolor") {// color de el encabezado de las tablas
