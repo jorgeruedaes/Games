@@ -1,6 +1,10 @@
  <?php
- include('menuinicial.php');
+
+include('menuinicial.php');
+$ipvisitante=$_SERVER["REMOTE_ADDR"];
+ContadorVisitas($ipvisitante,'index');
  ?>
+ <div class="ec-loading-section"><div class="ball-scale-multiple"><div></div><div></div><div></div></div></div>
  <div class="ec-mainbanner">
     <div class="flexslider">
         <ul class="slides">
@@ -51,14 +55,14 @@
                             ?>
 
                             
-                            <div class="item ">
+                            <div class="item  calendar-category add-pointer" id="<?php echo $id?>">
                                 <div>
                                     <h3 class="header-torneo"><?php echo $nombre?></h3>
                                 </div>
                                 <div class="scrollbar-height scrollbar">
 
                                 <?php
-                                $vectores = ObtenerPartidosDeUnTorneo($id,'1');
+                                $vectores = ObtenerPartidosPorJugarDeUnTorneo($id,'1');
                                 echo (empty($vectores)) ? '<div class="center"><cite>No hay programación.</cite></div>' :'';
                                 foreach ($vectores  as $values)
                                 {
@@ -70,9 +74,9 @@
                                     $lugar=$values['lugar'];
                                     ?>
                                     
-                                    <ul class="ec-team-matches add-pointer calendar-detail" id="<?php echo $idpartido?>">
+                                    <ul class="ec-team-matches" id="<?php echo $idpartido?>">
                                         <li class="padding-top-5">
-                                            <a href="javascript:void();"><img style="width: 35%;height: 17%" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""> <span><?php echo NombreEquipo($equipo1);?></span></a>
+                                            <a href="javascript:void();"><img style="width: 35%;height: 17%" src="<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""> <span><?php echo NombreEquipo($equipo1);?></span></a>
                                         </li>
                                         <li>
                                             <time class="ec-color" datetime="2008-02-14 20:00">
@@ -87,7 +91,7 @@
                                             </small>
                                         </li>
                                         <li class="padding-top-5">
-                                            <a href="javascript:void();"><img style="width: 35%;height: 17%" src="images/Escudos/<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""> <span><?php echo NombreEquipo($equipo2);?></span></a>
+                                            <a href="javascript:void();"><img style="width: 35%;height: 17%" src="<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""> <span><?php echo NombreEquipo($equipo2);?></span></a>
                                         </li>
                                     </ul>
 
