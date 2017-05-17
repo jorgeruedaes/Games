@@ -14,7 +14,7 @@ class PDF_MC_Table extends FPDF
     function Header()
     {
 
-        $this->Image('../../images/Escudos/logo.png',20,8,33);
+        $this->Image('http://ligasantandereanadefutbol.co/images/Escudos/logo.png',20,8,33);
         $this->SetFont('Arial','B',12);
 
         $this->Cell(0,10,'LIGA SANTANDEREANA DE FUTBOL',0,0,'C');

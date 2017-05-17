@@ -28,6 +28,10 @@ $(function() {
 
 			});
 
+			$('.open-category').on('click', function () {
+			var element = $(this).attr('id');
+		 	window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
+			});
 			
 			$('.news-detail').on('click', function () {
 			var element = $(this).attr('id');

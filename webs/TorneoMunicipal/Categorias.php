@@ -46,13 +46,13 @@ ContadorVisitas($ipvisitante,'categorias');
 					$nombre =$value['nombre'];
 					?>
 					<!--// Match Fixture \\-->
-					<div class="col-md-4 add-pointer" id="<?php echo $id?>">
+					<div class="col-md-4 add-pointer open-category" id="<?php echo $id?>">
 						<div class=""  style="height: 7em;">
 							<ul  style="background-color: #27ae60;border: 1px solid #03A678;    padding: 1em;border-radius: 4px">
 							<li >
 							<i class="fa-4x fa fa-futbol-o" style="color: white;">
 							</i>
-							<a href="webs/TorneoMunicipal/Categoria.php?id=<?php echo $id?>" style="font-size: 1.7em;color: white;padding-left: 1.5em;font-family: Bariol" ><?php echo $nombre?>
+							<a style="font-size: 1.7em;color: white;padding-left: 1.5em;font-family: Bariol" ><?php echo $nombre?>
 							</a>
 							</li>
 							</ul>
