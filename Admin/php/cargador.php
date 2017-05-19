@@ -80,14 +80,13 @@ function boolean_delete_file($FileName)
 
 function Cargar_Partidos($FileName,$torneo)
 {
-	$boolean = true;
+	$boolean = false;
 	$resultado ='';
 
 	list($boolean,$resultado) =Validate_All_Partidos($FileName,$torneo);
 	if($boolean)
 	{
-		Load_Partidos($FileName,$torneo);
-		$resultado ='OK';
+		list($boolean,$resultado) =  Load_Partidos($FileName,$torneo);
 	}
 	else
 	{
@@ -110,8 +109,7 @@ function Insertar_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fe
 
 
 
-	return insertar("
-		INSERT INTO `tb_partidos`(`id_partido`, `equipo1`, `equipo2`, `resultado1`, `resultado2`, `fecha`, `hora`, `numero_fecha`, `Lugar`, `Estado`, `Juez`) VALUES (NULL,$equipo1,$equipo2,0,0,'$Fecha','$Hora',$Numero_Fecha,$lugar,1,2)");
+	return insertar("INSERT INTO `tb_partidos`(`id_partido`, `equipo1`, `equipo2`, `resultado1`, `resultado2`, `fecha`, `hora`, `numero_fecha`, `Lugar`, `Estado`) VALUES (NULL,$equipo1,$equipo2,0,0,'$Fecha','$Hora',$Numero_Fecha,$lugar,1)");
 }
 
 function Codigo_Equipo($NombreEquipo,$torneo)
@@ -119,7 +117,7 @@ function Codigo_Equipo($NombreEquipo,$torneo)
 	global $conexion;
 	$valor = mysqli_fetch_array(consultar("SELECT id_equipo FROM tb_equipos WHERE (nombre_equipo='$NombreEquipo' or nombre_equipo like '%$NombreEquipo%') and torneo='$torneo' "));
 
-	return array($valor,$valor['id_equipo']);
+	return array(!empty($valor),$valor['id_equipo']);
 }
 
 function Codigo_Lugar($NombreLugar)
@@ -263,7 +261,7 @@ function Validar_Numero_DatosFila($datos,$cantidad)
 }
 function Load_Partidos($FileName,$torneo)
 {
-	$resultado = "";
+	$bandera = true;
 	if (($gestor = fopen($FileName, "r")) !== FALSE) {
 		while (($datos = fgetcsv($gestor,100, ",")) !== FALSE) {
 
@@ -276,15 +274,17 @@ function Load_Partidos($FileName,$torneo)
 
 			if(Insertar_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fecha,$Hora,$torneo))
 			{
+$mensaje = 'true';
 			}
 			else
 			{
-				$resultado.='N';
+				$bandera=false;
+				$mensaje = $NombreEquipo1.$Fecha.$NombreEquipo2.$Lugar.$Numero_Fecha.$Hora.$torneo;
 			}
 		}
 		fclose($gestor);
 	}
-	return $resultado;
+	return array($bandera,$mensaje);
 }
 
 function Validate_All_Partidos($FileName,$torneo)
