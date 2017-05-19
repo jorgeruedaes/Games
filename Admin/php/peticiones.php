@@ -383,7 +383,7 @@ $contenido = '
 <tbody>
 <tr>
 <td style="/*! background-color: black; */background-color: #019875;padding: 15px;/*! text-align: center; */" valign="top">
-<div style="/*! text-align: center; */"><img src="http://localhost/GamesNew/images/logo.png" alt="Logo" title="Logo" data-max-width="100" style="/*! text-align: center; */width: 50%;height: 30%;" height="60" width="60"></div>
+<div style="/*! text-align: center; */"><img src="http://ligasantandereana.co/images/logo.png" alt="Logo" title="Logo" data-max-width="100" style="/*! text-align: center; */width: 50%;height: 30%;" height="60" width="60"></div>
 </td>
 </tr>
 </tbody>

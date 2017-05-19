@@ -196,7 +196,7 @@ function JSON_Get_ModulosxPerfil($perfil)
 function Boolean_Insertar_Usuario($nombre,$apellido,$username,$password,$pregunta,$respuesta,$email)
 {
 	list ($valid,$mensaje) = Boolean_Existencia_Usuario($username,$email);
-	if(!$valid)
+	if($valid)
 	{
 		$query = insertar(sprintf("INSERT INTO `tb_usuarios`(`id_usuario`, `nombre_usuario`, `apellido_usuario`, `perfil`,
 			`usuario`, `contrasena`, `pregunta_usuario`, `respuesta`,`email_usuario`, `estado`)
@@ -227,10 +227,10 @@ function Boolean_Existencia_Usuario($username,$email)
 	$query = consultar(sprintf("SELECT email_usuario,usuario FROM tb_usuarios WHERE email_usuario='%s' or usuario='%s'",escape($username),escape($email)));
 	if(Int_consultaVacia($query)>0)
 	{
-		return array(True,'El usuario o el email ya existen, intenta nuevamente.');
+		return array(true,'El usuario o el email ya existen, intenta nuevamente.');
 	}else
 	{
-		return array(False,'');	
+		return array(false,'');	
 	}
 
 }
