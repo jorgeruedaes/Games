@@ -9,12 +9,13 @@ if(isset($_SESSION['id_usuarios']))
 	$resultado = '{"salida":true,';
 
 	$carpeta = $_GET['carpeta'];
-	$torneo = $_GET['torneo'];
+	$torneo = $_POST['torneo'];
 
 	$archivo = $_FILES['file'];
 
 	$temp = $archivo['tmp_name'];
 	$name = $archivo['name'];
+	//$torneo =$archivo['torneo'];
 
 	if(!$temp)
 	{
@@ -29,6 +30,7 @@ if(isset($_SESSION['id_usuarios']))
 			if($boolean)
 			{
 				$resultado.='"mensaje":true,';
+				$resultado.='"datos":'.json_encode($resultados).'';
 			}
 			else
 			{

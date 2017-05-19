@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 global $ubicacion;
 require($ubicacion.'../php/principal.php');
@@ -18,14 +18,11 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title><?php echo String_Get_Valores('titulo');?></title>
     <!-- Favicon-->
-    <link rel="icon" href="../webs/images/<?php echo String_Get_Valores('favicon')?>" type="image/x-icon">
+    <link rel="icon" href="<?php echo String_Get_Valores('favicon');?>" type="image/x-icon">
 
-    <!-- Google Fonts-->
-    <link href="css/google-fonts.css" rel="stylesheet" type="text/css">
-
-    <!-- JQuery DataTable Css -->
-    <link href="plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
     <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -46,7 +43,6 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
     <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 
 
-
     <!-- Bootstrap Material Datetime Picker Css -->
     <link href="plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
 
@@ -57,7 +53,7 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
     <link href="css/themes/all-themes.css" rel="stylesheet" />
 </head>
 
-<body class="theme-<?php echo $usuario['color'] ?>">
+<body class="theme-blue">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -883,7 +879,6 @@ $usuario = Array_Get_Usuario($_SESSION['id_usuarios']);
     </div>
 </section>
 -->
-<!-- Jquery Core Js -->
 <script src="plugins/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core Js -->

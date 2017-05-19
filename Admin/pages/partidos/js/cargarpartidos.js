@@ -16,8 +16,8 @@ $(function() {
 			cargador.ToFolder();
 			cargador.addfolder();
 			cargador.Nuevo_Folder();
-			cargador.DropeZone();
 			cargador.close();
+					cargador.DropeZone();
 		},
 		close : function()
 		{
@@ -27,17 +27,39 @@ $(function() {
 		},
 		DropeZone : function()
 		{
+			var torneo = $('.selector-campeonato-nuevo option:selected').val();
+			//	Dropzone.autoDiscover = false;		
+			//var carpeta = $('.guardar-files').data('carpeta');
+			//$('.dropzone').attr('action','pages/partidos/peticiones/subir.php?carpeta=Temporal&&torneo='+torneo);
+	
 			Dropzone.options.dropzone = {
+				url: 'pages/partidos/peticiones/subir.php?carpeta=Temporal',
 				maxFilesize: 4,
 				maxFiles: 1,
 				acceptedFiles : ".csv",
 				init: function() {
 					 var myDropZone = this;
+
+					 this.on("sending", function(file, xhr, formData) {
+					 	var torneo = $('.selector-campeonato-nuevo option:selected').val();
+ 						 formData.append("torneo",torneo);
+						});
 					this.on("success", function(file, responseText) {
 						var resp = $.parseJSON(responseText);
 						if (resp.salida === true && resp.mensaje === true) {
 							$('#nuevaarchivos').modal('hide');
-						swal("Imformación", "Los partidos se han cargado de manera exitosa.", "success");
+						swal({title: "Información",
+								text: "Los partidos se han cargado de manera exitosa!.",
+								type: "success",
+								showCancelButton: false,
+								confirmButtonColor: "rgb(174, 222, 244)",
+								confirmButtonText: "Aceptar",
+								closeOnConfirm: false
+							}, function (isConfirm) {
+								if (isConfirm) {
+									window.location.reload();
+								}
+							});
 						}
 						else
 						{
@@ -54,12 +76,13 @@ $(function() {
 				}
 
 			};
-			var carpeta = $('.guardar-files').data('carpeta');
-			var torneo = $('.selector-campeonato-nuevo option:selected').val();
-			
-			var dropzone  = new Dropzone("#archivos", {
-				url: 'pages/partidos/peticiones/subir.php?carpeta='+carpeta+'&&torneo='+torneo
+
+					var dropzone  = new Dropzone("#archivos", {
+				url: 'pages/partidos/peticiones/subir.php?carpeta=Temporal'
 			});
+
+
+			
 		},
 		Nuevo_Folder : function(){
 			$('.guardar-nuevo-carpeta').off('click').on('click', function () {	
@@ -174,6 +197,7 @@ $(function() {
 		{	
 			$('.add-folder').off('click').on('click', function () {	
 				$('#nuevacarpeta').modal('show'); 
+
 			});
 
 
@@ -182,6 +206,8 @@ $(function() {
 		{
 			$('.add-files').off('click').on('click', function () {	
 				$('#nuevaarchivos').modal('show'); 
+				cargador.recargar();
+		
 			});
 
 		}

@@ -77,8 +77,6 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 			</section>
 			<!-- JS ====================================================================================================================== -->
 			<!--  Js-principal -->
-			<script src="pages/partidos/js/cargarpartidos.js"></script>
-			<script src="pages/partidos/js/partidos.js"></script>
 
 			<!-- Modal Dialogs ====================================================================================================================== -->
 			<!-- Default Size -->
@@ -91,8 +89,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<div class="modal-body">
 
 							<div class="body">
-								<form action="pages/partidos/peticiones/subir.php?carpeta=Temporal&&torneo=" 
-								id="dropzone" class="dropzone" >
+								<form action="pages/partidos/peticiones/subir.php?carpeta=Temporal" id="dropzone" class="dropzone" >
 								<div class="dz-message">
 									<div class="drag-icon-cph">
 										<i class="material-icons">touch_app</i>
@@ -135,6 +132,9 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 		<script src="plugins/dropzone/dropzone.js"></script>
 		<!-- Dropzone Css -->
 		<link href="plugins/dropzone/dropzone.css" rel="stylesheet">
+		<script src="pages/partidos/js/cargarpartidos.js"></script>
+		<script src="pages/partidos/js/partidos.js"></script>
+
 
 
 		<?php
