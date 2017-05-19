@@ -283,7 +283,7 @@ function ObtenerJugadoresEquipo($identificador)
 function ObtenerNoticias($orden)
 {
     global $conexion;
-    $valor = mysqli_query($conexion, "SELECT * FROM tb_noticias WHERE fecha <= NOW()
+    $valor = mysqli_query($conexion, "SELECT * FROM tb_noticias WHERE fecha <= curdate()
         ORDER BY fecha $orden");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
@@ -386,7 +386,7 @@ function ObtenerComunicados($tipo)
 {
     global $conexion;
     $comunicados = mysqli_query($conexion, "SELECT *
-      FROM tb_comunicados WHERE tipo='$tipo' AND fecha <= NOW() ORDER BY fecha desc");
+      FROM tb_comunicados WHERE tipo='$tipo' AND fecha <= curdate() ORDER BY fecha desc");
     $vector    = array();
      while ($valor = mysqli_fetch_array($comunicados)) {
         $id   = $valor['id_comunicados'];
@@ -758,7 +758,7 @@ function ObtenerPartidosPorJugarDeUnTorneo ($torneo, $estado){
       resultado1, resultado2 FROM tb_partidos WHERE estado='$estado' and equipo1 IN 
       (select id_equipo from tb_equipos where torneo='$torneo') AND
       equipo2 IN (select id_equipo from tb_equipos where torneo='$torneo')   
-      AND fecha >= NOW()
+      AND fecha >= curdate()
       ORDER BY fecha asc, hora asc ");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
@@ -827,7 +827,7 @@ function ObtenerPartidosPorJugarDeUnClub ($club, $torneo, $estado){
     WHERE tb_equipos.colegio='$club' AND tb_equipos.torneo = '$torneo' AND 
     tb_partidos.estado='$estado' AND 
     (tb_equipos.id_equipo = tb_partidos.equipo1 OR tb_equipos.id_equipo = tb_partidos.equipo2)
-    AND tb_partidos.fecha >= NOW()
+    AND tb_partidos.fecha >= curdate()
     GROUP BY id_partido");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
