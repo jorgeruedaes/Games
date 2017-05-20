@@ -49,7 +49,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 								<div class="col-md-3">
 									<div class="form-group">
 										<div class="form-line">
-										<input type="text"  value="<?php echo $partido['resultado1'] ?>"   id="resultado1" class="form-control"  style="font-size: xx-large; text-align: -webkit-center;"   placeholder="Goles">												
+										<input type="number" min="0" max="15"   value="<?php echo $partido['resultado1'] ?>"   id="resultado1" class="form-control"  style="font-size: xx-large; text-align: -webkit-center;"   placeholder="Goles">												
 										</div>
 									</div>
 								</div>
@@ -119,7 +119,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 								<div class="col-md-3">
 									<div class="form-group">
 										<div class="form-line">
-											<input type="text" value="<?php echo $partido['resultado2'] ?>"  id="resultado2" class="form-control" style="font-size: xx-large; text-align: -webkit-center;"     placeholder="Goles">
+											<input type="number"  min="0" max="15"  value="<?php echo $partido['resultado2'] ?>"  id="resultado2" class="form-control" style="font-size: xx-large; text-align: -webkit-center;"     placeholder="Goles">
 										</div>
 									</div>
 								</div>
@@ -186,7 +186,9 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 					<div class="card">
 						<div class="body">
 							<center>
-					<button type="button" data-estado="<?php echo $partido['estado'] ?>" data-fecha="<?php echo $partido['Nfecha']; ?>" class="btn btn-primary btn-lg m-l-15 waves-effect guardar-editar-goles" data-partido="<?php echo $_GET['id']?>">Guardar</button>
+					<button type="button" data-estado="<?php echo $partido['estado'] ?>" 
+					data-fecha="<?php echo $partido['Nfecha']; ?>"
+					class="btn btn-primary btn-lg m-l-15 waves-effect guardar-editar-goles" data-partido="<?php echo $_GET['id']?>">Guardar</button>
 							</center>
 						</div>
 

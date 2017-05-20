@@ -183,7 +183,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 									<div class="form-group">
 										<div class="form-line">
-											<input type="text" id="ronda" class="form-control"  placeholder="Ingresa una fecha o ronda">
+											<input type="number" id="ronda" class="form-control"  placeholder="Ingresa una fecha o ronda">
 										</div>
 									</div>
 								</div>

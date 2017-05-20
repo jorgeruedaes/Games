@@ -49,7 +49,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 								<div class="col-md-3">
 									<div class="form-group">
 										<div class="form-line">
-										<input type="text"  value="0"   id="resultado1" class="form-control"  style="font-size: xx-large; text-align: -webkit-center;"   placeholder="Goles">												
+										<input type="number"  value="0" min="0" max="15"  id="resultado1" class="form-control"  style="font-size: xx-large; text-align: -webkit-center;"   placeholder="Goles">												
 										</div>
 									</div>
 								</div>
@@ -119,7 +119,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 								<div class="col-md-3">
 									<div class="form-group">
 										<div class="form-line">
-											<input type="text" value="0"  id="resultado2" class="form-control" style="font-size: xx-large; text-align: -webkit-center;"     placeholder="Goles">
+											<input type="number" value="0"  min="0" max="15"   id="resultado2" class="form-control" style="font-size: xx-large; text-align: -webkit-center;"     placeholder="Goles">
 										</div>
 									</div>
 								</div>
