@@ -41,8 +41,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					<div class="card">
 						<div class="header">
 							<h2>
-								Cargar partidos
-								<small>Agrega partidos al calendario.</small>
+								Cargar Resultados
+								<small>Agrega Resultados de los partidos.</small>
 							</h2>
 						</div>
 						<div class="body">
@@ -68,7 +68,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 						<button type="button" class="btn btn-primary btn-lg m-l-15 waves-effect add-files">Cargar Archivo</button>
 						<button type="button" style="display : none" class="btn btn-warning  btn-lg m-l-15 waves-effect ver-resultados">Ver resultados</button>
-											<input type="hidden" id="bandera" value="subircalendario" />
+						<input type="hidden" id="bandera" value="subirresultados" />
 									</form>
 								</div>
 							</div>

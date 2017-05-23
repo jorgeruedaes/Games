@@ -6,12 +6,22 @@ $(function() {
 			goles.recargar();
 			goles.Add_Resultado();
 			goles.get_datos();
+			goles.Tablas();
 			goles.Add_Edit_Resultado();
 		},
 		recargar: function () {
 			goles.TomarDatos_Resultados();
 
 
+		},
+		Tablas : function()
+		{
+			$('#tabla1').dataTable( {
+				"pageLength": 50
+			} );
+			$('#tabla2').dataTable( {
+				"pageLength": 50
+			} );
 		},
 		ValidarGoles : function()
 		{

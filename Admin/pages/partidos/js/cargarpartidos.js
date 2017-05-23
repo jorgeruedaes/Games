@@ -17,7 +17,7 @@ $(function() {
 			cargador.addfolder();
 			cargador.Nuevo_Folder();
 			cargador.close();
-					cargador.DropeZone();
+			cargador.DropeZone();
 		},
 		close : function()
 		{
@@ -28,13 +28,14 @@ $(function() {
 		DropeZone : function()
 		{
 			var torneo = $('.selector-campeonato-nuevo option:selected').val();
+			var bandera = $('#bandera').val();
 			//	Dropzone.autoDiscover = false;		
 			//var carpeta = $('.guardar-files').data('carpeta');
 			//$('.dropzone').attr('action','pages/partidos/peticiones/subir.php?carpeta=Temporal&&torneo='+torneo);
 	
 			Dropzone.options.dropzone = {
 				url: 'pages/partidos/peticiones/subir.php?carpeta=Temporal',
-				maxFilesize: 4,
+				maxFilesize: 2,
 				maxFiles: 1,
 				acceptedFiles : ".csv",
 				init: function() {
@@ -43,6 +44,7 @@ $(function() {
 					 this.on("sending", function(file, xhr, formData) {
 					 	var torneo = $('.selector-campeonato-nuevo option:selected').val();
  						 formData.append("torneo",torneo);
+ 						 formData.append("bandera",bandera);
 						});
 					this.on("success", function(file, responseText) {
 						var resp = $.parseJSON(responseText);

@@ -119,6 +119,63 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 		<!-- Modal Dialogs ====================================================================================================================== -->
 		<!-- Default Size -->
+
+			<!-- Modal Dialogs ====================================================================================================================== -->
+	<!-- Default Size -->
+	<div class="modal fade" id="defaultModal" data-partido="" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="defaultModalLabel">Agregar resultado</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="body">
+						<form>
+							<h4 class="card-inside-title">Partido</h4>
+							<div class="row clearfix">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<div class="form-line">
+											<input type="text" id="informacion-partido" class="form-control" disabled="true">
+										</div>
+									</div>
+								</div>
+							</div>
+							<h4 class="card-inside-title " id="equipo1"></h4>
+							<div class="row clearfix">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+									<div class="form-group">
+										<div class="form-line">
+											<input type="number" id="resultado1" class="form-control"  placeholder="Goles">
+										</div>
+									</div>
+								</div>
+							</div>
+							<h4 class="card-inside-title" id="equipo2"></h4>
+							<div class="row clearfix">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+									<div class="form-group">
+										<div class="form-line">
+											<input type="number" id="resultado2" class="form-control"  placeholder="Goles">
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+				<input type="hidden" value="" id="estado-partido" >
+					<button type="button" class="btn btn-info waves-effect guardar-resultado-rapido" data-partido="">Guardar</button>
+					<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
 		<?php
 	}else
 	{

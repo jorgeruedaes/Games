@@ -10,6 +10,7 @@ $(function() {
 			amonestaciones.Cargar();
 			amonestaciones.CargarDatos();
 			amonestaciones.Add_Amonestaciones_Edit();
+			amonestaciones.Tablas();
 		},
 		recargar: function () {
 			amonestaciones.TomarDatos_Resultados();
@@ -20,6 +21,19 @@ $(function() {
 			amonestaciones.Guardar_Gestion();
 
 
+		},
+
+		Tablas : function()
+		{
+			$('#tabla1').dataTable( {
+				"pageLength": 50
+			} );
+			$('#tabla2').dataTable( {
+				"pageLength": 50
+			} );
+			$('#tabla3').dataTable( {
+				"pageLength": 100
+			} );
 		},
 		TomarDatos_Gestion : function ()
 		{

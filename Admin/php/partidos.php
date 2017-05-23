@@ -170,13 +170,13 @@ function Array_Get_Partidos_Estado($estado)
  */
 function Set_resultado_Partido($partido,$resultado1,$resultado2,$estado)
 {
-    $valor  = insertar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='%d' 
+    $valor  = modificar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='%d' 
         WHERE `id_partido`='%d' ",escape($resultado1),escape($resultado2),escape($estado),escape($partido)));
     return $valor;
 }
 function Set_resultado_Partido_Amonestaciones($partido,$estado)
 {
-    $valor  = insertar(sprintf("UPDATE `tb_partidos` SET `estado`='%d' 
+    $valor  = modificar(sprintf("UPDATE `tb_partidos` SET `estado`='%d' 
         WHERE `id_partido`='%d' ",escape($estado),escape($partido)));
     return $valor;
 }

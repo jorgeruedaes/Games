@@ -102,7 +102,7 @@ ContadorVisitas($ipvisitante,'resultado'.'_'.$id);
                                     </a>
                                      </div>
                                         <div class="ec-cell"><?php echo $goles?></div>
-                                        <div class="ec-cell"><?phpe echo $autogoles?></div>
+                                        <div class="ec-cell"><?php echo $autogoles?></div>
                                     </li>
                                     <?php
                                     $numero = $numero + 1;
@@ -150,7 +150,7 @@ ContadorVisitas($ipvisitante,'resultado'.'_'.$id);
                                     </a>
                                      </div>
                                         <div class="ec-cell"><?php echo $goles?></div>
-                                        <div class="ec-cell"><?phpe echo $autogoles?></div>
+                                        <div class="ec-cell"><?php echo $autogoles?></div>
                                     </li>
                                     <?php
                                     $numero = $numero + 1;

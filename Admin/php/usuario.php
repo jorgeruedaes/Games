@@ -199,9 +199,9 @@ function Boolean_Insertar_Usuario($nombre,$apellido,$username,$password,$pregunt
 	if($valid)
 	{
 		$query = insertar(sprintf("INSERT INTO `tb_usuarios`(`id_usuario`, `nombre_usuario`, `apellido_usuario`, `perfil`,
-			`usuario`, `contrasena`, `pregunta_usuario`, `respuesta`,`email_usuario`, `estado`)
+			`usuario`, `contrasena`, `pregunta_usuario`, `respuesta`,`email_usuario`, `estado`,`color`)
 			VALUES (NULL,'%s','%s','2','%s','%s','%d','%s','%s',
-				'procesando')",escape($nombre),escape($apellido),escape($username),escape($password),
+				'procesando','green')",escape($nombre),escape($apellido),escape($username),escape($password),
 		escape($pregunta),escape($respuesta),escape($email)));	
 
 		if($query){
@@ -227,10 +227,10 @@ function Boolean_Existencia_Usuario($username,$email)
 	$query = consultar(sprintf("SELECT email_usuario,usuario FROM tb_usuarios WHERE email_usuario='%s' or usuario='%s'",escape($username),escape($email)));
 	if(Int_consultaVacia($query)>0)
 	{
-		return array(true,'El usuario o el email ya existen, intenta nuevamente.');
+		return array(false,'El usuario o el email ya existen, intenta nuevamente.');
 	}else
 	{
-		return array(false,'');	
+		return array(true,'');	
 	}
 
 }

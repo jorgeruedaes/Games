@@ -24,90 +24,157 @@ $(function() {
 			partidos.TomarDatos_Resultados();
 			partidos.Cargar_Goles();
 			partidos.SeleccionCampeonato_Goles();
+			partidos.EnviarResultadoExpress();
+			partidos.Tablas();
 
 		},
-		ValidarPartidos : function()
+		Tablas : function()
 		{
-			if (/\w/gi.test($('#hora').val()))
-			{
-				if (/\w/gi.test($('#fecha').val()))
+			$('#tabla1').dataTable( {
+				"pageLength": 50
+			} );
+			$('#tabla2').dataTable( {
+				"pageLength": 50
+			} );
+		},
+		EnviarResultadoExpress : function()
+		{
+			$('.guardar-resultado-rapido').off('click').on('click', function () {
 				{
-					if (/\w/gi.test($('.select-lugar option:selected').val())) 
+					swal({title: "¿Esta seguro?",
+						text: "Desea GUARDAR los datos del partido",
+						type: "warning",
+						confirmButtonText: "Aceptar",
+						showCancelButton: true,
+						confirmButtonColor: "rgb(174, 222, 244)",
+
+						closeOnConfirm: false
+					}, function (isConfirm) {
+						if (isConfirm) {
+
+							$.ajax({
+								url: 'pages/partidos/peticiones/peticiones.php',
+								type: 'POST',
+								data: {
+									bandera: "agregarresultado-rapido",
+									partido: $('#defaultModal').data('partido'),
+									resultado1 : $('#resultado1').val(),
+									resultado2 : $('#resultado2').val(),
+									estado : $('#estado-partido').val()
+
+								},
+								success: function (resp) {
+
+									var resp = $.parseJSON(resp);
+									if (resp.salida === true && resp.mensaje === true) {
+										swal({title: "Información",
+											text: "Se ha agregado el resultado de manera exitosa!",
+											type: "success",
+											confirmButtonText: "Aceptar",
+											showCancelButton: false,
+											confirmButtonColor: "rgb(174, 222, 244)",
+											closeOnConfirm: false
+										}, function (isConfirm) {
+											if (isConfirm) {
+												history.back();
+											}
+										});
+
+									} else {
+										swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+									}
+								}
+							});
+						}
+					});
+
+}
+});
+
+
+},
+ValidarPartidos : function()
+{
+	if (/\w/gi.test($('#hora').val()))
+	{
+		if (/\w/gi.test($('#fecha').val()))
+		{
+			if (/\w/gi.test($('.select-lugar option:selected').val())) 
+			{
+				if (/\w/gi.test($('.select-estado option:selected').val())) 
+				{
+					if (/[0-9]{1,9}(\.[0-9]{0,10})?$/.test($('#ronda').val()))
 					{
-						if (/\w/gi.test($('.select-estado option:selected').val())) 
-						{
-							if (/[0-9]{1,9}(\.[0-9]{0,10})?$/.test($('#ronda').val()))
-							{
-								return true;
-							}
-							else
-							{
-								$('#ronda').focus();
-								swal("Error", "Debes escribir una Ronda valída.", "error");
-								return false;
-
-							}
-						}
-						else
-						{
-							$('.select-estado').focus();
-							swal("Error", "Debes seleccionar un Estado valído.", "error");
-							return false;	
-						}
-
+						return true;
 					}
 					else
 					{
-						$('.select-lugar').focus();
-						swal("Error", "Debes seleccionar un Lugar valído.", "error");
+						$('#ronda').focus();
+						swal("Error", "Debes escribir una Ronda valída.", "error");
 						return false;
-					}
 
+					}
 				}
 				else
 				{
-					$('#fecha').focus();
-					swal("Error", "Debes escribir una Fecha valída.", "error");
-					return false;
-
+					$('.select-estado').focus();
+					swal("Error", "Debes seleccionar un Estado valído.", "error");
+					return false;	
 				}
 
-			} 
+			}
 			else
 			{
-				$('#hora').focus();
-				swal("Error", "Debes escribir una Hora valída.", "error");
+				$('.select-lugar').focus();
+				swal("Error", "Debes seleccionar un Lugar valído.", "error");
 				return false;
-
 			}
 
 		}
-		,SeleccionCampeonato_Goles : function()
+		else
 		{
+			$('#fecha').focus();
+			swal("Error", "Debes escribir una Fecha valída.", "error");
+			return false;
+
+		}
+
+	} 
+	else
+	{
+		$('#hora').focus();
+		swal("Error", "Debes escribir una Hora valída.", "error");
+		return false;
+
+	}
+
+}
+,SeleccionCampeonato_Goles : function()
+{
 
 
-			$('.selector-campeonato-goles').on('change', function () {
-				$.ajax({
-					url: 'pages/partidos/peticiones/peticiones.php',
-					type: 'POST',
-					data: {
-						bandera: "getpartidosdobleestado",
-						estado : '1',
-						estado1 : '7',
-						campeonato:  $('.selector-campeonato-goles option:selected').val()
+	$('.selector-campeonato-goles').on('change', function () {
+		$.ajax({
+			url: 'pages/partidos/peticiones/peticiones.php',
+			type: 'POST',
+			data: {
+				bandera: "getpartidosdobleestado",
+				estado : '1',
+				estado1 : '7',
+				campeonato:  $('.selector-campeonato-goles option:selected').val()
 
-					},
-					success: function (resp) {
+			},
+			success: function (resp) {
 
-						var resp = $.parseJSON(resp);
-						if (resp.salida === true && resp.mensaje === true) {
-							t.row($('.tabla-resultados').parents('tr') ).clear().draw();
-							for (var i = 0; i < resp.datos.length; i++) {
-								t.row.add( [ 
-									resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2,
-									'<strong>'+resp.datos[i].Nfecha+'</strong><br>'+resp.datos[i].fecha,	
-									'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-blue waves-effect to-goles" data-partido="'+resp.datos[i].id_partido+'" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
-									] ).draw( false );
+				var resp = $.parseJSON(resp);
+				if (resp.salida === true && resp.mensaje === true) {
+					t.row($('.tabla-resultados').parents('tr') ).clear().draw();
+					for (var i = 0; i < resp.datos.length; i++) {
+						t.row.add( [ 
+							resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2,
+							'<strong>'+resp.datos[i].Nfecha+'</strong><br>'+resp.datos[i].fecha,	
+							'<div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group"><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-estado="'+resp.datos[i].estado+'"  data-equipo1="'+resp.datos[i].nombre_equipo1+'" data-equipo2="'+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'"  type="button" class="btn bg-blue waves-effect modal-goles" data-partido="'+resp.datos[i].id_partido+'" data-toggle="modal" > <i class="material-icons">games</i></button><button data-partido="'+resp.datos[i].nombre_equipo1+' vs '+resp.datos[i].nombre_equipo2+'" data-id="'+resp.datos[i].id_partido+'" data-nfecha="'+resp.datos[i].Nfecha+'" data-fecha="'+resp.datos[i].fecha+'" data-estado="'+resp.datos[i].estado+'" data-lugar="'+resp.datos[i].lugar+'" data-hora="'+resp.datos[i].hora+'"  type="button" class="btn bg-info waves-effect to-goles" data-toggle="modal" > <i class="material-icons">edit</i></button></div>'
+							] ).draw( false );
 								//partidos.EliminarPartido();
 								//partidos.CargarModal_Editar_Partidos_Eesultado();
 							}
@@ -721,6 +788,21 @@ AbrirAgregarGoles: function () {
 		var partido = $(this).data('id');
 		var	url = "pages/partidos/agregargoles.php?id="+partido; 
 		window.open(url, '_self');
+
+	});
+	$('.tabla-resultados').on("click", ".modal-goles", function(){
+		var partido = $(this).data('id');
+		var informacion =$(this).data('partido');
+		var equipo1 =$(this).data('equipo1');
+		var equipo2 =$(this).data('equipo2');
+		var estado =$(this).data('estado');
+		$('#informacion-partido').val(informacion);
+		$('#equipo1').text(equipo1);
+		$('#estado-partido').val(estado);
+		$('#equipo2').text(equipo2);
+		$('#defaultModal').data('partido',partido);
+		$('#defaultModal').modal('show'); 
+
 
 	});
 },

@@ -167,7 +167,8 @@ if(isset($_SESSION['perfil']))
 		$resultado.='"mensaje":false';
 	}
 	
-}else if ($bandera === "get_detalles_partido")
+}
+else if ($bandera === "get_detalles_partido")
 {
 	$partido = $_POST['partido'];
 	$vector = Array_Get_Datos_Partido($partido);
@@ -175,6 +176,19 @@ if(isset($_SESSION['perfil']))
 	{
 		$resultado.='"mensaje":true,';
 		$resultado.='"datos":'.json_encode($vector).'';
+	} 
+	else {
+		$resultado.='"mensaje":false';
+	}
+}
+else if ($bandera === "agregarresultado-rapido")
+{
+	$partido = $_POST['partido'];
+	$resultado1 = $_POST['resultado1'];
+	$resultado2 = $_POST['resultado2'];
+	if (Set_resultado_Partido($partido,$resultado1,$resultado2,'2'))
+	{
+		$resultado.='"mensaje":true';
 	} 
 	else {
 		$resultado.='"mensaje":false';

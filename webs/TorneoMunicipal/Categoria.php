@@ -145,8 +145,8 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
                                 <li>
                                     <div class="ec-cell">#</div>
                                     <div class="ec-cell">Equipo</div>
-                                    <div class="ec-cell">P</div>
-                                    <div class="ec-cell">PG</div>
+                                    <div class="ec-cell">PT</div>
+                                    <div class="ec-cell">PJ</div>
                                     <div class="ec-cell">PE</div>
                                     <div class="ec-cell">PP</div>
                                 </li>

@@ -10,6 +10,7 @@ if(isset($_SESSION['id_usuarios']))
 
 	$carpeta = $_GET['carpeta'];
 	$torneo = $_POST['torneo'];
+	$bandera= $_POST['bandera'];
 
 	$archivo = $_FILES['file'];
 
@@ -23,26 +24,50 @@ if(isset($_SESSION['id_usuarios']))
 	}
 	else
 	{
-
-		if(move_uploaded_file($temp,'../../../../Archivos/'.$carpeta.'/'.$name))
+		if($bandera=="subircalendario")
 		{
-			list($boolean,$resultados) = Cargar_Partidos('../../../../Archivos/'.$carpeta.'/'.$name,$torneo);
-			if($boolean)
+			if(move_uploaded_file($temp,'../../../../Archivos/'.$carpeta.'/'.$name))
 			{
-				$resultado.='"mensaje":true,';
-				$resultado.='"datos":'.json_encode($resultados).'';
+				list($boolean,$resultados) = Cargar_Partidos('../../../../Archivos/'.$carpeta.'/'.$name,$torneo);
+				if($boolean)
+				{
+					$resultado.='"mensaje":true,';
+					$resultado.='"datos":'.json_encode($resultados).'';
+				}
+				else
+				{
+					$resultado.='"mensaje":false,';
+					$resultado.='"datos":'.json_encode($resultados).'';
+				}
 			}
 			else
 			{
-				$resultado.='"mensaje":false,';
-				$resultado.='"datos":'.json_encode($resultados).'';
+				$resultado.='"mensaje":false';	
 			}
 		}
-		else
+		else if($bandera=="subirresultados")
 		{
-			$resultado.='"mensaje":false';	
-		}
+				if(move_uploaded_file($temp,'../../../../Archivos/'.$carpeta.'/'.$name))
+			{
+				list($boolean,$resultados) = Cargar_Resultados('../../../../Archivos/'.$carpeta.'/'.$name,$torneo);
+				if($boolean)
+				{
+					$resultado.='"mensaje":true,';
+					$resultado.='"datos":'.json_encode($resultados).'';
+				}
+				else
+				{
+					$resultado.='"mensaje":false,';
+					$resultado.='"datos":'.json_encode($resultados).'';
 
+				}
+			}
+			else
+			{
+				$resultado.='"mensaje":false';	
+			}
+
+		}
 		
 
 	}

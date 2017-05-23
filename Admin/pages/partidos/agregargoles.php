@@ -59,7 +59,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 							</h2>
 						</div>
 						<div class="body">
-							<table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+							<table id="tabla2" class="table table-bordered table-striped table-hover">
 								<thead>
 									<tr>
 										<th>Jugador</th>
@@ -127,7 +127,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['es
 							</h2>
 						</div>
 						<div class="body">
-							<table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+							<table id="tabla1" class="table table-bordered table-striped table-hover ">
 								<thead>
 									<tr>
 										<th>Jugador</th>
