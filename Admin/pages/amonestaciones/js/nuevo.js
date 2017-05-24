@@ -189,6 +189,7 @@ Add_Amonestaciones_Edit: function () {
 						fecha: $('.guardar-amonestaciones-editar').data('fecha'),
 						estado : $('.guardar-amonestaciones-editar').data('estado'),
 						tipo : "editar",
+						valor : jQuery.isEmptyObject(amonestaciones.TomarDatos_Resultados()),
 						json  : amonestaciones.TomarDatos_Resultados(),
 					},
 					success: function (resp) {
@@ -247,7 +248,7 @@ CargarDatos : function ()
 				};
 
 			} else {
-				swal("Importante", "Selecciona un campeonato.", "info");
+				swal("Importante", "No hay jugadores para estos equipos,Para agregar las amonestaciones al menos debe haber un jugador en uno de los dos equipos.", "info");
 			}
 		}
 	});

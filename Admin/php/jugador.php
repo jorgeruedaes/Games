@@ -5,8 +5,8 @@
  */
 function Array_Get_Jugadores_Equipo($identificador)
 {
-    $jugadores = consultar("SELECT *FROM tb_jugadores WHERE 
-        equipo=$identificador  ORDER BY fecha_nacimiento desc");
+    $jugadores = consultar("SELECT * FROM tb_jugadores WHERE 
+        equipo=$identificador and estado_jugador='1'  ORDER BY fecha_nacimiento desc");
     $vector    = array();
     while ($valor = mysqli_fetch_array($jugadores)) {
         $id_jugador       = $valor['id_jugadores'];
@@ -120,9 +120,9 @@ function Array_Get_Jugadores()
  */
 function String_Get_NombreCompleto($identificador)
 {
-    $valor = mysqli_fetch_array(consultar("SELECT nombre1,apellido1 
+    $valor = mysqli_fetch_array(consultar("SELECT nombre1,apellido1,apellido2
       FROM tb_jugadores WHERE id_jugadores=$identificador"));
-    $valor = $valor['nombre1'] . " " . $valor['apellido1'];
+    $valor = $valor['nombre1'] . " " . $valor['apellido1']." " . $valor['apellido2'];
     ;
     
     return $valor;

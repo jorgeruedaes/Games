@@ -27,7 +27,7 @@ function Read_Folders_Folder($directorio)
  */
 function new_Folder($carpeta)
 {
-	$carpeta = $_SERVER['DOCUMENT_ROOT'].'/Games'.'/Archivos/'.$carpeta;
+	$carpeta = $_SERVER['DOCUMENT_ROOT'].'/Archivos/'.$carpeta;
 	if (!file_exists($carpeta)) {
 		return mkdir($carpeta, 0777, true);
 	}
@@ -52,7 +52,7 @@ function Read_Files_Folder($directorio,$carpeta)
 			$ex = explode(".",$archivo);
 			$extension = $ex[1];
 			$nombre = $ex[0];
-			$archivo = $_SERVER['DOCUMENT_ROOT'].'/Games'.'/Archivos/'.$carpeta.'/'.$archivo;
+			$archivo = $_SERVER['DOCUMENT_ROOT'].'/Archivos/'.$carpeta.'/'.$archivo;
 
 			$informacion= array(
 				'FileName' => "$nombre",
@@ -533,7 +533,7 @@ function Validate_A_Partidos($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero
 }
 
 
-function Validate_A_Partidos_Resultados($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fecha,$Hora,$torneo,$marcador1,$marcador2)
+function Validate_A_Partidos_Resultados($NombreEquipo1,$NombreEquipo2,$torneo,$marcador1,$marcador2,$Numero_Fecha)
 {
 	$resultado="";
 	$valor = true;
@@ -586,33 +586,7 @@ function Validate_A_Partidos_Resultados($NombreEquipo1,$Fecha,$NombreEquipo2,$Lu
 		$resultado.=ValidarEquipos($NombreEquipo2,$torneo)[1].'<br>';
 		$valor=false;
 	}
-	if(Validar_Lugar($Lugar)[0])
-	{
 
-	}
-	else
-	{
-		$resultado.=Validar_Lugar($Lugar)[1].'<br>';
-		$valor=false;
-	}
-	if(Validar_Fecha($Fecha)[0])
-	{
-		
-	}
-	else
-	{
-		$resultado.=Validar_Fecha($Fecha)[1].'<br>';
-		$valor=false;
-	}
-	if(Validar_Hora($Hora)[0])
-	{
-		
-	}
-	else
-	{
-		$resultado.=Validar_Hora($Hora)[1].'<br>';
-		$valor=false;
-	}
 
 	if(Validar_Existencia(Codigo_Equipo($NombreEquipo1,$torneo)[1],Codigo_Equipo($NombreEquipo2,$torneo)[1],$Numero_Fecha))
 	{
@@ -651,19 +625,17 @@ function Validate_All_Partidos_Resultados($FileName,$torneo)
 	if (($gestor = fopen($FileName, "r")) !== FALSE) {
 		while (($datos = fgetcsv($gestor,100, ",")) !== FALSE) {
 
-			list($valorbolean,$resultado2) = Validar_Numero_DatosFila($datos,'9');
+			list($valorbolean,$resultado2) = Validar_Numero_DatosFila($datos,'5');
 			if($valorbolean)
 			{
-				$Lugar= $datos[0];
-				$Fecha= $datos[1];
-				$Hora= $datos[2];
-				$NombreEquipo1= $datos[3];
-				$marcador1= $datos[4];
-				$NombreEquipo2= $datos[7];
-				$marcador2= $datos[6];
-				$Numero_Fecha= $datos[8];
 
-				list($valor,$resultado1) = Validate_A_Partidos_Resultados($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fecha,$Hora,$torneo,$marcador1,$marcador2);
+				$NombreEquipo1= $datos[0];
+				$marcador1= $datos[1];
+				$NombreEquipo2= $datos[2];
+				$marcador2= $datos[3];
+				$Numero_Fecha =$datos[4];
+
+list($valor,$resultado1) = Validate_A_Partidos_Resultados($NombreEquipo1,$NombreEquipo2,$torneo,$marcador1,$marcador2,$Numero_Fecha);
 				if($valor)
 				{
 
@@ -694,23 +666,20 @@ function Set_Partidos($FileName,$torneo)
 	if (($gestor = fopen($FileName, "r")) !== FALSE) {
 		while (($datos = fgetcsv($gestor,100, ",")) !== FALSE) {
 
-			$Lugar= $datos[0];
-			$Fecha= $datos[1];
-			$Hora= $datos[2];
-			$NombreEquipo1= $datos[3];
-			$marcador1= $datos[4];
-			$NombreEquipo2= $datos[7];
-			$marcador2= $datos[6];
-			$Numero_Fecha= $datos[8];
+			$NombreEquipo1= $datos[0];
+				$marcador1= $datos[1];
+				$NombreEquipo2= $datos[2];
+				$marcador2= $datos[3];
+				$Numero_Fecha =$datos[4];
 
-			if(Set_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fecha,$Hora,$torneo,$marcador1,$marcador2))
+			if(Set_Partido($NombreEquipo1,$NombreEquipo2,$marcador1,$marcador2,$Numero_Fecha,$torneo))
 			{
 				$mensaje = 'true';
 			}
 			else
 			{
 				$bandera=false;
-				$mensaje = $NombreEquipo1.$Fecha.$NombreEquipo2.$Lugar.$Numero_Fecha.$Hora.$torneo;
+				$mensaje = $NombreEquipo1;
 			}
 		}
 		fclose($gestor);
@@ -718,33 +687,26 @@ function Set_Partidos($FileName,$torneo)
 	return array($bandera,$mensaje);
 }
 
-function Set_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fecha,$Hora,$torneo,$marcador1,$marcador2)
+function Set_Partido($NombreEquipo1,$NombreEquipo2,$marcador1,$marcador2,$Numero_Fecha,$torneo)
 {
-$equipo1 = Codigo_Equipo($NombreEquipo1,$torneo)[1];
-$equipo2 = Codigo_Equipo($NombreEquipo2,$torneo)[1];
-$lugar = Codigo_Lugar($Lugar)[1];
-$Fecha = date('Y-m-d', strtotime($Fecha));
-$Hora = date('H:i', strtotime($Hora));
-$partido = Int_Get_Id_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fecha,$Hora,$torneo);
+
+$partido = Int_Get_Id_Partido($NombreEquipo1,$NombreEquipo2,$Numero_Fecha,$torneo);
 
 
-$valor  = modificar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='2' 
+$valor  = modificar(sprintf("UPDATE `tb_partidos` SET `resultado1`='%d',`resultado2`='%d',`estado`='2'
 	WHERE `id_partido`='%d' ",escape($marcador1),escape($marcador2),escape($partido)));
 return $valor;
 
 }
 
-function Int_Get_Id_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fecha,$Hora,$torneo)
+function Int_Get_Id_Partido($NombreEquipo1,$NombreEquipo2,$Numero_Fecha,$torneo)
 {
 	$equipo1 = Codigo_Equipo($NombreEquipo1,$torneo)[1];
 	$equipo2 = Codigo_Equipo($NombreEquipo2,$torneo)[1];
-	$lugar = Codigo_Lugar($Lugar)[1];
-	$Fecha = date('Y-m-d', strtotime($Fecha));
-	$Hora = date('H:i', strtotime($Hora));
 
 
 	$query = "SELECT id_partido as id FROM `tb_partidos` WHERE equipo1='$equipo1'
-	and equipo2='$equipo2' and numero_fecha='$Numero_Fecha' and hora='$Hora' and lugar='$lugar' and estado='1' ";
+	and equipo2='$equipo2' and numero_fecha='$Numero_Fecha'  and estado='1' ";
 	$valor =  mysqli_fetch_array(consultar($query));
 	return $valor['id'];
 }

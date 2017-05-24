@@ -16,11 +16,104 @@ $(function() {
 			jugadores.cargarModalNuevo();
 			jugadores.SeleccionEquipo();
 
+		},ValidarEditar : function()
+		{
+			if (/\w/gi.test($('.nombre1').val())) 
+				{
+						if (/\w/gi.test($('.apellido1').val())) 
+				{
+					if (/\w/gi.test($('.select-equipos option:selected').val())) 
+					{
+						if (/\w/gi.test($('.select-estado option:selected').val())) 
+						{
+							return true;
+						}
+						else
+						{
+					$('.select-estado').focus();
+					swal("Error", "Debes seleccionar un estado.", "error");
+					return false;
+						}
+
+					}
+					else
+					{
+					$('.select-equipos').focus();
+					swal("Error", "Debes seleccionar un equipo.", "error");
+					return false;
+
+					}
+
+				}
+				else
+				{
+					$('.apellido1').focus();
+					swal("Error", "Debes escribir al menos 1 apellido.", "error");
+					return false;
+				}
+
+
+				}
+				else
+				{
+					$('.nombre1').focus();
+					swal("Error", "Debes escribir al menos 1 nombre.", "error");
+					return false;
+
+				}
+
+
+		},
+		ValidarNuevo : function()
+		{
+			if (/\w/gi.test($('.n-nombre1').val())) 
+				{
+						if (/\w/gi.test($('.n-apellido1').val())) 
+				{
+					if (/\w/gi.test($('.select-n-equipos option:selected').val())) 
+					{
+						if (/\w/gi.test($('.select-n-estado option:selected').val())) 
+						{
+							return true;
+						}
+						else
+						{
+					$('.select-n-estado').focus();
+					swal("Error", "Debes seleccionar un estado.", "error");
+					return false;
+						}
+
+					}
+					else
+					{
+					$('.select-n-equipos').focus();
+					swal("Error", "Debes seleccionar un equipo.", "error");
+					return false;
+
+					}
+
+				}
+				else
+				{
+					$('.n-apellido1').focus();
+					swal("Error", "Debes escribir al menos 1 apellido.", "error");
+					return false;
+				}
+
+
+				}
+				else
+				{
+					$('.n-nombre1').focus();
+					swal("Error", "Debes escribir al menos 1 nombre.", "error");
+					return false;
+
+				}
+
+
 		},
 		SeleccionEquipo : function()
 		{
-
-
 			$('.selector-campeonato').on('change', function () {
 				$.ajax({
 					url: 'pages/jugadores/peticiones/peticiones.php',
@@ -154,6 +247,8 @@ $(function() {
 		Nuevo : function ()
 		{
 			$('.guardar-nuevo').off('click').on('click', function () {	
+				if(jugadores.ValidarNuevo())
+				{
 				$.ajax({
 					url: 'pages/jugadores/peticiones/peticiones.php',
 					type: 'POST',
@@ -192,11 +287,14 @@ $(function() {
 					}
 				});
 
+}
 			});
 		},
 
 		enviarDatos: function () {
 			$('.guardar').off('click').on('click', function () {
+				if(jugadores.ValidarEditar())
+				{
 				$.ajax({
 					url: 'pages/jugadores/peticiones/peticiones.php',
 					type: 'POST',
@@ -233,7 +331,9 @@ $(function() {
 						}
 					}
 				});
+					}
 			});
+	
 
 		},
 		cargarModal: function(id_jugador,nombre1,nombre2,apellido1,apellido2,estado,fechanacimiento)

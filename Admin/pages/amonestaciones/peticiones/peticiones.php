@@ -87,11 +87,18 @@ if(isset($_SESSION['perfil']))
 	}
 	else if ($bandera === "agregardetalles-amonestaciones")
 	{
-		$json = json_encode($_POST['json']); 
+			$valor = $_POST['valor'];
+		if($valor){
+
+		}else{
+			$json = json_encode($_POST['json']); 
+		}	
+		
 		$partido = $_POST['partido'];
 		$fecha = $_POST['fecha'];
 		$estado = $_POST['estado'];
 		$tipo = $_POST['tipo'];
+	
 
 		if ($tipo == "editar") {
 			Delete_detalles_amonestaciones_partidos($partido);
@@ -108,7 +115,22 @@ if(isset($_SESSION['perfil']))
 			$estadop ='2';
 
 		}
-		if (Set_resultado_Partido_Amonestaciones($partido,$estadop) 
+		if($valor)
+		{
+			if(Set_resultado_Partido_Amonestaciones($partido,$estadop))
+			{
+
+	       $resultado.='"mensaje":true';
+			}
+			else
+			{
+				$resultado.='"mensaje":false';
+	
+			}
+		}
+		else
+		{
+			if (Set_resultado_Partido_Amonestaciones($partido,$estadop) 
 			and Add_detalles_partido_Amonestados($json,$partido) 
 			and  Add_detalles_amonestaciones_partido($partido,$json,$fecha)) 
 		{
@@ -117,8 +139,11 @@ if(isset($_SESSION['perfil']))
 		else
 		{
 			$resultado.='"mensaje":false';
-			echo $tipo;
+		
 		}
+
+		}
+	
 
 	}
 	else if($bandera == "get_datosamonestaciones")
