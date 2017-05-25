@@ -81,6 +81,16 @@ if(isset($_SESSION['perfil']))
 			$resultado.='"mensaje":false';
 		}
 	}
+	else if($bandera === "eliminar") {
+		$jugador = $_POST['jugador'];
+		list($boolean,$mensaje) = Boolean_Validar_Eliminar($jugador);
+		if ($boolean) {
+			$resultado.='"mensaje":true';
+		} else {
+			$resultado.='"mensaje":false,';
+				$resultado.='"datos":'.json_encode($mensaje).'';
+		}
+	}
 }
 else
 {

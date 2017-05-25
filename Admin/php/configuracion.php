@@ -17,13 +17,20 @@ function String_Get_Valores($solicitud){
 	}else if ($solicitud == "favicon") {
 		return "logo.png";
 	}else if ($solicitud == "server") {
-		return "eliseo.colombiahosting.com.co";
+	//	return "eliseo.colombiahosting.com.co";
+	return "localhost";
 	}else if ($solicitud == "username") {
-		return "ligasa_admind";
+	//	return "ligasa_admind";
+	//	return "ligasa_adminp";
+       return  "root";
 	}else if ($solicitud == "password") {
-		return "Fu!oDrxNOm3&";
+	//return "Fu!oDrxNOm3&";
+	//return "-lh7vkm-0.mE";
+		return "";
 	}else if ($solicitud == "basededatos") {
-		return "ligasa_desarrollo";
+		return "liga";
+	//	return "ligasa_desarrollo";
+	//	return "ligasa_produccion";
 	}else if ($solicitud == "color") { // color de todo el form
 		return "#ECF0F1";
 	}else if ($solicitud == "letracolor") {// color de el encabezado de las tablas

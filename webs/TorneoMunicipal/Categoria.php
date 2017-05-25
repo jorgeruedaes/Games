@@ -183,41 +183,65 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
                    ?>
                </div>
            </div>
-           <div class="col-md-6">
-            <div class="ec-fancy-title">
-                <h2>Goleadores</h2>
-            </div>
-            <div class="ec-table-point scrollbar-height-fixed scrollbar">
-              <?php
-              $vectores = ObtenerGoleadoresTorneo($id);
-              echo (empty($vectores)) ? '<div class="center"><cite>No hay goleadores.</cite></div>' :'<ul class="ec-table-head">
-              <li>
-                <div class="ec-cell">Jugador</div>
-                <div class="ec-cell">Equipo</div>
-                <div class="ec-cell">Goles</div>
-            </li>
-        </ul>';
-        ?>
-        <ul class="ec-table-list">
 
-            <?php
-            foreach ($vectores  as $values)
-            {
 
-                ?>     
-                <li>
+
+     <div class="col-md-6 ">
+                    <div class="ec-fancy-title">
+                        <h2>Goleadores</h2>
+                    </div>
+                    <div class="ec-table-point scrollbar-height-fixed scrollbar">
+                        <?php
+
+                        $grupos = Get_Lista_Grupos($id);
+
+                        foreach ($grupos as $valuegrupo)
+                        {
+
+                            ?>
+                            <div class="ec-table-point">
+                                <?php if(sizeof($grupos) > 1 ) { ?>
+                                <div class="border-bottom-light">
+                                    <h3 class="header-torneo"><?php echo 'Grupo ' . $valuegrupo['grupo']?></h3>
+                                </div>
+                                <?php } ?>
+                                <?php
+                                $vectores = ObtenerGoleadoresTorneo($id,$valuegrupo['grupo']);
+                                echo (empty($vectores)) ? '<div class="center"><cite>No se han cargado los Goles.</cite></div>' :'<ul class="ec-table-head">
+                                <li>
+                                     <div class="ec-cell">Jugador</div>
+                                    <div class="ec-cell">Equipo</div>
+                                    <div class="ec-cell">Goles</div>
+                                </li>
+                            </ul>';
+
+                            ?>
+                            <ul class="ec-table-list">
+
+                                <?php
+                                foreach ($vectores  as $values)
+                                {
+                                    ?>
+                                    <li>
                     <div class="ec-cell"><?php echo ObtenerNombreCompletoJugador($values['jugador'])  ?></div>
                     <div class="ec-cell"><?php echo NombreEquipo($values['idequipo'])  ?></div>
                     <div class="ec-cell"><?php echo $values['goles']  ?></div>
+                                   </li>
+                                   <?php 
+                               }
 
-                </li>
+                               ?>
+                           </ul>
 
-                <?php } ?>
-            </ul>
+                       </div>
 
-        </div>
+                       <?php
 
-    </div>
+                   }
+
+                   ?>
+               </div>
+           </div>
 
 
 </div>

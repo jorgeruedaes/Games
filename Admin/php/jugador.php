@@ -172,3 +172,28 @@ function boolean_new_jugador($documento,$equipo,$nombre1,$nombre2,$apellido1,$ap
     ,escape($documento),escape($nombre1),escape($nombre2),escape($apellido1),escape($apellido2),escape($fecha),escape($equipo),escape($estado)));
     return $partido;    
 }
+/**
+ * [Boolean_Validar_Eliminar description]
+ * @param [type] $jugador [description]
+ */
+function Boolean_Validar_Eliminar($jugador)
+{
+    $boolean = false;
+    $mensaje = '';
+    $valor = consultar("SELECT * FROM `tr_jugadoresxpartido` WHERE jugador=$jugador");
+     $valor2 = consultar("SELECT * FROM `tr_amonestacionesxjugador` WHERE jugador=$jugador");
+    if(Int_consultaVacia($valor)>0 or Int_consultaVacia($valor2)>0)
+    {
+
+        $boolean = false;
+        $mensaje ='El jugador tiene GOLES o AMONESTACIONES registrados a su nombre; No es posible eliminarlo, Primero quita sus GOLES y AMONESTACIONES.';
+
+    }
+    else
+    {
+       $boolean = true;  
+    }
+    
+    return array($boolean,$mensaje);
+
+}

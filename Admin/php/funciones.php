@@ -543,12 +543,12 @@ function ObtenerTablaPosiciones($limite,$grupo,$torneo)
     return $datos;
 }
 
-function ObtenerGoleadoresTorneo($torneo)
+function ObtenerGoleadoresTorneo($torneo,$grupo)
 {
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT jugador,SUM(goles) AS goles1, id_equipo FROM tr_jugadoresxpartido,tb_jugadores,tb_equipos 
         WHERE goles>=1 AND jugador=id_jugadores AND equipo=id_equipo and partido IN (SELECT id_partido FROM 
-        tb_partidos WHERE Estado=2) and tb_equipos.torneo='$torneo' GROUP BY jugador ORDER BY `goles1` DESC, 
+        tb_partidos WHERE Estado=2) and tb_equipos.torneo='$torneo' and tb_equipos.grupo='$grupo' GROUP BY jugador ORDER BY `goles1` DESC, 
         nombre_equipo asc");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
