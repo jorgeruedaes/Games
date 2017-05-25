@@ -59,6 +59,15 @@ function NombreTorneo($identificador)
     
     return $valor;
 }
+function TipoTorneo($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT tipo
+      FROM tb_torneo WHERE id_torneo=$identificador"));
+    $valor = $valor['tipo'];
+    
+    return $valor;
+}
 function ReglamentoTorneo($identificador)
 {
     global $conexion;
