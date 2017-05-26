@@ -10,11 +10,90 @@ $(function() {
 			campeonatos.addPerfil();
 			campeonatos.Nuevo();
 			campeonatos.ModalImagen();
+		},
+		ValidarEditar : function()
+		{
+			if (/\w/gi.test($('.nombre').val())) 
+			{
+				if (/\w/gi.test($('.url').val())) 
+				{
+					if (/\w/gi.test($('.select-estado option:selected').val())) 
+					{
+						return true;
+					}
+					else
+					{
+						$('.select-estado').focus();
+						swal("Error", "Debes seleccionar un estado.", "error");
+						return false;
+
+					}
+
+				}
+				else
+				{
+					$('.url').focus();
+					swal("Error", "El Club debe tener un logotipo.", "error");
+					return false;
+				}
+
+
+			}
+			else
+			{
+				$('.nombre').focus();
+				swal("Error", "El Club debe tener un nombre.", "error");
+				return false;
+
+			}
+
+
+		},
+		ValidarNuevo : function()
+		{
+			if (/\w/gi.test($('.n-nombre').val())) 
+			{
+				if (/\w/gi.test($('.n-url').val())) 
+				{
+					if (/\w/gi.test($('.select-n-estado option:selected').val())) 
+					{
+						return true;
+					}
+					else
+					{
+						$('.select-n-estado').focus();
+						swal("Error", "Debes seleccionar un estado.", "error");
+						return false;
+
+					}
+
+				}
+				else
+				{
+					$('.n-url').focus();
+					swal("Error", "El Club debe tener un logotipo.", "error");
+					return false;
+				}
+
+
+			}
+			else
+			{
+				$('.n-nombre').focus();
+				swal("Error", "El Club debe tener un nombre.", "error");
+				return false;
+
+			}
+
+
 		}
 		,
 		Nuevo : function ()
 		{
 			$('.guardar-nuevo').off('click').on('click', function () {	
+
+				if(campeonatos.ValidarNuevo())
+				{
 				$.ajax({
 					url: 'pages/clubs/peticiones/peticiones.php',
 					type: 'POST',
@@ -53,12 +132,15 @@ $(function() {
 						}
 					}
 				});
+			}
 
 });
 },
 
 enviarDatos: function () {
 	$('.guardar').off('click').on('click', function () {
+if(campeonatos.ValidarEditar())
+{
 		$.ajax({
 			url: 'pages/clubs/peticiones/peticiones.php',
 			type: 'POST',
@@ -98,6 +180,8 @@ enviarDatos: function () {
 				}
 			}
 		});
+	}
+
 });
 
 },

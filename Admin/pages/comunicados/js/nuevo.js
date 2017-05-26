@@ -10,6 +10,105 @@ $(function() {
 			comunicados.Nuevo();
 			comunicados.add();
 			comunicados.ModalImagen();
+		},	ValidarEditar : function()
+		{
+			if (/\w/gi.test($('.titulo').val()))
+			{
+					if (/\w/gi.test($('.select-tipo option:selected').val()))
+					{
+						if (/\w/gi.test($('.url').val()))
+						{
+							if (/\w/gi.test($('.fecha').val()))
+							{
+								return true;
+
+							}
+							else
+							{
+								$('.fecha').focus();
+								swal("Error", "El comunicado debe tener una fecha de publicación.", "error");
+								return false;
+
+							}
+
+						}
+						else
+						{
+							$('.url').focus();
+							swal("Error", "El comunicado debe tener un archivo asociado.", "error");
+							return false;
+
+						}
+
+					}
+					else
+					{
+						$('.select-tipo').focus();
+						swal("Error", "El comunicado debe tener un tipo.", "error");
+						return false;
+
+
+					}
+
+				}
+			else
+			{
+				$('.titulo').focus();
+				swal("Error", "Debes escribir un titulo.", "error");
+				return false;
+
+			}
+
+		},
+			Validaruevo : function()
+		{
+			if (/\w/gi.test($('.n-titulo').val()))
+			{
+					if (/\w/gi.test($('.select-n-tipo option:selected').val()))
+					{
+						if (/\w/gi.test($('.n-url').val()))
+						{
+							if (/\w/gi.test($('.n-fecha').val()))
+							{
+								return true;
+
+							}
+							else
+							{
+								$('.fecha').focus();
+								swal("Error", "El comunicado debe tener una fecha de publicación.", "error");
+								return false;
+
+							}
+
+						}
+						else
+						{
+							$('.url').focus();
+							swal("Error", "El comunicado debe tener un archivo asociado.", "error");
+							return false;
+
+						}
+
+					}
+					else
+					{
+						$('.select-n-tipo').focus();
+						swal("Error", "El comunicado debe tener un tipo.", "error");
+						return false;
+
+
+					}
+
+				}
+			else
+			{
+				$('.titulo').focus();
+				swal("Error", "Debes escribir un titulo.", "error");
+				return false;
+
+			}
+
 		},
 		Eliminar : function (valor)
 		{
@@ -69,6 +168,8 @@ add : function()
 Nuevo : function ()
 {
 	$('.guardar-nuevo').off('click').on('click', function () {	
+		if(comunicados.Validaruevo())
+		{
 		$.ajax({
 			url: 'pages/comunicados/peticiones/peticiones.php',
 			type: 'POST',
@@ -103,12 +204,15 @@ Nuevo : function ()
 				}
 			}
 		});
+	}
 
 	});
 },
 
 enviarDatos: function () {
 	$('.guardar').off('click').on('click', function () {
+		if(comunicados.ValidarEditar())
+		{
 		$.ajax({
 			url: 'pages/comunicados/peticiones/peticiones.php',
 			type: 'POST',
@@ -144,7 +248,9 @@ enviarDatos: function () {
 				}
 			}
 		});
+	}
 	});
+
 
 },
 cargarModal: function(titulo,fecha,id,tipo,comunicado)

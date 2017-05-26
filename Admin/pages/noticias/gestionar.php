@@ -188,7 +188,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="defaultModalLabel">Edición de canchas</h4>
+					<h4 class="modal-title" id="defaultModalLabel">Edición de noticias</h4>
 				</div>
 				<div class="modal-body">
 

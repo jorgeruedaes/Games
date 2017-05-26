@@ -12,6 +12,126 @@ $(function() {
 			noticias.add();
 			noticias.ModalImagen();
 		},
+		ValidarEditar : function()
+		{
+			if (/\w/gi.test($('.titulo').val()))
+			{
+				if(/\w/gi.test(CKEDITOR.instances['ckeditor1'].getData()))
+				{
+					if (/\w/gi.test($('.emcabezado').val()))
+					{
+						if (/\w/gi.test($('.url').val()))
+						{
+							if (/\w/gi.test($('.fecha').val()))
+							{
+								return true;
+
+							}
+							else
+							{
+								$('.n-fecha').focus();
+								swal("Error", "La noticia debe tener una fecha de publicación.", "error");
+								return false;
+
+							}
+
+						}
+						else
+						{
+							$('.n-url').focus();
+							swal("Error", "La noticia debe tener una imagen principal.", "error");
+							return false;
+
+						}
+
+					}
+					else
+					{
+						$('.n-emcabezado').focus();
+						swal("Error", "La noticia debe tener un emcabezado.", "error");
+						return false;
+
+
+					}
+
+				}
+				else
+				{
+					swal("Error", "La noticia debe tener un contenido.", "error");
+					return false;
+
+				}
+
+			}
+			else
+			{
+				$('.n-titulo').focus();
+				swal("Error", "Debes escribir un titulo.", "error");
+				return false;
+
+			}
+
+		},
+		Validaruevo : function()
+		{
+			if (/\w/gi.test($('.n-titulo').val()))
+			{
+				if(/\w/gi.test(CKEDITOR.instances['ckeditor'].getData()))
+				{
+					if (/\w/gi.test($('.n-emcabezado').val()))
+					{
+						if (/\w/gi.test($('.n-url').val()))
+						{
+							if (/\w/gi.test($('.n-fecha').val()))
+							{
+								return true;
+
+							}
+							else
+							{
+								$('.n-fecha').focus();
+								swal("Error", "La noticia debe tener una fecha de publicacion.", "error");
+								return false;
+
+							}
+
+						}
+						else
+						{
+							$('.n-url').focus();
+							swal("Error", "La noticia debe tener una imagen principal.", "error");
+							return false;
+
+						}
+
+					}
+					else
+					{
+						$('.n-emcabezado').focus();
+						swal("Error", "La noticia debe tener un emcabezado.", "error");
+						return false;
+
+
+					}
+
+				}
+				else
+				{
+					swal("Error", "La noticia debe tener un contenido.", "error");
+					return false;
+
+				}
+
+			}
+			else
+			{
+				$('.n-titulo').focus();
+				swal("Error", "Debes escribir un titulo.", "error");
+				return false;
+
+			}
+
+		}, 
 		Eliminar : function (valor)
 		{
 			swal({title: "¿ Esta seguro ?",
@@ -57,9 +177,9 @@ $(function() {
 			});
 
 
-},
-Inicial: function()
-{
+		},
+		Inicial: function()
+		{
 
 	//CKEditor
 	CKEDITOR.replace('ckeditor');
@@ -80,48 +200,56 @@ add : function()
 Nuevo : function ()
 {
 	$('.guardar-nuevo').off('click').on('click', function () {	
-		$.ajax({
-			url: 'pages/noticias/peticiones/peticiones.php',
-			type: 'POST',
-			data: {
-				bandera: "nuevo",
-				titulo:	$('.n-titulo').val(),
-				emcabezado:	$('.n-emcabezado').val(),
-				fecha:	$('.n-fecha').val(),
-				url:	$('.n-url').val(),
-				texto : CKEDITOR.instances['ckeditor'].getData(),
-				torneo :$('.select-n-torneo option:selected').val()
+
+		if(noticias.Validaruevo())
+		{
+			$.ajax({
+				url: 'pages/noticias/peticiones/peticiones.php',
+				type: 'POST',
+				data: {
+					bandera: "nuevo",
+					titulo:	$('.n-titulo').val(),
+					emcabezado:	$('.n-emcabezado').val(),
+					fecha:	$('.n-fecha').val(),
+					url:	$('.n-url').val(),
+					texto : CKEDITOR.instances['ckeditor'].getData(),
+					torneo :$('.select-n-torneo option:selected').val()
 
 
 
-			},
-			success: function (resp) {
+				},
+				success: function (resp) {
 
-				var resp = $.parseJSON(resp);
-				if (resp.salida === true && resp.mensaje === true) {
-					swal({title: "Información",
-						text: "La noticia se ha creado exitosamente!.",
-						type: "success",
-						showCancelButton: false,
-						confirmButtonColor: "rgb(174, 222, 244)",
-						confirmButtonText: "Aceptar",
-						closeOnConfirm: false
-					}, function (isConfirm) {
-						if (isConfirm) {
-							window.location.reload();
-						}
-					});
-				} else {
-					swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+					var resp = $.parseJSON(resp);
+					if (resp.salida === true && resp.mensaje === true) {
+						swal({title: "Información",
+							text: "La noticia se ha creado exitosamente!.",
+							type: "success",
+							showCancelButton: false,
+							confirmButtonColor: "rgb(174, 222, 244)",
+							confirmButtonText: "Aceptar",
+							closeOnConfirm: false
+						}, function (isConfirm) {
+							if (isConfirm) {
+								window.location.reload();
+							}
+						});
+					} else {
+						swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+					}
 				}
-			}
-		});
+			});
+
+		}
 
 	});
 },
 
 enviarDatos: function () {
 	$('.guardar').off('click').on('click', function () {
+
+		if(noticias.ValidarEditar())
+		{
 		$.ajax({
 			url: 'pages/noticias/peticiones/peticiones.php',
 			type: 'POST',
@@ -159,7 +287,9 @@ enviarDatos: function () {
 				}
 			}
 		});
+		}
 	});
+
 
 },
 cargarModal: function(titulo,emcabezado,fecha,id,texto,torneo,url)

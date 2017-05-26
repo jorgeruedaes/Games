@@ -9,48 +9,69 @@ $(function() {
 			galeria.enviarDatos();
 			galeria.addPerfil();
 			galeria.Nuevo();
-			galeria.reglamento();
 			galeria.ModalImagen();
 		},
-
-		reglamento :  function ()
+		ValidarEditar: function()
 		{
-			$('.guardar-reglamentos').off('click').on('click', function () {	
-				var formData = new FormData($("#frmFileUpload")[0]);
-				$.ajax({
-					url: 'pages/galeria/peticiones/peticiones.php',
-					type: 'POST',
-					data: formData,
-					contentType: false,
-					processData: false,
-					success: function (resp) {
 
-						var resp = $.parseJSON(resp);
-						if (resp.salida === true && resp.mensaje === true) {
-							swal({title: "",
-								text: "El reglamento se modificos de manera Exitosa!",
-								type: "success",
-								showCancelButton: false,
-								confirmButtonColor: "rgb(174, 222, 244)",
-								confirmButtonText: "Ok",
-								closeOnConfirm: false
-							}, function (isConfirm) {
-								if (isConfirm) {
-									window.location.reload();
-								}
-							});
-						} else {
-							swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+					if (/\w/gi.test($('.select-torneo option:selected').val()))
+					{
+						if (/\w/gi.test($('.url').val()))
+						{
+							return true;
 						}
-					}
-				});
+						else
+						{
+							$('.url').focus();
+							swal("Error", "La imagen debe tener un archivo asociado.", "error");
+							return false;
 
-			});
-		}
-		,
+						}
+
+					}
+					else
+					{
+						$('.select-torneo').focus();
+						swal("Error", "La imagen  debe estar asociada a un torneo.", "error");
+						return false;
+
+
+					}
+
+		},
+		Validaruevo : function()
+		{
+
+					if (/\w/gi.test($('.select-n-torneo option:selected').val()))
+					{
+						if (/\w/gi.test($('.n-url').val()))
+						{
+							return true;
+						}
+						else
+						{
+							$('.n-url').focus();
+							swal("Error", "La imagen debe tener un archivo asociado.", "error");
+							return false;
+
+						}
+
+					}
+					else
+					{
+						$('.select-n-torneo').focus();
+						swal("Error", "La imagen  debe estar asociada a un torneo.", "error");
+						return false;
+
+
+					}
+
+		},
 		Nuevo : function ()
 		{
 			$('.guardar-nuevo').off('click').on('click', function () {	
+				if(galeria.Validaruevo())
+				{
 				$.ajax({
 					url: 'pages/galeria/peticiones/peticiones.php',
 					type: 'POST',
@@ -82,12 +103,15 @@ $(function() {
 						}
 					}
 				});
+			}
 
 			});
 		},
 		
 		enviarDatos: function () {
 			$('.guardar').off('click').on('click', function () {
+				if(galeria.ValidarEditar())
+				{
 				$.ajax({
 					url: 'pages/galeria/peticiones/peticiones.php',
 					type: 'POST',
@@ -120,6 +144,8 @@ $(function() {
 						}
 					}
 				});
+			}
+
 });
 
 },
