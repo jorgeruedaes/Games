@@ -1,4 +1,6 @@
 <?php
+
+header("Content-Type: text/html;charset=utf-8");
 /**
  * [Read_Folders_Folder description]
  * @param [type] $directorio [description]
@@ -169,6 +171,7 @@ function Insertar_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fe
 function Codigo_Equipo($NombreEquipo,$torneo)
 {
 	global $conexion;
+	$NombreEquipo = utf8_encode($NombreEquipo);
 	$valor = mysqli_fetch_array(consultar("SELECT id_equipo FROM tb_equipos WHERE (nombre_equipo='$NombreEquipo' or nombre_equipo like '%$NombreEquipo%') and torneo='$torneo' "));
 
 	return array(!empty($valor),$valor['id_equipo']);
@@ -202,7 +205,7 @@ function ValidarEquipos($NombreEquipo,$torneo)
 	}
 	else
 	{
-		$resultado= "Uno de los nombre  de equipo  no es valido : ".$NombreEquipo." ".", Intenta nuevamente";
+		$resultado= "Uno de los nombres  de equipo  no es valido : ".$NombreEquipo." ".", Intenta nuevamente";
 		$valor =false;
 
 	}
@@ -635,7 +638,7 @@ function Validate_All_Partidos_Resultados($FileName,$torneo)
 				$marcador2= $datos[3];
 				$Numero_Fecha =$datos[4];
 
-list($valor,$resultado1) = Validate_A_Partidos_Resultados($NombreEquipo1,$NombreEquipo2,$torneo,$marcador1,$marcador2,$Numero_Fecha);
+				list($valor,$resultado1) = Validate_A_Partidos_Resultados($NombreEquipo1,$NombreEquipo2,$torneo,$marcador1,$marcador2,$Numero_Fecha);
 				if($valor)
 				{
 
@@ -711,3 +714,187 @@ function Int_Get_Id_Partido($NombreEquipo1,$NombreEquipo2,$Numero_Fecha,$torneo)
 	return $valor['id'];
 }
 
+function Cargar_Jugadores($FileName,$torneo)
+{
+	$boolean = false;
+	$resultado ='';
+
+	list($boolean,$resultado) =Validate_All_Jugadores($FileName,$torneo);
+	if($boolean)
+	{
+		list($boolean,$resultado) =  Load_Jugadores($FileName,$torneo);
+	}
+	else
+	{
+
+	}
+
+	return array($boolean,$resultado);
+
+}
+function Validate_All_Jugadores($FileName,$torneo)
+{
+	$resultado = '';
+	$boolean = true;
+	$numero =1;
+	if (($gestor = fopen($FileName, "r")) !== FALSE) {
+		while (($datos = fgetcsv($gestor,100, ",")) !== FALSE) {
+
+			list($valorbolean,$resultado2) = Validar_Numero_DatosFila($datos,'7');
+			if($valorbolean)
+			{
+
+				$Documento= $datos[0];
+				$Fecha_nacimiento= $datos[1];
+				$Nombre1= $datos[2];
+				$Nombre2= $datos[3];
+				$Apellido1 =$datos[4];
+				$Apellido2 =$datos[5];
+				$Equipo =$datos[6];
+list($valor,$resultado1) = Validate_A_Jugadores($Documento,$Fecha_nacimiento,$Nombre1,$Nombre2,$Apellido1,$Apellido2,$Equipo,$torneo);
+				if($valor)
+				{
+
+				}
+				else
+				{
+					$boolean = false;
+					$resultado =$resultado.'<h3>En el Jugador '.$numero.'</h3> <br>'.$resultado1;
+				}
+			}
+			else
+			{
+				$boolean = false;
+				$resultado =$resultado.'<br><h3>En el Jugador '.$numero.'</h3> <br>'.$resultado2;
+			}
+
+			$numero=$numero+1;
+		}
+		fclose($gestor);
+	}
+	return array($boolean,$resultado);
+}
+
+function Validar_Existencia_Jugador($Documento,$Fecha,$Nombre1,$Nombre2,$Apellido1,$Apellido2,$equipo,$torneo)
+{
+
+		$Nombre1= utf8_encode($Nombre1);
+		$Nombre2= utf8_encode($Nombre2);
+		$Apellido1= utf8_encode($Apellido1);
+		$Apellido2= utf8_encode($Apellido2);
+
+	$query = "SELECT * FROM `tb_jugadores` WHERE `documento`='$Documento' and `nombre1`='$Nombre1' and `nombre2`='$Nombre2' and `apellido1`='$Apellido1' and `apellido2`='$Apellido2' and `fecha_nacimiento`='$Fecha' and equipo='$equipo'  ";
+	$valor = consultar($query);
+	return mysqli_num_rows($valor)>0;
+}
+function Validate_A_Jugadores($Documento,$Fecha,$Nombre1,$Nombre2,$Apellido1,$Apellido2,$NombreEquipo1,$torneo)
+{
+	$resultado="";
+	$valor = true;
+
+	if($Nombre1!="")
+	{
+
+	}
+	else
+	{
+	$resultado.='El primer nombre esta vacio. <br>';
+		$valor=false;	
+	}
+	if($Apellido1!="")
+	{
+
+	}
+	else
+	{
+	$resultado.='El primer apellido esta vacio. <br>';
+		$valor=false;	
+	}
+
+	if(ValidarEquipos($NombreEquipo1,$torneo)[0])
+	{
+
+	}
+	else
+	{
+		$resultado.=ValidarEquipos($NombreEquipo1,$torneo)[1].'<br>';
+		$valor=false;
+	}
+	if(Validar_Fecha($Fecha)[0])
+	{
+		
+	}
+	else
+	{
+		$resultado.=Validar_Fecha($Fecha)[1].'<br>';
+		$valor=false;
+	}
+if(Validar_Existencia_Jugador($Documento,$Fecha,$Nombre1,$Nombre2,$Apellido1,$Apellido2,
+	Codigo_Equipo($NombreEquipo1,$torneo)[1],$torneo))
+	{
+		$resultado.='Ya Existe!. <br>';
+		$valor=false;
+	}
+	
+	else
+	{
+	}
+
+
+	return array($valor,$resultado);
+
+}
+
+
+function Load_Jugadores($FileName,$torneo)
+{
+	$bandera = true;
+	if (($gestor = fopen($FileName, "r")) !== FALSE) {
+		while (($datos = fgetcsv($gestor,100, ",")) !== FALSE) {
+
+			$Documento= $datos[0];
+				$Fecha_nacimiento= $datos[1];
+				$Nombre1= $datos[2];
+				$Nombre2= $datos[3];
+				$Apellido1 =$datos[4];
+				$Apellido2 =$datos[5];
+				$Equipo =$datos[6];
+
+
+			if(boolean_new_jugador($Documento,$Equipo,$Nombre1,$Nombre2,$Apellido1,$Apellido2,$Fecha_nacimiento,'1',$torneo))
+			{
+				$mensaje = 'true';
+			}
+			else
+			{
+				$bandera=false;
+				$mensaje = $Documento;
+			}
+		}
+		fclose($gestor);
+	}
+	return array($bandera,$mensaje);
+}
+/**
+ * [boolean_new_jugador description]
+ * @param  [type] $documento [description]
+ * @param  [type] $equipo    [description]
+ * @param  [type] $nombre1   [description]
+ * @param  [type] $nombre2   [description]
+ * @param  [type] $apellido1 [description]
+ * @param  [type] $apellido2 [description]
+ * @param  [type] $fecha     [description]
+ * @param  [type] $estado    [description]
+ * @return [type]            [description]
+ */
+function boolean_new_jugador($documento,$NombreEquipo1,$nombre1,$nombre2,$apellido1,$apellido2,$fecha,$estado,$torneo)
+{
+
+	$equipo = Codigo_Equipo($NombreEquipo1,$torneo)[1];
+
+    $partido = insertar(sprintf("INSERT INTO `tb_jugadores`(`id_jugadores`, `documento`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, 
+        `fecha_nacimiento`, `email`, `equipo`, `foto_jugador`, `fecha_ingreso`, `estado_jugador`, `telefono`, `profesion`, `tipo_jugador`)
+     VALUES (NULL,'%d','%s','%s','%s','%s','%s','','%d','',NOW(),'%d','','','')"
+    ,escape($documento),escape(strtoupper($nombre1)),escape(strtoupper($nombre2)),escape(strtoupper($apellido1)),escape(strtoupper($apellido2)),escape($fecha),escape($equipo),escape($estado)));
+    return $partido;    
+}
