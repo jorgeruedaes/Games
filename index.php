@@ -204,16 +204,16 @@ ContadorVisitas($ipvisitante,'index');
                         <a href="#"><img class="height-15" src="webs/images/Partners/transparente.png" alt=""></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img class="height-15" src="webs/images/Partners/macpollo.png" alt=""></a>
+                        <a href="http://www.macpollo.com/" target="_blank"><img class="height-15" src="webs/images/Partners/macpollo.png" alt=""></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img class="height-15" src="webs/images/Partners/financieracomultrasan.png" alt=""></a>
+                        <a href="https://www.financieracomultrasan.com.co/es" target="_blank"><img class="height-15" src="webs/images/Partners/financieracomultrasan.png" alt=""></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img class="height-15" src="webs/images/Partners/indersantander.png" alt=""></a>
+                        <a href="http://indersantander.gov.co/" target="_blank"><img class="height-15" src="webs/images/Partners/indersantander.png" alt=""></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img class="height-15" src="webs/images/Partners/vanguardialiberal.png" alt=""></a>
+                        <a href="http://www.vanguardia.com/" target="_blank"><img class="height-15" src="webs/images/Partners/vanguardialiberal.png" alt=""></a>
                     </div>
 
                 </div>
@@ -227,16 +227,16 @@ ContadorVisitas($ipvisitante,'index');
                         <a href="#"><img class="height-15" src="webs/images/Partners/transparente.png" alt=""></a>
                     </div>
                     <div class="item">
-                        <a href="#"><img class="height-15" src="webs/images/Associates/fifa.png" alt=""></a>
+                        <a href="http://es.fifa.com/" target="_blank"><img class="height-15" src="webs/images/Associates/fifa.png" alt=""></a>
                     </div>
                     <div class="item">
-                     <a href="#"><img class="height-15" src="webs/images/Associates/dimayor.png" alt=""></a></a>
+                     <a href="http://dimayor.com.co/" target="_blank"><img class="height-15" src="webs/images/Associates/dimayor.png" alt=""></a></a>
                  </div>
                  <div class="item">
-                     <a href="#"><img class="height-15" src="webs/images/Associates/fedecolfut.png" alt=""></a></a>
+                     <a href="http://difutbol.org/" target="_blank"><img class="height-15" src="webs/images/Associates/fedecolfut.png" alt=""></a></a>
                  </div>
                  <div class="item">
-                     <a href="#"><img class="height-15" src="webs/images/Associates/difutbol.png" alt=""></a></a>
+                     <a href="http://fcf.com.co/" target="_blank"><img class="height-15" src="webs/images/Associates/difutbol.png" alt=""></a></a>
                  </div>
              </div>
          </div>
