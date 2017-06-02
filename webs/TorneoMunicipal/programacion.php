@@ -1,7 +1,7 @@
 <?php
 include('../../menuinicial.php');
 $ipvisitante=$_SERVER["REMOTE_ADDR"];
-ContadorVisitas($ipvisitante,'categorias');
+ContadorVisitas($ipvisitante,'Programacion');
 ?>
 <head>
 	<link href="css/bootstrap.css" rel="stylesheet">
