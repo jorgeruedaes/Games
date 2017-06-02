@@ -1155,7 +1155,25 @@ function CargarImagenes()
 {
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT * 
-      FROM tb_galeria ORDER BY fecha desc");
+      FROM tb_galeria where torneo!='100' ORDER BY fecha desc");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $id_imagen = $informacion['codigo'];
+        $imagen    = $informacion['imagen'];
+        $vector    = array(
+            "id_imagen" => "$id_imagen",
+            "imagen" => "$imagen"
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+}
+function CargarImagenes_Principal()
+{
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT * 
+      FROM tb_galeria where torneo='100' ORDER BY fecha desc");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $id_imagen = $informacion['codigo'];

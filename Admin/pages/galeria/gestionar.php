@@ -129,6 +129,7 @@ data-torneo="<?php echo $value['torneo']; ?>"
 									<div class="form-group ">
 										<select class="form-control show-tick select-n-torneo">
 											<option value="">--Selecciona un torneo --</option>
+											<option value="100">Galeria pagina principal</option>
 
 											<?php 
 											$vector = Array_Get_Campeonatos();
@@ -177,6 +178,7 @@ data-torneo="<?php echo $value['torneo']; ?>"
 									<div class="form-group ">
 										<select class="form-control show-tick select-torneo">
 											<option value="">--Selecciona un torneo --</option>
+											<option value="100">Galeria pagina principal</option>
 
 											<?php 
 											$vector = Array_Get_Campeonatos();

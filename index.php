@@ -1,31 +1,27 @@
  <?php
 
-include('menuinicial.php');
-$ipvisitante=$_SERVER["REMOTE_ADDR"];
-ContadorVisitas($ipvisitante,'index');
+ include('menuinicial.php');
+ $ipvisitante=$_SERVER["REMOTE_ADDR"];
+ ContadorVisitas($ipvisitante,'index');
  ?>
  <div class="ec-loading-section"><div class="ball-scale-multiple"><div></div><div></div><div></div></div></div>
  <div class="ec-mainbanner">  
     <div class="flexslider">
         <ul class="slides">
-           <li>
-            <img src="webs/images/Banner/principal4.png" alt="">
-        </li>
-        <li>
-            <img src="webs/images/Banner/principal3.png" alt="">
-        </li>
-        <li>
-            <img src="webs/images/Banner/principal2.png" alt="">
-        </li>
-        <li>
-            <img src="webs/images/Banner/principal1.png" alt="">
-        </li>
-        <li>
-            <img src="webs/images/Banner/principal6.jpg" alt="">
-        </li>
-        
-    </ul>
-</div>
+            <?php
+            $vectores = CargarImagenes_Principal();
+            echo (empty($vectores)) ? '<div class="center"><cite>No hay imágenes.</cite></div>' :'';
+            foreach ($vectores as $value)
+            {
+                ?>
+                <li>
+                    <img src="<?php echo $value['imagen']; ?>" alt="">
+                </li>
+                <?php
+            }
+            ?>
+        </ul>
+    </div>
 </div>
 <!--// Main Banner \\-->
 <!--// Main Content \\-->
@@ -61,45 +57,45 @@ ContadorVisitas($ipvisitante,'index');
                                 </div>
                                 <div class="scrollbar-height scrollbar">
 
-                                <?php
-                                $vectores = ObtenerPartidosPorJugarDeUnTorneo($id,'1');
-                                echo (empty($vectores)) ? '<div class="center"><cite>No hay programación.</cite></div>' :'';
-                                foreach ($vectores  as $values)
-                                {
-                                    $idpartido=$values['idpartido'];
-                                    $equipo1=$values['equipo1'];
-                                    $equipo2=$values['equipo2'];
-                                    $fecha=$values['fecha'];
-                                    $hora=$values['hora'];
-                                    $lugar=$values['lugar'];
-                                    ?>
-                                    
-                                    <ul class="ec-team-matches" id="<?php echo $idpartido?>">
-                                        <li class="padding-top-5">
-                                            <a href="javascript:void();"><img style="width: 35%;height: 17%" src="<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""> <span><?php echo NombreEquipo($equipo1);?></span></a>
-                                        </li>
-                                        <li>
-                                            <time class="ec-color" datetime="2008-02-14 20:00">
-                                                <?php echo FormatoFecha($fecha);?>
-                                            </time> 
-                                            <small>
-                                                <?php echo FormatoHora($hora); ?>
-                                            </small>
-                                            <br>
-                                            <small>
-                                                <?php echo NombreCancha($lugar); ?>
-                                            </small>
-                                        </li>
-                                        <li class="padding-top-5">
-                                            <a href="javascript:void();"><img style="width: 35%;height: 17%" src="<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""> <span><?php echo NombreEquipo($equipo2);?></span></a>
-                                        </li>
-                                    </ul>
-
                                     <?php
+                                    $vectores = ObtenerPartidosPorJugarDeUnTorneo($id,'1');
+                                    echo (empty($vectores)) ? '<div class="center"><cite>No hay programación.</cite></div>' :'';
+                                    foreach ($vectores  as $values)
+                                    {
+                                        $idpartido=$values['idpartido'];
+                                        $equipo1=$values['equipo1'];
+                                        $equipo2=$values['equipo2'];
+                                        $fecha=$values['fecha'];
+                                        $hora=$values['hora'];
+                                        $lugar=$values['lugar'];
+                                        ?>
 
-                                }
+                                        <ul class="ec-team-matches" id="<?php echo $idpartido?>">
+                                            <li class="padding-top-5">
+                                                <a href="javascript:void();"><img style="width: 35%;height: 17%" src="<?php echo LogoClub(ClubEquipo($equipo1))?>" alt=""> <span><?php echo NombreEquipo($equipo1);?></span></a>
+                                            </li>
+                                            <li>
+                                                <time class="ec-color" datetime="2008-02-14 20:00">
+                                                    <?php echo FormatoFecha($fecha);?>
+                                                </time> 
+                                                <small>
+                                                    <?php echo FormatoHora($hora); ?>
+                                                </small>
+                                                <br>
+                                                <small>
+                                                    <?php echo NombreCancha($lugar); ?>
+                                                </small>
+                                            </li>
+                                            <li class="padding-top-5">
+                                                <a href="javascript:void();"><img style="width: 35%;height: 17%" src="<?php echo LogoClub(ClubEquipo($equipo2))?>" alt=""> <span><?php echo NombreEquipo($equipo2);?></span></a>
+                                            </li>
+                                        </ul>
 
-                                ?>
+                                        <?php
+
+                                    }
+
+                                    ?>
                                 </div>
                             </div> 
 
@@ -134,61 +130,61 @@ ContadorVisitas($ipvisitante,'index');
                             foreach ($grupos as $valuegrupo)
                             {
 
-                            ?>
-                            
-                            <div class="item positions-detail add-pointer" id="<?php echo $id?>">
-                             <div class="border-bottom-light">
-                                    <h3 class="header-torneo"><?php echo $nombre?></h3>
-                            </div>
-
-                            <?php if(sizeof($grupos) > 1 ) { ?>
-                                <div class="border-bottom-light">
-                                    <h3 class="header-torneo"><?php echo 'Grupo ' . $valuegrupo['grupo']?></h3>
-                                </div>
-                                <?php } ?>
-                                <div class="scrollbar-height scrollbar ">
-                                <?php
-                                $numero = 1;
-                                $vectores = ObtenerTablaPosiciones('8',$valuegrupo['grupo'],$id);
-                                echo (empty($vectores)) ? '<div class="center"><cite>No hay posiciones.</cite></div>' :'<ul class="ec-table-head">
-                                <li>
-                                    <div class="ec-cell">#</div>
-                                    <div class="ec-cell">Equipo</div>
-                                    <div class="ec-cell">P</div>
-                                    <div class="ec-cell">PG</div>
-                                    <div class="ec-cell">PE</div>
-                                    <div class="ec-cell">PP</div>
-                                </li>
-                            </ul>';
-                            foreach ($vectores  as $values)
-                            {
-
                                 ?>
-                                <ul class="ec-table-list">
-                                    <li>
-                                        <div class="ec-cell"><?php echo $numero;?></div>
-                                        <div class="ec-cell"><?php echo $values['equipo']  ?></div>
-                                        <div class="ec-cell"><?php echo $values['puntos']  ?></div>
-                                        <div class="ec-cell"><?php echo $values['pj']  ?></div>
-                                        <div class="ec-cell"><?php echo $values['pe']  ?></div>
-                                        <div class="ec-cell"><?php echo $values['pp']  ?></div>
-                                        
-                                    </li>
-                                </ul>
-                                
-                                <?php
 
-                                $numero = $numero + 1;
+                                <div class="item positions-detail add-pointer" id="<?php echo $id?>">
+                                   <div class="border-bottom-light">
+                                    <h3 class="header-torneo"><?php echo $nombre?></h3>
+                                </div>
 
-                            }
+                                <?php if(sizeof($grupos) > 1 ) { ?>
+                                    <div class="border-bottom-light">
+                                        <h3 class="header-torneo"><?php echo 'Grupo ' . $valuegrupo['grupo']?></h3>
+                                    </div>
+                                    <?php } ?>
+                                    <div class="scrollbar-height scrollbar ">
+                                        <?php
+                                        $numero = 1;
+                                        $vectores = ObtenerTablaPosiciones('8',$valuegrupo['grupo'],$id);
+                                        echo (empty($vectores)) ? '<div class="center"><cite>No hay posiciones.</cite></div>' :'<ul class="ec-table-head">
+                                        <li>
+                                            <div class="ec-cell">#</div>
+                                            <div class="ec-cell">Equipo</div>
+                                            <div class="ec-cell">P</div>
+                                            <div class="ec-cell">PG</div>
+                                            <div class="ec-cell">PE</div>
+                                            <div class="ec-cell">PP</div>
+                                        </li>
+                                    </ul>';
+                                    foreach ($vectores  as $values)
+                                    {
 
-                            ?>
+                                        ?>
+                                        <ul class="ec-table-list">
+                                            <li>
+                                                <div class="ec-cell"><?php echo $numero;?></div>
+                                                <div class="ec-cell"><?php echo $values['equipo']  ?></div>
+                                                <div class="ec-cell"><?php echo $values['puntos']  ?></div>
+                                                <div class="ec-cell"><?php echo $values['pj']  ?></div>
+                                                <div class="ec-cell"><?php echo $values['pe']  ?></div>
+                                                <div class="ec-cell"><?php echo $values['pp']  ?></div>
 
-                        </div> 
-                        </div>
-                        <?php
-                        
-                    }
+                                            </li>
+                                        </ul>
+
+                                        <?php
+
+                                        $numero = $numero + 1;
+
+                                    }
+
+                                    ?>
+
+                                </div> 
+                            </div>
+                            <?php
+
+                        }
                     }
                     ?>
                 </div>
@@ -230,19 +226,19 @@ ContadorVisitas($ipvisitante,'index');
                         <a href="http://es.fifa.com/" target="_blank"><img class="height-15" src="webs/images/Associates/fifa.png" alt=""></a>
                     </div>
                     <div class="item">
-                     <a href="http://dimayor.com.co/" target="_blank"><img class="height-15" src="webs/images/Associates/dimayor.png" alt=""></a></a>
-                 </div>
-                 <div class="item">
-                     <a href="http://difutbol.org/" target="_blank"><img class="height-15" src="webs/images/Associates/fedecolfut.png" alt=""></a></a>
-                 </div>
-                 <div class="item">
-                     <a href="http://fcf.com.co/" target="_blank"><img class="height-15" src="webs/images/Associates/difutbol.png" alt=""></a></a>
-                 </div>
-             </div>
-         </div>
-         <!--// Partner \\-->
-     </div>
- </div>
+                       <a href="http://dimayor.com.co/" target="_blank"><img class="height-15" src="webs/images/Associates/dimayor.png" alt=""></a></a>
+                   </div>
+                   <div class="item">
+                       <a href="http://difutbol.org/" target="_blank"><img class="height-15" src="webs/images/Associates/fedecolfut.png" alt=""></a></a>
+                   </div>
+                   <div class="item">
+                       <a href="http://fcf.com.co/" target="_blank"><img class="height-15" src="webs/images/Associates/difutbol.png" alt=""></a></a>
+                   </div>
+               </div>
+           </div>
+           <!--// Partner \\-->
+       </div>
+   </div>
 </div>
 <!--// Main Section \\-->
 <!--// Main Section \\-->
@@ -324,15 +320,15 @@ ContadorVisitas($ipvisitante,'index');
                         <div class="ec-section-heading">
                             <h2>Comunícate</h2></div>
                             <ul>
-                               <?php echo String_Get_Datos('telefono_2')?>
-                           </ul>
-                       </aside>
-                   </div>
-               </div>
-           </div>
+                             <?php echo String_Get_Datos('telefono_2')?>
+                         </ul>
+                     </aside>
+                 </div>
+             </div>
+         </div>
 
-           <?php
-           include('footerinicial.php');
-           ?>
+         <?php
+         include('footerinicial.php');
+         ?>
 
-           <script src="webs/js/index.js"></script>
+         <script src="webs/js/index.js"></script>
