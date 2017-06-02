@@ -16,6 +16,10 @@ $(function() {
 			var element = $(this).attr('id');
 			window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
 			});
+				$('.calendar-court').on('click', function () {
+			var element = $(this).attr('id');
+			window.location.href = "webs/TorneoMunicipal/cancha.php?id=" + element + "";
+			});
 
 			$('.positions-detail').on('click', function () {
 			var element = $(this).attr('id');
