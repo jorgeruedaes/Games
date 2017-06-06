@@ -6,7 +6,7 @@ include($ubicacion."../php/equipo.php");
 include($ubicacion."../php/jugador.php");
 $id_modulos ='26';
 $partido = Get_Partido($_GET['id']);
-if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['estado']==='2')){
+if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil']) and ($partido['estado']==='2' or $partido['estado']==='7' )){
 	?>
 
 

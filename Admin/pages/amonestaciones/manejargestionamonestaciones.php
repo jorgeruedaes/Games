@@ -48,6 +48,17 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							<h2>Amonestaciones de la Fecha o Ronda numero : <strong><?php echo $_GET['id']; ?></strong> 
 								<small>Amonestaciones</small>
 							</h2>
+								<ul class="header-dropdown m-r--5">
+								<li>
+									<div class="col-md-3 col-xs-3">
+													<div class="demo-switch-title">.</div>
+													<div class="switch">
+													<label><input id="principal" type="checkbox" checked>
+															<span class="lever switch-col-red"></span></label>
+														</div>
+													</div>
+							</li>
+						</ul>
 						</div>
 						<div class="body">
 							<table id="tabla3" class="table table-bordered table-striped table-hover">

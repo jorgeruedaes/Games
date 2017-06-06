@@ -11,6 +11,7 @@ $(function() {
 			amonestaciones.CargarDatos();
 			amonestaciones.Add_Amonestaciones_Edit();
 			amonestaciones.Tablas();
+			amonestaciones.Checkprincipal();
 		},
 		recargar: function () {
 			amonestaciones.TomarDatos_Resultados();
@@ -20,6 +21,27 @@ $(function() {
 			amonestaciones.Seleccion_fechas();
 			amonestaciones.Guardar_Gestion();
 
+
+		},
+		Checkprincipal : function()
+		{
+			$('#principal').change(function() {
+				if($(this).is(":checked")) {
+
+					$('.fila-tabla').each(function(indice, elemento) {
+						$(elemento).find('.confirmacion').prop('checked',true);
+					}); 
+
+				}
+				else
+				{
+					$('.fila-tabla').each(function(indice, elemento) {
+						$(elemento).find('.confirmacion').prop('checked',false);
+					}); 
+
+				}
+
+			});
 
 		},
 
@@ -54,7 +76,7 @@ $(function() {
 					objeto.push(2);
 				}
 				array.push(objeto);
-		}); 
+			}); 
 			return array;
 		},
 		Guardar_Gestion: function () {
@@ -248,7 +270,7 @@ CargarDatos : function ()
 				};
 
 			} else {
-				swal("Importante", "No hay jugadores para estos equipos,Para agregar las amonestaciones al menos debe haber un jugador en uno de los dos equipos.", "info");
+			//	swal("Importante", "No hay jugadores con amonestaciones para estos equipos,Para agregar las amonestaciones al menos debe haber un jugador en uno de los dos equipos.", "info");
 			}
 		}
 	});
@@ -307,7 +329,7 @@ Seleccion: function()
 			data: {
 				bandera: "getpartidosdobleestado",
 				estado : '2',
-				estado1 : '2',
+				estado1 : '7',
 				campeonato:  $('.selector-campeonato-amonestaciones-editar option:selected').val()
 
 			},
@@ -407,7 +429,7 @@ TomarDatos_Resultados : function ()
 		{ 
 			var objeto =[];
 			objeto.push($(elemento).data('jugador'));
-			objeto.push($(elemento).find('0').val());
+			objeto.push('0');
 			objeto.push($(elemento).find('.comentario').val());
 			objeto.push($(elemento).find('.select-tarjeta option:selected').val());
 			array.push(objeto);

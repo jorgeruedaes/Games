@@ -59,6 +59,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<div class="row clearfix">
 							<?php
 							$vector =  Read_Files_Folder('../../../Archivos/'.$_GET['id'],$_GET['id']);
+							 ksort($vector);
 							if(empty($vector)){echo 'No hay archivos en esta carpeta.';}
 							foreach ($vector as $value) {
 								?>

@@ -125,18 +125,17 @@ data-torneo="<?php echo $value['torneo']; ?>"
 											<input type="text" class="form-control n-url" placeholder="Url" />
 										</div>
 									</div>
-									<label for="">Torneo</label>
+									<label for="">Album</label>
 									<div class="form-group ">
 										<select class="form-control show-tick select-n-torneo">
-											<option value="">--Selecciona un torneo --</option>
-											<option value="100">Galeria pagina principal</option>
+											<option value="">--Selecciona un Album --</option>
 
 											<?php 
-											$vector = Array_Get_Campeonatos();
+											$vector = Array_Get_Albums();
 											foreach ($vector as $value) {
 
 												?>
-												<option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
+												<option value="<?php echo $value['id_album']; ?>"><?php echo $value['nombre']; ?></option>
 												<?php
 											}
 											?>
@@ -174,18 +173,17 @@ data-torneo="<?php echo $value['torneo']; ?>"
 											<input type="text" class="form-control url" placeholder="Url" />
 										</div>
 									</div>
-									<label for="">Torneo</label>
+									<label for="">Album</label>
 									<div class="form-group ">
 										<select class="form-control show-tick select-torneo">
-											<option value="">--Selecciona un torneo --</option>
-											<option value="100">Galeria pagina principal</option>
+											<option value="">--Selecciona un Album --</option>
 
 											<?php 
-											$vector = Array_Get_Campeonatos();
+										$vector = Array_Get_Albums();
 											foreach ($vector as $value) {
 
 												?>
-												<option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
+												<option value="<?php echo $value['id_album']; ?>"><?php echo $value['nombre']; ?></option>
 												<?php
 											}
 											?>

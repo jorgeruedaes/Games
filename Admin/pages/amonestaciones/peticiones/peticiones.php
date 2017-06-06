@@ -87,8 +87,9 @@ if(isset($_SESSION['perfil']))
 	}
 	else if ($bandera === "agregardetalles-amonestaciones")
 	{
-			$valor = $_POST['valor'];
-		if($valor){
+		$valor = $_POST['valor'];
+		$json = "";
+		if($valor == "true"){
 
 		}else{
 			$json = json_encode($_POST['json']); 
@@ -115,7 +116,12 @@ if(isset($_SESSION['perfil']))
 			$estadop ='2';
 
 		}
-		if($valor)
+		else if ($estado==='7')
+		{
+			$estadop ='7';
+
+		}
+		if($valor  == "true")
 		{
 			if(Set_resultado_Partido_Amonestaciones($partido,$estadop))
 			{

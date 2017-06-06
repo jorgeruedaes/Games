@@ -1,13 +1,11 @@
 <?php  
 $ubicacion ="../";
 include("../menuinicial.php");
-include('../../php/canchas.php');
+include('../../php/galeria.php');
 $id_modulos =Int_RutaModulo($_SERVER['REQUEST_URI']);
 
 if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	?>
-
-
 	<section class="content">
 		<div class="container-fluid">
 			<div class="block-header">
@@ -42,9 +40,10 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 					<div class="card">
 						<div class="header">
 							<h2>
-								GESTION DE CANCHAS  
+								GESTION DE ALBUMS  
 							</h2>
 							<ul class="header-dropdown m-r--5">
+								<li></li>
 								<li>
 									<button type="button" class="btn bg-red 
 									waves-effect add-perfil">
@@ -52,6 +51,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								</button>
 
 							</li>
+							<li></li>
 						</ul>
 					</div>
 					<div class="body">
@@ -60,26 +60,25 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<tr>
 									<th>#</th>
 									<th>Nombre</th>
-									<th width="15%">Estado</th>
-									<th width="15%">Opciones</th>
+									<th>Estado</th>
+									<th>Opciones</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
-								$vector = Array_Get_Canchas();
+								$vector = Array_Get_Albums();
 								foreach ($vector as  $value) {
 									?>
 									<tr>
-										<td scope="row"><?php echo $value['id_lugar']; ?></td>
-										<td scope="row"><?php echo $value['nombre']; ?></td>
+										<td scope="row"><?php echo $value['id_album']; ?></td>
+										<td><?php echo $value['nombre']; ?></td>
 										<td><?php echo $value['estado']; ?></td>
-										<td>
-											<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
-												<button 
-													data-id="<?php echo $value['id_lugar'];?>"
-													data-estado="<?php echo $value['estado']; ?>";
-													data-nombre="<?php echo $value['nombre'];?>"
-													 type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
+												<td>
+													<div class="btn-group btn-group-xs" role="group" aria-label="Small button group">
+														<button  data-codigo="<?php echo $value['id_album']; ?>" data-nombre="<?php echo $value['nombre']; ?>" data-estado="<?php echo $value['estado']; ?>" type="button" class="btn btn-primary waves-effect edit-item"><i class="material-icons">edit</i></button>
+														<button  data-codigo="<?php echo $value['id_album']; ?>" type="button" class="btn btn-danger  waves-effect delete-item"><i class="material-icons">delete</i></button>
+
+													</div>
 
 												</td>
 											</tr>
@@ -97,13 +96,13 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 		<!-- JS ====================================================================================================================== -->
 		<!--  Js-principal -->
-		<script src="pages/canchas/js/nuevo.js"></script>
+		<script src="pages/galeria/js/albums.js"></script>
 
 		<div class="modal fade" id="nuevoPerfil" data-perfil="" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" id="defaultModalLabel">Nueva cancha</h4>
+						<h4 class="modal-title" id="defaultModalLabel">Nuevo Album</h4>
 					</div>
 					<div class="modal-body">
 
@@ -112,16 +111,16 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 								<label for="">Nombre</label>
 								<div class="form-group">
 									<div class="form-line">
-										<input type="text" class="form-control n-nombre" placeholder="Nombre de la cancha" />
+										<input type="text" class="form-control n-nombre" placeholder="Nombre del album" />
 									</div>
 								</div>
 								<label for="">Estado</label>
 								<div class="form-group">
 									<select class="form-control show-tick select-n-estado">
 										<option value="">--Selecciona un estado --</option>
-
 										<option value="activo">Activo</option>
 										<option value="inactivo">Inactivo</option>
+								
 
 									</select>
 								</div>
@@ -130,7 +129,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar cambios</button>
+						<button type="button" class="btn btn-info waves-effect guardar-nuevo">Guardar</button>
 						<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 					</div>
 				</div>
@@ -139,49 +138,51 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 		<!-- Modal Dialogs ====================================================================================================================== -->
 		<!-- Default Size -->
-		<div class="modal fade" id="defaultModal" data-equipo="" tabindex="-1" role="dialog">
+		<div class="modal fade" id="defaultModal" data-id="" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h4 class="modal-title" id="defaultModalLabel">Edición de canchas</h4>
+						<h4 class="modal-title" id="defaultModalLabel">Edición de Albums</h4>
 					</div>
 					<div class="modal-body">
 
+
 						<div class="body">
-								<form>
+							<form>
 								<label for="">Nombre</label>
 								<div class="form-group">
 									<div class="form-line">
-										<input type="text" class="form-control nombre" placeholder="Nombre de la cancha" />
+										<input type="text" class="form-control nombre" placeholder="Nombre del album" />
 									</div>
 								</div>
 								<label for="">Estado</label>
 								<div class="form-group">
 									<select class="form-control show-tick select-estado">
 										<option value="">--Selecciona un estado --</option>
-
 										<option value="activo">Activo</option>
 										<option value="inactivo">Inactivo</option>
+								
 
 									</select>
 								</div>
+
 
 							</form>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info waves-effect guardar">Guardar cambios</button>
+						<button type="button" data-codigo="" class="btn btn-info waves-effect guardar">Guardar cambios</button>
 						<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
-
 		<?php
 	}else
 	{
 		require("../sinpermiso.php");
+
 	}
 	?>
 

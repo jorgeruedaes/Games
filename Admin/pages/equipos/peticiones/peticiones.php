@@ -60,7 +60,7 @@ if(isset($_SESSION['id_usuarios']))
         } else {
             $resultado.='"mensaje":false';
         }
-}
+    }
 }
 else
 {

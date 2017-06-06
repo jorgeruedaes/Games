@@ -60,7 +60,7 @@ $(function() {
 
 					var resp = $.parseJSON(resp);
 					if (resp.salida === true && resp.mensaje === true) {
-						for (var i = 0; i <= resp.datos.length; i++) {
+						for (var i = 0; i <= resp.datos.length-1; i++) {
 							$('.fila-tabla').each(function(indice, elemento) {
 								if( ($(elemento).data('jugador')==resp.datos[i].jugador)
 									&& (resp.datos[i].goles>0) || (resp.datos[i].autogoles>0)  )

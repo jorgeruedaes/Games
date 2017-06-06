@@ -22,8 +22,6 @@ $(function() {
 			{
 				if (/\w/gi.test($('.apellido1').val())) 
 				{
-					if (/\w/gi.test($('.select-equipos option:selected').val())) 
-					{
 						if (/\w/gi.test($('.select-estado option:selected').val())) 
 						{
 							return true;
@@ -35,15 +33,6 @@ $(function() {
 							return false;
 						}
 
-					}
-					else
-					{
-						$('.select-equipos').focus();
-						swal("Error", "Debes seleccionar un equipo.", "error");
-						return false;
-
-					}
-
 				}
 				else
 				{
@@ -51,7 +40,6 @@ $(function() {
 					swal("Error", "Debes escribir al menos 1 apellido.", "error");
 					return false;
 				}
-
 
 			}
 			else
@@ -129,14 +117,14 @@ $(function() {
 						var resp = $.parseJSON(resp);
 						if (resp.salida === true && resp.mensaje === true) {
 							$('#select-n-equipos').html('').selectpicker('refresh');
-							$('#select-n-equipos').append('<option value="0">--Selecciona un Equipo --</option>').selectpicker('refresh');
+							$('#select-n-equipos').append('<option value="">--Selecciona un Equipo --</option>').selectpicker('refresh');
 							for (var i = 0; i < resp.datos.length; i++) {
 								$('#select-n-equipos').append('<option value='+resp.datos[i].id_equipo+'>'+resp.datos[i].nombre_equipo+'</option>').selectpicker('refresh');
 
 							}
 						} else {
 							$('#select-n-equipos').html('').selectpicker('refresh');
-							$('#select-n-equipos').append('<option value="0">--Selecciona un Equipo --</option>').selectpicker('refresh');
+							$('#select-n-equipos').append('<option value="">--Selecciona un Equipo --</option>').selectpicker('refresh');
 
 						}
 					}
