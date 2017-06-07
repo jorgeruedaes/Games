@@ -9,7 +9,7 @@ ContadorVisitas($ipvisitante,'canchas'.'_'.$id);
   <span class="ec-blue-transparent"></span>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12"> 
         <div class="ec-mini-title">
           <h1><?php echo ObtenerNombreCancha($id)?></h1>
         </div>
@@ -22,6 +22,16 @@ ContadorVisitas($ipvisitante,'canchas'.'_'.$id);
   <!--// Main Section \\-->
   <div class="ec-main-section">
     <div class="container">
+      
+      <div class="row">
+        <div class="col-md-5 float-right">
+        <p class="float-right font-20 add-pointer"  style="margin-right: 30px">Descargar programación
+            <a class="font-25"  href="webs/Pdf/porcancha.php?id=<?php echo $id?>&flag=porcancha" style="color:#4183D7" download>
+              <span class="fa fa-file-pdf-o"></span>
+            </a>
+          </p>
+        </div>
+      </div>
       <br>
       <div class="row">
         <div class="col-md-12">

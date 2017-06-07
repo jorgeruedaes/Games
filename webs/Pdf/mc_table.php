@@ -6,28 +6,51 @@ class PDF_MC_Table extends FPDF
     var $widths;
     var $aligns;
 
-    function SetWidths($w)
+    function SetWidths($w) 
     {
     //Set the array of column widths
         $this->widths=$w;
     }
     function Header()
     {
-
-        $this->Image('http://ligasantandereanadefutbol.co/images/Escudos/logo.png',20,8,33);
+        $this->SetY(10);
+       
+        $this->Image('http://ligasantandereanadefutbol.co/images/Escudos/logo.png');
         $this->SetFont('Arial','B',12);
-
         $this->Cell(0,10,'LIGA SANTANDEREANA DE FUTBOL',0,0,'C');
         $this->Ln();
         $this->Cell(0,10,'Programacion',0,0,'C');
-        $this->Ln();
-        if(isset($_GET['id'])){
+        
+        $flag = $_GET['flag'];
+
+        if($flag == 'porcategoria'){
 
             $id = $_GET['id'];
+            
+            $this->Ln();
             $this->Cell(0,10,'Categoria ' . NombreTorneo($id),0,0,'C');
 
+        }else if($flag == 'todaslascategorias'){
+            $this->Ln();
+            $this->Cell(0,10,'Todas las categorias',0,0,'C');
+        
+        }else if($flag == 'porcancha'){
+            $id = $_GET['id'];
+            
+            $this->Ln();
+            $this->Cell(0,10,'Cancha ' . NombreCancha($id),0,0,'C');
         }
-
+        else if($flag == 'todosporcancha'){
+             $this->Ln();
+            $this->Cell(0,10,'Todas las canchas',0,0,'C');
+        }
+         else if($flag == 'general'){
+             $this->Ln();
+            $this->Cell(0,10,'General',0,0,'C');
+            
+        }
+        $this->Ln();
+        $this->Ln();
     }
     function Footer()
 {

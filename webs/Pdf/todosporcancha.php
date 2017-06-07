@@ -13,7 +13,6 @@ $pdf->SetFont('Arial','',10);
 $pdf->SetWidths(array(30,20,30,40,40,20));
 
 
-
     $vectores = ObtenerPartidosPorJugar('1');
     if(sizeof($vectores) == 0){
         $pdf->Write(5,'No se ha cargado programacion');

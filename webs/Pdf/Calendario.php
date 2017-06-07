@@ -6,11 +6,10 @@ require('../../Admin/php/conexion.php');
 require('../../Admin/php/funciones.php');
 
 $pdf=new PDF_MC_Table();
-$pdf->SetMargins(15, 15 , 30);
-$pdf->AddPage();
+$pdf->SetMargins(15, 15,30, 30);
+$pdf->AddPage(); 
 $pdf->SetFont('Arial','',10);
-$pdf->Ln();
-$pdf->Ln();
+
 //Table with 20 rows and 4 columns
 $pdf->SetWidths(array(30,30,40,40,40));
 
@@ -38,6 +37,7 @@ if(isset($_GET['id'])){
             $pdf->Row(array(FormatoFecha($fecha),FormatoHora($hora),NombreCancha($lugar),NombreEquipo($equipo1),NombreEquipo($equipo2)));
         }
     }
+
 $pdf->Output();
 
 }

@@ -1,4 +1,4 @@
-<?php
+ <?php
 include('../../menuinicial.php');
 $id = $_GET['id'];
 $ipvisitante=$_SERVER["REMOTE_ADDR"];
@@ -9,7 +9,7 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
   <span class="ec-blue-transparent"></span>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12"> 
         <div class="ec-mini-title">
           <h1><?php echo NombreTorneo($id)?></h1>
         </div>
@@ -24,13 +24,9 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
     <div class="container">
       <div class="row">
         <div class="col-md-5 float-right">
-         <p class="float-right font-15" id="<?php echo $id?>" >Descargar reglamento
-          <a class="font-20" href="Archivos/Reglamentos/<?php echo ReglamentoTorneo($id)?>" style="color:#4183D7" download>
-            <span class="fa fa-file-pdf-o"></span>
-          </a>
-        </p>
-        <p class="float-right font-15"  style="margin-right: 30px">Descargar programación
-          <a class="font-20"  href="webs/Pdf/Calendario.php?id=<?php echo $id?>" style="color:#4183D7" download>
+         
+        <p class="float-right font-20 add-pointer"  style="margin-right: 30px">Descargar programación
+          <a class="font-25"  href="webs/Pdf/Calendario.php?id=<?php echo $id?>&flag=porcategoria" style="color:#4183D7" download>
             <span class="fa fa-file-pdf-o"></span>
           </a>
         </p>
@@ -118,6 +114,9 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
 
       </div>
     </div>
+
+
+
     <?php
     if(TipoTorneo($id)=="competencia")
     {

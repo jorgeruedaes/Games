@@ -43,6 +43,14 @@ $(function() {
 
 			});
 
+			jQuery('.calendar-image').hover(function () {
+			    jQuery(this).find('.court-name-big').css({ 'color': '#e95842' });
+			    jQuery(this).find('.fa-calendar').css({ 'color': '#e95842' });
+			}, function () {
+			   jQuery(this).find('.court-name-big').css({ 'color': 'black' });
+			    jQuery(this).find('.fa-calendar').css({ 'color': '#999999' });
+			});
+
 			$('#sendEmailBtn').on('click', function () {
 					$.ajax({
 					url: 'Admin/php/peticiones.php',

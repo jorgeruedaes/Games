@@ -12,7 +12,7 @@ ContadorVisitas($ipvisitante,'categorias');
 	</style>
 </head>
 <div class="ec-loading-section"><div class="ball-scale-multiple"><div></div><div></div><div></div></div></div>
-<div class="ec-mini-header">
+<div class="ec-mini-header"> 
 	<span class="ec-blue-transparent"></span>
 	<div class="container">
 		<div class="row">
@@ -34,33 +34,45 @@ ContadorVisitas($ipvisitante,'categorias');
 	<!--// Main Section \\-->
 	<div class="ec-main-section">
 		<div class="container">
+		<div class="row">
+				<div class="col-md-5 float-right">
+				<p class="float-right font-20 add-pointer"  style="margin-right: 30px">Descargar programación
+						<a class="font-25" href="webs/Pdf/todos.php?flag=todaslascategorias" style="color:#4183D7" download>
+							<span class="fa fa-file-pdf-o"></span>
+						</a>
+					</p>
+				</div>
+			</div>
+			<br>
 			<div class="row">
-				<?php
+					<div class="ec-services">
+					<ul class="row">
+						<?php
 
-				$vector = ObtenerTorneosPorDeporteOrdenado('1','activo');
-				echo (empty($vector)) ? '<cite>No hay categorías.</cite>' :'';
-				foreach ($vector as $value)
-				{
+						$vector = ObtenerTorneosPorDeporteOrdenado('1','activo');
+						echo (empty($vector)) ? '<cite>No hay categorías.</cite>' :'';
+						foreach ($vector as $value)
+						{
 
-					$id = $value['id'];
-					$nombre =$value['nombre'];
-					?>
-					<!--// Match Fixture \\-->
-					<div class="col-md-4 add-pointer open-category" id="<?php echo $id?>">
-						<div class=""  style="height: 7em;">
-							<ul  style="background-color: #27ae60;border: 1px solid #03A678;    padding: 1em;border-radius: 4px">
-							<li >
-							<i class="fa-4x fa fa-futbol-o" style="color: white;">
-							</i>
-							<a style="font-size: 1.7em;color: white;padding-left: 1.5em;font-family: Bariol" ><?php echo $nombre?>
-							</a>
+							$id = $value['id'];
+							$nombre =$value['nombre'];
+							?>
+							<li class="col-md-3 add-pointer calendar-category"  id="<?php echo $id?>">
+								<div class="ec-service-wrap calendar-image">
+									<i class="fa fa-calendar" style="font-size: 3em;padding-bottom: 0.5em"></i>
+									<h2 class="court-name-big"><?php echo $nombre; ?></h2>
+									<p>Categoría <?php echo $nombre; ?> </p>
+								</div>
 							</li>
-							</ul>
-							</div>
-					</div>
-					<?php
-				}
-				?>
+							<?php
+						}
+						?>
+
+						
+					</ul>
+				</div>
+
+
 			</div>
 			<br>
 			<br>

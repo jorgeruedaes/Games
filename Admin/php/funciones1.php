@@ -9,7 +9,8 @@ function NombreEquipo($identificador)
     $valor = $valor['nombre_equipo'];
     
     return $valor;
-}function ObtenerCanchasDePartidos($estado)
+}
+function ObtenerCanchasDePartidos($estado)
 {
 
     global $conexion;
@@ -56,7 +57,6 @@ function ObtenerPartidosPorCanchaFecha($idcancha,$fecha,$estado)
     
     return $datos;
 }
-
 function NombreEquipoJugador($jugador)
 {
     global $conexion;
@@ -201,6 +201,15 @@ function HorarioClub($identificador)
 function FormatoHora($hora)
 {
     $valor = date("g", strtotime($hora)) . ":" . date("i", strtotime($hora)) . " " . date("a", strtotime($hora));
+    
+    return $valor;
+}
+
+function CategoriaEquipo($idequipo)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT nombre_torneo from tb_torneo WHERE id_torneo in (Select torneo from tb_equipos where id_equipo='$idequipo')"));
+    $valor = $valor['nombre_torneo'];
     
     return $valor;
 }
@@ -670,8 +679,8 @@ function ObtenerFechasdePartidos($estado, $orden)
 {
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT DISTINCT fecha,nombre,Lugar 
-     FROM `tb_partidos`,tb_lugares WHERE tb_partidos.Estado=$estado and id_lugar=Lugar  and fecha>curdate()
-     ORDER BY fecha $orden ,Lugar asc ,hora asc");
+     FROM `tb_partidos`,tb_lugares WHERE Estado=$estado and id_lugar=Lugar 
+     ORDER BY fecha $orden,Lugar asc ,hora asc");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $fecha  = $informacion['fecha'];
@@ -737,7 +746,7 @@ function ObtenerTorneosPorDeporteOrdenado($deporte,$estado){
 
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT id_torneo, nombre_torneo
-     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado' ORDER BY nombre_torneo desc");
+     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado' ORDER BY id_torneo asc");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $id  = $informacion['id_torneo'];
@@ -745,44 +754,6 @@ function ObtenerTorneosPorDeporteOrdenado($deporte,$estado){
         $vector = array(
             'id' => "$id",
             'nombre' => "$nombre",
-            );
-        array_push($datos, $vector);
-    }
-    
-    return $datos;
-
-}
-function CategoriaEquipo($idequipo)
-{
-    global $conexion;
-    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT nombre_torneo from tb_torneo WHERE id_torneo in (Select torneo from tb_equipos where id_equipo='$idequipo')"));
-    $valor = $valor['nombre_torneo'];
-    
-    return $valor;
-}
-function ObtenerPartidosPorJugarByCancha($estado){
-
-    global $conexion;
-    $valor = mysqli_query($conexion, "SELECT lug.nombre, part.id_partido, part.equipo1, part.equipo2, part.fecha, part.hora, part.Lugar, part.resultado1, part.resultado2 FROM tb_partidos part INNER JOIN tb_lugares lug ON lug.id_lugar = part.lugar WHERE part.estado='$estado' and part.equipo1 IN (select id_equipo from tb_equipos) AND part.equipo2 IN (select id_equipo from tb_equipos) AND part.fecha >= curdate() ORDER BY lug.nombre asc,MONTH(part.fecha) asc, DAY(part.fecha) asc, part.hora asc");
-    $datos = array();
-    while ($informacion = mysqli_fetch_array($valor)) {
-        $idpartido  = $informacion['id_partido'];
-        $equipo1    = $informacion['equipo1'];
-        $equipo2    = $informacion['equipo2'];
-        $fecha      = $informacion['fecha'];
-        $hora       = $informacion['hora'];
-        $lugar      = $informacion['Lugar'];
-        $resultado1    = $informacion['resultado1'];
-        $resultado2    = $informacion['resultado2'];
-        $vector     = array(
-            "idpartido" => "$idpartido",
-            "equipo1" => "$equipo1",
-            "equipo2" => "$equipo2",
-            "fecha" => "$fecha",
-            "hora" => "$hora",
-            "lugar" => "$lugar",
-            "resultado1" => "$resultado1",
-            "resultado2" => "$resultado2",
             );
         array_push($datos, $vector);
     }
@@ -932,6 +903,36 @@ function ObtenerPartidosPorJugar($estado){
     return $datos;
 
 }
+function ObtenerPartidosPorJugarByCancha($estado){
+
+    global $conexion;
+    $valor = mysqli_query($conexion, "SELECT lug.nombre, part.id_partido, part.equipo1, part.equipo2, part.fecha, part.hora, part.Lugar, part.resultado1, part.resultado2 FROM tb_partidos part INNER JOIN tb_lugares lug ON lug.id_lugar = part.lugar WHERE part.estado='$estado' and part.equipo1 IN (select id_equipo from tb_equipos) AND part.equipo2 IN (select id_equipo from tb_equipos) AND part.fecha >= curdate() ORDER BY lug.nombre asc,MONTH(part.fecha) asc, DAY(part.fecha) asc, part.hora asc");
+    $datos = array();
+    while ($informacion = mysqli_fetch_array($valor)) {
+        $idpartido  = $informacion['id_partido'];
+        $equipo1    = $informacion['equipo1'];
+        $equipo2    = $informacion['equipo2'];
+        $fecha      = $informacion['fecha'];
+        $hora       = $informacion['hora'];
+        $lugar      = $informacion['Lugar'];
+        $resultado1    = $informacion['resultado1'];
+        $resultado2    = $informacion['resultado2'];
+        $vector     = array(
+            "idpartido" => "$idpartido",
+            "equipo1" => "$equipo1",
+            "equipo2" => "$equipo2",
+            "fecha" => "$fecha",
+            "hora" => "$hora",
+            "lugar" => "$lugar",
+            "resultado1" => "$resultado1",
+            "resultado2" => "$resultado2",
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+
+}
 function ObtenerPartidosPorJugarEnUnLugar($lugar,$estado){
 
     global $conexion;
@@ -1043,16 +1044,16 @@ function ObtenerPartidoDeUnaFecha($fecha, $estado, $lugar)
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT * 
       FROM tb_partidos WHERE fecha='$fecha' and Lugar=$lugar
-      and Estado=$estado   ORDER BY hora asc  ");
+      and Estado=$estado   ORDER BY hora asc ");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $id_partido = $informacion['id_partido'];
         $equipo1    = $informacion['equipo1'];
         $equipo2    = $informacion['equipo2'];
-        $estado     = $informacion['estado'];
+        $estado     = $informacion['Estado'];
         $fecha      = $informacion['fecha'];
         $hora       = $informacion['hora'];
-        $lugar      = $informacion['lugar'];
+        $lugar      = $informacion['Lugar'];
         $Nfecha     = $informacion['numero_fecha'];
         $resultado1 = $informacion['resultado1'];
         $resultado2 = $informacion['resultado2'];
@@ -1083,7 +1084,7 @@ function ObtenerFechasdePartidosConFechas($estado, $orden, $menosdias, $masdias)
     global $conexion;
     
     $valor = mysqli_query($conexion, "SELECT DISTINCT fecha,nombre,Lugar 
-     FROM `tb_partidos`,tb_lugares WHERE Estado=$estado and id_lugar=Lugar 
+     FROM `tb_partidos`,tb_lugares WHERE Estado=$estado and id_lugar=Lugar
      and fecha between '$menosdias' and '$masdias'  
      ORDER BY fecha $orden, Lugar asc,hora asc");
     $datos = array();
@@ -1580,13 +1581,13 @@ function Array_Get_Modulos_Sons_All_Users($padre)
     while ($informacion = mysqli_fetch_array($consulta)) {
         $id_modulos  = $informacion['id_modulos'];
         $nombre  = $informacion['nombre'];
-        $submenu  = $informacion['submenu'];
         $ruta  = $informacion['ruta'];
+        $submenu =$informacion['submenu'];
         $vector = array(
             'id_modulos' => "$id_modulos",
-               'submenu' => "$submenu",
             'nombre' => "$nombre",
             'ruta' =>"$ruta",
+            'submenu'=>"$submenu",
             );
         array_push($datos, $vector);
     }

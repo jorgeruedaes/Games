@@ -16,7 +16,7 @@ ContadorVisitas($ipvisitante,'resultado'.'_'.$id);
             
             $equipo1=$vectores['equipo1'];
             $equipo2=$vectores['equipo2'];
-            $estado=$vectores['estado'];
+            $estado=$vectores['estado']; 
             $fecha=$vectores['fecha'];
             $hora=$vectores['hora'];
             $lugar=$vectores['lugar'];
