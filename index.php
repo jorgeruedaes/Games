@@ -27,12 +27,16 @@
 <!--// Main Content \\-->
 <div class="ec-main-content">
     <!--// Main Section \\-->
-    
+
     <!--// Main Section \\-->
     <!--// Main Section \\-->
     <div class="ec-main-section ec-promofull padding-top-10" >
         <div class="container">
             <div class="row">
+                <?php
+    if(false)
+    {
+    ?>
                 <!--// Match Fixture \\-->
                 <div class="col-md-6">
                     <div class="ec-fancy-title">
@@ -189,6 +193,9 @@
                     ?>
                 </div>
             </div>
+            <?php
+}
+            ?>
             <!--// TablePoint \\-->
             <!--// Partner \\-->
             <div class="col-md-12 ">
