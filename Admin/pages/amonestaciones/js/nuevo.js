@@ -461,6 +461,7 @@ Add_Resultado: function () {
 						fecha: $('.guardar-amonestaciones').data('fecha'),
 						estado : $('.guardar-amonestaciones').data('estado'),
 						tipo :  "nuevo",
+						valor : jQuery.isEmptyObject(amonestaciones.TomarDatos_Resultados()),
 						json  : amonestaciones.TomarDatos_Resultados(),
 					},
 					success: function (resp) {

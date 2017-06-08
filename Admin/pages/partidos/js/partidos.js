@@ -566,7 +566,7 @@ SeleccionCampeonato : function()
 			url: 'pages/partidos/peticiones/peticiones.php',
 			type: 'POST',
 			data: {
-				bandera: "getcampeonato",
+				bandera: "getpartidosdobleestado",
 				estado : '1',
 				campeonato:  $('.selector-campeonato option:selected').val()
 
