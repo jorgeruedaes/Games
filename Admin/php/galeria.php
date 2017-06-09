@@ -31,7 +31,7 @@ function Array_Get_Galeria()
  */
 function Array_Get_Albums()
 {
-    $query = consultar("SELECT * FROM `tb_album` order by fecha_creacion desc");
+    $query = consultar("SELECT * FROM `tb_album`  order by fecha_creacion desc");
     $vector    = array();
     while ($valor = mysqli_fetch_array($query)) {
 
@@ -52,6 +52,7 @@ function Array_Get_Albums()
     
     return $vector;
 }
+
 /**
  * [boolean_new_album description]
  * @param  [type] $nombre [description]

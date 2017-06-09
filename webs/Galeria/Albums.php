@@ -1,8 +1,7 @@
 <?php
 include('../../menuinicial.php');
 $ipvisitante=$_SERVER["REMOTE_ADDR"];
-ContadorVisitas($ipvisitante,'galeria');
-$id = $_GET['id'];
+ContadorVisitas($ipvisitante,'albums');
 ?>
 <head>
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -22,13 +21,12 @@ $id = $_GET['id'];
 		<div class="row">
 			<div class="col-md-12">
 				<div class="ec-mini-title">
-					<h1>Galería de fotos</h1>
+					<h1>Albums</h1>
 				</div>
 				<div class="ec-breadcrumb">
 					<ul>
 						<li><a href="index.php">Inicio</a></li>
 						<li>Galería</li>
-						<li>Album</li>
 					</ul>
 				</div>
 			</div>
@@ -46,19 +44,25 @@ $id = $_GET['id'];
 					<div class="ec-gallery ec-simple-gallery">
 						<ul class="row gallery">
 							<?php
-							$vectores = CargarImagenes($id);
-							echo (empty($vectores)) ? '<div class="center"><cite>No hay imágenes.</cite></div>' :'';
+							$vectores = Array_Get_Albums();
+							echo (empty($vectores)) ? '<div class="center"><cite>No hay Albums.</cite></div>' :'';
 							foreach ($vectores as $value)
 							{
+								$id = $value['id_album'];
+								$nombre = $value['nombre'];
 								?>
 								<li class="col-md-3">
 
 									<figure>
-									<a href="javascript:void();"><img src="<?php echo $value['imagen'];?>" alt=""></a>
+									<a href="javascript:void();"><img src="<?php echo ObtenerPrimeraImagen($id);?>" alt=""></a>
 										<figcaption>
-											<a title="" rel="prettyPhoto[gallery1]" href="<?php echo $value['imagen'];?>" class="ec-color"><i class="fa fa-compress"></i></a>
+											<a title=""  href="webs/Galeria/Galeria.php?id=<?php echo $id ?> " class="ec-color"><i class="fa fa-compress"></i></a>
 										</figcaption>
 									</figure>
+									 <div class="ec-gallery-info">
+                                            <h2><?php echo $nombre ?></h2>
+                                            <p>.</p>
+                                        </div>
 								</li>
 								<?php
 							}

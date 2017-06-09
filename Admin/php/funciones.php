@@ -1235,11 +1235,11 @@ function ContadorVisitas($ipvisitante,$lugar)
 }
 // Recibe : CargadordeImagenes
 // Retorna : nada.
-function CargarImagenes()
+function CargarImagenes($valor)
 {
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT * 
-      FROM tb_galeria where torneo!='100' ORDER BY fecha desc");
+      FROM tb_galeria where torneo!='100' and torneo='$valor' ORDER BY fecha desc");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $id_imagen = $informacion['codigo'];
@@ -1252,6 +1252,36 @@ function CargarImagenes()
     }
     
     return $datos;
+}
+
+function Array_Get_Albums()
+{
+       global $conexion;
+    $query = mysqli_query($conexion,"SELECT * FROM `tb_album` where estado='activo' and id_album!=100 order by fecha_creacion desc");
+    $vector    = array();
+    while ($valor = mysqli_fetch_array($query)) {
+
+    $id_album = $valor['id_album'];
+    $nombre = $valor['nombre'];
+
+
+    $arreglo = array(
+      'id_album'=>"$id_album",
+      'nombre'=>"$nombre"
+
+      );
+        array_push($vector, $arreglo);
+    }
+    
+    return $vector;
+}
+function ObtenerPrimeraImagen($identificador)
+{
+    global $conexion;
+    $valor = mysqli_fetch_array(mysqli_query($conexion, "SELECT * 
+      FROM tb_galeria where torneo!='100' and torneo='$identificador' ORDER BY fecha desc limit 1 "));
+    
+    return $valor['imagen'];
 }
 function CargarImagenes_Principal()
 {
