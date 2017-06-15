@@ -670,7 +670,7 @@ function ObtenerFechasdePartidos($estado, $orden)
 {
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT DISTINCT fecha,nombre,Lugar 
-     FROM `tb_partidos`,tb_lugares WHERE tb_partidos.Estado=$estado and id_lugar=Lugar  and fecha>curdate()
+     FROM `tb_partidos`,tb_lugares WHERE tb_partidos.Estado=$estado and id_lugar=Lugar  and fecha>=curdate()
      ORDER BY fecha $orden ,Lugar asc ,hora asc");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
@@ -737,7 +737,7 @@ function ObtenerTorneosPorDeporteOrdenado($deporte,$estado){
 
     global $conexion;
     $valor = mysqli_query($conexion, "SELECT id_torneo, nombre_torneo
-     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado' ORDER BY nombre_torneo desc");
+     FROM tb_torneo WHERE deporte='$deporte' and estado='$estado' ORDER BY id_torneo asc");
     $datos = array();
     while ($informacion = mysqli_fetch_array($valor)) {
         $id  = $informacion['id_torneo'];
@@ -1786,7 +1786,7 @@ GROUP BY id_equipo");
 
 // // saber en que lugar esta si en el equipo1 o equipo2 para tomar los valores de los goles 
     $lugardentrodelospartidos = mysqli_query($conexion,"SELECT  distinct equipo1,equipo2,resultado1,resultado2
- FROM  tb_partidos WHERE tb_partidos.Estado='2' AND numero_fecha <18");
+ FROM  tb_partidos WHERE tb_partidos.Estado='2' AND numero_fecha <20");
 
     while ($equipoparticipante = mysqli_fetch_array($lugardentrodelospartidos)) {
         if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo'] || $equipoparticipante['equipo2'] == $identificaciones['id_equipo']) {

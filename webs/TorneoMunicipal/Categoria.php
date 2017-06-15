@@ -24,15 +24,13 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
     <div class="container">
       <div class="row">
         <div class="col-md-5 float-right">
-         
-        <p class="float-right font-20 add-pointer"  style="margin-right: 30px">Descargar programación
-          <a class="font-25"  href="webs/Pdf/Calendario.php?id=<?php echo $id?>&flag=porcategoria" style="color:#4183D7" download>
-            <span class="fa fa-file-pdf-o"></span>
-          </a>
-        </p>
       </div>
     </div>
     <br>
+<?php
+if(false)
+{
+?>
     <div class="row">
       <div class="col-md-12">
         <div class="ec-fancy-title">
@@ -72,7 +70,9 @@ ContadorVisitas($ipvisitante,'categoria'.'_'.$id);
       </div>
 
     </div>
-
+<?php
+}
+?>
     <br>
     <br>
     <div class="row">
