@@ -223,6 +223,7 @@ function Transforma_paritdo($array)
 		$Nfecha     = $value['Nfecha'];
 		$resultado1 = $value['resultado1'];
 		$resultado2 = $value['resultado2'];
+		    $tiporesultado = $value['tiporesultado'];
 
 		$arreglo = array(
 			"id_partido" => "$id_partido",
@@ -238,7 +239,8 @@ function Transforma_paritdo($array)
 			"nombre_equipo1"=>"$nombre_equipo1",
 			"nombre_equipo2"=>"$nombre_equipo2",
 			"nombre_estado"=>"$nombre_estado",
-			"nombre_lugar"=>"$nombre_lugar"
+			"nombre_lugar"=>"$nombre_lugar",
+			 "tiporesultado" => "$tiporesultado"
 			);
 
 		array_push($vector, $arreglo);

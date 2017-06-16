@@ -49,22 +49,22 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 							</h2>
 						</div>
 						<div class="body">
-								<label for="">Campeonato</label>
-								<div class="form-group">
-									<select class="form-control show-tick selector-campeonato-resultados">
-										<option value="0">--Selecciona un campeonato --</option>
-										<?php 
-										$vector = Array_Get_Campeonatos();
-										foreach ($vector as $value) {
-									
-										?>
-								<option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
-										<?php
-										}
-										?>
+							<label for="">Campeonato</label>
+							<div class="form-group">
+								<select class="form-control show-tick selector-campeonato-resultados">
+									<option value="0">--Selecciona un campeonato --</option>
+									<?php 
+									$vector = Array_Get_Campeonatos();
+									foreach ($vector as $value) {
 
-									</select>
-								</div>
+										?>
+										<option value="<?php echo $value['id_torneo']; ?>"><?php echo $value['nombre_torneo']; ?></option>
+										<?php
+									}
+									?>
+
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -88,40 +88,78 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									</tr>
 								</thead>
 								<tbody>
-			
-								</tbody>
-								</table>
-							</div>
 
+								</tbody>
+							</table>
 						</div>
+
 					</div>
 				</div>
 			</div>
-		</section>
-		<!-- JS ====================================================================================================================== -->
-		<!--  Js-principal -->
-		<script src="pages/partidos/js/partidos.js"></script>
+		</div>
+	</section>
+	<!-- JS ====================================================================================================================== -->
+	<!--  Js-principal -->
+	<script src="pages/partidos/js/partidos.js"></script>
 
-		<!-- Jquery DataTable Plugin Js -->
-		<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
-		<script src="plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-		<script src="plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-		<script src="plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-		<script src="plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-		<script src="plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-		<script src="plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-		<script src="plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-		<script src="plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+	<!-- Jquery DataTable Plugin Js -->
+	<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
+	<script src="plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+	<script src="plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
 
-		<!-- Custom Js -->
-		<script src="js/pages/tables/jquery-datatable.js"></script>
+	<!-- Custom Js -->
+	<script src="js/pages/tables/jquery-datatable.js"></script>
 
 
-		<!-- Modal Dialogs ====================================================================================================================== -->
-		<!-- Default Size -->
-		<?php
-	}else
-	{
-		require("../sinpermiso.php");
-	}
-	?>
+	<!-- Modal Dialogs ====================================================================================================================== -->
+	<!-- Default Size -->
+	<div class="modal fade" id="defaultModal" data-partido="" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="defaultModalLabel">Tipo Resultado</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="body">
+						<form>
+							<h4 class="card-inside-title" ></h4>
+							<div class="row clearfix">
+								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+									<select class="form-control show-tick select-lugar">
+										<?php
+										$vector = Array_Get_tipo_Resultado();
+										foreach ($vector as  $value) 
+										{
+											?>
+											<option value="<?php echo $value['id_tiporesultado'] ?>"><?php echo $value['texto'] ?></option>
+											<?php 
+										}
+										?>	
+									</select>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" value="" id="estado-partido" >
+					<button type="button" class="btn btn-info waves-effect guardar-tiporesultado" data-partido="">Guardar</button>
+					<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
+}else
+{
+	require("../sinpermiso.php");
+}
+?>

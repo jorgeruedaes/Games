@@ -37,6 +37,7 @@ function Get_Partido($identificador)
     $Nfecha     = $valor['numero_fecha'];
     $resultado1 = $valor['resultado1'];
     $resultado2 = $valor['resultado2'];
+     $tiporesultado = $valor['tipo_resultado'];
     
     return array(
     	"id_partido" => "$id_partido",
@@ -48,7 +49,8 @@ function Get_Partido($identificador)
         "lugar" => "$lugar",
         "Nfecha" => "$Nfecha",
         "resultado1" => "$resultado1",
-        "resultado2" => "$resultado2"
+        "resultado2" => "$resultado2",
+         "tiporesultado" => "$tiporesultado"
         );
 }
 /**
@@ -381,5 +383,26 @@ function Get_NombreCancha($identificador)
       FROM tb_lugares WHERE id_lugar=$identificador"));
     
     return $valor['nombre'];
+}
+
+//////////////////////////////////////////////////////////////
+///////////////// TIPO RESULTADO /////////////////////////////
+/////////////////////////////////////////////////////////////
+
+function Array_Get_tipo_Resultado()
+{
+    $lugares = consultar("SELECT * FROM tb_tiporesultado where estado='activo'");  
+    $datos = array();
+    while ($valor = mysqli_fetch_array($lugares)) {
+        $id_tiporesultado = $valor['id_tiporesultado'];
+        $texto       = $valor['texto'];
+        $vector = array(
+            'id_tiporesultado'=>"$id_tiporesultado",
+            'texto' => "$texto",
+            );
+        array_push($datos, $vector);
+    }
+
+    return $datos;  
 }
 ?>
