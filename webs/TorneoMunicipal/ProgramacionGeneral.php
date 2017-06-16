@@ -61,11 +61,9 @@ ContadorVisitas($ipvisitante,'Programacion');
 							<h2 style="float: right"><?php echo FormatoFecha($fecha)?></h2>
 						</div>
 						<table  style="width: 100%">
-
-							
 							<tbody>
 								<?php
-							//$vectores = ObtenerPartidosPorCanchaFecha($idcancha,$fecha,'1');
+
 								$vectores = ObtenerPartidoDeUnaFecha($fecha,'1',$idcancha);
 
 								echo (empty($vectores)) ? '<div class="center"><cite>No se ha cargado programación.</cite></div>' :'';
@@ -73,7 +71,7 @@ ContadorVisitas($ipvisitante,'Programacion');
 								{
 									?>
 
-									<tr>
+									<tr class="calendar-detail add-pointer" id="<?php echo $values['id_partido']?>">
 										<td class="ten table-calendar" ><?php echo FormatoHora($values['hora']) ?></td>
 										<td class="ten table-calendar"> <?php echo CategoriaEquipo($values['equipo1']) ?></td>
 										<td class="ten table-calendar"><img class="width-45"  src="<?php echo LogoClub(ClubEquipo($values['equipo1']))?>" /></td>
