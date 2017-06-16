@@ -751,7 +751,7 @@ address {font-style: italic;}
 	width: 100%;
 	background-color: #fcfcfc;
 }
-.ec-main-navsection .ec-logo { margin: 22px 0px 22px 0px; }
+.ec-main-navsection .ec-logo { margin: 0px 0px 10px 0px; }
 /* Navigation */
 .ec-navigation {
     background: none;

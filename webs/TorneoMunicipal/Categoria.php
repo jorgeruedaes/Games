@@ -100,7 +100,7 @@ if(false)
                   <span><?php echo NombreEquipo($equipo1);?></span>
                 </div>
                 <div class="ec-cell">
-                  <span class="ec-vs" style="WIDTH: 20%;"><?php echo $resultado1 . ' - ' . $resultado2;?></span>
+                  <span class="ec-vs"><?php echo $resultado1 . ' - ' . $resultado2;?></span>
                 </div>
                 <div class="ec-cell">
                   <span><?php echo NombreEquipo($equipo2);?></span>

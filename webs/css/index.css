@@ -93,3 +93,15 @@
     background: #ECF0F1 !important; 
 
 }
+.ec-match_widget .ec-vs{
+	width: 40px !important;
+}
+
+.as-menuwrapper{
+	padding-top: 5px !important;
+}
+
+
+.ec-main-navsection .ec-right-section{
+margin: -20px 0px 20px 0px;
+}
