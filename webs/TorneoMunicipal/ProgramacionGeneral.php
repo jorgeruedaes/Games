@@ -73,26 +73,34 @@ ContadorVisitas($ipvisitante,'Programacion');
 								?>
 
 								<li class="calendar-detail add-pointer" id="<?php echo $values['id_partido']?>">
-									<div class="ec-cell">
+									<div class="ec-cell" style="width: 10%">
 									<span><?php echo FormatoHora($values['hora']) ?></span>
 									</div>
-									<div class="ec-cell">
+									<div class="ec-cell" style="width: 10%">
 									<span><?php echo CategoriaEquipo($values['equipo1']) ?></span>
 									</div>
-									<div class="ec-cell">
-									<img class="width-15" src="<?php echo LogoClub(ClubEquipo($values['equipo1']))?>" />
-									<span>
-									<?php echo NombreEquipo($values['equipo1'])?></span>
+									<div class="ec-cell width-8" >
+									<img  src="<?php echo LogoClub(ClubEquipo($values['equipo1']))?>" />
+									
+									</div>
+									<div class="ec-cell" style="width: 30%">
+										<span>
+									<?php echo  trim(NombreEquipo($values['equipo1']))?></span>
+
 									</div>
 
-									<div class="ec-cell">
+									<div class="ec-cell" style="width: 4%">
 									<span class="ec-fixture-vs"><small>vs</small></span>
 									</div>
-									<div class="ec-cell">
-									<img class="width-15" src="<?php echo LogoClub(ClubEquipo($values['equipo2']))?>" />
-									<span><?php echo NombreEquipo($values['equipo2'])?></span>
+									<div class="ec-cell width-8" >
+									<img  src="<?php echo LogoClub(ClubEquipo($values['equipo2']))?>" />
+									 
 									</div>
-
+									<div class="ec-cell" style="width: 30%">
+										<span>
+									<?php echo trim(NombreEquipo($values['equipo2']))?></span>
+										
+									</div>
 
 								</li>
 
