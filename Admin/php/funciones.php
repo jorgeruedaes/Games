@@ -226,6 +226,21 @@ function FormatoFecha($fecha)
     
     return $valor;
 }
+function FormatoFecha_Dia($fecha)
+{
+    $dias = array(
+        "Domingo",
+        "Lunes",
+        "Martes",
+        "Miercoles",
+        "Jueves",
+        "Viernes",
+        "Sabado"
+        );
+    $valor = $dias[date("w", strtotime($fecha))];
+    
+    return $valor;
+}
 
 
 function Int_Total_Equipos(){

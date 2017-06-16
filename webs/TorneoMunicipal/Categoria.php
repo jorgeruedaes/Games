@@ -143,7 +143,7 @@ if(false)
                 <?php } ?>
                 <?php
                 $numero = 1;
-                $vectores = ObtenerTablaPosiciones('8',$valuegrupo['grupo'],$id);
+                $vectores = ObtenerTablaPosiciones('50',$valuegrupo['grupo'],$id);
                 echo (empty($vectores)) ? '<div class="center"><cite>No hay posiciones.</cite></div>' :'<ul class="ec-table-head">
                 <li>
                   <div class="ec-cell">#</div>

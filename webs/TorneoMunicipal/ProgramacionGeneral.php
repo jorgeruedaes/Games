@@ -58,7 +58,7 @@ ContadorVisitas($ipvisitante,'Programacion');
 					<div class="col-md-12">
 						<div class="ec-fancy-title">
 							<h2><?php echo ObtenerNombreCancha($value['lugar'])?></h2>
-							<h2 style="float: right"><?php echo FormatoFecha($fecha)?></h2>
+							<h2 style="float: right"><?php echo FormatoFecha_Dia($fecha).' ' ?> <?php echo FormatoFecha($fecha)?></h2>
 						</div>
 						<table  style="width: 100%">
 							<tbody>
