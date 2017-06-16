@@ -194,6 +194,18 @@ else if ($bandera === "agregarresultado-rapido")
 		$resultado.='"mensaje":false';
 	}
 }
+else if ($bandera === "modificar_tiporesultado")
+{
+	$partido = $_POST['partido'];
+	$tiporesultado = $_POST['tiporesultado'];
+	if (Set_tiporesultado_Partido($partido,$tiporesultado))
+	{
+		$resultado.='"mensaje":true';
+	} 
+	else {
+		$resultado.='"mensaje":false';
+	}
+}
 
 }
 else

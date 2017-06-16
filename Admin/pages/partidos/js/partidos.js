@@ -818,9 +818,63 @@ EditGoles : function ()
 	$('.tabla-resultados').on("click", ".edit-tiporesultado", function(){
 		var partido = $(this).data('id');
 		var tiporesultado = $(this).data('tiporesultado');
+		$('.guardar-tiporesultado').data('partido',partido);
+		$('.select-tiporesultado').val(tiporesultado);
+		$('.select-tiporesultado').change();
+		$('#defaultModal').modal('show'); 
+		partidos.ModificarTipoResultadoPartido();
 		
 
 	});
+
+},
+ModificarTipoResultadoPartido: function () {
+
+	$('.guardar-tiporesultado').on("click", function(){
+			swal({title: "¿ Esta seguro ?",
+				text: " Desea cambiar el tipo de  resultado del partido, Modificara directamente la tabla de posiciones.",
+				type: "warning",
+				showCancelButton: false,
+				confirmButtonColor: "rgb(174, 222, 244)",
+				confirmButtonText: "Ok",
+				closeOnConfirm: false
+			}, function (isConfirm) {
+				if (isConfirm) {
+
+					$.ajax({
+						url: 'pages/partidos/peticiones/peticiones.php',
+						type: 'POST',
+						data: {
+							bandera: "modificar_tiporesultado",
+							partido:  $('.guardar-tiporesultado').data('partido'),
+							tiporesultado:  $('.select-tiporesultado  option:selected').val(),
+						},
+						success: function (resp) {
+
+							var resp = $.parseJSON(resp);
+							if (resp.salida === true && resp.mensaje === true) {
+								swal({title: "Información",
+									text: "El partido se ha mdificado exitosamente!",
+									type: "success",
+									showCancelButton: false,
+									confirmButtonColor: "rgb(174, 222, 244)",
+									confirmButtonText: "Aceptar",
+									closeOnConfirm: false
+								}, function (isConfirm) {
+									if (isConfirm) {
+										window.location.reload();
+									}
+								});
+							} else {
+								swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+							}
+						}
+					});
+
+}
+});
+
+});
 
 }
 };

@@ -176,6 +176,13 @@ function Set_resultado_Partido($partido,$resultado1,$resultado2,$estado)
         WHERE `id_partido`='%d' ",escape($resultado1),escape($resultado2),escape($estado),escape($partido)));
     return $valor;
 }
+
+function Set_tiporesultado_Partido($partido,$tiporesultado)
+{
+    $valor  = modificar(sprintf("UPDATE `tb_partidos` SET tipo_resultado ='%d'
+        WHERE `id_partido`='%d' ",escape($tiporesultado),escape($partido)));
+    return $valor;
+}
 function Set_resultado_Partido_Amonestaciones($partido,$estado)
 {
     $valor  = modificar(sprintf("UPDATE `tb_partidos` SET `estado`='%d' 

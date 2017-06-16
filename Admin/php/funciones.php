@@ -1860,8 +1860,11 @@ function Generar_Tabla_De_Posiciones($torneo)
             }
         }
         else
-        {
+        { /// RESULTADO ESPECIALES 
 
+            // 1.CUANDO LOS DOS PIERDEN.
+               if($equipoparticipante['tipo_resultado'] == 2)
+            {
 
             if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo']) 
             {
@@ -1875,10 +1878,82 @@ function Generar_Tabla_De_Posiciones($torneo)
             if ($equipoparticipante['equipo2'] == $identificaciones['id_equipo']) {
                     // PIERDEN LOS DOS
                 $matriz[$i]['5'] = $matriz[$i]['5'] + 1;
+            } 
+
+            }
+
+             // 2.EQUIPO 1 GANA POR REGLAMENTO.
+               if($equipoparticipante['tipo_resultado'] == 4)
+            {
+
+            if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo']) 
+            {
+                   // GANA EQUIPO 1
+                  $matriz[$i]['6'] = $matriz[$i]['6'] + 1;
                 
 
-            }//-------------------> PARA EQUIPO 2 CUANDO GPE ARRIBA
-// --->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>AQUI TERMINA CODIGO PARTIDOS GPE
+            }    ///---------------> PARA EQUIPO 1 ARRIBA
+
+
+            if ($equipoparticipante['equipo2'] == $identificaciones['id_equipo']) {
+                    // PIERDE POR REGLAMENTO
+                $matriz[$i]['5'] = $matriz[$i]['5'] + 1;
+            } 
+
+                if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo']) {
+                $Golesafavor = $equipoparticipante['resultado1'];
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $matriz[$i]['3'] = $matriz[$i]['3'] + $Golesafavor;
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $Golescontra = $equipoparticipante['resultado2'];
+                $matriz[$i]['4'] = $matriz[$i]['4'] + $Golescontra;
+            } else {
+                $Golesacontra = $equipoparticipante['resultado1'];
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $matriz[$i]['4'] = $matriz[$i]['4'] + $Golesacontra;
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $Golesafavor = $equipoparticipante['resultado2'];
+                $matriz[$i]['3'] = $matriz[$i]['3'] + $Golesafavor;
+            }
+
+            }
+                    // 2.EQUIPO 2 GANA POR REGLAMENTO.
+               if($equipoparticipante['tipo_resultado'] == 5)
+            {
+
+            if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo']) 
+            {
+                 
+                      // PIERDE POR REGLAMENTO
+                 $matriz[$i]['5'] = $matriz[$i]['5'] + 1;
+
+            }    ///---------------> PARA EQUIPO 1 ARRIBA
+
+
+            if ($equipoparticipante['equipo2'] == $identificaciones['id_equipo']) {
+                  // GANA EQUIPO 2
+                 $matriz[$i]['6'] = $matriz[$i]['6'] + 1;
+            } 
+
+
+                if ($equipoparticipante['equipo1'] == $identificaciones['id_equipo']) {
+                $Golesafavor = $equipoparticipante['resultado1'];
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $matriz[$i]['3'] = $matriz[$i]['3'] + $Golesafavor;
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $Golescontra = $equipoparticipante['resultado2'];
+                $matriz[$i]['4'] = $matriz[$i]['4'] + $Golescontra;
+            } else {
+                $Golesacontra = $equipoparticipante['resultado1'];
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $matriz[$i]['4'] = $matriz[$i]['4'] + $Golesacontra;
+// guardamos los datos en la matriz y sumamos los goles que deban ser sumados
+                $Golesafavor = $equipoparticipante['resultado2'];
+                $matriz[$i]['3'] = $matriz[$i]['3'] + $Golesafavor;
+            }
+
+            }
+
 
 
 

@@ -69,7 +69,7 @@ ContadorVisitas($ipvisitante,'resultado'.'_'.$id);
                         <?php
                         if ($tiporesultado != 1)
                         {
-                            echo Get_Texto_TipoResultado($tiporesultado);
+                            echo '* '.Get_Texto_TipoResultado($tiporesultado);
                         }
                         ?>
                         </h2>

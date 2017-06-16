@@ -119,7 +119,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 
 	<!-- Modal Dialogs ====================================================================================================================== -->
 	<!-- Default Size -->
-	<div class="modal fade" id="defaultModal" data-partido="" tabindex="-1" role="dialog">
+	<div class="modal fade" id="defaultModal"  tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -131,8 +131,8 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 						<form>
 							<h4 class="card-inside-title" ></h4>
 							<div class="row clearfix">
-								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-									<select class="form-control show-tick select-lugar">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<select class="form-control show-tick select-tiporesultado">
 										<?php
 										$vector = Array_Get_tipo_Resultado();
 										foreach ($vector as  $value) 
