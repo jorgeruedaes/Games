@@ -4,6 +4,12 @@
 .scrollbar-height-fixed{
 	height: 250px;
 }
+.table-calendar{
+	color:#555555;
+	font-size: 14px;
+	border:1px solid #f3f3f3;
+	line-height: 2.5;
+	}
 .scrollbar{
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -47,11 +53,17 @@
 .width-30{
 	width: 30%;
 }
+.width-25{
+	width: 25%;
+}
 .width-10{
 	width: 30%;
 }
 .width-40{
 	width: 30%;
+}
+.width-45{
+	width: 45%;
 }
 .width-15{
 	width: 15%;
@@ -113,4 +125,108 @@
 
 .ec-main-navsection .ec-right-section{
 margin: -20px 0px 20px 0px;
+}
+
+
+.eight{
+	width: 8%;
+}
+.ten{
+	width: 10%;
+}
+
+.thirty{
+	width: 26%;
+}
+.four{
+	width: 4%;
+}
+
+table {
+  border: 1px solid #f3f3f3;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+table tr {
+  background-color: white;
+  border: 1px solid #f3f3f3;
+  padding: .35em;
+}
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+table th {
+  font-size: .5em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  .eight{
+	width: 100%;
+}
+.ten{
+	width: 100%;
+}
+
+.thirty{
+	width: 100%;
+}
+.four{
+	width: 100%;
+}
+.width-45{
+	width: 20%;
+}
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    border-bottom: 1px solid #f3f3f3;
+    display: block;
+    margin-bottom: .625em;
+    background-color: white;
+
+  }
+  table td {
+    border-bottom: 1px solid #f3f3f3;
+    display: block;
+    font-size: .5em;
+    text-align: right;
+    color:#555555;
+  }
+  table td:before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
 }

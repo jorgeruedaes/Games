@@ -35,10 +35,10 @@ ContadorVisitas($ipvisitante,'Programacion');
 	<!--// Main Section \\-->
 	<div class="ec-main-section">
 		<div class="container">
-		<div class="row">
+			<div class="row">
 				<div class="col-md-5 float-right">
-				<p class="float-right font-20 add-pointer"  style="margin-right: 30px">Descargar programación
-						<a class="font-25"  href="webs/Pdf/general.php?flag=general"  style="color:#4183D7" download>
+					<p class="float-right font-20 add-pointer"  style="margin-right: 30px">Descargar programación
+						<a class="font-25"  target="_blank"  href="../Archivos/Documentos/programacion.pdf"  style="color:#4183D7">
 							<span class="fa fa-file-pdf-o"></span>
 						</a>
 					</p>
@@ -55,67 +55,44 @@ ContadorVisitas($ipvisitante,'Programacion');
 
 				?>
 				<div class="row">
-				<div class="col-md-12">
-					<div class="ec-fancy-title">
-						<h2><?php echo ObtenerNombreCancha($value['lugar'])?></h2>
-						<h2 style="float: right"><?php echo FormatoFecha($fecha)?></h2>
-					</div>
-					<div class="ec-fixture-list">
-						<ul>
+					<div class="col-md-12">
+						<div class="ec-fancy-title">
+							<h2><?php echo ObtenerNombreCancha($value['lugar'])?></h2>
+							<h2 style="float: right"><?php echo FormatoFecha($fecha)?></h2>
+						</div>
+						<table  style="width: 100%">
 
-							<?php
-							//$vectores = ObtenerPartidosPorCanchaFecha($idcancha,$fecha,'1');
-							$vectores = ObtenerPartidoDeUnaFecha($fecha,'1',$idcancha);
-
-							echo (empty($vectores)) ? '<div class="center"><cite>No se ha cargado programación.</cite></div>' :'';
-							foreach ($vectores as $values)
-							{
-								?>
-
-								<li class="calendar-detail add-pointer" id="<?php echo $values['id_partido']?>">
-									<div class="ec-cell" >
-									<span><?php echo FormatoHora($values['hora']) ?></span>
-									</div>
-									<div class="ec-cell" >
-									<span><?php echo CategoriaEquipo($values['equipo1']) ?></span>
-									</div>
-									<div class="ec-cell width-8" >
-									<img  src="<?php echo LogoClub(ClubEquipo($values['equipo1']))?>" />
-									
-									</div>
-									<div class="ec-cell">
-										<span>
-									<?php echo  trim(NombreEquipo($values['equipo1']))?></span>
-
-									</div>
-
-									<div class="ec-cell">
-									<span class="ec-fixture-vs"><small>vs</small></span>
-									</div>
-									<div class="ec-cell width-8" >
-									<img  src="<?php echo LogoClub(ClubEquipo($values['equipo2']))?>" />
-									 
-									</div>
-									<div class="ec-cell">
-										<span>
-									<?php echo trim(NombreEquipo($values['equipo2']))?></span>
-										
-									</div>
-
-								</li>
-
-
+							
+							<tbody>
 								<?php
+							//$vectores = ObtenerPartidosPorCanchaFecha($idcancha,$fecha,'1');
+								$vectores = ObtenerPartidoDeUnaFecha($fecha,'1',$idcancha);
+
+								echo (empty($vectores)) ? '<div class="center"><cite>No se ha cargado programación.</cite></div>' :'';
+								foreach ($vectores as $values)
+								{
+									?>
+
+									<tr>
+										<td class="ten table-calendar" ><?php echo FormatoHora($values['hora']) ?></td>
+										<td class="ten table-calendar"> <?php echo CategoriaEquipo($values['equipo1']) ?></td>
+										<td class="ten table-calendar"><img class="width-45"  src="<?php echo LogoClub(ClubEquipo($values['equipo1']))?>" /></td>
+										<td class="thirty table-calendar" ><?php echo  NombreEquipo($values['equipo1'])?></td>
+										<td class="eight table-calendar" ><span class="ec-fixture-vs"><small style="width: 40px;height: 40px;padding-top: 0px">vs</small></span></td>
+										<td class="ten table-calendar" ><img class="width-45" src="<?php echo LogoClub(ClubEquipo($values['equipo2']))?>" /></td>
+										<td class="thirty table-calendar"><?php echo  NombreEquipo($values['equipo2'])?></td>
+									</tr>
+									<?php
 
 
-							}
+								}
 
-							?>
-						</ul>
+								?>
+							</tbody>
+						</table>
 					</div>
 				</div>
-			</div>
-			<br>
+				<br>
 				<?php
 			}
 			?>
