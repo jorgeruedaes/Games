@@ -128,7 +128,7 @@ margin: -20px 0px 20px 0px;
 }
 
 
-.eight{
+/*.eight{
 	width: 8%;
 }
 .ten{
@@ -140,8 +140,72 @@ margin: -20px 0px 20px 0px;
 }
 .four{
 	width: 4%;
+}*/
+#tablaprogramacion {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
 }
-
+#tablaprogramacion tr {
+  background: white;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+#tablaprogramacion th,
+#tablaprogramacion td {
+  padding: .625em;
+  text-align: center;
+}
+#tablaprogramacion th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 600px) {
+  #tablaprogramacion {
+    border: 0;
+  }
+  #tablaprogramacion caption {
+    font-size: 1.3em;
+  }
+  #tablaprogramacion thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  #tablaprogramacion tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  #tablaprogramacion td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: center;
+  }
+  #tablaprogramacion td:before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  #tablaprogramacion td:last-child {
+    border-bottom: 0;
+  }
+/*
 table {
   border: 1px solid #f3f3f3;
   border-collapse: collapse;
@@ -217,10 +281,7 @@ table th {
     color:#555555;
   }
   table td:before {
-    /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
+   
     content: attr(data-label);
     float: left;
     font-weight: bold;
@@ -229,4 +290,4 @@ table th {
   table td:last-child {
     border-bottom: 0;
   }
-}
+}*/

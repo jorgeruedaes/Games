@@ -3,6 +3,7 @@ include('../../menuinicial.php');
 $ipvisitante=$_SERVER["REMOTE_ADDR"];
 ContadorVisitas($ipvisitante,'Programacion');
 ?>
+<!DOCTYPE html>
 <head>
 	<link href="css/bootstrap.css" rel="stylesheet">
 	<style>
@@ -60,7 +61,7 @@ ContadorVisitas($ipvisitante,'Programacion');
 							<h2><?php echo ObtenerNombreCancha($value['lugar'])?></h2>
 							<h2 style="float: right"><?php echo FormatoFecha_Dia($fecha).' ' ?> <?php echo FormatoFecha($fecha)?></h2>
 						</div>
-						<table  style="width: 100%">
+						<table id="tablaprogramacion">
 							<tbody>
 								<?php
 
