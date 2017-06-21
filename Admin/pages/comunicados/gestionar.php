@@ -135,6 +135,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<div class="form-group">
 										<select class="form-control show-tick select-n-tipo">
 											<option value="">--Selecciona un tipo --</option>
+											<option value="programacion">Programación</option>
 											<option value="boletin">Boletín</option>
 											<option value="resolucion">Resolución</option>
 											<option value="documentos">Documentos</option>
@@ -192,6 +193,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 									<div class="form-group">
 										<select class="form-control show-tick select-tipo">
 											<option value="">--Selecciona un tipo --</option>
+											<option value="programacion">Programación</option>
 											<option value="boletin">Boletín</option>
 											<option value="resolucion">Resolución</option>
 											<option value="documentos">Documentos</option>
