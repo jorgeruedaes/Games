@@ -1,10 +1,10 @@
 <?php
 require('../php/configuracion.php');
-    session_start();
-    if (!isset($_SESSION['valido'])) {
-     header("location:../pages/error.php");
- }
-    ?>
+session_start();
+if (!isset($_SESSION['valido']) and !isset($_SESSION['verificado'])) {
+header("location:../pages/error.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 
