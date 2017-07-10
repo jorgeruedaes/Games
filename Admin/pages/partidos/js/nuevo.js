@@ -74,7 +74,7 @@ $(function() {
 						};
 
 					} else {
-						swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+					//	swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
 					}
 				}
 			});

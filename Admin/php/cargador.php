@@ -170,8 +170,9 @@ function Insertar_Partido($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero_Fe
  */
 function Codigo_Equipo($NombreEquipo,$torneo)
 {
-	$NombreEquipo = utf8_encode($NombreEquipo);
-	$valor = mysqli_fetch_array(consultar("SELECT id_equipo FROM tb_equipos WHERE (nombre_equipo='$NombreEquipo' or nombre_equipo like '%$NombreEquipo%') and torneo='$torneo' and estado='activo' "));
+	$NombreEquipo =  utf8_encode($NombreEquipo);
+	$NombreEquipo =  str_replace(' ','',$NombreEquipo); 
+	$valor = mysqli_fetch_array(consultar("SELECT id_equipo FROM tb_equipos WHERE ( REPLACE(nombre_equipo,' ','')='$NombreEquipo' or REPLACE(nombre_equipo,' ','') like '%$NombreEquipo%') and torneo='$torneo' and estado='activo' "));
 
 	return array(!empty($valor),$valor['id_equipo']);
 }
@@ -523,6 +524,15 @@ function Validate_A_Partidos($NombreEquipo1,$Fecha,$NombreEquipo2,$Lugar,$Numero
 {
 	$resultado="";
 	$valor = true;
+	if(is_numeric($Numero_Fecha))
+	{
+
+	}
+	else
+	{
+		$resultado.='El numero de la fecha ( Ronda ) no es valido. <br>';
+		$valor=false;
+	}
 
 	if($NombreEquipo1!=$NombreEquipo2)
 	{
