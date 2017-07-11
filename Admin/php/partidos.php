@@ -318,6 +318,66 @@ function Array_Get_Gestion_Amonestaciones($estado)
     return $vector;
 }
 
+function Array_Get_Fechas($equipo, $estado)
+{
+    global $conexion;
+    $fechas = consultar("SELECT  distinct numero_fecha FROM tb_partidos WHERE Estado=$estado AND (equipo1=$equipo or equipo2=$equipo) ORDER BY numero_fecha asc");
+    $datos  = array();
+    while ($valor = mysqli_fetch_array($fechas)) {
+        $numero_fecha = $valor['numero_fecha'];
+        $vector       = array(
+            "numero_fecha" => "$numero_fecha"
+            );
+        array_push($datos, $vector);
+    }
+    
+    return $datos;
+}
+
+function Bole_SabersiAsistio($jugador, $numerofecha)
+{
+    global $conexion;
+    $calculo  = consultar("SELECT * FROM  tr_jugadoresxpartido where jugador=$jugador and partido in (SELECT id_partido FROM tb_partidos WHERE numero_fecha=$numerofecha) ");
+    $columnas = (int) mysqli_num_rows($calculo);
+    if ($columnas > 0) {
+        $resultado = 'true';
+    } else {
+        $resultado = 'false';
+    }
+    
+    return $resultado;
+}
+
+function Get_Goles_Partido($jugador, $numerofecha)
+{
+    global $conexion;
+    $calculo  = consultar("SELECT goles FROM  tr_jugadoresxpartido where jugador=$jugador and partido in (SELECT id_partido FROM tb_partidos WHERE numero_fecha=$numerofecha) ");
+    $columnas = (int) mysqli_num_rows($calculo);
+    $valor = mysqli_fetch_array($calculo);
+    if ($columnas > 0) {
+        $resultado = $valor['goles'];
+    } else {
+        $resultado = '0';
+    }
+    
+    return $resultado;
+}
+function Get_Amonestacion_Partido($jugador, $numerofecha)
+{
+    global $conexion;
+    $calculo  = consultar("SELECT amonestacion FROM  tr_jugadoresxpartido where jugador=$jugador and partido in (SELECT id_partido FROM tb_partidos WHERE numero_fecha=$numerofecha) ");
+    $columnas = (int) mysqli_num_rows($calculo);
+    $valor = mysqli_fetch_array($calculo);
+    if ($columnas > 0) {
+        $resultado = $valor['amonestacion'];
+    } else {
+        $resultado = '5';
+    }
+    
+    return $resultado;
+}
+
+
 
 
 ////////////////////////////////////////////////////////////////////
@@ -412,4 +472,6 @@ function Array_Get_tipo_Resultado()
 
     return $datos;  
 }
+
+
 ?>

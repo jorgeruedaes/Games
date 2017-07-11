@@ -125,6 +125,7 @@ if(false)
         <div class="col-md-6 ">
           <div class="ec-fancy-title">
             <h2>TABLA DE POSICIONES</h2>
+            <span><a style=" color: white; text-decoration: underline; " href="webs/TorneoMunicipal/TablaPosiciones.php?id=<?php echo $id ?>" >Ver más</a></span>
           </div>
           <div class="ec-table-point scrollbar-height-fixed scrollbar">
             <?php

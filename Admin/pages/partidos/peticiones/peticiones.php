@@ -206,6 +206,17 @@ else if ($bandera === "modificar_tiporesultado")
 		$resultado.='"mensaje":false';
 	}
 }
+   else if($bandera === "getequipos") {
+        $campeonato =$_POST['campeonato'];
+        $_SESSION['campeonato']=$_POST['campeonato'];
+        $vector = Array_Get_Equipos_Torneo($campeonato);
+        if (!empty($vector)) {
+            $resultado.='"mensaje":true,';
+            $resultado.='"datos":'.json_encode($vector).'';
+        } else {
+            $resultado.='"mensaje":false';
+        }
+    }
 
 }
 else
