@@ -63,7 +63,7 @@ $(function() {
 						for (var i = 0; i <= resp.datos.length-1; i++) {
 							$('.fila-tabla').each(function(indice, elemento) {
 								if( ($(elemento).data('jugador')==resp.datos[i].jugador)
-									&& (resp.datos[i].goles>0) || (resp.datos[i].autogoles>0)  )
+									&& ((resp.datos[i].goles>0) || (resp.datos[i].autogoles>0) ) )
 								{
 									$(elemento).find('.confirmacion').prop("checked", "checked");
 									$(elemento).find('.gol').val(resp.datos[i].goles);
@@ -74,7 +74,7 @@ $(function() {
 						};
 
 					} else {
-					//	swal("", "Ha ocurrido un error, intenta nuevamente.", "error");
+					//	swal("Agrega los detalles", ", intenta nuevamente.", "info");
 					}
 				}
 			});

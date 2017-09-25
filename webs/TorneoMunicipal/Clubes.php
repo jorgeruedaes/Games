@@ -27,55 +27,75 @@ ContadorVisitas($ipvisitante,'clubes');
     <div class="ec-main-section">
         <div class="container">
             <div class="row">
-             <?php
-
-             $vector = Get_Lista_Clubes('activo');
-             echo (empty($vector)) ? '<cite>No hay clubes.</cite>' :'';
-             foreach ($vector as $value)
-             {
-
-                $id = $value['id'];
-                $nombre =$value['nombre'];
-                $direccion = $value['direccion'];
-                $telefono =$value['telefono'];
-                $correo = $value['correo'];
-                $presidente =$value['presidente'];
-                $cancha = $value['cancha'];
-                $horario =$value['horario'];
-                $logo = $value['logo'];
-                ?>
-                <!--// Match Fixture \\-->
-                <div class="col-md-4">
-                    <div class="ec-fixture-list">
-                        <ul>
-                            <li class="add-pointer" 
-                            onclick="window.location.href = 'webs/TorneoMunicipal/Club.php?id=<?php echo $id?>  ';"   >
-
-                            <div class="ec-cell">
-                             <img style="height:70px;float: left" src="<?php echo $logo ?>" alt=""/>
-                             <a href="webs/TorneoMunicipal/Club.php?id=<?php echo $id?>" class="club-box-size">
-                             <p style="margin-left: 80px"><?php echo $nombre?></p>
-                             </a>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="col-md-12">
+                    <div class="widget widget_search">
+                        <div class="ec-fancy-title">
+                            <h2>Buscar</h2> </div>
+                            <form><input class="filtro" type="text" placeholder="Buscar.."></form>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <?php
-        }
-        ?>
-        <!--// TablePoint \\-->
-
-        <!--// TablePoint \\-->
-        <!--// Partner \\-->
-
-        <!--// Partner \\-->
+        </div>
     </div>
+    <div class="ec-main-content">
+        <!--// Main Section \\-->
+        <div class="ec-main-section">
+            <div class="container">
+                <div class="row">
+                   <?php
 
-</div>
+                   $vector = Get_Lista_Clubes('activo');
+                   echo (empty($vector)) ? '<cite>No hay clubes.</cite>' :'';
+                   foreach ($vector as $value)
+                   {
+
+                    $id = $value['id'];
+                    $nombre =$value['nombre'];
+                    $direccion = $value['direccion'];
+                    $telefono =$value['telefono'];
+                    $correo = $value['correo'];
+                    $presidente =$value['presidente'];
+                    $cancha = $value['cancha'];
+                    $horario =$value['horario'];
+                    $logo = $value['logo'];
+                    ?>
+                    <!--// Match Fixture \\-->
+                    <div class="col-md-4 filtros">
+                        <div class="ec-fixture-list">
+                            <ul>
+                                <li class="add-pointer" 
+                                onclick="window.location.href = 'webs/TorneoMunicipal/Club.php?id=<?php echo $id?>  ';"   >
+
+                                <div class="ec-cell">
+                                   <img style="height:70px;float: left" src="<?php echo $logo ?>" alt=""/>
+                                   <a href="webs/TorneoMunicipal/Club.php?id=<?php echo $id?>" class="club-box-size">
+                                       <p class="texto" style="margin-left: 80px"><?php echo $nombre?></p>
+                                   </a>
+                               </div>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+               <?php
+           }
+           ?>
+           <!--// TablePoint \\-->
+
+           <!--// TablePoint \\-->
+           <!--// Partner \\-->
+
+           <!--// Partner \\-->
+       </div>
+
+   </div>
 </div>
 <!--// Main Section \\-->
 </div>
+
+
 <?php
 include('../../footerinicial.php');
+
 ?>
+<script src="webs/js/index.js"></script>

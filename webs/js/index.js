@@ -5,58 +5,59 @@ $(function() {
 			
 			$('[data-toggle="tooltip"]').tooltip(); 
 			partidos.detalleProgramacion();
+			partidos.Filtro();
 		},
 		detalleProgramacion: function () {
 			$('.calendar-detail').on('click', function () {
-			var element = $(this).attr('id');
-		 	window.location.href = "webs/Index/programacion.php?id=" + element + "";
+				var element = $(this).attr('id');
+				window.location.href = "webs/Index/programacion.php?id=" + element + "";
 			});
 
 			$('.calendar-category').on('click', function () {
-			var element = $(this).attr('id');
-			window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
+				var element = $(this).attr('id');
+				window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
 			});
-				$('.file-category').on('click', function () {
-			var element = $(this).attr('id');
-			window.open(element);
+			$('.file-category').on('click', function () {
+				var element = $(this).attr('id');
+				window.open(element);
 			});
-				$('.calendar-court').on('click', function () {
-			var element = $(this).attr('id');
-			window.location.href = "webs/TorneoMunicipal/cancha.php?id=" + element + "";
+			$('.calendar-court').on('click', function () {
+				var element = $(this).attr('id');
+				window.location.href = "webs/TorneoMunicipal/cancha.php?id=" + element + "";
 			});
 
 			$('.positions-detail').on('click', function () {
-			var element = $(this).attr('id');
-		 	window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
+				var element = $(this).attr('id');
+				window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
 
 			});
 			$('.results-detail').on('click', function () {
-			var element = $(this).attr('id');
-		 	window.location.href = "webs/TorneoMunicipal/resultado.php?id=" + element + "";
+				var element = $(this).attr('id');
+				window.location.href = "webs/TorneoMunicipal/resultado.php?id=" + element + "";
 
 			});
 
 			$('.open-category').on('click', function () {
-			var element = $(this).attr('id');
-		 	window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
+				var element = $(this).attr('id');
+				window.location.href = "webs/TorneoMunicipal/Categoria.php?id=" + element + "";
 			});
 			
 			$('.news-detail').on('click', function () {
-			var element = $(this).attr('id');
-		 	window.location.href = "webs/Noticias/noticia.php?id=" + element + "";
+				var element = $(this).attr('id');
+				window.location.href = "webs/Noticias/noticia.php?id=" + element + "";
 
 			});
 
 			jQuery('.calendar-image').hover(function () {
-			    jQuery(this).find('.court-name-big').css({ 'color': '#e95842' });
-			    jQuery(this).find('.fa-calendar').css({ 'color': '#e95842' });
+				jQuery(this).find('.court-name-big').css({ 'color': '#e95842' });
+				jQuery(this).find('.fa-calendar').css({ 'color': '#e95842' });
 			}, function () {
-			   jQuery(this).find('.court-name-big').css({ 'color': 'black' });
-			    jQuery(this).find('.fa-calendar').css({ 'color': '#999999' });
+				jQuery(this).find('.court-name-big').css({ 'color': 'black' });
+				jQuery(this).find('.fa-calendar').css({ 'color': '#999999' });
 			});
 
 			$('#sendEmailBtn').on('click', function () {
-					$.ajax({
+				$.ajax({
 					url: 'Admin/php/peticiones.php',
 					type: 'POST',
 					data: {
@@ -89,14 +90,48 @@ $(function() {
 				});
 
 			});
-	
-		}	
+
+		},
+		Filtro : function()
+		{
+			$(".filtro").on('keyup', function(){
+				var text = $(".filtro").val().toUpperCase();
+
+				if (text == '')
+				{
+					$('.filtros').each(function() {
+						$(this).fadeIn('slow').removeClass('hidden');
+					});
+
+
+				}
+				else
+				{
+
+					$('.filtros').each(function() {
+
+						if  ($(this).find('.texto').text().includes(text)>0)
+						{
+							$(this).fadeIn('slow').removeClass('hidden');
+						}
+						else
+						{
+							$(this).fadeOut('normal').addClass('hidden');
+						}
+					});
+
+
+				}
+
+			});
+
+		}
 	};
 
-$(document).ready(function () {
+	$(document).ready(function () {
 
-	partidos.inicio();
+		partidos.inicio();
 
-});
+	});
 
 });

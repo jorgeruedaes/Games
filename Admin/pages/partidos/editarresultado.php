@@ -100,7 +100,7 @@ if(Boolean_Get_Modulo_Permiso($id_modulos,$_SESSION['perfil'])){
 	</section>
 	<!-- JS ====================================================================================================================== -->
 	<!--  Js-principal -->
-	<script src="pages/partidos/js/partidos.js"></script>
+	<script src="pages/partidos/js/editarresultado.js"></script>
 
 	<!-- Jquery DataTable Plugin Js -->
 	<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>

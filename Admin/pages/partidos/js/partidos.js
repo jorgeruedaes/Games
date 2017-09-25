@@ -1,5 +1,5 @@
 
-$(function() {
+//$(function() {
 	var t='';
 	var partidos = {
 		inicio: function () {
@@ -379,6 +379,7 @@ Cargar_Resultados : function()
 	$.ajax({
 		url: 'pages/partidos/peticiones/peticiones.php',
 		type: 'POST',
+		async: false,
 		data: {
 			bandera: "get_campeonato",
 			campeonato:  $('.selector-campeonato-resultados option:selected').val()
@@ -884,4 +885,4 @@ $(document).ready(function () {
 
 });
 
-});
+//});

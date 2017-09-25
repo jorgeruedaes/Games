@@ -1,6 +1,7 @@
 <?php
 
 include('consultas.php');
+
 /**
  * [Array_Get_MenuPrincipal Permite obtener los menus y submenus de la entrada principa
  * de administración y de cada uno de sus modulos]
@@ -121,12 +122,12 @@ function Array_Get_Preguntas()
  * [String_Pregunta Retorna el texto de la pregunta]
  * @param [type] $pregunta [Identificador de la pregunta]
  */
-function String_Pregunta($pregunta)
+	function String_Pregunta($pregunta)
 	{
-	$consulta =  consultar("SELECT pregunta FROM tb_preguntas WHERE id_preguntas=$pregunta ");
-	$informacion = mysqli_fetch_array($consulta);
-	return $informacion['pregunta'];	
-}
+		$consulta =  consultar("SELECT pregunta FROM tb_preguntas WHERE id_preguntas=$pregunta ");
+		$informacion = mysqli_fetch_array($consulta);
+		return $informacion['pregunta'];	
+	}
 /**
  * [Array_Get_Modulos Obtiene los modulos y submodulos]
  * @param boolean $boolean [saber si es padre o hijo]
@@ -170,7 +171,7 @@ function Array_Get_Modulos($boolean,$padre)
  */
 function Array_Get_Modulos_All()
 {
-$consulta = consultar("SELECT * FROM `tb_modulos`   Order by orden");	
+	$consulta = consultar("SELECT * FROM `tb_modulos`   Order by orden");	
 	
 	
 	$datos = array();
@@ -198,46 +199,46 @@ $consulta = consultar("SELECT * FROM `tb_modulos`   Order by orden");
  * [String_Get_NombreModulo description]
  * @param [type] $id_modulos [del modulo para cargar el nombre]
  */
-	function String_Get_NombreModulo($id_modulos)
- {
- 	$consulta = consultar("SELECT nombre FROM `tb_modulos` WHERE id_modulos=$id_modulos");	
- 	$informacion = mysqli_fetch_array($consulta);
+function String_Get_NombreModulo($id_modulos)
+{
+	$consulta = consultar("SELECT nombre FROM `tb_modulos` WHERE id_modulos=$id_modulos");	
+	$informacion = mysqli_fetch_array($consulta);
 
- 	return $informacion['nombre'];
- }
- 	function Int_RutaModulo($uri)
- {
- 	$modulo='0';
+	return $informacion['nombre'];
+}
+function Int_RutaModulo($uri)
+{
+	$modulo='0';
 
- 	$consulta = consultar("SELECT ruta,id_modulos FROM `tb_modulos` 
- 		WHERE submenu='0' and tipo='admin' and estado='activo' ");	
- 	while ($informacion = mysqli_fetch_array($consulta))
- 	{
- 	 if($uri==url().$informacion['ruta'])
- 	 {
- 	 	$modulo =$informacion['id_modulos']; 
- 	 }
- 	}
- 	
+	$consulta = consultar("SELECT ruta,id_modulos FROM `tb_modulos` 
+		WHERE submenu='0' and tipo='admin' and estado='activo' ");	
+	while ($informacion = mysqli_fetch_array($consulta))
+	{
+		if($uri==url().$informacion['ruta'])
+		{
+			$modulo =$informacion['id_modulos']; 
+		}
+	}
 
- 	return $modulo;
- }
-  	function Int_RutaModulo_Anterior($uri)
- {
- 	$modulo='0';
 
- 	$consulta = consultar("SELECT ruta,id_modulos FROM `tb_modulos` 
- 		WHERE submenu='0' and tipo='admin' and estado='activo' ");	
- 	while ($informacion = mysqli_fetch_array($consulta))
- 	{
- 	 if($uri==url().$informacion['ruta'])
- 	 {
- 	 	$modulo =$informacion['id_modulos']; 
- 	 }
- 	}
- 	
+	return $modulo;
+}
+function Int_RutaModulo_Anterior($uri)
+{
+	$modulo='0';
 
- 	return $modulo;
- }
+	$consulta = consultar("SELECT ruta,id_modulos FROM `tb_modulos` 
+		WHERE submenu='0' and tipo='admin' and estado='activo' ");	
+	while ($informacion = mysqli_fetch_array($consulta))
+	{
+		if($uri==url().$informacion['ruta'])
+		{
+			$modulo =$informacion['id_modulos']; 
+		}
+	}
+
+
+	return $modulo;
+}
 
 ?>
